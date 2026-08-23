@@ -14,14 +14,14 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: frontend
+        working-directory: ai-sdlc-platform-frontend
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: frontend/package-lock.json
+          cache-dependency-path: ai-sdlc-platform-frontend/package-lock.json
       - run: npm ci
       - run: npm run lint
       - run: npm test
