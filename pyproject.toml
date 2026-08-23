@@ -1,0 +1,47 @@
+/CLAUDE.md
+/Frontend_Generation_Prompt.md
+/Process_Flow.png
+/ai-response.png
+Positioning_and_Tech_Decisions.md
+Process_Flow.md
+PROJECT_STRUCTURE.md
+.playwright-mcp
+
+# Private research record. The backend implementation guide is the one exception:
+# it is a working document the whole team follows, so it is tracked.
+docs/*
+!docs/BACKEND_IMPLEMENTATION.md
+
+# Skill scratch: plans, specs and the subagent ledger. Working notes for how a
+# change was made, not the record of what it does, and their fenced code blocks
+# fail `ruff format --check` every time a new plan lands. Any depth, plus the
+# subagent workspace at the root.
+superpowers/
+.superpowers/
+
+# Secrets. Connection strings live here and must never be committed.
+.env
+.env.*
+!.env.example
+# Committed on purpose: it holds no secrets, and it is the record of how much
+# of the product reads a real backend. One name per integration milestone.
+!.env.development
+
+# Node
+node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+dist/
+build/
+
+# Browser console dumps pasted in while debugging a page. Useful in the moment,
+# never part of the record.
+console-logs.txt
