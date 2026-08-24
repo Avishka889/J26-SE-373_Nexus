@@ -44,6 +44,24 @@ cd orchestrator && uv run alembic upgrade head && cd ..
 cd ai-sdlc-platform-frontend && npm install && cd ..
 ```
 
+### Running the tests
+
+The backend suite writes to its own database and refuses to start without one.
+
+```bash
+docker compose up -d db      # postgres:16 on localhost:5433
+uv run pytest -q             # creates sdlc_test and migrates it on the first run
+docker compose down -v       # reset: throws the data away
+```
+
+`TEST_DATABASE_URL` is required and must not address the same database as
+`DATABASE_URL`. Both refusals are loud, because the suite deletes projects,
+settings rows and stored credentials as it cleans up: it once deleted a real
+GitHub token by sharing a database with the development server. A Neon test
+branch works here too, and is what the pre-milestone run uses, because a local
+Postgres has no pooler and the restart tests were written against Neon's pooled
+versus direct split.
+
 `.env` lives at the repository root, is gitignored, and is read directly by the
 orchestrator. Nothing needs exporting: `uv run uvicorn ...` picks it up, including
 the provider key. A missing key stops the server at startup with a message rather
