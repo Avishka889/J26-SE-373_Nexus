@@ -1,0 +1,43 @@
+[project]
+name = "sdlc-orchestrator"
+version = "0.1.0"
+description = "The one front door: projects, runs, gates, audit, and the design read model"
+requires-python = ">=3.12"
+dependencies = [
+    "sdlc-contracts",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "pydantic-settings>=2.6",
+    "psycopg[binary,pool]>=3.2",
+    "langgraph>=0.2.60",
+    "langgraph-checkpoint-postgres>=2.0.7",
+    "alembic>=1.14",
+    "sqlalchemy>=2.0",
+    "cryptography>=44.0",
+    "httpx>=0.28",
+    "pypdf>=5.1",
+    "python-docx>=1.1",
+    "python-multipart>=0.0.20",
+    # Seals deploy secrets for GitHub: a libsodium sealed box to the repository's key.
+    "pynacl>=1.6.2",
+    "pwdlib[argon2]>=0.3.1",
+]
+
+# In process is the development default and what pytest uses; the HTTP path
+# needs none of the component's dependencies, which is the point of having
+# the boundary. Declared as an extra so an orchestrator deployed to call C1
+# over the wire does not install a model client it will never use.
+[project.optional-dependencies]
+inprocess = ["sdlc-c1", "sdlc-c2"]
+
+[tool.uv.sources]
+sdlc-contracts = { workspace = true }
+sdlc-c1 = { workspace = true }
+sdlc-c2 = { workspace = true }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["orchestrator"]

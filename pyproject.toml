@@ -1,47 +1,89 @@
-/CLAUDE.md
-/Frontend_Generation_Prompt.md
-/Process_Flow.png
-/ai-response.png
-Positioning_and_Tech_Decisions.md
-Process_Flow.md
-PROJECT_STRUCTURE.md
-.playwright-mcp
+[project]
+name = "sdlc-backend"
+version = "0.1.0"
+description = "AI driven SDLC platform: orchestrator and component services"
+requires-python = ">=3.12"
+dependencies = [
+    "sdlc-contracts",
+    "sdlc-orchestrator",
+    "sdlc-c1",
+    "sdlc-c2",
+    "sdlc-c3",
+    "sdlc-c4",
+]
 
-# Private research record. The backend implementation guide is the one exception:
-# it is a working document the whole team follows, so it is tracked.
-docs/*
-!docs/BACKEND_IMPLEMENTATION.md
+# One workspace, one lock, one virtualenv. Every member resolves together, so a
+# contract model cannot be at one version in the orchestrator and another in C1.
+[tool.uv.workspace]
+members = ["orchestrator", "services/*", "packages/contracts-py"]
 
-# Skill scratch: plans, specs and the subagent ledger. Working notes for how a
-# change was made, not the record of what it does, and their fenced code blocks
-# fail `ruff format --check` every time a new plan lands. Any depth, plus the
-# subagent workspace at the root.
-superpowers/
-.superpowers/
+[tool.uv.sources]
+sdlc-contracts = { workspace = true }
+sdlc-orchestrator = { workspace = true }
+sdlc-c2 = { workspace = true }
+sdlc-c3 = { workspace = true }
+sdlc-c1 = { workspace = true }
+sdlc-c4 = { workspace = true }
 
-# Secrets. Connection strings live here and must never be committed.
-.env
-.env.*
-!.env.example
-# Committed on purpose: it holds no secrets, and it is the record of how much
-# of the product reads a real backend. One name per integration milestone.
-!.env.development
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+    "anyio>=4.6",
+    "httpx>=0.28",
+    "ruff>=0.8",
+    "mypy>=1.13",
+    "dirty-equals>=0.8",
+    "python-dotenv>=1.0",
+    "reportlab>=4.2",
+    # Validates the OpenAPI the platform exports, so "this is OpenAPI" is
+    # checked by something that reads the specification rather than by us.
+    "openapi-spec-validator>=0.9",
+]
 
-# Node
-node_modules/
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["ai-sdlc-platform-frontend", ".venv"]
 
-# Python
-__pycache__/
-*.py[cod]
-.venv/
-venv/
-.pytest_cache/
-.ruff_cache/
-.mypy_cache/
-*.egg-info/
-dist/
-build/
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+ignore = [
+    # Long lines are caught by the formatter, and prompts are strings we keep readable.
+    "E501",
+]
 
-# Browser console dumps pasted in while debugging a page. Useful in the moment,
-# never part of the record.
-console-logs.txt
+[tool.ruff.lint.per-file-ignores]
+# Tests may shadow and reuse names freely.
+"**/tests/**" = ["B011"]
+
+[tool.pytest.ini_options]
+testpaths = ["packages", "orchestrator", "services"]
+# The orchestrator tests share a corpus and a script between modules, so they
+# are a package. importlib mode is what makes that work without inserting
+# rootdir on sys.path and without needing __init__.py in every test folder.
+consider_namespace_packages = true
+asyncio_mode = "auto"
+markers = [
+    "live: hits a real LLM or a real database; never runs in CI",
+    "sandbox: runs a real npm install in the build sandbox; needs node and npm",
+    "corpus: reads a downloaded research dataset; skips when it is not unpacked",
+    "docker: runs containers through the local Docker daemon; skips when none answers",
+    "tools: runs a pinned external tool such as Roseau; skips when it is not installed",
+    "cloud: calls GitHub, Vercel or Render for real; runs only with -m cloud and a go ahead",
+]
+filterwarnings = ["error"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+# Generated and vendored code is not ours to type.
+exclude = ["\\.venv", "ai-sdlc-platform-frontend"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+# The root package is a workspace aggregator; it ships nothing itself.
+bypass-selection = true

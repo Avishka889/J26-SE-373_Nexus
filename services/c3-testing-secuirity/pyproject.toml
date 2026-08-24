@@ -1,0 +1,35 @@
+[project]
+name = "sdlc-c3"
+version = "0.1.0"
+description = "Component 3: honesty guarded testing and security validation"
+requires-python = ">=3.12"
+dependencies = [
+    "sdlc-contracts",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "pydantic-settings>=2.6",
+    # The same four providers as C1 and C2, so the per component split is a
+    # change to C3_MODEL alone. OpenRouter is this component's lane and the
+    # others stay wired as fallbacks.
+    "pydantic-ai-slim[anthropic,google,groq,openrouter]>=1.0",
+    "httpx>=0.28",
+]
+
+# Semgrep is deliberately NOT a dependency. It is a scanner this component
+# runs, the way it runs npm, the Maven wrapper, Stryker and PIT: as a tool in a
+# sandbox, with its version recorded on the detector run. Declaring it here
+# would also make the whole workspace resolvable only where its pins are: it
+# requires jsonschema below 4.26 and the OpenAPI validator requires 4.26 or
+# above, so one CLI would have dictated a library version to four packages that
+# never call it. Invoked with `uvx semgrep`, which resolves it in its own
+# environment.
+
+[tool.uv.sources]
+sdlc-contracts = { workspace = true }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["c3"]
