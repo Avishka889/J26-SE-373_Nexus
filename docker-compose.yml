@@ -1,0 +1,75 @@
+# The offline and CI-parity path, never the day to day dev loop.
+#
+# Development runs against a Neon branch selected by DATABASE_URL, because the
+# gate has to be proven against the same managed Postgres the demo uses. This
+# file exists so the platform can be brought up with no Neon account and no
+# network: `docker compose up -d db`, point DATABASE_URL at it, migrate, run.
+#
+# GitHub Actions does not use this file. It takes Postgres from a service
+# container, so Docker being unavailable on a developer machine can never block
+# CI. Keeping the two independent is deliberate.
+
+name: ai-sdlc-platform
+
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: sdlc
+      POSTGRES_PASSWORD: sdlc
+      POSTGRES_DB: sdlc
+    ports:
+      # 5433 on the host: 5432 is usually already taken by a local install, and
+      # a port clash here looks exactly like a broken connection string.
+      - "5433:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sdlc -d sdlc"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  orchestrator:
+    build:
+      context: .
+      dockerfile: orchestrator/Dockerfile
+    environment:
+      # One database, both URLs. There is no pooler here, so the checkpointer's
+      # direct URL and the application's pooled URL are the same string. Against
+      # Neon they differ, and the checkpointer must have the direct one.
+      DATABASE_URL: postgresql://sdlc:sdlc@db:5432/sdlc
+      DATABASE_DIRECT_URL: postgresql://sdlc:sdlc@db:5432/sdlc
+      CORS_ORIGINS: http://localhost:5173
+      # The component services are reachable over HTTP in this file, which is
+      # what makes the service boundary real rather than a diagram. The dev loop
+      # runs them in process instead, selected by this one value.
+      C1_MODE: http
+      C1_BASE_URL: http://c1:8001
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    command: >-
+      sh -c "cd orchestrator && alembic upgrade head && cd .. &&
+             uvicorn orchestrator.main:app --host 0.0.0.0 --port 8000"
+
+  # C1 is not implemented yet. The service is declared so the topology is
+  # visible and the orchestrator's HTTP mode has somewhere to point, and it is
+  # commented out rather than stubbed so `up` never starts something that
+  # answers with fiction.
+  #
+  # c1:
+  #   build:
+  #     context: .
+  #     dockerfile: services/c1-requirements-design/Dockerfile
+  #   environment:
+  #     C1_MODEL: anthropic:claude-sonnet-5
+  #     ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:?set ANTHROPIC_API_KEY in your shell or .env}
+  #     # Swap both lines for GROQ_API_KEY to run the free tier comparison.
+  #   ports:
+  #     - "8001:8001"
+
+volumes:
+  db_data:
