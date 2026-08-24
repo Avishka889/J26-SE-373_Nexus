@@ -1,0 +1,39 @@
+.playwright-mcp
+
+docs/*
+!docs/BACKEND_IMPLEMENTATION.md
+!docs/High_Level_Architecture.md
+!docs/Project_Gantt.md
+!docs/flow-diagrams/
+docs/flow-diagrams/*
+
+# Secrets. Connection strings live here and must never be committed.
+.env
+.env.*
+!.env.example
+# Committed on purpose: it holds no secrets, and it is the record of how much
+# of the product reads a real backend. One name per integration milestone.
+!.env.development
+
+# Node
+node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+dist/
+build/
+
+# Browser console dumps pasted in while debugging a page. Useful in the moment,
+# never part of the record.
+console-logs.txt
+
+# Trained model artefacts. The predictions and the run record are committed
+# under studies/; the weights are half a gigabyte and live outside the repo.
+services/c3-testing-security/model/
