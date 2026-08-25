@@ -1,0 +1,347 @@
+{
+  "$defs": {
+    "AiSettings": {
+      "additionalProperties": false,
+      "properties": {
+        "model": {
+          "default": "",
+          "title": "Model",
+          "type": "string"
+        },
+        "provider": {
+          "default": "",
+          "title": "Provider",
+          "type": "string"
+        },
+        "temperature": {
+          "default": 0.7,
+          "maximum": 2,
+          "minimum": 0,
+          "title": "Temperature",
+          "type": "number"
+        },
+        "thinking": {
+          "$ref": "#/$defs/PhaseThinking"
+        }
+      },
+      "required": [
+        "provider",
+        "model",
+        "temperature",
+        "thinking"
+      ],
+      "title": "AiSettings",
+      "type": "object"
+    },
+    "DatabaseSettings": {
+      "additionalProperties": false,
+      "description": "Where a cloud release keeps each app's records: the account's Atlas cluster.\n\nIdentifiers only. The service account's secret is a connection (`atlas`),\nand each project's database, user and password are made by the platform.",
+      "properties": {
+        "clientId": {
+          "default": "",
+          "title": "Clientid",
+          "type": "string"
+        },
+        "cluster": {
+          "default": "",
+          "title": "Cluster",
+          "type": "string"
+        },
+        "connected": {
+          "default": false,
+          "title": "Connected",
+          "type": "boolean"
+        },
+        "projectId": {
+          "default": "",
+          "title": "Projectid",
+          "type": "string"
+        },
+        "provider": {
+          "default": "mongodb_atlas",
+          "enum": [
+            "neon",
+            "mongodb_atlas"
+          ],
+          "title": "Provider",
+          "type": "string"
+        }
+      },
+      "required": [
+        "provider",
+        "projectId",
+        "cluster",
+        "clientId",
+        "connected"
+      ],
+      "title": "DatabaseSettings",
+      "type": "object"
+    },
+    "GitSettings": {
+      "additionalProperties": false,
+      "properties": {
+        "connected": {
+          "default": false,
+          "title": "Connected",
+          "type": "boolean"
+        },
+        "defaultOrg": {
+          "default": "",
+          "title": "Defaultorg",
+          "type": "string"
+        },
+        "provider": {
+          "default": "github",
+          "title": "Provider",
+          "type": "string"
+        },
+        "scopes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Scopes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "provider",
+        "defaultOrg",
+        "connected",
+        "scopes"
+      ],
+      "title": "GitSettings",
+      "type": "object"
+    },
+    "PhaseThinking": {
+      "additionalProperties": false,
+      "description": "How hard each phase is asked to think, as this account chose it.\n\nNone is no choice: the phase thinks as the platform is configured (off\nunless configured). A choice applies from the next run, and a run keeps the\nlevel it started at for its whole life, regenerations included.",
+      "properties": {
+        "code": {
+          "anyOf": [
+            {
+              "enum": [
+                "off",
+                "low",
+                "high",
+                "max"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Code"
+        },
+        "deployment": {
+          "anyOf": [
+            {
+              "enum": [
+                "off",
+                "low",
+                "high",
+                "max"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Deployment"
+        },
+        "design": {
+          "anyOf": [
+            {
+              "enum": [
+                "off",
+                "low",
+                "high",
+                "max"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Design"
+        },
+        "testing": {
+          "anyOf": [
+            {
+              "enum": [
+                "off",
+                "low",
+                "high",
+                "max"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Testing"
+        }
+      },
+      "required": [
+        "design",
+        "code",
+        "testing",
+        "deployment"
+      ],
+      "title": "PhaseThinking",
+      "type": "object"
+    },
+    "ProfileSettings": {
+      "additionalProperties": false,
+      "properties": {
+        "avatarUrl": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Avatarurl"
+        },
+        "email": {
+          "default": "",
+          "title": "Email",
+          "type": "string"
+        },
+        "name": {
+          "default": "",
+          "title": "Name",
+          "type": "string"
+        },
+        "workspace": {
+          "default": "",
+          "title": "Workspace",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "email",
+        "workspace",
+        "avatarUrl"
+      ],
+      "title": "ProfileSettings",
+      "type": "object"
+    },
+    "RenderSettings": {
+      "additionalProperties": false,
+      "properties": {
+        "connected": {
+          "default": false,
+          "title": "Connected",
+          "type": "boolean"
+        },
+        "origin": {
+          "default": "",
+          "title": "Origin",
+          "type": "string"
+        },
+        "region": {
+          "default": "oregon",
+          "title": "Region",
+          "type": "string"
+        },
+        "serviceId": {
+          "default": "",
+          "title": "Serviceid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "serviceId",
+        "region",
+        "origin",
+        "connected"
+      ],
+      "title": "RenderSettings",
+      "type": "object"
+    },
+    "VercelSettings": {
+      "additionalProperties": false,
+      "properties": {
+        "connected": {
+          "default": false,
+          "title": "Connected",
+          "type": "boolean"
+        },
+        "orgId": {
+          "default": "",
+          "title": "Orgid",
+          "type": "string"
+        },
+        "origin": {
+          "default": "",
+          "title": "Origin",
+          "type": "string"
+        },
+        "projectId": {
+          "default": "",
+          "title": "Projectid",
+          "type": "string"
+        },
+        "team": {
+          "default": "",
+          "title": "Team",
+          "type": "string"
+        }
+      },
+      "required": [
+        "team",
+        "projectId",
+        "orgId",
+        "origin",
+        "connected"
+      ],
+      "title": "VercelSettings",
+      "type": "object"
+    }
+  },
+  "$id": "https://sdlc.local/contracts/settings.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "ai": {
+      "$ref": "#/$defs/AiSettings"
+    },
+    "database": {
+      "$ref": "#/$defs/DatabaseSettings"
+    },
+    "git": {
+      "$ref": "#/$defs/GitSettings"
+    },
+    "profile": {
+      "$ref": "#/$defs/ProfileSettings"
+    },
+    "render": {
+      "$ref": "#/$defs/RenderSettings"
+    },
+    "vercel": {
+      "$ref": "#/$defs/VercelSettings"
+    }
+  },
+  "required": [
+    "git",
+    "vercel",
+    "render",
+    "database",
+    "ai",
+    "profile"
+  ],
+  "title": "SettingsState",
+  "type": "object"
+}
