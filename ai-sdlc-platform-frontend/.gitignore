@@ -1,24 +1,52 @@
+# Dependencies
+node_modules/
+
+# Build output
+/dist/
+/build/
+/.vite/
+.playwright-mcp
+
+# Playwright run output: traces, snapshots and the last-run marker
+/test-results/
+/playwright-report/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*
+!.env.example
+# Committed on purpose: it holds no secrets, and it is the record of how much
+# of the product reads a real backend. One name per integration milestone.
+!.env.development
+!.env.fixtures
+
 # Logs
-logs
-*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
+logs/
+*.log
 
-node_modules
-dist
-dist-ssr
-*.local
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# OS files
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+Thumbs.db
+
+# Test / coverage
+coverage/
+.nyc_output/
+structure.md
+
+# tsc -b writes this next to the config; it is a local build cache.
+tsconfig.tsbuildinfo
