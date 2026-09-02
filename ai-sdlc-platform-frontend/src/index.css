@@ -1,1 +1,701 @@
 @import "tailwindcss";
+@import "./assets/fonts/fonts.css";
+
+/* The app switches themes by putting .dark on <html> (see useStore.applyTheme).
+   Tailwind 4 points `dark:` at prefers-color-scheme by default, which left every
+   dark: utility in the codebase inert - Badge and Button were rendering their
+   light styles on dark surfaces. Point the variant at the class instead. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Typography tokens: keep in sync with shared/constants/fonts.ts (exclusive stacks). */
+@theme {
+  --color-primary: #2563eb;
+  --color-c1: #22c55e;
+  --color-c2: #3b82f6;
+  --color-c3: #2563eb;
+  --color-c4: #f97316;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+  --font-sans: "Inter";
+  --font-mono: "JetBrains Mono";
+}
+
+@layer base {
+  :root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f8fafc;
+    --bg-surface: #ffffff;
+    --bg-elevated: #ffffff;
+    --border-primary: #e2e8f0;
+    --border-secondary: #cbd5e1;
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-tertiary: #64748b;
+    --text-muted: #94a3b8;
+    --accent-primary: #2563eb;
+    --accent-primary-hover: #1d4ed8;
+    --accent-primary-light: #eff6ff;
+    /* The loading indicator's colour: the brand blue, lifted in the dark. */
+    --accent-loader: #2563eb;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+
+  .dark {
+    --bg-primary: #020617;
+    --bg-secondary: #0f172a;
+    --bg-tertiary: #1e293b;
+    --bg-surface: #0f172a;
+    --bg-elevated: #1e293b;
+    --border-primary: #334155;
+    --border-secondary: #475569;
+    --text-primary: #f8fafc;
+    --text-secondary: #e2e8f0;
+    --text-tertiary: #94a3b8;
+    --text-muted: #64748b;
+    --accent-loader: #60a5fa;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  /*
+   * Every page inherits self-hosted faces from assets/fonts (via fonts.css).
+   * --font-sans = Inter, --font-mono = JetBrains Mono, with no system fallbacks.
+   * Tailwind `.font-mono` still wins over inherit (utilities layer).
+   */
+  html,
+  body,
+  #root {
+    font-family: var(--font-sans);
+  }
+
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+  }
+
+  body *,
+  #root * {
+    font-family: inherit;
+  }
+
+  button,
+  input,
+  select,
+  textarea,
+  optgroup {
+    font-family: inherit;
+  }
+
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: var(--font-mono);
+  }
+
+  /* Third-party surfaces that might otherwise pick up a UA font */
+  .react-flow,
+  .react-flow__node,
+  .react-flow__edge-text,
+  .react-flow__attribution {
+    font-family: var(--font-sans);
+  }
+
+  .light {
+    color-scheme: light;
+  }
+
+  .dark {
+    color-scheme: dark;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+  }
+
+  .light ::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+  }
+
+  .light ::-webkit-scrollbar-thumb:hover {
+    background-color: #94a3b8;
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background-color: #475569;
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background-color: #64748b;
+  }
+}
+
+/* ===========================================================================
+   Testing & Security phase - one token set, both themes.
+   Values are the app's own: slate borders and surfaces, the Card background,
+   the Badge status colours, blue-600 as the accent. Nothing new is introduced
+   except one dark code surface (#0a0e17, the CodeBlock background), which the
+   run console, the repair diffs and the honesty guard all share because the
+   app has no light equivalent for a terminal.
+   =========================================================================== */
+@layer components {
+  .tp {
+    /* height of the phase tab bar this page sticks under (measured at lg+) */
+    --tp-nav: 58px;
+    /* The sticky stage rail inside a phase, measured with its section pills. */
+    --tp-rail: 92px;
+
+    --tp-ink: #0f172a;        /* slate-900 - app text-primary */
+    --tp-ink-2: #475569;      /* slate-600 */
+    --tp-muted: #5a6a80;      /* between slate-500 and 600: 5:1 on every light surface */
+    --tp-line: #e2e8f0;       /* slate-200 - app border-primary */
+    --tp-line-strong: #cbd5e1;/* slate-300 */
+    --tp-surface: #ffffff;
+    --tp-surface-2: #f8fafc;  /* slate-50 */
+    --tp-surface-3: #f1f5f9;  /* slate-100 */
+
+    /* Badge status colours, verbatim */
+    --tp-pass: #047857;
+    --tp-pass-bg: #ecfdf5;
+    --tp-pass-line: #a7f3d0;
+    --tp-fail: #b91c1c;
+    --tp-fail-bg: #fef2f2;
+    --tp-fail-line: #fecaca;
+    --tp-caution: #b45309;
+    --tp-caution-bg: #fffbeb;
+    --tp-caution-line: #fde68a;
+    --tp-info: #1d4ed8;
+    --tp-info-bg: #eff6ff;
+    --tp-info-line: #bfdbfe;
+
+    /* severity ramp - the hues the old page already used for these tiles */
+    --tp-crit: #ef4444;
+    --tp-high: #f97316;
+    --tp-med: #f59e0b;
+    --tp-low: #64748b;
+
+    /* the one dark surface: CodeBlock's background and border */
+    --tp-console: #0a0e17;
+    --tp-console-2: rgba(255, 255, 255, 0.03);
+    --tp-console-line: rgba(255, 255, 255, 0.06);
+    --tp-console-ink: #cbd5e1;
+    --tp-console-muted: #8a9bb2;  /* 6:1 on the console; slate-500 was 3.9:1 */
+    --tp-console-pass: #34d399;
+    --tp-console-fail: #f87171;
+    --tp-console-caution: #fbbf24;
+
+    color: var(--tp-ink);
+  }
+
+  .dark .tp {
+    --tp-ink: #ffffff;
+    --tp-ink-2: #94a3b8;      /* slate-400 - app text-tertiary */
+    --tp-muted: #8394ac;      /* between slate-400 and 500: 4.7:1 on every dark surface */
+    --tp-line: rgba(255, 255, 255, 0.06);
+    --tp-line-strong: rgba(255, 255, 255, 0.12);
+    --tp-surface: rgba(15, 29, 50, 0.8);   /* Card, dark */
+    --tp-surface-2: rgba(255, 255, 255, 0.02);
+    --tp-surface-3: rgba(255, 255, 255, 0.05);
+
+    --tp-pass: #34d399;
+    --tp-pass-bg: rgba(16, 185, 129, 0.1);
+    --tp-pass-line: rgba(16, 185, 129, 0.2);
+    --tp-fail: #f87171;
+    --tp-fail-bg: rgba(239, 68, 68, 0.1);
+    --tp-fail-line: rgba(239, 68, 68, 0.2);
+    --tp-caution: #fbbf24;
+    --tp-caution-bg: rgba(245, 158, 11, 0.1);
+    --tp-caution-line: rgba(245, 158, 11, 0.2);
+    --tp-info: #60a5fa;
+    --tp-info-bg: rgba(59, 130, 246, 0.1);
+    --tp-info-line: rgba(59, 130, 246, 0.2);
+
+    --tp-crit: #f87171;
+    --tp-high: #fb923c;
+    --tp-med: #fbbf24;
+    --tp-low: #94a3b8;
+  }
+
+  /* --- text: the app's sizes and weights ------------------------------- */
+  .tp-label {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--tp-muted);
+  }
+
+  .tp-num {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    color: var(--tp-ink);
+  }
+
+  .tp-den {
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+    color: var(--tp-muted);
+  }
+
+  .tp-mono {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .tp-prose {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--tp-ink-2);
+  }
+
+  /* --- surfaces: same radius, border and shadow as Card ---------------- */
+  .tp-card {
+    border: 1px solid var(--tp-line);
+    background: var(--tp-surface);
+    border-radius: 16px;
+  }
+
+  .light .tp-card {
+    border-color: rgba(226, 232, 240, 0.8);
+    box-shadow: 0 1px 2px 0 rgba(148, 163, 184, 0.16);
+  }
+
+  .tp-inset {
+    background: var(--tp-surface-2);
+  }
+
+  .tp-console {
+    background: var(--tp-console);
+    color: var(--tp-console-ink);
+    border: 1px solid var(--tp-console-line);
+  }
+
+  /* panel headers on the dark surface: the EXPLORER header style */
+  .tp-console-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--tp-console-muted);
+  }
+
+  /* --- focus: one visible ring everywhere ------------------------------ */
+  .tp :focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer utilities {
+  /* streaming console lines + the one pending pulse. Nothing else moves. */
+  .tp-stream {
+    animation: tp-stream 220ms ease-out both;
+  }
+
+  @keyframes tp-stream {
+    from {
+      opacity: 0;
+      transform: translateY(3px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .tp-caret {
+    animation: tp-caret 1.1s steps(2, start) infinite;
+  }
+
+  @keyframes tp-caret {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  .tp-pending-edge {
+    animation: tp-pending 3.2s ease-in-out infinite;
+  }
+
+  @keyframes tp-pending {
+    0%,
+    100% {
+      opacity: 0.35;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  /* The one loading indicator: a comet arc, transparent at its tail and solid
+     at a round head, turning at a calm pace. Inline it takes the colour of the
+     text around it, so it reads on a blue button as on a page; standalone it
+     takes the loader accent. Sized by --tp-spinner-size and --tp-spinner-stroke,
+     which the Spinner component sets. */
+  .tp-spinner {
+    position: relative;
+    display: inline-block;
+    flex-shrink: 0;
+    width: var(--tp-spinner-size, 16px);
+    height: var(--tp-spinner-size, 16px);
+    border-radius: 9999px;
+    color: var(--tp-spinner-color, currentColor);
+    background: conic-gradient(
+      from 0deg,
+      transparent 0%,
+      color-mix(in srgb, currentColor 14%, transparent) 30%,
+      currentColor 100%
+    );
+    -webkit-mask: radial-gradient(
+      farthest-side,
+      transparent calc(100% - var(--tp-spinner-stroke, 2px) - 0.5px),
+      #000 calc(100% - var(--tp-spinner-stroke, 2px))
+    );
+    mask: radial-gradient(
+      farthest-side,
+      transparent calc(100% - var(--tp-spinner-stroke, 2px) - 0.5px),
+      #000 calc(100% - var(--tp-spinner-stroke, 2px))
+    );
+    animation: tp-spinner-turn 800ms linear infinite;
+  }
+
+  /* The comet's head, a round cap where the arc is solid. */
+  .tp-spinner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: var(--tp-spinner-stroke, 2px);
+    height: var(--tp-spinner-stroke, 2px);
+    transform: translateX(-50%);
+    border-radius: 9999px;
+    background: currentColor;
+  }
+
+  .tp-spinner-accent {
+    --tp-spinner-color: var(--accent-loader);
+  }
+
+  /* A soft glow behind a page's loader. On a wrapper, because a filter on the
+     masked ring itself would be masked away with everything outside the ring. */
+  .tp-spinner-halo {
+    display: inline-flex;
+    border-radius: 9999px;
+    filter: drop-shadow(0 0 10px color-mix(in srgb, var(--accent-loader) 45%, transparent));
+  }
+
+  @keyframes tp-spinner-turn {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+
+  /* An anchored section stops below the sticky chrome rather than behind it.
+     `scroll-margin-top` is what `scrollIntoView` honours, so the same rule works
+     for a click on an anchor pill, a summary tile and a trace chip, and it works
+     inside the app's own scroll container without measuring anything. */
+  .tp-anchor {
+    /* The stage rail is all that covers an anchor now. It sticks at the top of
+       the phase's own scroller, and the tab bar is outside that scroller, so
+       adding --tp-nav here left a gap the height of the bar. Measured at 92px
+       with its section pills showing, plus a little air. */
+    scroll-margin-top: calc(var(--tp-rail) + 12px);
+  }
+
+  /* The same ring a jumped-to requirement gets, so every jump in this phase
+     lands the same way: an anchor, a summary tile and a trace chip are one
+     learned behaviour rather than three. */
+  .tp-flash {
+    animation: tp-flash 1600ms ease-out;
+    border-radius: 1rem;
+  }
+
+  @keyframes tp-flash {
+    0%,
+    45% {
+      box-shadow: 0 0 0 2px rgb(59 130 246 / 0.45);
+      background-color: rgb(59 130 246 / 0.07);
+    }
+    100% {
+      box-shadow: 0 0 0 2px rgb(59 130 246 / 0);
+      background-color: rgb(59 130 246 / 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tp-stream,
+    .tp-caret,
+    .tp-pending-edge,
+    .tp-flash,
+    .animate-ping,
+    [class*="landing-orb"],
+    [class*="landing-node"],
+    [class*="landing-flow-line"],
+    [class*="landing-float"],
+    .landing-fade-up {
+      animation: none !important;
+    }
+
+    /* The landing page glided to every anchor and drifted its orbs whatever
+       the reader's system asked for. */
+    .landing-page {
+      scroll-behavior: auto;
+    }
+
+    /* Slowed, not stopped: a still ring would read as finished. */
+    .tp-spinner {
+      animation-duration: 2400ms;
+    }
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .glass {
+    backdrop-filter: blur(24px);
+  }
+
+  .light .glass {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--border-primary);
+  }
+
+  .dark .glass {
+    background-color: rgba(15, 23, 42, 0.6);
+    border: 1px solid var(--border-primary);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-flow {
+    animation: flow 2s linear infinite;
+  }
+
+  @keyframes flow {
+    0% {
+      stroke-dashoffset: 20;
+    }
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.05) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  .landing-page {
+    scroll-behavior: smooth;
+  }
+
+  .landing-orb {
+    animation: landing-drift 18s ease-in-out infinite;
+  }
+
+  .landing-orb-delay {
+    animation: landing-drift 22s ease-in-out infinite reverse;
+  }
+
+  .landing-node {
+    animation: landing-pulse 3s ease-in-out infinite;
+  }
+
+  .landing-node-delay {
+    animation: landing-pulse 3s ease-in-out infinite 1.5s;
+  }
+
+  .landing-flow-line {
+    animation: landing-dash 3s linear infinite;
+  }
+
+  .landing-flow-line-reverse {
+    animation: landing-dash 4s linear infinite reverse;
+  }
+
+  .landing-float {
+    animation: landing-float 5s ease-in-out infinite;
+  }
+
+  .landing-float-delay {
+    animation: landing-float 5s ease-in-out infinite 2s;
+  }
+
+  .landing-fade-up {
+    animation: landing-fade-up 0.6s ease-out both;
+  }
+
+  .landing-sparkle {
+    animation: landing-sparkle 2s ease-in-out infinite;
+  }
+
+  .landing-pulse-dot {
+    animation: landing-pulse 2s ease-in-out infinite;
+  }
+
+  .landing-pulse-glow {
+    animation: landing-glow 4s ease-in-out infinite;
+  }
+
+  .landing-scan-bar {
+    animation: landing-scan 2.5s ease-in-out infinite;
+  }
+
+  .landing-progress-grow {
+    animation: landing-grow 2s ease-out forwards;
+  }
+
+  @keyframes landing-drift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(20px, -15px) scale(1.05); }
+  }
+
+  @keyframes landing-dash {
+    to { stroke-dashoffset: -24; }
+  }
+
+  @keyframes landing-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes landing-fade-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes landing-sparkle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.1); }
+  }
+
+  @keyframes landing-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  @keyframes landing-glow {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.08); }
+  }
+
+  @keyframes landing-scan {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(400%); }
+  }
+
+  @keyframes landing-grow {
+    from { width: 0; }
+    to { width: 90px; }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Touch devices only: keep the desktop sizing but guarantee a 44px hit area.
+     The visual box never changes - the target grows via a centred overlay - so
+     nothing inflates on a mouse-driven screen. Rows that sit flush against a
+     neighbour opt out, otherwise adjacent targets would overlap. */
+  @media (pointer: coarse) {
+    /* Safari on iOS zooms the viewport when a focused field is under 16px,
+       which jerks the page on every tap into an input. Desktop keeps text-sm. */
+    input,
+    textarea,
+    select {
+      font-size: 16px;
+    }
+
+    button,
+    a[role="button"],
+    [role="menuitem"] {
+      position: relative;
+    }
+
+    button::after,
+    a[role="button"]::after,
+    [role="menuitem"]::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: max(100%, 44px);
+      height: max(100%, 44px);
+      transform: translate(-50%, -50%);
+    }
+
+    li button::after,
+    nav button::after,
+    thead button::after,
+    tbody button::after,
+    [role="tablist"] button::after,
+    .tp-console button::after {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+}
+
+@layer utilities {
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  .safe-pb {
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
+}
