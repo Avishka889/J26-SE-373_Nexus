@@ -1,0 +1,150 @@
+{
+  "$defs": {
+    "ArchitectureStyleNote": {
+      "additionalProperties": false,
+      "description": "A code organisation style: applies inside whichever shape is chosen.",
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "note": {
+          "minLength": 1,
+          "title": "Note",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "note"
+      ],
+      "title": "ArchitectureStyleNote",
+      "type": "object"
+    },
+    "TopologyCandidate": {
+      "additionalProperties": false,
+      "properties": {
+        "cons": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 2,
+          "title": "Cons",
+          "type": "array"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "pros": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Pros",
+          "type": "array"
+        },
+        "rationale": {
+          "minLength": 1,
+          "title": "Rationale",
+          "type": "string"
+        },
+        "score": {
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Score",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "score",
+        "rationale",
+        "pros",
+        "cons"
+      ],
+      "title": "TopologyCandidate",
+      "type": "object"
+    }
+  },
+  "$id": "https://sdlc.local/contracts/architecture-recommendation.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "candidates": {
+      "items": {
+        "$ref": "#/$defs/TopologyCandidate"
+      },
+      "minItems": 2,
+      "title": "Candidates",
+      "type": "array"
+    },
+    "recommendedCandidateId": {
+      "title": "Recommendedcandidateid",
+      "type": "string"
+    },
+    "selectedAt": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Selectedat"
+    },
+    "selectedBy": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Selectedby"
+    },
+    "selectedCandidateId": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Selectedcandidateid"
+    },
+    "style": {
+      "$ref": "#/$defs/ArchitectureStyleNote"
+    }
+  },
+  "required": [
+    "candidates",
+    "recommendedCandidateId",
+    "selectedCandidateId",
+    "selectedAt",
+    "selectedBy",
+    "style"
+  ],
+  "title": "ArchitectureRecommendation",
+  "type": "object"
+}
