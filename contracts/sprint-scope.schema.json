@@ -1,0 +1,103 @@
+{
+  "$defs": {
+    "ScopeStory": {
+      "additionalProperties": false,
+      "description": "One story's place in the build: in or out, and why it maps anywhere.",
+      "properties": {
+        "decidedBy": {
+          "default": "system default",
+          "title": "Decidedby",
+          "type": "string"
+        },
+        "id": {
+          "pattern": "^US-\\d+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "inScope": {
+          "title": "Inscope",
+          "type": "boolean"
+        },
+        "points": {
+          "minimum": 0,
+          "title": "Points",
+          "type": "integer"
+        },
+        "sprint": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Sprint",
+          "type": "integer"
+        },
+        "title": {
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "traces": {
+          "$ref": "#/$defs/ScopeStoryTraces"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "points",
+        "inScope",
+        "sprint",
+        "decidedBy",
+        "traces"
+      ],
+      "title": "ScopeStory",
+      "type": "object"
+    },
+    "ScopeStoryTraces": {
+      "additionalProperties": false,
+      "properties": {
+        "requirementIds": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Requirementids",
+          "type": "array"
+        },
+        "screenIds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Screenids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "requirementIds",
+        "screenIds"
+      ],
+      "title": "ScopeStoryTraces",
+      "type": "object"
+    }
+  },
+  "$id": "https://sdlc.local/contracts/sprint-scope.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "sprintName": {
+      "minLength": 1,
+      "title": "Sprintname",
+      "type": "string"
+    },
+    "stories": {
+      "items": {
+        "$ref": "#/$defs/ScopeStory"
+      },
+      "title": "Stories",
+      "type": "array"
+    }
+  },
+  "required": [
+    "sprintName",
+    "stories"
+  ],
+  "title": "SprintScope",
+  "type": "object"
+}

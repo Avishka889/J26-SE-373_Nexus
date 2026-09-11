@@ -1,0 +1,2129 @@
+{
+  "$defs": {
+    "AgreementCounts": {
+      "additionalProperties": false,
+      "properties": {
+        "agreementRate": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Agreementrate",
+          "type": "number"
+        },
+        "endpointsCalled": {
+          "minimum": 0,
+          "title": "Endpointscalled",
+          "type": "integer"
+        },
+        "endpointsImplemented": {
+          "minimum": 0,
+          "title": "Endpointsimplemented",
+          "type": "integer"
+        },
+        "endpointsMissing": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Endpointsmissing",
+          "type": "array"
+        },
+        "endpointsTotal": {
+          "minimum": 0,
+          "title": "Endpointstotal",
+          "type": "integer"
+        },
+        "endpointsUnused": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Endpointsunused",
+          "type": "array"
+        },
+        "foreignCalls": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Foreigncalls",
+          "type": "array"
+        },
+        "orphanRoutes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Orphanroutes",
+          "type": "array"
+        },
+        "schemaMismatches": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Schemamismatches",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "endpointsTotal",
+        "endpointsImplemented",
+        "endpointsMissing",
+        "endpointsCalled",
+        "endpointsUnused",
+        "orphanRoutes",
+        "foreignCalls",
+        "schemaMismatches",
+        "agreementRate"
+      ],
+      "title": "AgreementCounts",
+      "type": "object"
+    },
+    "AgreementFinding": {
+      "additionalProperties": false,
+      "properties": {
+        "hint": {
+          "default": "",
+          "title": "Hint",
+          "type": "string"
+        },
+        "location": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CodeLocation"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "reason": {
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        },
+        "ruleId": {
+          "minLength": 1,
+          "title": "Ruleid",
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "error",
+            "warning"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "subject": {
+          "default": "",
+          "title": "Subject",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ruleId",
+        "severity",
+        "reason",
+        "hint",
+        "subject",
+        "location"
+      ],
+      "title": "AgreementFinding",
+      "type": "object"
+    },
+    "ApiContract": {
+      "additionalProperties": false,
+      "description": "The effective contract one arm produced, or the human's merge.",
+      "properties": {
+        "endpoints": {
+          "items": {
+            "$ref": "#/$defs/ApiEndpoint"
+          },
+          "title": "Endpoints",
+          "type": "array"
+        },
+        "entities": {
+          "items": {
+            "$ref": "#/$defs/EntityModel"
+          },
+          "title": "Entities",
+          "type": "array"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "entities",
+        "endpoints"
+      ],
+      "title": "ApiContract",
+      "type": "object"
+    },
+    "ApiContractArtefact": {
+      "additionalProperties": false,
+      "description": "The stored artefact: both arms, the comparison, and the choice.\n\n`contract` is the effective one downstream stages generate from. It equals\nthe chosen arm's output, or the recorded merge. The losing arm is kept\nwhole, because the evaluation compares arms and an artefact that kept only\nthe winner would have destroyed its own denominator.",
+      "properties": {
+        "chosen": {
+          "default": "rule",
+          "enum": [
+            "rule",
+            "llm",
+            "merged"
+          ],
+          "title": "Chosen",
+          "type": "string"
+        },
+        "comparison": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ArmComparison"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "contract": {
+          "$ref": "#/$defs/ApiContract"
+        },
+        "llmArm": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ApiContract"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "llmFailure": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Llmfailure"
+        },
+        "ruleArm": {
+          "$ref": "#/$defs/ApiContract"
+        },
+        "ruleFindings": {
+          "items": {
+            "$ref": "#/$defs/ContractRuleFinding"
+          },
+          "title": "Rulefindings",
+          "type": "array"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "ruleArm",
+        "llmArm",
+        "llmFailure",
+        "chosen",
+        "contract",
+        "comparison",
+        "ruleFindings"
+      ],
+      "title": "ApiContractArtefact",
+      "type": "object"
+    },
+    "ApiEndpoint": {
+      "additionalProperties": false,
+      "properties": {
+        "authActors": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Authactors",
+          "type": "array"
+        },
+        "confidence": {
+          "default": 0,
+          "maximum": 98,
+          "minimum": 0,
+          "title": "Confidence",
+          "type": "integer"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "method": {
+          "enum": [
+            "GET",
+            "POST",
+            "PUT",
+            "PATCH",
+            "DELETE"
+          ],
+          "title": "Method",
+          "type": "string"
+        },
+        "origin": {
+          "default": "rule",
+          "enum": [
+            "rule",
+            "llm",
+            "merged"
+          ],
+          "title": "Origin",
+          "type": "string"
+        },
+        "path": {
+          "minLength": 1,
+          "pattern": "^/",
+          "title": "Path",
+          "type": "string"
+        },
+        "request": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EndpointSchema"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "response": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EndpointSchema"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "summary": {
+          "default": "",
+          "title": "Summary",
+          "type": "string"
+        },
+        "traces": {
+          "$ref": "#/$defs/EndpointTraces"
+        },
+        "validation": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Validation",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "method",
+        "path",
+        "summary",
+        "authActors",
+        "request",
+        "response",
+        "validation",
+        "traces",
+        "origin",
+        "confidence"
+      ],
+      "title": "ApiEndpoint",
+      "type": "object"
+    },
+    "ArmComparison": {
+      "additionalProperties": false,
+      "description": "The ablation data, one run's worth.",
+      "properties": {
+        "agreed": {
+          "description": "Canonical keys both arms produced.",
+          "items": {
+            "type": "string"
+          },
+          "title": "Agreed",
+          "type": "array"
+        },
+        "agreementRate": {
+          "default": 0.0,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Agreementrate",
+          "type": "number"
+        },
+        "conflicts": {
+          "items": {
+            "$ref": "#/$defs/ContractConflict"
+          },
+          "title": "Conflicts",
+          "type": "array"
+        },
+        "llm": {
+          "$ref": "#/$defs/ArmCounts"
+        },
+        "llmOnly": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Llmonly",
+          "type": "array"
+        },
+        "rule": {
+          "$ref": "#/$defs/ArmCounts"
+        },
+        "ruleOnly": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Ruleonly",
+          "type": "array"
+        }
+      },
+      "required": [
+        "rule",
+        "llm",
+        "agreed",
+        "ruleOnly",
+        "llmOnly",
+        "conflicts",
+        "agreementRate"
+      ],
+      "title": "ArmComparison",
+      "type": "object"
+    },
+    "ArmCounts": {
+      "additionalProperties": false,
+      "properties": {
+        "attempts": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Attempts",
+          "type": "integer"
+        },
+        "endpoints": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Endpoints",
+          "type": "integer"
+        },
+        "errors": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Errors",
+          "type": "integer"
+        },
+        "warnings": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Warnings",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "endpoints",
+        "errors",
+        "warnings",
+        "attempts"
+      ],
+      "title": "ArmCounts",
+      "type": "object"
+    },
+    "BuildReport": {
+      "additionalProperties": false,
+      "properties": {
+        "isolation": {
+          "minLength": 1,
+          "title": "Isolation",
+          "type": "string"
+        },
+        "steps": {
+          "items": {
+            "$ref": "#/$defs/BuildStepReport"
+          },
+          "minItems": 1,
+          "title": "Steps",
+          "type": "array"
+        },
+        "toolchain": {
+          "minLength": 1,
+          "title": "Toolchain",
+          "type": "string"
+        }
+      },
+      "required": [
+        "toolchain",
+        "isolation",
+        "steps"
+      ],
+      "title": "BuildReport",
+      "type": "object"
+    },
+    "BuildStepReport": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "minLength": 1,
+          "title": "Command",
+          "type": "string"
+        },
+        "durationSeconds": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Durationseconds"
+        },
+        "logTail": {
+          "default": "",
+          "title": "Logtail",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "outcome": {
+          "enum": [
+            "passed",
+            "failed",
+            "not-run",
+            "timed-out"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "command",
+        "outcome",
+        "durationSeconds",
+        "logTail"
+      ],
+      "title": "BuildStepReport",
+      "type": "object"
+    },
+    "CodeLocation": {
+      "additionalProperties": false,
+      "properties": {
+        "line": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Line"
+        },
+        "path": {
+          "minLength": 1,
+          "title": "Path",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "line"
+      ],
+      "title": "CodeLocation",
+      "type": "object"
+    },
+    "CodeRepository": {
+      "additionalProperties": false,
+      "properties": {
+        "build": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/BuildReport"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "manifest": {
+          "items": {
+            "$ref": "#/$defs/ManifestRow"
+          },
+          "title": "Manifest",
+          "type": "array"
+        },
+        "notPushedReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Notpushedreason"
+        },
+        "repository": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RepositoryPointer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "manifest",
+        "build",
+        "repository",
+        "notPushedReason"
+      ],
+      "title": "CodeRepository",
+      "type": "object"
+    },
+    "CodeStageState": {
+      "additionalProperties": false,
+      "properties": {
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        },
+        "generatedAt": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Generatedat"
+        },
+        "generatedFromVersion": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Generatedfromversion",
+          "type": "integer"
+        },
+        "id": {
+          "enum": [
+            "sprint-scope",
+            "tech-stack",
+            "api-contract",
+            "frontend-code",
+            "backend-code",
+            "contract-agreement",
+            "build",
+            "code-review"
+          ],
+          "title": "Id",
+          "type": "string"
+        },
+        "modelUse": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StageModelUse"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "status": {
+          "default": "pending",
+          "enum": [
+            "pending",
+            "generating",
+            "complete",
+            "failed"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "summary": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Summary"
+        }
+      },
+      "required": [
+        "id",
+        "status",
+        "generatedFromVersion",
+        "generatedAt",
+        "summary",
+        "error",
+        "modelUse"
+      ],
+      "title": "CodeStageState",
+      "type": "object"
+    },
+    "CodeThreadMessage": {
+      "additionalProperties": false,
+      "properties": {
+        "at": {
+          "title": "At",
+          "type": "string"
+        },
+        "author": {
+          "minLength": 1,
+          "title": "Author",
+          "type": "string"
+        },
+        "content": {
+          "minLength": 1,
+          "title": "Content",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "user_note",
+            "answer",
+            "stage_summary",
+            "system"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "producedVersion": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Producedversion"
+        },
+        "stageId": {
+          "anyOf": [
+            {
+              "enum": [
+                "sprint-scope",
+                "tech-stack",
+                "api-contract",
+                "frontend-code",
+                "backend-code",
+                "contract-agreement",
+                "build",
+                "code-review"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Stageid"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "stageId",
+        "author",
+        "content",
+        "at",
+        "producedVersion"
+      ],
+      "title": "CodeThreadMessage",
+      "type": "object"
+    },
+    "ContractAgreement": {
+      "additionalProperties": false,
+      "properties": {
+        "contractVersion": {
+          "minimum": 1,
+          "title": "Contractversion",
+          "type": "integer"
+        },
+        "counts": {
+          "$ref": "#/$defs/AgreementCounts"
+        },
+        "findings": {
+          "items": {
+            "$ref": "#/$defs/AgreementFinding"
+          },
+          "title": "Findings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "contractVersion",
+        "findings",
+        "counts"
+      ],
+      "title": "ContractAgreement",
+      "type": "object"
+    },
+    "ContractConflict": {
+      "additionalProperties": false,
+      "description": "The same endpoint, said differently by the two arms. Surfaced as a\nfinding and decided item by item when the human picks merged.",
+      "properties": {
+        "endpointKey": {
+          "description": "Canonical \"METHOD /path\".",
+          "minLength": 1,
+          "title": "Endpointkey",
+          "type": "string"
+        },
+        "field": {
+          "minLength": 1,
+          "title": "Field",
+          "type": "string"
+        },
+        "llmValue": {
+          "default": "",
+          "title": "Llmvalue",
+          "type": "string"
+        },
+        "ruleValue": {
+          "default": "",
+          "title": "Rulevalue",
+          "type": "string"
+        }
+      },
+      "required": [
+        "endpointKey",
+        "field",
+        "ruleValue",
+        "llmValue"
+      ],
+      "title": "ContractConflict",
+      "type": "object"
+    },
+    "ContractDiff": {
+      "additionalProperties": false,
+      "description": "What moved between two contract versions: the agile mechanic's receipt.",
+      "properties": {
+        "added": {
+          "description": "Endpoint ids new in `to`.",
+          "items": {
+            "type": "string"
+          },
+          "title": "Added",
+          "type": "array"
+        },
+        "changed": {
+          "items": {
+            "$ref": "#/$defs/EndpointChange"
+          },
+          "title": "Changed",
+          "type": "array"
+        },
+        "fromVersion": {
+          "minimum": 1,
+          "title": "Fromversion",
+          "type": "integer"
+        },
+        "removed": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Removed",
+          "type": "array"
+        },
+        "toVersion": {
+          "minimum": 1,
+          "title": "Toversion",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "fromVersion",
+        "toVersion",
+        "added",
+        "removed",
+        "changed"
+      ],
+      "title": "ContractDiff",
+      "type": "object"
+    },
+    "ContractRuleFinding": {
+      "additionalProperties": false,
+      "description": "One of the rule catalogue's findings about an arm's contract.",
+      "properties": {
+        "reason": {
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        },
+        "ruleId": {
+          "minLength": 1,
+          "title": "Ruleid",
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "error",
+            "warning"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "subject": {
+          "default": "",
+          "title": "Subject",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ruleId",
+        "severity",
+        "reason",
+        "subject"
+      ],
+      "title": "ContractRuleFinding",
+      "type": "object"
+    },
+    "CountedFact": {
+      "additionalProperties": false,
+      "description": "One number the scoring rests on, named so a reader can check it.",
+      "properties": {
+        "label": {
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "value": {
+          "minimum": 0,
+          "title": "Value",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "label",
+        "value"
+      ],
+      "title": "CountedFact",
+      "type": "object"
+    },
+    "EndpointChange": {
+      "additionalProperties": false,
+      "properties": {
+        "after": {
+          "default": "",
+          "title": "After",
+          "type": "string"
+        },
+        "before": {
+          "default": "",
+          "title": "Before",
+          "type": "string"
+        },
+        "endpointId": {
+          "minLength": 1,
+          "title": "Endpointid",
+          "type": "string"
+        },
+        "field": {
+          "minLength": 1,
+          "title": "Field",
+          "type": "string"
+        }
+      },
+      "required": [
+        "endpointId",
+        "field",
+        "before",
+        "after"
+      ],
+      "title": "EndpointChange",
+      "type": "object"
+    },
+    "EndpointSchema": {
+      "additionalProperties": false,
+      "description": "A request or response body, as fields plus the entity it derives from.",
+      "properties": {
+        "entity": {
+          "default": "",
+          "title": "Entity",
+          "type": "string"
+        },
+        "fields": {
+          "items": {
+            "$ref": "#/$defs/SchemaField"
+          },
+          "title": "Fields",
+          "type": "array"
+        }
+      },
+      "required": [
+        "entity",
+        "fields"
+      ],
+      "title": "EndpointSchema",
+      "type": "object"
+    },
+    "EndpointTraces": {
+      "additionalProperties": false,
+      "description": "Where an endpoint comes from. The unit of inference is the user action\non a screen, so screens and actions lead; stories and requirements ground\nthem in the plan and the brief.",
+      "properties": {
+        "actionIds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Actionids",
+          "type": "array"
+        },
+        "requirementIds": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Requirementids",
+          "type": "array"
+        },
+        "screenIds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Screenids",
+          "type": "array"
+        },
+        "storyIds": {
+          "items": {
+            "pattern": "^US-\\d+$",
+            "type": "string"
+          },
+          "title": "Storyids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "screenIds",
+        "actionIds",
+        "storyIds",
+        "requirementIds"
+      ],
+      "title": "EndpointTraces",
+      "type": "object"
+    },
+    "EntityModel": {
+      "additionalProperties": false,
+      "description": "A data shape the schemas reference, derived from a graph entity.",
+      "properties": {
+        "fields": {
+          "items": {
+            "$ref": "#/$defs/SchemaField"
+          },
+          "title": "Fields",
+          "type": "array"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "traces": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Traces",
+          "type": "array"
+        }
+      },
+      "required": [
+        "name",
+        "fields",
+        "traces"
+      ],
+      "title": "EntityModel",
+      "type": "object"
+    },
+    "GateDecision": {
+      "additionalProperties": false,
+      "properties": {
+        "at": {
+          "title": "At",
+          "type": "string"
+        },
+        "by": {
+          "minLength": 1,
+          "title": "By",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "approved",
+            "changes"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "kind",
+        "at",
+        "by",
+        "version",
+        "note"
+      ],
+      "title": "GateDecision",
+      "type": "object"
+    },
+    "GateState": {
+      "additionalProperties": false,
+      "properties": {
+        "decision": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/GateDecision"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "history": {
+          "items": {
+            "$ref": "#/$defs/GateDecision"
+          },
+          "title": "History",
+          "type": "array"
+        }
+      },
+      "required": [
+        "decision",
+        "history"
+      ],
+      "title": "GateState",
+      "type": "object"
+    },
+    "ManifestRow": {
+      "additionalProperties": false,
+      "properties": {
+        "arm": {
+          "default": "rule",
+          "enum": [
+            "rule",
+            "llm",
+            "merged"
+          ],
+          "title": "Arm",
+          "type": "string"
+        },
+        "carriedFixes": {
+          "items": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "title": "Carriedfixes",
+          "type": "array"
+        },
+        "generator": {
+          "enum": [
+            "static",
+            "rule",
+            "model"
+          ],
+          "title": "Generator",
+          "type": "string"
+        },
+        "implements": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Implements",
+          "type": "array"
+        },
+        "path": {
+          "minLength": 1,
+          "title": "Path",
+          "type": "string"
+        },
+        "reusedFromVersion": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Reusedfromversion",
+          "type": "integer"
+        },
+        "stage": {
+          "minLength": 1,
+          "title": "Stage",
+          "type": "string"
+        },
+        "summary": {
+          "default": "",
+          "title": "Summary",
+          "type": "string"
+        },
+        "writtenFrom": {
+          "default": "",
+          "title": "Writtenfrom",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "stage",
+        "generator",
+        "arm",
+        "implements",
+        "summary",
+        "writtenFrom",
+        "reusedFromVersion",
+        "carriedFixes"
+      ],
+      "title": "ManifestRow",
+      "type": "object"
+    },
+    "NextSprint": {
+      "additionalProperties": false,
+      "description": "What planning the next sprint would add to the build, shown before anyone asks.\n\nDivided as the sprint plan divides one: the stories out of the build in\npriority order, up to the velocity assumption, stopping at the first that\ndoes not fit. Empty when every story is in the build.",
+      "properties": {
+        "number": {
+          "minimum": 1,
+          "title": "Number",
+          "type": "integer"
+        },
+        "points": {
+          "minimum": 0,
+          "title": "Points",
+          "type": "integer"
+        },
+        "stories": {
+          "items": {
+            "$ref": "#/$defs/NextSprintStory"
+          },
+          "title": "Stories",
+          "type": "array"
+        },
+        "velocity": {
+          "exclusiveMinimum": 0,
+          "title": "Velocity",
+          "type": "integer"
+        },
+        "velocityBasis": {
+          "minLength": 1,
+          "title": "Velocitybasis",
+          "type": "string"
+        }
+      },
+      "required": [
+        "number",
+        "stories",
+        "points",
+        "velocity",
+        "velocityBasis"
+      ],
+      "title": "NextSprint",
+      "type": "object"
+    },
+    "NextSprintStory": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^US-\\d+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "points": {
+          "minimum": 0,
+          "title": "Points",
+          "type": "integer"
+        },
+        "priority": {
+          "enum": [
+            "must",
+            "should",
+            "could"
+          ],
+          "title": "Priority",
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "points",
+        "priority"
+      ],
+      "title": "NextSprintStory",
+      "type": "object"
+    },
+    "RepositoryPointer": {
+      "additionalProperties": false,
+      "properties": {
+        "branch": {
+          "default": "",
+          "title": "Branch",
+          "type": "string"
+        },
+        "commitSha": {
+          "minLength": 1,
+          "title": "Commitsha",
+          "type": "string"
+        },
+        "defaultBranch": {
+          "minLength": 1,
+          "title": "Defaultbranch",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "owner": {
+          "minLength": 1,
+          "title": "Owner",
+          "type": "string"
+        },
+        "provider": {
+          "const": "github",
+          "default": "github",
+          "title": "Provider",
+          "type": "string"
+        },
+        "url": {
+          "minLength": 1,
+          "title": "Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "provider",
+        "owner",
+        "name",
+        "defaultBranch",
+        "commitSha",
+        "url",
+        "branch"
+      ],
+      "title": "RepositoryPointer",
+      "type": "object"
+    },
+    "RunStatus": {
+      "additionalProperties": false,
+      "description": "The phase's newest full run.\n\nA stage retry is a run of its own, and it is not this one: it reports on\nits own stage, and a retry that finished must not hide the full run beneath\nit that stopped short of the review.",
+      "properties": {
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        },
+        "finishedAt": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Finishedat"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model"
+        },
+        "startedAt": {
+          "title": "Startedat",
+          "type": "string"
+        },
+        "state": {
+          "enum": [
+            "queued",
+            "running",
+            "awaiting_gate",
+            "done",
+            "failed",
+            "superseded"
+          ],
+          "title": "State",
+          "type": "string"
+        },
+        "stoppedAt": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Stoppedat"
+        },
+        "thinking": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Thinking"
+        },
+        "version": {
+          "minimum": 0,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "state",
+        "version",
+        "startedAt",
+        "finishedAt",
+        "error",
+        "stoppedAt",
+        "model",
+        "thinking"
+      ],
+      "title": "RunStatus",
+      "type": "object"
+    },
+    "SchemaField": {
+      "additionalProperties": false,
+      "properties": {
+        "itemRef": {
+          "default": "",
+          "title": "Itemref",
+          "type": "string"
+        },
+        "maxLength": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Maxlength"
+        },
+        "maximum": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Maximum"
+        },
+        "minLength": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minlength"
+        },
+        "minimum": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "oneOf": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Oneof",
+          "type": "array"
+        },
+        "required": {
+          "default": true,
+          "title": "Required",
+          "type": "boolean"
+        },
+        "rules": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Rules",
+          "type": "array"
+        },
+        "type": {
+          "default": "string",
+          "enum": [
+            "string",
+            "number",
+            "boolean",
+            "date",
+            "id",
+            "object",
+            "array"
+          ],
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "required",
+        "itemRef",
+        "minimum",
+        "maximum",
+        "minLength",
+        "maxLength",
+        "oneOf",
+        "rules"
+      ],
+      "title": "SchemaField",
+      "type": "object"
+    },
+    "ScopeStory": {
+      "additionalProperties": false,
+      "description": "One story's place in the build: in or out, and why it maps anywhere.",
+      "properties": {
+        "decidedBy": {
+          "default": "system default",
+          "title": "Decidedby",
+          "type": "string"
+        },
+        "id": {
+          "pattern": "^US-\\d+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "inScope": {
+          "title": "Inscope",
+          "type": "boolean"
+        },
+        "points": {
+          "minimum": 0,
+          "title": "Points",
+          "type": "integer"
+        },
+        "sprint": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Sprint",
+          "type": "integer"
+        },
+        "title": {
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "traces": {
+          "$ref": "#/$defs/ScopeStoryTraces"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "points",
+        "inScope",
+        "sprint",
+        "decidedBy",
+        "traces"
+      ],
+      "title": "ScopeStory",
+      "type": "object"
+    },
+    "ScopeStoryTraces": {
+      "additionalProperties": false,
+      "properties": {
+        "requirementIds": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Requirementids",
+          "type": "array"
+        },
+        "screenIds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Screenids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "requirementIds",
+        "screenIds"
+      ],
+      "title": "ScopeStoryTraces",
+      "type": "object"
+    },
+    "ScorePart": {
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "points": {
+          "title": "Points",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "label",
+        "points"
+      ],
+      "title": "ScorePart",
+      "type": "object"
+    },
+    "SprintScope": {
+      "additionalProperties": false,
+      "properties": {
+        "sprintName": {
+          "minLength": 1,
+          "title": "Sprintname",
+          "type": "string"
+        },
+        "stories": {
+          "items": {
+            "$ref": "#/$defs/ScopeStory"
+          },
+          "title": "Stories",
+          "type": "array"
+        }
+      },
+      "required": [
+        "sprintName",
+        "stories"
+      ],
+      "title": "SprintScope",
+      "type": "object"
+    },
+    "StackCandidate": {
+      "additionalProperties": false,
+      "properties": {
+        "available": {
+          "default": true,
+          "title": "Available",
+          "type": "boolean"
+        },
+        "explanation": {
+          "default": "",
+          "title": "Explanation",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "layers": {
+          "items": {
+            "$ref": "#/$defs/StackLayer"
+          },
+          "minItems": 1,
+          "title": "Layers",
+          "type": "array"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "score": {
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Score",
+          "type": "integer"
+        },
+        "scoreBreakdown": {
+          "items": {
+            "$ref": "#/$defs/ScorePart"
+          },
+          "title": "Scorebreakdown",
+          "type": "array"
+        },
+        "unavailableReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unavailablereason"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "layers",
+        "score",
+        "scoreBreakdown",
+        "explanation",
+        "available",
+        "unavailableReason"
+      ],
+      "title": "StackCandidate",
+      "type": "object"
+    },
+    "StackLayer": {
+      "additionalProperties": false,
+      "properties": {
+        "choice": {
+          "minLength": 1,
+          "title": "Choice",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "rationale": {
+          "default": "",
+          "title": "Rationale",
+          "type": "string"
+        },
+        "version": {
+          "default": "",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "choice",
+        "version",
+        "rationale"
+      ],
+      "title": "StackLayer",
+      "type": "object"
+    },
+    "StageModelUse": {
+      "additionalProperties": false,
+      "description": "The model use behind one stage's current version.\n\n`answered_by` names the models the responses named, which is what the\nprovider says answered rather than the string the component was configured\nwith. `requests` counts the responses received, output retries included.\nA stage that asked no model carries none of this.",
+      "properties": {
+        "answeredBy": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Answeredby",
+          "type": "array"
+        },
+        "reasoningTokens": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Reasoningtokens",
+          "type": "integer"
+        },
+        "requests": {
+          "minimum": 1,
+          "title": "Requests",
+          "type": "integer"
+        },
+        "thinking": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Thinking",
+          "type": "array"
+        },
+        "tokensIn": {
+          "minimum": 0,
+          "title": "Tokensin",
+          "type": "integer"
+        },
+        "tokensOut": {
+          "minimum": 0,
+          "title": "Tokensout",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "answeredBy",
+        "thinking",
+        "requests",
+        "tokensIn",
+        "tokensOut",
+        "reasoningTokens"
+      ],
+      "title": "StageModelUse",
+      "type": "object"
+    },
+    "TechStackArtefact": {
+      "additionalProperties": false,
+      "properties": {
+        "candidates": {
+          "items": {
+            "$ref": "#/$defs/StackCandidate"
+          },
+          "minItems": 1,
+          "title": "Candidates",
+          "type": "array"
+        },
+        "facts": {
+          "items": {
+            "$ref": "#/$defs/CountedFact"
+          },
+          "title": "Facts",
+          "type": "array"
+        },
+        "recommendedId": {
+          "minLength": 1,
+          "title": "Recommendedid",
+          "type": "string"
+        },
+        "selectedAt": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Selectedat"
+        },
+        "selectedBy": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Selectedby"
+        },
+        "selectedId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Selectedid"
+        }
+      },
+      "required": [
+        "facts",
+        "candidates",
+        "recommendedId",
+        "selectedId",
+        "selectedBy",
+        "selectedAt"
+      ],
+      "title": "TechStackArtefact",
+      "type": "object"
+    }
+  },
+  "$id": "https://sdlc.local/contracts/code-snapshot.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "agreement": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ContractAgreement"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "approvedThrough": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Approvedthrough"
+    },
+    "codeVersion": {
+      "minimum": 0,
+      "title": "Codeversion",
+      "type": "integer"
+    },
+    "contract": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ApiContractArtefact"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "designBlocker": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Designblocker"
+    },
+    "designVersion": {
+      "minimum": 0,
+      "title": "Designversion",
+      "type": "integer"
+    },
+    "diff": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ContractDiff"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "gate": {
+      "$ref": "#/$defs/GateState"
+    },
+    "generatedFromDesignVersion": {
+      "minimum": 0,
+      "title": "Generatedfromdesignversion",
+      "type": "integer"
+    },
+    "nextSprint": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/NextSprint"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "projectId": {
+      "minLength": 1,
+      "title": "Projectid",
+      "type": "string"
+    },
+    "repository": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/CodeRepository"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "run": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RunStatus"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "scope": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SprintScope"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "stages": {
+      "additionalProperties": {
+        "$ref": "#/$defs/CodeStageState"
+      },
+      "propertyNames": {
+        "enum": [
+          "sprint-scope",
+          "tech-stack",
+          "api-contract",
+          "frontend-code",
+          "backend-code",
+          "contract-agreement",
+          "build",
+          "code-review"
+        ]
+      },
+      "title": "Stages",
+      "type": "object"
+    },
+    "techStack": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/TechStackArtefact"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "thread": {
+      "items": {
+        "$ref": "#/$defs/CodeThreadMessage"
+      },
+      "title": "Thread",
+      "type": "array"
+    }
+  },
+  "required": [
+    "projectId",
+    "codeVersion",
+    "designVersion",
+    "generatedFromDesignVersion",
+    "designBlocker",
+    "stages",
+    "scope",
+    "nextSprint",
+    "techStack",
+    "contract",
+    "agreement",
+    "repository",
+    "diff",
+    "gate",
+    "approvedThrough",
+    "run",
+    "thread"
+  ],
+  "title": "CodeSnapshot",
+  "type": "object"
+}
