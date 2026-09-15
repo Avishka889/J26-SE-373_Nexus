@@ -1,0 +1,161 @@
+{
+  "version": 1,
+  "entities": [
+    {
+      "name": "Calculation",
+      "fields": [
+        {
+          "name": "id",
+          "type": "id",
+          "required": true,
+          "itemRef": ""
+        },
+        {
+          "name": "expression",
+          "type": "string",
+          "required": true,
+          "itemRef": ""
+        },
+        {
+          "name": "result",
+          "type": "number",
+          "required": true,
+          "itemRef": ""
+        },
+        {
+          "name": "computedAt",
+          "type": "date",
+          "required": true,
+          "itemRef": ""
+        }
+      ],
+      "traces": [
+        "R-1",
+        "R-2"
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "id": "get-calculations",
+      "method": "GET",
+      "path": "/calculations",
+      "summary": "List calculations",
+      "authActors": [
+        "User"
+      ],
+      "request": null,
+      "response": {
+        "entity": "Calculation",
+        "fields": []
+      },
+      "validation": [],
+      "traces": {
+        "screenIds": [
+          "calc/history",
+          "calc/keypad"
+        ],
+        "actionIds": [
+          "b2",
+          "l1",
+          "l2"
+        ],
+        "storyIds": [
+          "US-1"
+        ],
+        "requirementIds": [
+          "R-1",
+          "R-2"
+        ]
+      },
+      "origin": "rule",
+      "confidence": 98
+    },
+    {
+      "id": "get-calculations-id",
+      "method": "GET",
+      "path": "/calculations/{id}",
+      "summary": "Read one calculation",
+      "authActors": [],
+      "request": null,
+      "response": {
+        "entity": "Calculation",
+        "fields": []
+      },
+      "validation": [],
+      "traces": {
+        "screenIds": [
+          "calc/detail"
+        ],
+        "actionIds": [],
+        "storyIds": [
+          "US-1"
+        ],
+        "requirementIds": [
+          "R-1",
+          "R-2"
+        ]
+      },
+      "origin": "rule",
+      "confidence": 98
+    },
+    {
+      "id": "post-calculations",
+      "method": "POST",
+      "path": "/calculations",
+      "summary": "Records a calculation",
+      "authActors": [
+        "User"
+      ],
+      "request": {
+        "entity": "Calculation",
+        "fields": [
+          {
+            "name": "expression",
+            "type": "string",
+            "required": true,
+            "itemRef": ""
+          },
+          {
+            "name": "result",
+            "type": "number",
+            "required": true,
+            "itemRef": ""
+          },
+          {
+            "name": "computedAt",
+            "type": "date",
+            "required": true,
+            "itemRef": ""
+          }
+        ]
+      },
+      "response": {
+        "entity": "Calculation",
+        "fields": []
+      },
+      "validation": [
+        "An expression never divides by zero"
+      ],
+      "traces": {
+        "screenIds": [
+          "calc/history",
+          "calc/keypad"
+        ],
+        "actionIds": [
+          "l1",
+          "l2"
+        ],
+        "storyIds": [
+          "US-1"
+        ],
+        "requirementIds": [
+          "R-1",
+          "R-2"
+        ]
+      },
+      "origin": "rule",
+      "confidence": 98
+    }
+  ]
+}

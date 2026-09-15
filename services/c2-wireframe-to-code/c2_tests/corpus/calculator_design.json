@@ -1,0 +1,258 @@
+{
+  "name": "Calculator",
+  "graph": {
+    "nodes": [
+      {
+        "id": "a1",
+        "kind": "actor",
+        "label": "User",
+        "description": "",
+        "position": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "traces": [
+          "R-1"
+        ],
+        "attributes": [],
+        "actorKind": "primary",
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "s1",
+        "kind": "service",
+        "label": "Calculator Service",
+        "description": "",
+        "position": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "traces": [
+          "R-1"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "e1",
+        "kind": "entity",
+        "label": "Calculation",
+        "description": "",
+        "position": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "traces": [
+          "R-1",
+          "R-2"
+        ],
+        "attributes": [
+          {
+            "name": "expression",
+            "type": "string"
+          },
+          {
+            "name": "result",
+            "type": "number"
+          },
+          {
+            "name": "computedAt",
+            "type": "datetime"
+          }
+        ],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "c1",
+        "kind": "constraint",
+        "label": "An expression never divides by zero",
+        "description": "",
+        "position": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "traces": [
+          "R-3"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [
+          "e1"
+        ],
+        "unconfirmed": null,
+        "changedInVersion": null
+      }
+    ],
+    "edges": [
+      {
+        "id": "ed1",
+        "source": "a1",
+        "target": "e1",
+        "kind": "action",
+        "verb": "records",
+        "traces": [
+          "R-1"
+        ]
+      },
+      {
+        "id": "ed2",
+        "source": "a1",
+        "target": "e1",
+        "kind": "action",
+        "verb": "reviews",
+        "traces": [
+          "R-2"
+        ]
+      },
+      {
+        "id": "ed3",
+        "source": "s1",
+        "target": "e1",
+        "kind": "data",
+        "verb": "stores",
+        "traces": [
+          "R-1"
+        ]
+      }
+    ],
+    "changedNodeIds": []
+  },
+  "wireframes": {
+    "flows": [
+      {
+        "id": "calc",
+        "name": "Perform a calculation",
+        "version": "v1",
+        "screens": [
+          {
+            "id": "keypad",
+            "name": "Calculator Keypad",
+            "crumbs": [],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "field",
+                "label": "Expression",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Record calculation",
+                "targetId": "history",
+                "variant": "primary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "history",
+            "name": "Calculation History",
+            "crumbs": [],
+            "blocks": [
+              {
+                "id": "b2",
+                "kind": "list",
+                "label": "Calculations",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l2",
+                "label": "Open calculation",
+                "targetId": "detail",
+                "variant": "secondary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "detail",
+            "name": "Calculation Detail",
+            "crumbs": [],
+            "blocks": [
+              {
+                "id": "b3",
+                "kind": "summary",
+                "label": "Calculation summary",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              }
+            ],
+            "links": [],
+            "terminal": true
+          }
+        ],
+        "traces": [],
+        "coversStoryIds": [
+          "US-1"
+        ],
+        "pendingRefinement": false,
+        "refinementNote": null
+      }
+    ],
+    "coverage": [
+      {
+        "storyId": "US-1",
+        "storyTitle": "Record a calculation",
+        "screenIds": [
+          "calc/keypad",
+          "calc/history",
+          "calc/detail"
+        ],
+        "covered": true,
+        "needsScreen": true
+      }
+    ]
+  },
+  "sprint": {
+    "sprintName": "Sprint 1 (proposed)",
+    "goal": "A calculation can be recorded and reviewed.",
+    "velocityAssumption": {
+      "points": 20,
+      "basis": "assumed for a first sprint"
+    },
+    "estimatedPoints": 5,
+    "proposed": [
+      {
+        "id": "US-1",
+        "title": "Record a calculation",
+        "epic": "Calculating",
+        "points": 5,
+        "priority": "must",
+        "traces": [
+          "R-1",
+          "R-2"
+        ],
+        "acceptance": [
+          {
+            "id": "US-1-a1",
+            "given": "a user with an expression entered",
+            "when": "they complete the action",
+            "then": "the outcome is recorded"
+          }
+        ]
+      }
+    ],
+    "backlog": []
+  }
+}

@@ -1,0 +1,1794 @@
+{
+  "name": "NexusPay",
+  "graph": {
+    "nodes": [
+      {
+        "id": "a1",
+        "kind": "actor",
+        "label": "Customer",
+        "description": "Pays for things and checks what they paid for.",
+        "position": {
+          "x": 0.0,
+          "y": 120.0
+        },
+        "traces": [
+          "R-1",
+          "R-7"
+        ],
+        "attributes": [],
+        "actorKind": "primary",
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "a2",
+        "kind": "actor",
+        "label": "Administrator",
+        "description": "Reviews identity documents and reads the audit trail.",
+        "position": {
+          "x": 0.0,
+          "y": 320.0
+        },
+        "traces": [
+          "R-4",
+          "R-5"
+        ],
+        "attributes": [],
+        "actorKind": "primary",
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "a3",
+        "kind": "actor",
+        "label": "Payment Provider",
+        "description": "Stripe or PayPal, which actually moves the money.",
+        "position": {
+          "x": 0.0,
+          "y": 520.0
+        },
+        "traces": [
+          "R-2",
+          "R-8"
+        ],
+        "attributes": [],
+        "actorKind": "external_system",
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "a4",
+        "kind": "actor",
+        "label": "Identity Provider",
+        "description": "Checks submitted documents against an external register.",
+        "position": {
+          "x": 0.0,
+          "y": 700.0
+        },
+        "traces": [
+          "R-3"
+        ],
+        "attributes": [],
+        "actorKind": "external_system",
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "m1",
+        "kind": "service",
+        "label": "Auth Service",
+        "description": "Signs customers in and issues the session a payment needs.",
+        "position": {
+          "x": 300.0,
+          "y": 80.0
+        },
+        "traces": [
+          "R-11"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "m2",
+        "kind": "service",
+        "label": "Payment Service",
+        "description": "Takes a payment request, calls the provider, records the result.",
+        "position": {
+          "x": 300.0,
+          "y": 240.0
+        },
+        "traces": [
+          "R-1",
+          "R-2",
+          "R-10"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "m3",
+        "kind": "service",
+        "label": "Verification Service",
+        "description": "Collects identity documents and tracks their review.",
+        "position": {
+          "x": 300.0,
+          "y": 400.0
+        },
+        "traces": [
+          "R-3",
+          "R-4"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": {
+          "ruleId": "action-has-an-outcome",
+          "reason": "R-3 says verification happens before a large payment, but nothing says what this service does when it fails, so the outcome of a failed check is missing from the design.",
+          "traces": [
+            "R-3"
+          ]
+        },
+        "changedInVersion": null
+      },
+      {
+        "id": "m4",
+        "kind": "service",
+        "label": "Notification Service",
+        "description": "Sends the customer the outcome of a payment.",
+        "position": {
+          "x": 300.0,
+          "y": 560.0
+        },
+        "traces": [
+          "R-6",
+          "R-12"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "m5",
+        "kind": "service",
+        "label": "API Gateway",
+        "description": "One entry point, so every request is authenticated once.",
+        "position": {
+          "x": 560.0,
+          "y": 160.0
+        },
+        "traces": [
+          "R-11"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "m6",
+        "kind": "service",
+        "label": "Web App",
+        "description": "What the customer actually sees.",
+        "position": {
+          "x": 560.0,
+          "y": 360.0
+        },
+        "traces": [
+          "R-1",
+          "R-7"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "e1",
+        "kind": "entity",
+        "label": "Customer",
+        "description": "A person who can pay.",
+        "position": {
+          "x": 860.0,
+          "y": 60.0
+        },
+        "traces": [
+          "R-1",
+          "R-9"
+        ],
+        "attributes": [
+          {
+            "name": "id",
+            "type": "UUID"
+          },
+          {
+            "name": "email",
+            "type": "String"
+          },
+          {
+            "name": "displayName",
+            "type": "String"
+          },
+          {
+            "name": "verifiedAt",
+            "type": "Instant"
+          }
+        ],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "e2",
+        "kind": "entity",
+        "label": "Payment",
+        "description": "One attempt to move money, and how it ended.",
+        "position": {
+          "x": 860.0,
+          "y": 220.0
+        },
+        "traces": [
+          "R-1",
+          "R-2",
+          "R-7"
+        ],
+        "attributes": [
+          {
+            "name": "id",
+            "type": "UUID"
+          },
+          {
+            "name": "amount",
+            "type": "Money"
+          },
+          {
+            "name": "method",
+            "type": "PaymentMethod"
+          },
+          {
+            "name": "status",
+            "type": "PaymentStatus"
+          },
+          {
+            "name": "createdAt",
+            "type": "Instant"
+          }
+        ],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "e3",
+        "kind": "entity",
+        "label": "Verification",
+        "description": "A submitted identity document and its review outcome.",
+        "position": {
+          "x": 860.0,
+          "y": 380.0
+        },
+        "traces": [
+          "R-3",
+          "R-4"
+        ],
+        "attributes": [
+          {
+            "name": "id",
+            "type": "UUID"
+          },
+          {
+            "name": "documentType",
+            "type": "DocumentType"
+          },
+          {
+            "name": "status",
+            "type": "VerificationStatus"
+          },
+          {
+            "name": "reviewedBy",
+            "type": "String"
+          }
+        ],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": {
+          "ruleId": "entity-state-is-reachable",
+          "reason": "R-4 has an administrator approving documents, but no requirement says how a rejected verification is recorded, so this entity has a status no read requirement reaches.",
+          "traces": [
+            "R-4"
+          ]
+        },
+        "changedInVersion": null
+      },
+      {
+        "id": "e4",
+        "kind": "entity",
+        "label": "Notification",
+        "description": "A message sent to a customer about a payment.",
+        "position": {
+          "x": 860.0,
+          "y": 540.0
+        },
+        "traces": [
+          "R-6"
+        ],
+        "attributes": [
+          {
+            "name": "id",
+            "type": "UUID"
+          },
+          {
+            "name": "channel",
+            "type": "Channel"
+          },
+          {
+            "name": "sentAt",
+            "type": "Instant"
+          }
+        ],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "e5",
+        "kind": "entity",
+        "label": "Audit Entry",
+        "description": "An append only record of something that happened.",
+        "position": {
+          "x": 860.0,
+          "y": 700.0
+        },
+        "traces": [
+          "R-5"
+        ],
+        "attributes": [
+          {
+            "name": "id",
+            "type": "UUID"
+          },
+          {
+            "name": "action",
+            "type": "String"
+          },
+          {
+            "name": "actor",
+            "type": "String"
+          },
+          {
+            "name": "at",
+            "type": "Instant"
+          }
+        ],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "e6",
+        "kind": "entity",
+        "label": "Session",
+        "description": "Proof that a customer is signed in right now.",
+        "position": {
+          "x": 1140.0,
+          "y": 140.0
+        },
+        "traces": [
+          "R-11"
+        ],
+        "attributes": [
+          {
+            "name": "id",
+            "type": "UUID"
+          },
+          {
+            "name": "expiresAt",
+            "type": "Instant"
+          }
+        ],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "c1",
+        "kind": "constraint",
+        "label": "PCI DSS",
+        "description": "Card data never lands in the platform's own storage.",
+        "position": {
+          "x": 1140.0,
+          "y": 320.0
+        },
+        "traces": [
+          "R-8"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": "PCI DSS 4.0",
+        "appliesTo": [
+          "m2",
+          "e2"
+        ],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "c2",
+        "kind": "constraint",
+        "label": "GDPR",
+        "description": "Personal data can be exported and erased on request.",
+        "position": {
+          "x": 1140.0,
+          "y": 470.0
+        },
+        "traces": [
+          "R-9"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": "GDPR",
+        "appliesTo": [
+          "e1",
+          "e3",
+          "m3"
+        ],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "c3",
+        "kind": "constraint",
+        "label": "Audit retention",
+        "description": "The audit trail cannot be edited after it is written.",
+        "position": {
+          "x": 1140.0,
+          "y": 620.0
+        },
+        "traces": [
+          "R-5"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": "SOC 2 Type II",
+        "appliesTo": [
+          "e5"
+        ],
+        "unconfirmed": null,
+        "changedInVersion": null
+      }
+    ],
+    "edges": [
+      {
+        "id": "x1",
+        "source": "a1",
+        "target": "e2",
+        "kind": "action",
+        "verb": "makes",
+        "traces": [
+          "R-1"
+        ]
+      },
+      {
+        "id": "x2",
+        "source": "a1",
+        "target": "e3",
+        "kind": "action",
+        "verb": "submits",
+        "traces": [
+          "R-3"
+        ]
+      },
+      {
+        "id": "x3",
+        "source": "a1",
+        "target": "e2",
+        "kind": "action",
+        "verb": "reviews",
+        "traces": [
+          "R-7"
+        ]
+      },
+      {
+        "id": "x4",
+        "source": "a2",
+        "target": "e3",
+        "kind": "action",
+        "verb": "approves",
+        "traces": [
+          "R-4"
+        ]
+      },
+      {
+        "id": "x5",
+        "source": "a2",
+        "target": "e5",
+        "kind": "action",
+        "verb": "reads",
+        "traces": [
+          "R-5"
+        ]
+      },
+      {
+        "id": "x6",
+        "source": "a3",
+        "target": "e2",
+        "kind": "action",
+        "verb": "settles",
+        "traces": [
+          "R-2"
+        ]
+      },
+      {
+        "id": "x7",
+        "source": "a4",
+        "target": "e3",
+        "kind": "action",
+        "verb": "checks",
+        "traces": [
+          "R-3"
+        ]
+      },
+      {
+        "id": "x8",
+        "source": "a1",
+        "target": "e6",
+        "kind": "action",
+        "verb": "opens",
+        "traces": [
+          "R-11"
+        ]
+      },
+      {
+        "id": "x9",
+        "source": "a1",
+        "target": "e4",
+        "kind": "action",
+        "verb": "receives",
+        "traces": [
+          "R-6"
+        ]
+      },
+      {
+        "id": "d1",
+        "source": "m1",
+        "target": "e6",
+        "kind": "data",
+        "verb": "creates",
+        "traces": [
+          "R-11"
+        ]
+      },
+      {
+        "id": "d2",
+        "source": "m1",
+        "target": "e1",
+        "kind": "data",
+        "verb": "reads and writes",
+        "traces": [
+          "R-1"
+        ]
+      },
+      {
+        "id": "d3",
+        "source": "m2",
+        "target": "e2",
+        "kind": "data",
+        "verb": "reads and writes",
+        "traces": [
+          "R-1",
+          "R-2"
+        ]
+      },
+      {
+        "id": "d4",
+        "source": "m3",
+        "target": "e3",
+        "kind": "data",
+        "verb": "reads and writes",
+        "traces": [
+          "R-3"
+        ]
+      },
+      {
+        "id": "d5",
+        "source": "m4",
+        "target": "e4",
+        "kind": "data",
+        "verb": "reads and writes",
+        "traces": [
+          "R-6"
+        ]
+      },
+      {
+        "id": "d6",
+        "source": "m2",
+        "target": "e5",
+        "kind": "data",
+        "verb": "appends to",
+        "traces": [
+          "R-5"
+        ]
+      },
+      {
+        "id": "d7",
+        "source": "m3",
+        "target": "e5",
+        "kind": "data",
+        "verb": "appends to",
+        "traces": [
+          "R-5"
+        ]
+      },
+      {
+        "id": "p1",
+        "source": "m6",
+        "target": "m5",
+        "kind": "dependency",
+        "verb": "calls",
+        "traces": [
+          "R-1"
+        ]
+      },
+      {
+        "id": "p2",
+        "source": "m5",
+        "target": "m1",
+        "kind": "dependency",
+        "verb": "routes to",
+        "traces": [
+          "R-11"
+        ]
+      },
+      {
+        "id": "p3",
+        "source": "m5",
+        "target": "m2",
+        "kind": "dependency",
+        "verb": "routes to",
+        "traces": [
+          "R-1"
+        ]
+      },
+      {
+        "id": "p4",
+        "source": "m5",
+        "target": "m3",
+        "kind": "dependency",
+        "verb": "routes to",
+        "traces": [
+          "R-3"
+        ]
+      },
+      {
+        "id": "p5",
+        "source": "m2",
+        "target": "a3",
+        "kind": "dependency",
+        "verb": "calls",
+        "traces": [
+          "R-2"
+        ]
+      },
+      {
+        "id": "p6",
+        "source": "m3",
+        "target": "a4",
+        "kind": "dependency",
+        "verb": "calls",
+        "traces": [
+          "R-3"
+        ]
+      },
+      {
+        "id": "p7",
+        "source": "m2",
+        "target": "m4",
+        "kind": "dependency",
+        "verb": "notifies through",
+        "traces": [
+          "R-6",
+          "R-12"
+        ]
+      },
+      {
+        "id": "p8",
+        "source": "m2",
+        "target": "m3",
+        "kind": "dependency",
+        "verb": "checks status with",
+        "traces": [
+          "R-3"
+        ]
+      },
+      {
+        "id": "k1",
+        "source": "c1",
+        "target": "m2",
+        "kind": "constraint",
+        "verb": "constrains",
+        "traces": [
+          "R-8"
+        ]
+      },
+      {
+        "id": "k2",
+        "source": "c1",
+        "target": "e2",
+        "kind": "constraint",
+        "verb": "constrains",
+        "traces": [
+          "R-8"
+        ]
+      },
+      {
+        "id": "k3",
+        "source": "c2",
+        "target": "e1",
+        "kind": "constraint",
+        "verb": "constrains",
+        "traces": [
+          "R-9"
+        ]
+      },
+      {
+        "id": "k4",
+        "source": "c2",
+        "target": "e3",
+        "kind": "constraint",
+        "verb": "constrains",
+        "traces": [
+          "R-9"
+        ]
+      },
+      {
+        "id": "k5",
+        "source": "c2",
+        "target": "m3",
+        "kind": "constraint",
+        "verb": "constrains",
+        "traces": [
+          "R-9"
+        ]
+      },
+      {
+        "id": "k6",
+        "source": "c3",
+        "target": "e5",
+        "kind": "constraint",
+        "verb": "constrains",
+        "traces": [
+          "R-5"
+        ]
+      }
+    ],
+    "changedNodeIds": []
+  },
+  "wireframes": {
+    "flows": [
+      {
+        "id": "flow-sign-in",
+        "name": "Sign in",
+        "version": "v1",
+        "screens": [
+          {
+            "id": "sign-in",
+            "name": "Sign in",
+            "crumbs": [
+              "Sign in"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "text",
+                "label": "Sign in to continue",
+                "value": null,
+                "tone": "neutral",
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "field",
+                "label": "Email",
+                "value": "you@example.com",
+                "tone": "muted",
+                "linkId": null
+              },
+              {
+                "id": "b3",
+                "kind": "field",
+                "label": "Password",
+                "value": "________",
+                "tone": "muted",
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Sign in",
+                "targetId": "overview",
+                "variant": "primary"
+              },
+              {
+                "id": "l2",
+                "label": "Forgot password",
+                "targetId": "sign-in",
+                "variant": "text"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "overview",
+            "name": "Overview",
+            "crumbs": [
+              "Overview"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "summary",
+                "label": "Balance",
+                "value": "1,240.00",
+                "tone": "neutral",
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "row",
+                "label": "Make a payment",
+                "value": null,
+                "tone": "neutral",
+                "linkId": "l1"
+              },
+              {
+                "id": "b3",
+                "kind": "row",
+                "label": "Transaction history",
+                "value": null,
+                "tone": "neutral",
+                "linkId": "l2"
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Make a payment",
+                "targetId": "overview",
+                "variant": "row"
+              },
+              {
+                "id": "l2",
+                "label": "Transaction history",
+                "targetId": "overview",
+                "variant": "row"
+              }
+            ],
+            "terminal": false
+          }
+        ],
+        "traces": [
+          "R-11"
+        ],
+        "coversStoryIds": [
+          "US-101"
+        ],
+        "pendingRefinement": false,
+        "refinementNote": null
+      },
+      {
+        "id": "flow-overview",
+        "name": "Overview",
+        "version": "v1",
+        "screens": [
+          {
+            "id": "overview",
+            "name": "Overview",
+            "crumbs": [
+              "Overview"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "summary",
+                "label": "Balance",
+                "value": "1,240.00",
+                "tone": "neutral",
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "text",
+                "label": "Recent activity",
+                "value": null,
+                "tone": "muted",
+                "linkId": null
+              },
+              {
+                "id": "b3",
+                "kind": "row",
+                "label": "Coffee subscription",
+                "value": "12.00",
+                "tone": "neutral",
+                "linkId": "l1"
+              },
+              {
+                "id": "b4",
+                "kind": "row",
+                "label": "Book store",
+                "value": "38.50",
+                "tone": "neutral",
+                "linkId": "l1"
+              },
+              {
+                "id": "b5",
+                "kind": "row",
+                "label": "Train ticket",
+                "value": "94.20",
+                "tone": "neutral",
+                "linkId": "l1"
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Open a payment",
+                "targetId": "history",
+                "variant": "row"
+              },
+              {
+                "id": "l2",
+                "label": "See all",
+                "targetId": "history",
+                "variant": "secondary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "history",
+            "name": "Transaction history",
+            "crumbs": [
+              "Overview",
+              "History"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "text",
+                "label": "Newest first",
+                "value": null,
+                "tone": "muted",
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "row",
+                "label": "Coffee subscription",
+                "value": "Settled",
+                "tone": "positive",
+                "linkId": null
+              },
+              {
+                "id": "b3",
+                "kind": "row",
+                "label": "Book store",
+                "value": "Settled",
+                "tone": "positive",
+                "linkId": null
+              },
+              {
+                "id": "b4",
+                "kind": "row",
+                "label": "Train ticket",
+                "value": "Refused",
+                "tone": "muted",
+                "linkId": null
+              },
+              {
+                "id": "b5",
+                "kind": "row",
+                "label": "Gift card",
+                "value": "Settled",
+                "tone": "positive",
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Back to overview",
+                "targetId": "overview",
+                "variant": "secondary"
+              }
+            ],
+            "terminal": false
+          }
+        ],
+        "traces": [
+          "R-7"
+        ],
+        "coversStoryIds": [
+          "US-106"
+        ],
+        "pendingRefinement": false,
+        "refinementNote": null
+      },
+      {
+        "id": "flow-payment",
+        "name": "Payment",
+        "version": "updated after review",
+        "screens": [
+          {
+            "id": "amount",
+            "name": "Amount",
+            "crumbs": [
+              "Pay",
+              "Amount"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "field",
+                "label": "Pay to",
+                "value": "Book store",
+                "tone": "neutral",
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "field",
+                "label": "Amount",
+                "value": "38.50",
+                "tone": "neutral",
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Continue",
+                "targetId": "method",
+                "variant": "primary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "method",
+            "name": "Payment method",
+            "crumbs": [
+              "Pay",
+              "Method"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "row",
+                "label": "Saved card ending 4242",
+                "value": null,
+                "tone": "neutral",
+                "linkId": "l1"
+              },
+              {
+                "id": "b2",
+                "kind": "row",
+                "label": "Digital wallet",
+                "value": null,
+                "tone": "neutral",
+                "linkId": "l1"
+              },
+              {
+                "id": "b3",
+                "kind": "text",
+                "label": "Card details never reach this platform",
+                "value": null,
+                "tone": "muted",
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Use this method",
+                "targetId": "confirm",
+                "variant": "row"
+              },
+              {
+                "id": "l2",
+                "label": "Back",
+                "targetId": "amount",
+                "variant": "secondary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "confirm",
+            "name": "Confirm",
+            "crumbs": [
+              "Pay",
+              "Confirm"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "summary",
+                "label": "Total",
+                "value": "38.50",
+                "tone": "neutral",
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "field",
+                "label": "Paying with",
+                "value": "Card ending 4242",
+                "tone": "muted",
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Confirm payment",
+                "targetId": "done",
+                "variant": "primary"
+              },
+              {
+                "id": "l2",
+                "label": "Change method",
+                "targetId": "method",
+                "variant": "secondary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "done",
+            "name": "Confirmation",
+            "crumbs": [
+              "Pay",
+              "Done"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "banner",
+                "label": "Payment confirmed",
+                "value": null,
+                "tone": "positive",
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "summary",
+                "label": "Paid",
+                "value": "38.50",
+                "tone": "neutral",
+                "linkId": null
+              },
+              {
+                "id": "b3",
+                "kind": "field",
+                "label": "Reference",
+                "value": "PY-4821",
+                "tone": "muted",
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Back to overview",
+                "targetId": "amount",
+                "variant": "secondary"
+              }
+            ],
+            "terminal": true
+          }
+        ],
+        "traces": [
+          "R-1",
+          "R-2",
+          "R-10"
+        ],
+        "coversStoryIds": [
+          "US-101",
+          "US-102"
+        ],
+        "pendingRefinement": false,
+        "refinementNote": null
+      },
+      {
+        "id": "flow-verification",
+        "name": "Identity check",
+        "version": "v1",
+        "screens": [
+          {
+            "id": "prompt",
+            "name": "Verification needed",
+            "crumbs": [
+              "Pay",
+              "Verify"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "banner",
+                "label": "This payment needs identity verification",
+                "value": null,
+                "tone": "neutral",
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "text",
+                "label": "Payments above the threshold are checked once, not every time.",
+                "value": null,
+                "tone": "muted",
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Upload a document",
+                "targetId": "upload",
+                "variant": "primary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "upload",
+            "name": "Upload document",
+            "crumbs": [
+              "Pay",
+              "Verify",
+              "Upload"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "field",
+                "label": "Document type",
+                "value": "Passport",
+                "tone": "neutral",
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "field",
+                "label": "File",
+                "value": "passport.jpg",
+                "tone": "muted",
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Submit for review",
+                "targetId": "waiting",
+                "variant": "primary"
+              },
+              {
+                "id": "l2",
+                "label": "Back",
+                "targetId": "prompt",
+                "variant": "secondary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "waiting",
+            "name": "Waiting for review",
+            "crumbs": [
+              "Pay",
+              "Verify",
+              "Waiting"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "banner",
+                "label": "Submitted, waiting for review",
+                "value": null,
+                "tone": "neutral",
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "text",
+                "label": "Your payment is held until this is approved.",
+                "value": null,
+                "tone": "muted",
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Back to overview",
+                "targetId": "prompt",
+                "variant": "secondary"
+              }
+            ],
+            "terminal": false
+          }
+        ],
+        "traces": [
+          "R-3"
+        ],
+        "coversStoryIds": [
+          "US-103"
+        ],
+        "pendingRefinement": false,
+        "refinementNote": null
+      },
+      {
+        "id": "flow-review-queue",
+        "name": "Review queue",
+        "version": "v1",
+        "screens": [
+          {
+            "id": "queue",
+            "name": "Review queue",
+            "crumbs": [
+              "Admin",
+              "Queue"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "text",
+                "label": "3 waiting",
+                "value": null,
+                "tone": "muted",
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "row",
+                "label": "Passport, submitted today",
+                "value": null,
+                "tone": "neutral",
+                "linkId": "l1"
+              },
+              {
+                "id": "b3",
+                "kind": "row",
+                "label": "Driving licence, submitted today",
+                "value": null,
+                "tone": "neutral",
+                "linkId": "l1"
+              },
+              {
+                "id": "b4",
+                "kind": "row",
+                "label": "Passport, submitted yesterday",
+                "value": null,
+                "tone": "neutral",
+                "linkId": "l1"
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Open",
+                "targetId": "review",
+                "variant": "row"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "review",
+            "name": "Review document",
+            "crumbs": [
+              "Admin",
+              "Queue",
+              "Review"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "field",
+                "label": "Customer",
+                "value": "A. Chen",
+                "tone": "neutral",
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "field",
+                "label": "Document",
+                "value": "Passport",
+                "tone": "neutral",
+                "linkId": null
+              },
+              {
+                "id": "b3",
+                "kind": "text",
+                "label": "Approving releases the held payment.",
+                "value": null,
+                "tone": "muted",
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Approve",
+                "targetId": "queue",
+                "variant": "primary"
+              },
+              {
+                "id": "l2",
+                "label": "Reject",
+                "targetId": "queue",
+                "variant": "secondary"
+              }
+            ],
+            "terminal": false
+          }
+        ],
+        "traces": [
+          "R-4",
+          "R-5"
+        ],
+        "coversStoryIds": [
+          "US-104"
+        ],
+        "pendingRefinement": false,
+        "refinementNote": null
+      },
+      {
+        "id": "flow-audit",
+        "name": "Audit trail",
+        "version": "v1",
+        "screens": [
+          {
+            "id": "audit",
+            "name": "Audit trail",
+            "crumbs": [
+              "Admin",
+              "Audit"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "text",
+                "label": "Read only, newest first",
+                "value": null,
+                "tone": "muted",
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "row",
+                "label": "Payment recorded",
+                "value": "09:41",
+                "tone": "neutral",
+                "linkId": null
+              },
+              {
+                "id": "b3",
+                "kind": "row",
+                "label": "Verification approved",
+                "value": "09:38",
+                "tone": "neutral",
+                "linkId": null
+              },
+              {
+                "id": "b4",
+                "kind": "row",
+                "label": "Document submitted",
+                "value": "09:22",
+                "tone": "neutral",
+                "linkId": null
+              },
+              {
+                "id": "b5",
+                "kind": "row",
+                "label": "Session opened",
+                "value": "09:20",
+                "tone": "neutral",
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Export",
+                "targetId": "audit",
+                "variant": "secondary"
+              }
+            ],
+            "terminal": false
+          }
+        ],
+        "traces": [
+          "R-5"
+        ],
+        "coversStoryIds": [
+          "US-107"
+        ],
+        "pendingRefinement": false,
+        "refinementNote": null
+      }
+    ],
+    "coverage": [
+      {
+        "storyId": "US-101",
+        "storyTitle": "As a customer, I can pay with a saved card",
+        "screenIds": [
+          "flow-sign-in/sign-in",
+          "flow-sign-in/overview",
+          "flow-payment/amount",
+          "flow-payment/method",
+          "flow-payment/confirm",
+          "flow-payment/done"
+        ],
+        "covered": true,
+        "needsScreen": true
+      },
+      {
+        "storyId": "US-103",
+        "storyTitle": "As a customer, I verify my identity before a large payment",
+        "screenIds": [
+          "flow-verification/prompt",
+          "flow-verification/upload",
+          "flow-verification/waiting"
+        ],
+        "covered": true,
+        "needsScreen": true
+      },
+      {
+        "storyId": "US-104",
+        "storyTitle": "As an administrator, I review submitted documents",
+        "screenIds": [
+          "flow-review-queue/queue",
+          "flow-review-queue/review"
+        ],
+        "covered": true,
+        "needsScreen": true
+      },
+      {
+        "storyId": "US-102",
+        "storyTitle": "As a customer, I can pay with a digital wallet",
+        "screenIds": [
+          "flow-payment/amount",
+          "flow-payment/method",
+          "flow-payment/confirm",
+          "flow-payment/done"
+        ],
+        "covered": true,
+        "needsScreen": true
+      },
+      {
+        "storyId": "US-107",
+        "storyTitle": "As a compliance officer, I can read an unedited audit trail",
+        "screenIds": [
+          "flow-audit/audit"
+        ],
+        "covered": true,
+        "needsScreen": true
+      },
+      {
+        "storyId": "US-105",
+        "storyTitle": "As a customer, I am told whether my payment worked",
+        "screenIds": [],
+        "covered": false,
+        "needsScreen": false
+      },
+      {
+        "storyId": "US-106",
+        "storyTitle": "As a customer, I can see my past transactions",
+        "screenIds": [
+          "flow-overview/overview",
+          "flow-overview/history"
+        ],
+        "covered": true,
+        "needsScreen": true
+      }
+    ]
+  },
+  "sprint": {
+    "sprintName": "Sprint 1 (proposed)",
+    "goal": "A customer can pay, and a payment above the threshold is verified first.",
+    "velocityAssumption": {
+      "points": 34,
+      "basis": "assumed for a new team of four, with no delivered sprint to measure yet"
+    },
+    "estimatedPoints": 34,
+    "proposed": [
+      {
+        "id": "US-101",
+        "title": "As a customer, I can pay with a saved card",
+        "epic": "Payments",
+        "points": 8,
+        "priority": "must",
+        "traces": [
+          "R-1",
+          "R-2"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-101-1",
+            "given": "a signed in customer with a saved card",
+            "when": "they confirm a payment below the verification threshold",
+            "then": "the payment is charged and confirmed on screen within two seconds"
+          },
+          {
+            "id": "AC-101-2",
+            "given": "the provider declines the card",
+            "when": "the customer confirms the payment",
+            "then": "the payment is recorded as failed and the reason is shown without retrying automatically"
+          }
+        ]
+      },
+      {
+        "id": "US-103",
+        "title": "As a customer, I verify my identity before a large payment",
+        "epic": "Verification",
+        "points": 21,
+        "priority": "must",
+        "traces": [
+          "R-3"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-103-1",
+            "given": "a customer who has not been verified",
+            "when": "they start a payment above the threshold",
+            "then": "the payment is held and they are asked for an identity document"
+          },
+          {
+            "id": "AC-103-2",
+            "given": "a held payment and an approved document",
+            "when": "the review completes",
+            "then": "the held payment continues without the customer entering it again"
+          }
+        ]
+      },
+      {
+        "id": "US-104",
+        "title": "As an administrator, I review submitted documents",
+        "epic": "Verification",
+        "points": 5,
+        "priority": "should",
+        "traces": [
+          "R-4",
+          "R-5"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-104-1",
+            "given": "documents waiting for review",
+            "when": "an administrator approves or rejects one",
+            "then": "the outcome is recorded in the audit trail with the reviewer's name"
+          }
+        ]
+      }
+    ],
+    "backlog": [
+      {
+        "id": "US-102",
+        "title": "As a customer, I can pay with a digital wallet",
+        "epic": "Payments",
+        "points": 13,
+        "priority": "must",
+        "traces": [
+          "R-1",
+          "R-2"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-102-1",
+            "given": "a customer on a device with a wallet available",
+            "when": "they choose the wallet and authorise the payment",
+            "then": "the payment is charged without the platform ever receiving the card number"
+          }
+        ]
+      },
+      {
+        "id": "US-107",
+        "title": "As a compliance officer, I can read an unedited audit trail",
+        "epic": "Compliance",
+        "points": 5,
+        "priority": "must",
+        "traces": [
+          "R-5",
+          "R-9"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-107-1",
+            "given": "any recorded action",
+            "when": "someone attempts to change or delete the entry",
+            "then": "the attempt is refused and itself recorded"
+          }
+        ]
+      },
+      {
+        "id": "US-105",
+        "title": "As a customer, I am told whether my payment worked",
+        "epic": "Notifications",
+        "points": 3,
+        "priority": "should",
+        "traces": [
+          "R-6"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-105-1",
+            "given": "a payment that has settled or failed",
+            "when": "the outcome is recorded",
+            "then": "the customer receives a notification naming the amount and the outcome"
+          },
+          {
+            "id": "AC-105-2",
+            "given": "the notification service is unavailable",
+            "when": "a payment settles",
+            "then": "the payment still completes and the notification is retried later"
+          }
+        ]
+      },
+      {
+        "id": "US-106",
+        "title": "As a customer, I can see my past transactions",
+        "epic": "Payments",
+        "points": 8,
+        "priority": "could",
+        "traces": [
+          "R-7"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-106-1",
+            "given": "a customer with past payments",
+            "when": "they open their history",
+            "then": "payments are listed newest first with amount, method and outcome"
+          }
+        ]
+      }
+    ]
+  }
+}
