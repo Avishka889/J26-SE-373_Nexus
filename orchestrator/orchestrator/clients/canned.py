@@ -14,7 +14,7 @@ stages it claims to and in the order it claims to.
 """
 
 import difflib
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -60,6 +60,7 @@ from sdlc_contracts import (
     ScopeStoryTraces,
     ScorePart,
     ScreenBlock,
+    SecurityFinding,
     SequenceStep,
     SprintPlan,
     SprintScope,
@@ -82,6 +83,8 @@ from sdlc_contracts import (
     VerificationSnapshot,
     WireframeFlow,
     WireframesArtefact,
+    still_raised,
+    with_traces_from,
 )
 
 from ..db.store import now as store_now
@@ -141,6 +144,10 @@ class CannedC1:
     #: Stories the sprint plan leaves in the backlog (US-2 onward, 8 points
     #: each), for tests about moving stories into the build. None by default.
     backlog: int = 0
+    #: The plan a regenerated design can come back with: the first backlog
+    #: story proposed and US-1 moved to the backlog, for tests about what an
+    #: approved build keeps. Off by default.
+    replanned: bool = False
 
     def _called(self, name: str) -> None:
         self.calls.append(name)
@@ -395,6 +402,9 @@ class CannedC1:
             )
             for number in range(2, 2 + self.backlog)
         ]
+        proposed, backlog = [story], later
+        if self.replanned and later:
+            proposed, backlog = [later[0]], [story, *later[1:]]
         return StageOutcome(
             artefact=SprintPlan(
                 sprintName="Sprint 1 (proposed)",
@@ -402,9 +412,9 @@ class CannedC1:
                 velocityAssumption=VelocityAssumption(
                     points=20, basis="assumed, not measured: no delivered sprint yet"
                 ),
-                estimatedPoints=story.points,
-                proposed=[story],
-                backlog=later,
+                estimatedPoints=sum(one.points for one in proposed),
+                proposed=proposed,
+                backlog=backlog,
             ),
             summary="Sprint 1 (proposed) proposed: 1 story, 3 points estimated",
             notes={"attempts": 1},
@@ -620,10 +630,13 @@ class CannedC2:
         scope: SprintScope,
         *,
         arm: Arm = "rule",
+        criteria: Sequence[str] = (),
     ) -> StageOutcome[ApiContractArtefact]:
         self._called("api-contract")
         #: The graph's node names the last contract was inferred from, for the tests.
         self.contract_graph_labels = [node.label for node in graph.nodes] if graph else []
+        #: The acceptance criteria it was handed, read for field rules.
+        self.contract_criteria = list(criteria)
         contract = CANNED_CONTRACT.model_copy(update={"version": version})
         artefact = ApiContractArtefact(
             version=version,
@@ -849,6 +862,8 @@ class CannedC3:
     calls: list[str] = field(default_factory=list)
     #: Stage names that should raise instead, for testing failure handling.
     fails: set[str] = field(default_factory=set)
+    #: What the canned scan finds: nothing by default.
+    findings: list[SecurityFinding] = field(default_factory=list)
     #: What the canned suite does when it runs. Green by default, because the
     #: test review refuses a generated app's red tests and most of these tests
     #: are about what comes after that review; a test about a red suite asks.
@@ -859,6 +874,9 @@ class CannedC3:
     #: The canned test's id. A real one is its file's path and its name, slashes
     #: and all, which a route has to carry whole.
     case_id: str = "c1"
+    #: The criterion the canned test traces. US-1 has AC-1-1; another says the
+    #: test was written for a criterion its story no longer has.
+    case_criterion: str = "AC-1-1"
     #: The steps a run records, as the harness names them, and how each ended.
     run_steps: list[tuple[str, str]] = field(default_factory=list)
     #: The sprint plan each test generation was given, in order.
@@ -876,7 +894,9 @@ class CannedC3:
         return canned_thinking(self.thinking, level)
 
     @staticmethod
-    def _suite(outcome: str, kind: str = "unit", case_id: str = "c1") -> TestSuite:
+    def _suite(
+        outcome: str, kind: str = "unit", case_id: str = "c1", criterion: str = "AC-1-1"
+    ) -> TestSuite:
         return TestSuite(
             path=CANNED_TEST_PATH,
             framework="vitest",
@@ -887,7 +907,7 @@ class CannedC3:
                     outcome=outcome,
                     kind=kind,  # type: ignore[arg-type]
                     message="expected 5, received 6" if outcome == "failed" else "",
-                    traces=TestTrace(story_id="US-1", criterion_id="AC-1-1"),
+                    traces=TestTrace(story_id="US-1", criterion_id=criterion),
                 )
             ],
         )
@@ -920,7 +940,7 @@ class CannedC3:
             ],
             suites=[]
             if outcome == "none"
-            else [self._suite(outcome, self.case_kind, self.case_id)],
+            else [self._suite(outcome, self.case_kind, self.case_id, self.case_criterion)],
             coverage=[CoverageEntry(module="apps/web", lines_covered=8, lines_total=10)],
             mutation=(
                 MutationResult(
@@ -965,6 +985,10 @@ class CannedC3:
     ) -> StageOutcome[TestReport]:
         self._called("test-run")
         report = self._report(self._as_run(target), version=version, target=target)
+        # As the real service does: what a runner cannot know comes from the
+        # generation stage's report for the same version.
+        if declared is not None:
+            report = with_traces_from(report, declared)
         return StageOutcome(
             artefact=report,
             summary=f"{report.passed} passed, {report.failed} failed",
@@ -976,6 +1000,8 @@ class CannedC3:
     ) -> StageOutcome[TestReport]:
         self._called("test-quality")
         measured = self._report(self._as_run(target), mutation=True, version=version, target=target)
+        # The real service adds the mutation result to the report it is given.
+        measured = with_traces_from(measured, report)
         return StageOutcome(
             artefact=measured,
             summary=f"mutation score {measured.mutation.score}%",
@@ -1062,10 +1088,17 @@ class CannedC3:
             generated_at=store_now(),
             target="the generated app",
             tests=TestSummary(run=1, passed=0, failed=1, skipped=0, line_coverage=80.0),
+            findings=list(self.findings),
         )
-        return StageOutcome(artefact=report, summary="no findings", notes={"findings": 0})
+        return StageOutcome(
+            artefact=report,
+            summary=f"{len(self.findings)} findings" if self.findings else "no findings",
+            notes={"findings": len(self.findings)},
+        )
 
-    async def propose_remediation(self, target, report) -> StageOutcome[list]:
+    async def propose_remediation(
+        self, target, report, *, tests=None, contract=None
+    ) -> StageOutcome[list]:
         self._called("remediation")
         return StageOutcome(artefact=[], summary="nothing to propose", notes={"proposals": 0})
 
@@ -1097,6 +1130,8 @@ class CannedC3:
         *,
         before_run_id: str = "",
         after_run_id: str = "",
+        finding_id: str = "",
+        patch=(),
     ) -> StageOutcome[Reverification | None]:
         """The subtraction, over the two reports it was handed.
 
@@ -1109,8 +1144,26 @@ class CannedC3:
         or with a suite that did not run, and that judgement is tested where it
         lives. A test that needs the refusal path here substitutes a client
         that returns one; a test that needs the numbers gets the numbers.
+
+        The finding the fix was for is looked for by the contract's own rule
+        (`still_raised`), and the summary is the component's own words.
         """
+        from c3.remediate import rollback_advice
+
         self._called("reverify")
+        raised: list[str] = []
+        if finding_id:
+            target = next((one for one in before_validation.findings if one.id == finding_id), None)
+            if target is None:
+                return StageOutcome(
+                    artefact=None,
+                    summary=(
+                        f"the two passes cannot be compared: the before pass does not raise "
+                        f"{finding_id}, the finding this fix was for"
+                    ),
+                    notes={"comparable": False},
+                )
+            raised = still_raised(target, patch, after_validation.findings)
         result = Reverification(
             before=VerificationSnapshot(
                 open_findings=before_validation.open_findings,
@@ -1126,13 +1179,15 @@ class CannedC3:
             ),
             before_run_id=before_run_id,
             after_run_id=after_run_id,
+            finding_id=finding_id,
+            still_raised_as=raised,
         )
         return StageOutcome(
             artefact=result,
-            summary=(
-                f"{result.findings_closed} closed, {result.tests_broken} broken"
-                if not result.worsened
-                else f"worse after the patch: {result.tests_broken} tests broke"
-            ),
-            notes={"comparable": True, "worsened": result.worsened},
+            summary=rollback_advice(result),
+            notes={
+                "comparable": True,
+                "worsened": result.worsened,
+                "findingClosed": result.finding_closed,
+            },
         )

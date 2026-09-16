@@ -166,6 +166,12 @@ class Settings(BaseSettings):
     #: month of hours on being watched.
     c4_monitor_interval_seconds: int = Field(default=30, ge=5)
     c4_monitor_window_seconds: int = Field(default=600, ge=30)
+    #: A window again on what still serves: every six hours, for a week after it
+    #: went out. Zero for never. A cloud release is left out unless switched on,
+    #: because each window is requests to a live host (and wakes a free one).
+    c4_monitor_every_seconds: int = Field(default=21600, ge=0)
+    c4_monitor_for_seconds: int = Field(default=604800, ge=0)
+    c4_monitor_cloud_again: bool = False
 
     @field_validator("c3_detection_arms")
     @classmethod
