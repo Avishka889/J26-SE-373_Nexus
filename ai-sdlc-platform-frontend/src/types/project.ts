@@ -7,6 +7,8 @@ export type ProjectStatus =
   | "code"
   | "testing"
   | "deploy"
+  // Released, with stories still in the backlog: an increment along, not done.
+  | "released"
   | "complete";
 
 /**
@@ -142,6 +144,8 @@ export interface Project {
    * and nothing is running there now. Its page says why and how to go on.
    */
   runStopped?: boolean;
+  /** The sprint the build is on: the newest sprint any story in it was planned in. */
+  sprint?: number;
   techStack: string[];
   color: string;
 }
