@@ -175,6 +175,24 @@ async def _scope(pool: AsyncConnectionPool, state: C2RunState) -> SprintScope | 
     return SprintScope.model_validate(body) if body else None
 
 
+def _criteria(sprint: SprintPlan | None, scope: SprintScope) -> list[str]:
+    """The acceptance criteria of the stories in the build, one sentence each.
+
+    C2 reads them for the bounds they state on a field (`with_field_rules`):
+    the contract never carried those, and the generated app took any value.
+    """
+    if sprint is None:
+        return []
+    in_build = set(scope.in_scope_ids)
+    return [
+        f"Given {criterion.given.strip(' .')}. When {criterion.when.strip(' .')}. "
+        f"Then {criterion.then.strip(' .')}."
+        for story in (*sprint.proposed, *sprint.backlog)
+        if story.id in in_build
+        for criterion in story.acceptance
+    ]
+
+
 async def _contract(pool: AsyncConnectionPool, state: C2RunState) -> ApiContract | None:
     body = await _code_body(pool, state, "api-contract")
     return ApiContractArtefact.model_validate(body).contract if body else None
@@ -580,7 +598,7 @@ def make_api_contract(pool: AsyncConnectionPool, c2: C2Client):
 
     async def api_contract(state: C2RunState) -> C2RunState:
         async with _recording_failure(pool, state, "api-contract"):
-            graph, wireframes, _sprint, _ = await _design(pool, state)
+            graph, wireframes, sprint, _ = await _design(pool, state)
             scope = await _scope(pool, state)
             if scope is None:
                 raise ValueError("the scope stage produced nothing, so there is nothing to infer")
@@ -590,6 +608,7 @@ def make_api_contract(pool: AsyncConnectionPool, c2: C2Client):
                 wireframes,
                 scope,
                 arm=await _arm(pool, state),  # type: ignore[arg-type]
+                criteria=_criteria(sprint, scope),
             )
             await _persist(
                 pool, state, stage_id="api-contract", kind="api-contract", outcome=outcome

@@ -13,7 +13,7 @@ number starts disagreeing with the thing it describes:
   stage and gate state rather than something a client may set
 """
 
-from collections.abc import Collection
+from collections.abc import Collection, Mapping
 from datetime import datetime
 from typing import Any
 
@@ -458,6 +458,7 @@ def _phase_progress(
     code_approved: bool,
     test_approved: bool,
     released: bool,
+    current: Mapping[str, bool] | None = None,
 ) -> dict[str, int]:
     """Each phase's own progress: its stages carry 80, its decision the last 20.
 
@@ -465,6 +466,10 @@ def _phase_progress(
     reads 80 until its gate is approved, or for deployment until a release is
     verified. A later finish finishes every earlier phase, as the status ladder
     reads it: no phase's gate opens before the one before it was approved.
+
+    `current` says which phases' stages are about the increment the project is
+    on. One that is not reads 0: its stages are the increment before's, and
+    counting them started the next sprint near 90% (review item X-8).
     """
     finished = {
         "design": approved or code_approved or test_approved or released,
@@ -476,6 +481,9 @@ def _phase_progress(
     for phase, ids in _PHASE_STAGES.items():
         if finished[phase]:
             phases[phase] = 100
+            continue
+        if current is not None and not current.get(phase, True):
+            phases[phase] = 0
             continue
         done = sum(1 for stage in ids if stages.get(stage) in _DONE)
         # Half up, as a reader rounds; `round` would show 2.5 as 2.
@@ -512,8 +520,11 @@ def derive_project_view_from_stages(
     released: bool = False,
     started: bool | None = None,
     stopped: Collection[str] = (),
+    current: Mapping[str, bool] | None = None,
+    sprint: int = 1,
+    backlog_left: bool = False,
 ) -> dict[str, Any]:
-    """`reqPhase`, `progress`, `phaseProgress`, `status` and `runStopped`.
+    """`reqPhase`, `progress`, `phaseProgress`, `status`, `sprint` and `runStopped`.
 
     The one derivation, for the project list and for a project's own page:
     there were two, and they disagreed (the list never said "analyzing"). The
@@ -537,6 +548,7 @@ def derive_project_view_from_stages(
         code_approved=code_approved,
         test_approved=test_approved,
         released=released,
+        current=current,
     )
     if started is None:
         started = any(status != "pending" for status in stages.values())
@@ -548,7 +560,9 @@ def derive_project_view_from_stages(
     # approval read as the design one.
     phase: str | None
     if released:
-        status, phase = "complete", None
+        # Released, and the build is the whole plan only when no story waits:
+        # with a backlog left the project is an increment along, not complete.
+        status, phase = ("released" if backlog_left else "complete"), None
     elif test_approved:
         status, phase = "deploy", "c4"
     elif code_approved:
@@ -570,6 +584,7 @@ def derive_project_view_from_stages(
         "progress": _progress(phases),
         "phaseProgress": phases,
         "status": status,
+        "sprint": sprint,
         "runStopped": phase is not None and phase in stopped and not generating,
     }
 
@@ -584,4 +599,7 @@ def project_view(facts: dict[str, Any]) -> dict[str, Any]:
         released=facts["released"],
         started=facts["started"],
         stopped=facts["stopped"],
+        current=facts["current"],
+        sprint=facts["sprint"],
+        backlog_left=facts["backlog_left"],
     )
