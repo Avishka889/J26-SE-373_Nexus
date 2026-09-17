@@ -1,0 +1,381 @@
+{
+  "$defs": {
+    "CountedFact": {
+      "additionalProperties": false,
+      "description": "One number the scoring rests on, named so a reader can check it.",
+      "properties": {
+        "label": {
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "value": {
+          "minimum": 0,
+          "title": "Value",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "label",
+        "value"
+      ],
+      "title": "CountedFact",
+      "type": "object"
+    },
+    "PatchHunk": {
+      "additionalProperties": false,
+      "description": "One file's worth of the proposed change.\n\nProduction code, unlike a heal's diff, because this is the other loop: a\nheal may only touch test code and a remediation may only touch the code the\nfinding was about. The two are separate artefacts partly so that rule can\nbe enforced separately.",
+      "properties": {
+        "diff": {
+          "minLength": 1,
+          "title": "Diff",
+          "type": "string"
+        },
+        "path": {
+          "minLength": 1,
+          "title": "Path",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "diff"
+      ],
+      "title": "PatchHunk",
+      "type": "object"
+    },
+    "RemediationProposal": {
+      "additionalProperties": false,
+      "properties": {
+        "affectedEndpoints": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Affectedendpoints",
+          "type": "array"
+        },
+        "affectedTests": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Affectedtests",
+          "type": "array"
+        },
+        "appliedCodeVersion": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Appliedcodeversion"
+        },
+        "awaitingDecision": {
+          "readOnly": true,
+          "title": "Awaitingdecision",
+          "type": "boolean"
+        },
+        "cwe": {
+          "pattern": "^CWE-\\d+$",
+          "title": "Cwe",
+          "type": "string"
+        },
+        "decidedAt": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Decidedat"
+        },
+        "decidedBy": {
+          "default": "",
+          "title": "Decidedby",
+          "type": "string"
+        },
+        "decisionNote": {
+          "default": "",
+          "title": "Decisionnote",
+          "type": "string"
+        },
+        "findingId": {
+          "minLength": 1,
+          "title": "Findingid",
+          "type": "string"
+        },
+        "generatedAt": {
+          "title": "Generatedat",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "patch": {
+          "items": {
+            "$ref": "#/$defs/PatchHunk"
+          },
+          "minItems": 1,
+          "title": "Patch",
+          "type": "array"
+        },
+        "reverification": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Reverification"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "risk": {
+          "$ref": "#/$defs/RiskAssessment"
+        },
+        "state": {
+          "default": "proposed",
+          "enum": [
+            "proposed",
+            "dismissed",
+            "accepted",
+            "applied",
+            "verified",
+            "rolled-back"
+          ],
+          "title": "State",
+          "type": "string"
+        },
+        "summary": {
+          "minLength": 1,
+          "title": "Summary",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "findingId",
+        "cwe",
+        "generatedAt",
+        "summary",
+        "patch",
+        "risk",
+        "affectedEndpoints",
+        "affectedTests",
+        "state",
+        "decidedBy",
+        "decidedAt",
+        "decisionNote",
+        "appliedCodeVersion",
+        "reverification",
+        "awaitingDecision"
+      ],
+      "title": "RemediationProposal",
+      "type": "object"
+    },
+    "Reverification": {
+      "additionalProperties": false,
+      "description": "Before and after, and what the difference says.\n\n`worsened` is computed rather than asserted so that \"re-verification\npassed\" cannot be recorded over numbers that say otherwise. A fix that\ncloses its finding while breaking a test has not passed, and the rollback\noffer is meant to follow from the arithmetic.",
+      "properties": {
+        "after": {
+          "$ref": "#/$defs/VerificationSnapshot"
+        },
+        "afterRunId": {
+          "default": "",
+          "title": "Afterrunid",
+          "type": "string"
+        },
+        "before": {
+          "$ref": "#/$defs/VerificationSnapshot"
+        },
+        "beforeRunId": {
+          "default": "",
+          "title": "Beforerunid",
+          "type": "string"
+        },
+        "findingClosed": {
+          "description": "Whether the finding the fix was for is gone. A comparison that never\nlooked for it proves nothing about it, so that is not closed.",
+          "readOnly": true,
+          "title": "Findingclosed",
+          "type": "boolean"
+        },
+        "findingId": {
+          "default": "",
+          "title": "Findingid",
+          "type": "string"
+        },
+        "findingsClosed": {
+          "readOnly": true,
+          "title": "Findingsclosed",
+          "type": "integer"
+        },
+        "stillRaisedAs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Stillraisedas",
+          "type": "array"
+        },
+        "testsBroken": {
+          "readOnly": true,
+          "title": "Testsbroken",
+          "type": "integer"
+        },
+        "verified": {
+          "description": "The fix closed its finding and made nothing worse. Totals alone\ncalled a fix verified with its own finding still raised (C3-7).",
+          "readOnly": true,
+          "title": "Verified",
+          "type": "boolean"
+        },
+        "worsened": {
+          "readOnly": true,
+          "title": "Worsened",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "before",
+        "after",
+        "beforeRunId",
+        "afterRunId",
+        "findingId",
+        "stillRaisedAs",
+        "findingsClosed",
+        "testsBroken",
+        "worsened",
+        "findingClosed",
+        "verified"
+      ],
+      "title": "Reverification",
+      "type": "object"
+    },
+    "RiskAssessment": {
+      "additionalProperties": false,
+      "description": "Why this change is as safe or as dangerous as it is claimed to be.",
+      "properties": {
+        "facts": {
+          "items": {
+            "$ref": "#/$defs/CountedFact"
+          },
+          "minItems": 1,
+          "title": "Facts",
+          "type": "array"
+        },
+        "level": {
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ],
+          "title": "Level",
+          "type": "string"
+        },
+        "statement": {
+          "minLength": 1,
+          "title": "Statement",
+          "type": "string"
+        }
+      },
+      "required": [
+        "level",
+        "statement",
+        "facts"
+      ],
+      "title": "RiskAssessment",
+      "type": "object"
+    },
+    "VerificationSnapshot": {
+      "additionalProperties": false,
+      "description": "The measurable state of the target at one moment.",
+      "properties": {
+        "mutationScore": {
+          "anyOf": [
+            {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mutationscore"
+        },
+        "openFindings": {
+          "minimum": 0,
+          "title": "Openfindings",
+          "type": "integer"
+        },
+        "testsFailed": {
+          "minimum": 0,
+          "title": "Testsfailed",
+          "type": "integer"
+        },
+        "testsPassed": {
+          "minimum": 0,
+          "title": "Testspassed",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "openFindings",
+        "testsPassed",
+        "testsFailed",
+        "mutationScore"
+      ],
+      "title": "VerificationSnapshot",
+      "type": "object"
+    }
+  },
+  "$id": "https://sdlc.local/contracts/remediation-proposal.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Every proposal one scan produced, as one stored artefact.\n\nThe artefact kind is `remediation-proposal` because that is what it is\nabout; the body is a set because a scan answers several findings at once\nand storing one artefact per proposal would put the version axis in a place\nit does not belong.",
+  "properties": {
+    "awaitingDecision": {
+      "readOnly": true,
+      "title": "Awaitingdecision",
+      "type": "integer"
+    },
+    "generatedAt": {
+      "title": "Generatedat",
+      "type": "string"
+    },
+    "proposals": {
+      "items": {
+        "$ref": "#/$defs/RemediationProposal"
+      },
+      "title": "Proposals",
+      "type": "array"
+    },
+    "target": {
+      "minLength": 1,
+      "title": "Target",
+      "type": "string"
+    },
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "version",
+    "generatedAt",
+    "target",
+    "proposals",
+    "awaitingDecision"
+  ],
+  "title": "RemediationProposals",
+  "type": "object"
+}

@@ -1,0 +1,599 @@
+{
+  "$defs": {
+    "CoverageEntry": {
+      "additionalProperties": false,
+      "description": "Coverage for one module, with the raw counts kept.\n\nPercentages are derived here rather than stored for the same reason the\ntotals are: a percentage without its numerator cannot be added to another\none, and the evaluation adds them.",
+      "properties": {
+        "branchPercent": {
+          "readOnly": true,
+          "title": "Branchpercent",
+          "type": "number"
+        },
+        "branchesCovered": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Branchescovered",
+          "type": "integer"
+        },
+        "branchesTotal": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Branchestotal",
+          "type": "integer"
+        },
+        "linePercent": {
+          "readOnly": true,
+          "title": "Linepercent",
+          "type": "number"
+        },
+        "linesCovered": {
+          "minimum": 0,
+          "title": "Linescovered",
+          "type": "integer"
+        },
+        "linesTotal": {
+          "minimum": 0,
+          "title": "Linestotal",
+          "type": "integer"
+        },
+        "module": {
+          "minLength": 1,
+          "title": "Module",
+          "type": "string"
+        }
+      },
+      "required": [
+        "module",
+        "linesCovered",
+        "linesTotal",
+        "branchesCovered",
+        "branchesTotal",
+        "linePercent",
+        "branchPercent"
+      ],
+      "title": "CoverageEntry",
+      "type": "object"
+    },
+    "MutationResult": {
+      "additionalProperties": false,
+      "description": "Which mutants died, and which lived to tell the reader something.\n\n`scope` is not decoration. Mutation is run over named files rather than the\nwhole workspace, both because this machine cannot afford the whole\nworkspace and because the honesty guard only wants mutants in the region a\ntest exercises. A mutation score means nothing without the set it was\nmeasured over, so the set travels with the score.\n\nSurvivors are listed rather than counted. A survived mutant is a piece of\nbehaviour no test noticed, which is the actionable half of the result, and\ncounting it loses the address.",
+      "properties": {
+        "durationSeconds": {
+          "default": 0.0,
+          "minimum": 0,
+          "title": "Durationseconds",
+          "type": "number"
+        },
+        "inconclusive": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Inconclusive",
+          "type": "array"
+        },
+        "killed": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Killed",
+          "type": "array"
+        },
+        "notMeasured": {
+          "items": {
+            "$ref": "#/$defs/UnmeasuredApp"
+          },
+          "title": "Notmeasured",
+          "type": "array"
+        },
+        "scope": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Scope",
+          "type": "array"
+        },
+        "score": {
+          "description": "Killed over killed plus survived, as every mutation tool defines it.\n\nInconclusive mutants are excluded from the denominator rather than\ncounted as survivors, because a mutant that could not be evaluated is\nnot evidence that a test missed it.",
+          "readOnly": true,
+          "title": "Score",
+          "type": "number"
+        },
+        "survived": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Survived",
+          "type": "array"
+        },
+        "tool": {
+          "minLength": 1,
+          "title": "Tool",
+          "type": "string"
+        },
+        "total": {
+          "readOnly": true,
+          "title": "Total",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "tool",
+        "scope",
+        "killed",
+        "survived",
+        "inconclusive",
+        "durationSeconds",
+        "notMeasured",
+        "total",
+        "score"
+      ],
+      "title": "MutationResult",
+      "type": "object"
+    },
+    "QualityFinding": {
+      "additionalProperties": false,
+      "description": "One thing wrong with one test, said the way a reviewer would say it.\n\nFindings about tests, not about the code under test: a suite can be green\nand still be worth nothing, and the three most common reasons are a test\nthat asserts nothing, a test that only passes when it runs first, and a\ntest that runs the code and would not notice if it changed. None of them\nshows up in a pass rate, which is why they are reported separately rather\nthan folded into one.\n\n`kills-no-mutant` is the strongest of the three and the only one that needs\na mutation run to see. It is named for the observation rather than for the\nauthor: the same fact about a test a model wrote is a weak fill, and about\na test that came with the repository it is a gap the repository already\nhad. The report counts them per origin so the two stay distinguishable.",
+      "properties": {
+        "detail": {
+          "minLength": 1,
+          "title": "Detail",
+          "type": "string"
+        },
+        "observed": {
+          "default": false,
+          "title": "Observed",
+          "type": "boolean"
+        },
+        "path": {
+          "minLength": 1,
+          "title": "Path",
+          "type": "string"
+        },
+        "rule": {
+          "enum": [
+            "no-assertion",
+            "vacuous-assertion",
+            "focused",
+            "sleep",
+            "unseeded-randomness",
+            "wall-clock",
+            "network",
+            "order-dependent",
+            "kills-no-mutant"
+          ],
+          "title": "Rule",
+          "type": "string"
+        },
+        "test": {
+          "default": "",
+          "title": "Test",
+          "type": "string"
+        }
+      },
+      "required": [
+        "rule",
+        "path",
+        "test",
+        "detail",
+        "observed"
+      ],
+      "title": "QualityFinding",
+      "type": "object"
+    },
+    "TestCase": {
+      "additionalProperties": false,
+      "properties": {
+        "durationSeconds": {
+          "default": 0.0,
+          "minimum": 0,
+          "title": "Durationseconds",
+          "type": "number"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "default": "unit",
+          "enum": [
+            "unit",
+            "api",
+            "acceptance",
+            "integration",
+            "regression"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "message": {
+          "default": "",
+          "title": "Message",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "obsolete": {
+          "default": "",
+          "title": "Obsolete",
+          "type": "string"
+        },
+        "origin": {
+          "default": "skeleton",
+          "enum": [
+            "upstream",
+            "skeleton",
+            "filled",
+            "healed"
+          ],
+          "title": "Origin",
+          "type": "string"
+        },
+        "outcome": {
+          "enum": [
+            "passed",
+            "failed",
+            "skipped",
+            "errored",
+            "not-run"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        },
+        "sinceVersion": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Sinceversion",
+          "type": "integer"
+        },
+        "traces": {
+          "$ref": "#/$defs/TestTrace"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "outcome",
+        "kind",
+        "origin",
+        "durationSeconds",
+        "message",
+        "traces",
+        "sinceVersion",
+        "obsolete"
+      ],
+      "title": "TestCase",
+      "type": "object"
+    },
+    "TestGap": {
+      "additionalProperties": false,
+      "description": "A contract obligation no test can assert, and why.\n\nNot a failing test and not an unwritten one. The contract restricts an\noperation to a role and the application has no sign-in, or declares an\noperation on a record nothing can create: a test asserting the obligation\nwould fail for ever and say the wrong thing, since the fault is an absent\nfeature. So it is named here, on the report, where the page that says what\nwas generated can say what was not.",
+      "properties": {
+        "detail": {
+          "minLength": 1,
+          "title": "Detail",
+          "type": "string"
+        },
+        "endpointId": {
+          "minLength": 1,
+          "title": "Endpointid",
+          "type": "string"
+        },
+        "kind": {
+          "minLength": 1,
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "endpointId",
+        "kind",
+        "detail"
+      ],
+      "title": "TestGap",
+      "type": "object"
+    },
+    "TestSuite": {
+      "additionalProperties": false,
+      "description": "One test file, and what its cases did.",
+      "properties": {
+        "cases": {
+          "items": {
+            "$ref": "#/$defs/TestCase"
+          },
+          "title": "Cases",
+          "type": "array"
+        },
+        "failed": {
+          "readOnly": true,
+          "title": "Failed",
+          "type": "integer"
+        },
+        "framework": {
+          "minLength": 1,
+          "title": "Framework",
+          "type": "string"
+        },
+        "passed": {
+          "readOnly": true,
+          "title": "Passed",
+          "type": "integer"
+        },
+        "path": {
+          "minLength": 1,
+          "title": "Path",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "framework",
+        "cases",
+        "passed",
+        "failed"
+      ],
+      "title": "TestSuite",
+      "type": "object"
+    },
+    "TestTrace": {
+      "additionalProperties": false,
+      "description": "What this test was written from. Every reference is an id, never a position.\n\nThis carried a `criterionIndex` into the story's `acceptance` list until\n2026-09-26, on the reasoning that criteria had no ids of their own and\ninventing them here would be a second source of truth for something C1 owns.\nC1 owns them now and they survive a regeneration, so the index was the last\npositional reference left in a trace, and it had the defect every positional\nreference across versions has: a criterion inserted ahead of another moves\nwhat index 0 names, so a test written at one design version traces to a\ndifferent criterion at the next.\n\nThe index is dropped rather than kept alongside the id. Two references to the\nsame thing is how the two start disagreeing, which is the argument every\ncount in this file is computed for, and a reader wanting the position can\ntake it from the story's own list.",
+      "properties": {
+        "criterionId": {
+          "default": "",
+          "title": "Criterionid",
+          "type": "string"
+        },
+        "endpointIds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Endpointids",
+          "type": "array"
+        },
+        "requirementIds": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Requirementids",
+          "type": "array"
+        },
+        "storyId": {
+          "anyOf": [
+            {
+              "pattern": "^US-\\d+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Storyid"
+        }
+      },
+      "required": [
+        "storyId",
+        "criterionId",
+        "requirementIds",
+        "endpointIds"
+      ],
+      "title": "TestTrace",
+      "type": "object"
+    },
+    "ToolStep": {
+      "additionalProperties": false,
+      "description": "One command the harness ran, and what it did.\n\nThe same shape as C2's build steps, and for the same reason: a reader who\nis told the tests failed needs to know whether they failed or never ran.",
+      "properties": {
+        "command": {
+          "minLength": 1,
+          "title": "Command",
+          "type": "string"
+        },
+        "durationSeconds": {
+          "default": 0.0,
+          "minimum": 0,
+          "title": "Durationseconds",
+          "type": "number"
+        },
+        "logTail": {
+          "default": "",
+          "title": "Logtail",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "outcome": {
+          "enum": [
+            "passed",
+            "failed",
+            "not-run",
+            "timed-out"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "command",
+        "outcome",
+        "durationSeconds",
+        "logTail"
+      ],
+      "title": "ToolStep",
+      "type": "object"
+    },
+    "UnmeasuredApp": {
+      "additionalProperties": false,
+      "description": "An app in the mutation scope that gave no score, and why.\n\nEach app is mutated on its own, as its suite runs, so one can score while\nanother does not. The score is over the apps that did, and this names the\nrest: until 2026-10-09 every mutant was made in the first scoped file's app,\nand the other app was never mutated at all (review item C3-6).",
+      "properties": {
+        "app": {
+          "minLength": 1,
+          "title": "App",
+          "type": "string"
+        },
+        "reason": {
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "app",
+        "reason"
+      ],
+      "title": "UnmeasuredApp",
+      "type": "object"
+    }
+  },
+  "$id": "https://sdlc.local/contracts/test-report.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "One execution of one target's tests.\n\nReplaced by the next run rather than accumulated: a heal report outlives\nit, and the evaluation reads the stamped copies rather than this one.",
+  "properties": {
+    "branchCoverage": {
+      "readOnly": true,
+      "title": "Branchcoverage",
+      "type": "number"
+    },
+    "coverage": {
+      "items": {
+        "$ref": "#/$defs/CoverageEntry"
+      },
+      "title": "Coverage",
+      "type": "array"
+    },
+    "failed": {
+      "readOnly": true,
+      "title": "Failed",
+      "type": "integer"
+    },
+    "gaps": {
+      "items": {
+        "$ref": "#/$defs/TestGap"
+      },
+      "title": "Gaps",
+      "type": "array"
+    },
+    "generatedAt": {
+      "title": "Generatedat",
+      "type": "string"
+    },
+    "isolation": {
+      "minLength": 1,
+      "title": "Isolation",
+      "type": "string"
+    },
+    "lineCoverage": {
+      "description": "Weighted by lines, not the mean of the per module percentages.\n\nAveraging percentages weights a ten line module the same as a thousand\nline one, which is how a coverage number ends up describing nothing.",
+      "readOnly": true,
+      "title": "Linecoverage",
+      "type": "number"
+    },
+    "mutation": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/MutationResult"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "mutationSkippedReason": {
+      "default": "",
+      "title": "Mutationskippedreason",
+      "type": "string"
+    },
+    "notRun": {
+      "readOnly": true,
+      "title": "Notrun",
+      "type": "integer"
+    },
+    "passed": {
+      "readOnly": true,
+      "title": "Passed",
+      "type": "integer"
+    },
+    "quality": {
+      "items": {
+        "$ref": "#/$defs/QualityFinding"
+      },
+      "title": "Quality",
+      "type": "array"
+    },
+    "skipped": {
+      "readOnly": true,
+      "title": "Skipped",
+      "type": "integer"
+    },
+    "steps": {
+      "items": {
+        "$ref": "#/$defs/ToolStep"
+      },
+      "title": "Steps",
+      "type": "array"
+    },
+    "suites": {
+      "items": {
+        "$ref": "#/$defs/TestSuite"
+      },
+      "title": "Suites",
+      "type": "array"
+    },
+    "target": {
+      "minLength": 1,
+      "title": "Target",
+      "type": "string"
+    },
+    "total": {
+      "readOnly": true,
+      "title": "Total",
+      "type": "integer"
+    },
+    "untraced": {
+      "description": "Tests this component wrote that say nothing about what they came from.\n\nThe self healing classifier's first signal is what a failing test traces\nto, so a report full of untraced cases is a report the classifier can say\nnothing about: every failure comes back `undecided`, which reads like\ncaution and is actually an absence of evidence.\n\nIt was exactly that, silently, until 2026-09-26. The generation stage\nwrote the traces and the run stage replaced its report with one built from\nthe runner's output, which knows nothing about stories or criteria, so\nevery executed failure reached the classifier with an empty trace. The\nloop was never wrong; it just could not answer. A derived count makes that\nstate loud rather than invisible, which is the whole reason it is here.\n\n`upstream` cases are excluded and their absence of a trace is not a\ndefect: they came with the repository and were not written from an\nartefact, so there is nothing for them to point at. Counting them would\nmake this number describe the target rather than the platform.",
+      "readOnly": true,
+      "title": "Untraced",
+      "type": "integer"
+    },
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "version",
+    "generatedAt",
+    "target",
+    "isolation",
+    "steps",
+    "suites",
+    "coverage",
+    "mutation",
+    "quality",
+    "mutationSkippedReason",
+    "gaps",
+    "total",
+    "passed",
+    "failed",
+    "skipped",
+    "notRun",
+    "untraced",
+    "lineCoverage",
+    "branchCoverage"
+  ],
+  "title": "TestReport",
+  "type": "object"
+}
