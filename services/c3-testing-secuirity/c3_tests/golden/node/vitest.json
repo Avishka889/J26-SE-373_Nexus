@@ -1,0 +1,314 @@
+{
+  "coverageMap": {
+    "/workspace/apps/web/src/total.ts": {
+      "b": {
+        "0": [
+          0,
+          0
+        ],
+        "1": [
+          0,
+          0
+        ]
+      },
+      "branchMap": {
+        "0": {
+          "line": 13,
+          "loc": {
+            "end": {
+              "column": null,
+              "line": 15
+            },
+            "start": {
+              "column": 2,
+              "line": 13
+            }
+          },
+          "locations": [
+            {
+              "end": {
+                "column": null,
+                "line": 15
+              },
+              "start": {
+                "column": 2,
+                "line": 13
+              }
+            },
+            {
+              "end": {},
+              "start": {}
+            }
+          ],
+          "type": "if"
+        },
+        "1": {
+          "line": 13,
+          "loc": {
+            "end": {
+              "column": 36,
+              "line": 13
+            },
+            "start": {
+              "column": 6,
+              "line": 13
+            }
+          },
+          "locations": [
+            {
+              "end": {
+                "column": 21,
+                "line": 13
+              },
+              "start": {
+                "column": 6,
+                "line": 13
+              }
+            },
+            {
+              "end": {
+                "column": 36,
+                "line": 13
+              },
+              "start": {
+                "column": 21,
+                "line": 13
+              }
+            }
+          ],
+          "type": "binary-expr"
+        }
+      },
+      "f": {
+        "0": 2,
+        "1": 2,
+        "2": 0
+      },
+      "fnMap": {
+        "0": {
+          "decl": {
+            "end": {
+              "column": 22,
+              "line": 6
+            },
+            "start": {
+              "column": 16,
+              "line": 6
+            }
+          },
+          "line": 6,
+          "loc": {
+            "end": {
+              "column": null,
+              "line": 8
+            },
+            "start": {
+              "column": 45,
+              "line": 6
+            }
+          },
+          "name": "total"
+        },
+        "1": {
+          "decl": {
+            "end": {
+              "column": 23,
+              "line": 7
+            },
+            "start": {
+              "column": 15,
+              "line": 7
+            }
+          },
+          "line": 7,
+          "loc": {
+            "end": {
+              "column": 71,
+              "line": 7
+            },
+            "start": {
+              "column": 37,
+              "line": 7
+            }
+          },
+          "name": "(anonymous_1)"
+        },
+        "2": {
+          "decl": {
+            "end": {
+              "column": 25,
+              "line": 12
+            },
+            "start": {
+              "column": 16,
+              "line": 12
+            }
+          },
+          "line": 12,
+          "loc": {
+            "end": {
+              "column": null,
+              "line": 17
+            },
+            "start": {
+              "column": 66,
+              "line": 12
+            }
+          },
+          "name": "discount"
+        }
+      },
+      "meta": {
+        "fnNames": {},
+        "lastBranch": 2,
+        "lastFunction": 3,
+        "lastStatement": 5,
+        "seen": {
+          "b:13:2:15:Infinity:undefined:undefined:undefined:undefined": 0,
+          "b:13:6:13:21:13:21:13:36": 1,
+          "f:12:16:12:25": 2,
+          "f:6:16:6:22": 0,
+          "f:7:15:7:23": 1,
+          "s:13:2:15:Infinity": 2,
+          "s:14:4:14:Infinity": 3,
+          "s:16:2:16:Infinity": 4,
+          "s:7:2:7:Infinity": 0,
+          "s:7:37:7:71": 1
+        }
+      },
+      "path": "/workspace/apps/web/src/total.ts",
+      "s": {
+        "0": 2,
+        "1": 2,
+        "2": 0,
+        "3": 0,
+        "4": 0
+      },
+      "statementMap": {
+        "0": {
+          "end": {
+            "column": null,
+            "line": 7
+          },
+          "start": {
+            "column": 2,
+            "line": 7
+          }
+        },
+        "1": {
+          "end": {
+            "column": 71,
+            "line": 7
+          },
+          "start": {
+            "column": 37,
+            "line": 7
+          }
+        },
+        "2": {
+          "end": {
+            "column": null,
+            "line": 15
+          },
+          "start": {
+            "column": 2,
+            "line": 13
+          }
+        },
+        "3": {
+          "end": {
+            "column": null,
+            "line": 14
+          },
+          "start": {
+            "column": 4,
+            "line": 14
+          }
+        },
+        "4": {
+          "end": {
+            "column": null,
+            "line": 16
+          },
+          "start": {
+            "column": 2,
+            "line": 16
+          }
+        }
+      }
+    }
+  },
+  "numFailedTestSuites": 0,
+  "numFailedTests": 0,
+  "numPassedTestSuites": 2,
+  "numPassedTests": 2,
+  "numPendingTestSuites": 0,
+  "numPendingTests": 1,
+  "numTodoTests": 0,
+  "numTotalTestSuites": 2,
+  "numTotalTests": 3,
+  "snapshot": {
+    "added": 0,
+    "didUpdate": false,
+    "failure": false,
+    "filesAdded": 0,
+    "filesRemoved": 0,
+    "filesRemovedList": [],
+    "filesUnmatched": 0,
+    "filesUpdated": 0,
+    "matched": 0,
+    "total": 0,
+    "unchecked": 0,
+    "uncheckedKeysByFile": [],
+    "unmatched": 0,
+    "updated": 0
+  },
+  "startTime": 1788004041880,
+  "success": true,
+  "testResults": [
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "total"
+          ],
+          "duration": 3.647715000000005,
+          "failureMessages": [],
+          "fullName": "total adds price times quantity across the items",
+          "meta": {},
+          "status": "passed",
+          "tags": [],
+          "title": "adds price times quantity across the items"
+        },
+        {
+          "ancestorTitles": [
+            "total"
+          ],
+          "duration": 0.762864000000036,
+          "failureMessages": [],
+          "fullName": "total is zero for an empty basket",
+          "meta": {},
+          "status": "passed",
+          "tags": [],
+          "title": "is zero for an empty basket"
+        },
+        {
+          "ancestorTitles": [
+            "total"
+          ],
+          "failureMessages": [],
+          "fullName": "total handles a currency other than the default",
+          "meta": {},
+          "status": "skipped",
+          "tags": [],
+          "title": "handles a currency other than the default"
+        }
+      ],
+      "endTime": 1788004042341.763,
+      "message": "",
+      "name": "/workspace/apps/web/src/__tests__/total.test.ts",
+      "startTime": 1788004042337,
+      "status": "passed"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "/workspace/apps/web/src/total.ts": {
+    "branches": {
+      "covered": 0,
+      "pct": 0,
+      "skipped": 0,
+      "total": 4
+    },
+    "functions": {
+      "covered": 2,
+      "pct": 66.66,
+      "skipped": 0,
+      "total": 3
+    },
+    "lines": {
+      "covered": 1,
+      "pct": 25,
+      "skipped": 0,
+      "total": 4
+    },
+    "statements": {
+      "covered": 2,
+      "pct": 40,
+      "skipped": 0,
+      "total": 5
+    }
+  },
+  "total": {
+    "branches": {
+      "covered": 0,
+      "pct": 0,
+      "skipped": 0,
+      "total": 4
+    },
+    "branchesTrue": {
+      "covered": 0,
+      "pct": "Unknown",
+      "skipped": 0,
+      "total": 0
+    },
+    "functions": {
+      "covered": 2,
+      "pct": 66.66,
+      "skipped": 0,
+      "total": 3
+    },
+    "lines": {
+      "covered": 1,
+      "pct": 25,
+      "skipped": 0,
+      "total": 4
+    },
+    "statements": {
+      "covered": 2,
+      "pct": 40,
+      "skipped": 0,
+      "total": 5
+    }
+  }
+}
