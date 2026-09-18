@@ -1,0 +1,9 @@
+{
+  "name": "node-sample",
+  "private": true,
+  "type": "module",
+  "workspaces": ["apps/*"],
+  "scripts": {
+    "test": "npm run test --workspaces --if-present"
+  }
+}
