@@ -1,0 +1,115 @@
+<BugCollection release="" version="4.9.3">
+  <BugInstance instanceOccurrenceNum="0" instanceHash="c8c33f58c8346587c23aedd0640b1d9a" cweid="89" rank="12" abbrev="SECSQLIJDBC" category="SECURITY" priority="2" type="SQL_INJECTION_JDBC" instanceOccurrenceMax="0">
+    <ShortMessage>Potential JDBC Injection</ShortMessage>
+    <LongMessage>This use of java/sql/Statement.executeQuery(Ljava/lang/String;)Ljava/sql/ResultSet; can be vulnerable to SQL injection (with JDBC)</LongMessage>
+    <Class classname="com.example.records.Accounts" primary="true">
+      <SourceLine classname="com.example.records.Accounts" start="26" end="63" sourcepath="com/example/records/Accounts.java" sourcefile="Accounts.java">
+        <Message>At Accounts.java:[lines 26-63]</Message>
+      </SourceLine>
+      <Message>In class com.example.records.Accounts</Message>
+    </Class>
+    <Method isStatic="true" classname="com.example.records.Accounts" signature="(Ljava/sql/Connection;Ljava/lang/String;)Ljava/lang/String;" name="findByName" primary="true">
+      <SourceLine endBytecode="406" classname="com.example.records.Accounts" start="34" end="35" sourcepath="com/example/records/Accounts.java" sourcefile="Accounts.java" startBytecode="0" />
+      <Message>In method com.example.records.Accounts.findByName(Connection, String)</Message>
+    </Method>
+    <SourceLine endBytecode="16" classname="com.example.records.Accounts" start="36" end="36" sourcepath="com/example/records/Accounts.java" sourcefile="Accounts.java" startBytecode="16" primary="true">
+      <Message>At Accounts.java:[line 36]</Message>
+    </SourceLine>
+    <String role="Sink method" value="java/sql/Statement.executeQuery(Ljava/lang/String;)Ljava/sql/ResultSet;">
+      <Message>Sink method java/sql/Statement.executeQuery(Ljava/lang/String;)Ljava/sql/ResultSet;</Message>
+    </String>
+    <String role="Sink parameter" value="0">
+      <Message>Sink parameter 0</Message>
+    </String>
+  </BugInstance>
+  <BugInstance instanceOccurrenceNum="0" instanceHash="4ec077d7cafd1aaa230ad3065073aff6" cweid="89" rank="10" abbrev="SQL" category="SECURITY" priority="1" type="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE" instanceOccurrenceMax="0">
+    <ShortMessage>Nonconstant string passed to execute or addBatch method on an SQL statement</ShortMessage>
+    <LongMessage>com.example.records.Accounts.findByName(Connection, String) passes a nonconstant String to an execute or addBatch method on an SQL statement</LongMessage>
+    <Class classname="com.example.records.Accounts" primary="true">
+      <SourceLine classname="com.example.records.Accounts" start="26" end="63" sourcepath="com/example/records/Accounts.java" sourcefile="Accounts.java">
+        <Message>At Accounts.java:[lines 26-63]</Message>
+      </SourceLine>
+      <Message>In class com.example.records.Accounts</Message>
+    </Class>
+    <Method isStatic="true" classname="com.example.records.Accounts" signature="(Ljava/sql/Connection;Ljava/lang/String;)Ljava/lang/String;" name="findByName" primary="true">
+      <SourceLine endBytecode="52" classname="com.example.records.Accounts" start="34" end="35" sourcepath="com/example/records/Accounts.java" sourcefile="Accounts.java" startBytecode="0" />
+      <Message>In method com.example.records.Accounts.findByName(Connection, String)</Message>
+    </Method>
+    <SourceLine endBytecode="16" classname="com.example.records.Accounts" start="36" end="36" sourcepath="com/example/records/Accounts.java" sourcefile="Accounts.java" startBytecode="16" primary="true">
+      <Message>At Accounts.java:[line 36]</Message>
+    </SourceLine>
+  </BugInstance>
+  <BugInstance instanceOccurrenceNum="0" instanceHash="5681dfa7f1fe78730c78f2bcd9cf61dd" cweid="328" rank="10" abbrev="SECMD5" category="SECURITY" priority="1" type="WEAK_MESSAGE_DIGEST_MD5" instanceOccurrenceMax="0">
+    <ShortMessage>MD2, MD4 and MD5 are weak hash functions</ShortMessage>
+    <LongMessage>This API MD5 (MDX) is not a recommended cryptographic hash function</LongMessage>
+    <Class classname="com.example.records.Accounts" primary="true">
+      <SourceLine classname="com.example.records.Accounts" start="26" end="63" sourcepath="com/example/records/Accounts.java" sourcefile="Accounts.java">
+        <Message>At Accounts.java:[lines 26-63]</Message>
+      </SourceLine>
+      <Message>In class com.example.records.Accounts</Message>
+    </Class>
+    <Method isStatic="true" classname="com.example.records.Accounts" signature="(Ljava/lang/String;)Ljava/lang/String;" name="passwordDigest" primary="true">
+      <SourceLine endBytecode="129" classname="com.example.records.Accounts" start="49" end="52" sourcepath="com/example/records/Accounts.java" sourcefile="Accounts.java" startBytecode="0" />
+      <Message>In method com.example.records.Accounts.passwordDigest(String)</Message>
+    </Method>
+    <SourceLine endBytecode="2" classname="com.example.records.Accounts" start="49" end="49" sourcepath="com/example/records/Accounts.java" sourcefile="Accounts.java" startBytecode="2" primary="true">
+      <Message>At Accounts.java:[line 49]</Message>
+    </SourceLine>
+    <String value="MD5">
+      <Message>Value MD5</Message>
+    </String>
+  </BugInstance>
+  <BugInstance instanceOccurrenceNum="0" instanceHash="4e4e9c720886b3643002dc0d2a3a7f30" cweid="78" rank="12" abbrev="SECCI" category="SECURITY" priority="2" type="COMMAND_INJECTION" instanceOccurrenceMax="0">
+    <ShortMessage>Potential Command Injection</ShortMessage>
+    <LongMessage>This usage of java/lang/Runtime.exec([Ljava/lang/String;)Ljava/lang/Process; can be vulnerable to Command Injection</LongMessage>
+    <Class classname="com.example.records.Reports" primary="true">
+      <SourceLine classname="com.example.records.Reports" start="15" end="37" sourcepath="com/example/records/Reports.java" sourcefile="Reports.java">
+        <Message>At Reports.java:[lines 15-37]</Message>
+      </SourceLine>
+      <Message>In class com.example.records.Reports</Message>
+    </Class>
+    <Method isStatic="true" classname="com.example.records.Reports" signature="(Ljava/lang/String;)Ljava/lang/Process;" name="archive" primary="true">
+      <SourceLine endBytecode="88" classname="com.example.records.Reports" start="25" end="26" sourcepath="com/example/records/Reports.java" sourcefile="Reports.java" startBytecode="0" />
+      <Message>In method com.example.records.Reports.archive(String)</Message>
+    </Method>
+    <SourceLine endBytecode="29" classname="com.example.records.Reports" start="26" end="26" sourcepath="com/example/records/Reports.java" sourcefile="Reports.java" startBytecode="29" primary="true">
+      <Message>At Reports.java:[line 26]</Message>
+    </SourceLine>
+    <String role="Sink method" value="java/lang/Runtime.exec([Ljava/lang/String;)Ljava/lang/Process;">
+      <Message>Sink method java/lang/Runtime.exec([Ljava/lang/String;)Ljava/lang/Process;</Message>
+    </String>
+    <String role="Sink parameter" value="0">
+      <Message>Sink parameter 0</Message>
+    </String>
+  </BugInstance>
+  <BugInstance instanceOccurrenceNum="0" instanceHash="d18ee9672441a85434b37c9d4cf8fcff" cweid="22" rank="12" abbrev="SECPTI" category="SECURITY" priority="2" type="PATH_TRAVERSAL_IN" instanceOccurrenceMax="0">
+    <ShortMessage>Potential Path Traversal (file read)</ShortMessage>
+    <LongMessage>This API (java/io/File.&lt;init&gt;(Ljava/io/File;Ljava/lang/String;)V) reads a file whose location might be specified by user input</LongMessage>
+    <Class classname="com.example.records.Reports" primary="true">
+      <SourceLine classname="com.example.records.Reports" start="15" end="37" sourcepath="com/example/records/Reports.java" sourcefile="Reports.java">
+        <Message>At Reports.java:[lines 15-37]</Message>
+      </SourceLine>
+      <Message>In class com.example.records.Reports</Message>
+    </Class>
+    <Method isStatic="true" classname="com.example.records.Reports" signature="(Ljava/lang/String;)Ljava/lang/String;" name="read" primary="true">
+      <SourceLine endBytecode="80" classname="com.example.records.Reports" start="36" end="37" sourcepath="com/example/records/Reports.java" sourcefile="Reports.java" startBytecode="0" />
+      <Message>In method com.example.records.Reports.read(String)</Message>
+    </Method>
+    <SourceLine endBytecode="13" classname="com.example.records.Reports" start="36" end="36" sourcepath="com/example/records/Reports.java" sourcefile="Reports.java" startBytecode="13" primary="true">
+      <Message>At Reports.java:[line 36]</Message>
+    </SourceLine>
+    <String role="Sink method" value="java/io/File.&lt;init&gt;(Ljava/io/File;Ljava/lang/String;)V">
+      <Message>Sink method java/io/File.&lt;init&gt;(Ljava/io/File;Ljava/lang/String;)V</Message>
+    </String>
+    <String role="Sink parameter" value="0">
+      <Message>Sink parameter 0</Message>
+    </String>
+    <String role="Unknown source" value="com/example/records/Reports.read(Ljava/lang/String;)Ljava/lang/String; parameter 0">
+      <Message>Unknown source com/example/records/Reports.read(Ljava/lang/String;)Ljava/lang/String; parameter 0</Message>
+    </String>
+    <String role="Method usage" value="not detected">
+      <Message>Method usage not detected</Message>
+    </String>
+  </BugInstance>
+  <Errors missingClasses="0" errors="0" />
+</BugCollection>

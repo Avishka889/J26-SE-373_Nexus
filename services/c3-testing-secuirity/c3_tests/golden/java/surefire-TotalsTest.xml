@@ -1,0 +1,9 @@
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.example.records.TotalsTest" time="0.19" tests="5" errors="0" skipped="1" failures="0" flakes="0">
+  <testcase name="an_empty_order_is_worth_nothing" classname="com.example.records.TotalsTest" time="0.097" />
+  <testcase name="adds_price_times_quantity_across_the_lines" classname="com.example.records.TotalsTest" time="0.006" />
+  <testcase name="a_discount_rounds_to_the_nearest_penny" classname="com.example.records.TotalsTest" time="0.005" />
+  <testcase name="a_discount_in_another_currency" classname="com.example.records.TotalsTest" time="0.0">
+    <skipped message="the fixture needs one case the framework declined to run" />
+  </testcase>
+  <testcase name="a_percentage_outside_the_range_is_refused" classname="com.example.records.TotalsTest" time="0.007" />
+</testsuite>
