@@ -1,0 +1,116 @@
+{
+  "epoch": {
+    "label": "epoch-6-llm-live",
+    "commit": "ad960bc",
+    "dataset": "OWASP Benchmark 1.2 at 20cbf3d11123347e47ed89541e6942836def53f7, 1415 real weaknesses and 1325 decoys over 2740 files, GPL-2.0, checked out and never vendored",
+    "split_seed": "",
+    "note": "20 files of 2740",
+    "at": "2026-09-25T08:50:49.939684+00:00"
+  },
+  "target": "OWASP Benchmark 1.2",
+  "groundTruthCount": 17,
+  "arms": [
+    {
+      "arm": "llm",
+      "modelId": "google:gemini-3.5-flash-lite",
+      "durationSeconds": 17.168,
+      "promptTokens": 29259,
+      "completionTokens": 2078,
+      "costUsd": 0.0139727,
+      "offline": false,
+      "filesScanned": 20,
+      "found": 14,
+      "refused": 1,
+      "unitsExamined": 0,
+      "flaggedFraction": null,
+      "degenerate": false,
+      "detection": {
+        "precision": 1.0,
+        "recall": 0.8235,
+        "f1": 0.9032
+      },
+      "failures": [],
+      "perClass": [
+        {
+          "cwe": "CWE-327",
+          "support": 4,
+          "truePositives": 2,
+          "falsePositives": 0,
+          "falseNegatives": 2,
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6667
+        },
+        {
+          "cwe": "CWE-78",
+          "support": 4,
+          "truePositives": 4,
+          "falsePositives": 0,
+          "falseNegatives": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        {
+          "cwe": "CWE-22",
+          "support": 3,
+          "truePositives": 1,
+          "falsePositives": 0,
+          "falseNegatives": 2,
+          "precision": 1.0,
+          "recall": 0.3333,
+          "f1": 0.5
+        },
+        {
+          "cwe": "CWE-89",
+          "support": 2,
+          "truePositives": 2,
+          "falsePositives": 0,
+          "falseNegatives": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        {
+          "cwe": "CWE-79",
+          "support": 2,
+          "truePositives": 1,
+          "falsePositives": 0,
+          "falseNegatives": 1,
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6667
+        },
+        {
+          "cwe": "CWE-90",
+          "support": 1,
+          "truePositives": 1,
+          "falsePositives": 0,
+          "falseNegatives": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        {
+          "cwe": "CWE-501",
+          "support": 1,
+          "truePositives": 0,
+          "falsePositives": 0,
+          "falseNegatives": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      ],
+      "macroF1": 0.6905,
+      "microPrecision": 1.0,
+      "microRecall": 0.6471,
+      "microF1": 0.7857,
+      "unlabelledClasses": {
+        "CWE-134": 1,
+        "CWE-326": 1,
+        "CWE-73": 1
+      }
+    }
+  ]
+}

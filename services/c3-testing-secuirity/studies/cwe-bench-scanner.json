@@ -1,0 +1,75 @@
+{
+  "epoch": {
+    "label": "epoch-2 scanner on real CVEs",
+    "commit": "d535cac",
+    "dataset": "12 projects of CWE-Bench-Java, MIT seed data",
+    "split_seed": "",
+    "note": "43551 files",
+    "at": "2026-09-10T15:08:25.479744+00:00"
+  },
+  "target": "CWE-Bench-Java, 12 projects",
+  "groundTruthCount": 60,
+  "arms": [
+    {
+      "arm": "scanner",
+      "modelId": "semgrep 1.176.1",
+      "durationSeconds": 1454.503,
+      "promptTokens": 0,
+      "completionTokens": 0,
+      "costUsd": 0.0,
+      "offline": false,
+      "filesScanned": 32143,
+      "found": 227,
+      "refused": 0,
+      "failures": [
+        "findsecbugs: this target has no Maven wrapper and there is no maven on PATH, so the only arm that needs a build could not run. A missing tool is a missing measurement, not a clean scan.",
+        "findsecbugs: spotbugs failed and left no report: java:194)\n\tat org.apache.maven.wrapper.Installer.unzip(Installer.java:161)\n\tat org.apache.maven.wrapper.Installer.createDist(Installer.java:78)\n\tat org.apache.maven.wrapper.WrapperExecutor.execute(WrapperExecutor.java:121)\n\tat org.apache.maven.wrapper.MavenWrapperMain.main(MavenWrapperMain.java:50)\n",
+        "findsecbugs: this target has no Maven wrapper and there is no maven on PATH, so the only arm that needs a build could not run. A missing tool is a missing measurement, not a clean scan.",
+        "findsecbugs: this target has no Maven wrapper and there is no maven on PATH, so the only arm that needs a build could not run. A missing tool is a missing measurement, not a clean scan.",
+        "findsecbugs: this target has no Maven wrapper and there is no maven on PATH, so the only arm that needs a build could not run. A missing tool is a missing measurement, not a clean scan.",
+        "findsecbugs: this target has no Maven wrapper and there is no maven on PATH, so the only arm that needs a build could not run. A missing tool is a missing measurement, not a clean scan.",
+        "findsecbugs: this target has no Maven wrapper and there is no maven on PATH, so the only arm that needs a build could not run. A missing tool is a missing measurement, not a clean scan.",
+        "findsecbugs: this target has no Maven wrapper and there is no maven on PATH, so the only arm that needs a build could not run. A missing tool is a missing measurement, not a clean scan.",
+        "findsecbugs: this target has no Maven wrapper and there is no maven on PATH, so the only arm that needs a build could not run. A missing tool is a missing measurement, not a clean scan.",
+        "findsecbugs: spotbugs failed and left no report: with the -e switch.\n[ERROR] Re-run Maven using the -X switch to enable full debug logging.\n[ERROR] \n[ERROR] For more information about the errors and possible solutions, please read the following articles:\n[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/PluginIncompatibleException\n"
+      ],
+      "perClass": [
+        {
+          "cwe": "CWE-22",
+          "support": 60,
+          "truePositives": 0,
+          "falsePositives": 13,
+          "falseNegatives": 60,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      ],
+      "macroF1": 0.0,
+      "microPrecision": 0.0,
+      "microRecall": 0.0,
+      "microF1": 0.0,
+      "unlabelledClasses": {
+        "CWE-1004": 18,
+        "CWE-200": 15,
+        "CWE-22": 3,
+        "CWE-295": 4,
+        "CWE-319": 20,
+        "CWE-326": 19,
+        "CWE-327": 10,
+        "CWE-330": 4,
+        "CWE-352": 5,
+        "CWE-501": 4,
+        "CWE-502": 34,
+        "CWE-601": 2,
+        "CWE-611": 4,
+        "CWE-614": 17,
+        "CWE-704": 3,
+        "CWE-79": 8,
+        "CWE-89": 14,
+        "CWE-93": 19,
+        "CWE-94": 11
+      }
+    }
+  ]
+}

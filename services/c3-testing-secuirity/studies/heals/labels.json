@@ -1,0 +1,5 @@
+{
+  "basket::adds up the lines": "brittle",
+  "basket::applies the member discount": "brittle",
+  "basket::rejects a negative quantity": "regression"
+}

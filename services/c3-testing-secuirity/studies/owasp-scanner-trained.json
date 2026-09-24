@@ -1,0 +1,427 @@
+{
+  "epoch": {
+    "label": "epoch-4 scanner and trained on OWASP",
+    "commit": "3f341d1",
+    "dataset": "OWASP Benchmark 1.2 at 20cbf3d11123347e47ed89541e6942836def53f7, 1415 real weaknesses and 1325 decoys over 2740 files, GPL-2.0, checked out and never vendored",
+    "split_seed": "",
+    "note": "2740 files of 2740",
+    "at": "2026-09-13T09:52:01.218558+00:00"
+  },
+  "target": "OWASP Benchmark 1.2",
+  "groundTruthCount": 1415,
+  "arms": [
+    {
+      "arm": "scanner",
+      "modelId": "semgrep Installed 66 packages in 695ms + findsecbugs 4.10.4",
+      "durationSeconds": 1759.238,
+      "promptTokens": 0,
+      "completionTokens": 0,
+      "costUsd": 0.0,
+      "offline": false,
+      "filesScanned": 5674,
+      "found": 8643,
+      "refused": 0,
+      "detection": {
+        "precision": 0.1631,
+        "recall": 0.9965,
+        "f1": 0.2804
+      },
+      "failures": [],
+      "perClass": [
+        {
+          "cwe": "CWE-89",
+          "support": 272,
+          "truePositives": 272,
+          "falsePositives": 472,
+          "falseNegatives": 0,
+          "precision": 0.3656,
+          "recall": 1.0,
+          "f1": 0.5354
+        },
+        {
+          "cwe": "CWE-327",
+          "support": 259,
+          "truePositives": 219,
+          "falsePositives": 121,
+          "falseNegatives": 40,
+          "precision": 0.6441,
+          "recall": 0.8456,
+          "f1": 0.7312
+        },
+        {
+          "cwe": "CWE-79",
+          "support": 246,
+          "truePositives": 246,
+          "falsePositives": 791,
+          "falseNegatives": 0,
+          "precision": 0.2372,
+          "recall": 1.0,
+          "f1": 0.3835
+        },
+        {
+          "cwe": "CWE-330",
+          "support": 218,
+          "truePositives": 218,
+          "falsePositives": 0,
+          "falseNegatives": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        {
+          "cwe": "CWE-22",
+          "support": 133,
+          "truePositives": 133,
+          "falsePositives": 556,
+          "falseNegatives": 0,
+          "precision": 0.193,
+          "recall": 1.0,
+          "f1": 0.3236
+        },
+        {
+          "cwe": "CWE-78",
+          "support": 126,
+          "truePositives": 126,
+          "falsePositives": 186,
+          "falseNegatives": 0,
+          "precision": 0.4038,
+          "recall": 1.0,
+          "f1": 0.5753
+        },
+        {
+          "cwe": "CWE-501",
+          "support": 83,
+          "truePositives": 83,
+          "falsePositives": 35,
+          "falseNegatives": 0,
+          "precision": 0.7034,
+          "recall": 1.0,
+          "f1": 0.8259
+        },
+        {
+          "cwe": "CWE-614",
+          "support": 36,
+          "truePositives": 36,
+          "falsePositives": 36,
+          "falseNegatives": 0,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6667
+        },
+        {
+          "cwe": "CWE-90",
+          "support": 27,
+          "truePositives": 27,
+          "falsePositives": 31,
+          "falseNegatives": 0,
+          "precision": 0.4655,
+          "recall": 1.0,
+          "f1": 0.6353
+        },
+        {
+          "cwe": "CWE-643",
+          "support": 15,
+          "truePositives": 15,
+          "falsePositives": 19,
+          "falseNegatives": 0,
+          "precision": 0.4412,
+          "recall": 1.0,
+          "f1": 0.6122
+        }
+      ],
+      "macroF1": 0.6289,
+      "microPrecision": 0.3796,
+      "microRecall": 0.9717,
+      "microF1": 0.546,
+      "unlabelledClasses": {
+        "CWE-113": 67,
+        "CWE-20": 1607,
+        "CWE-315": 2404,
+        "CWE-326": 235,
+        "CWE-329": 97,
+        "CWE-353": 97,
+        "CWE-807": 514
+      }
+    },
+    {
+      "arm": "trained",
+      "modelId": "microsoft/graphcodebert-base fine tuned, c3-juliet",
+      "durationSeconds": 10715.443,
+      "promptTokens": 0,
+      "completionTokens": 0,
+      "costUsd": 0.0,
+      "offline": true,
+      "filesScanned": 2740,
+      "found": 7295,
+      "refused": 0,
+      "detection": {
+        "precision": 0.194,
+        "recall": 1.0,
+        "f1": 0.3249
+      },
+      "failures": [],
+      "perClass": [
+        {
+          "cwe": "CWE-89",
+          "support": 272,
+          "truePositives": 181,
+          "falsePositives": 154,
+          "falseNegatives": 91,
+          "precision": 0.5403,
+          "recall": 0.6654,
+          "f1": 0.5964
+        },
+        {
+          "cwe": "CWE-327",
+          "support": 259,
+          "truePositives": 0,
+          "falsePositives": 0,
+          "falseNegatives": 259,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        {
+          "cwe": "CWE-79",
+          "support": 246,
+          "truePositives": 51,
+          "falsePositives": 368,
+          "falseNegatives": 195,
+          "precision": 0.1217,
+          "recall": 0.2073,
+          "f1": 0.1534
+        },
+        {
+          "cwe": "CWE-330",
+          "support": 218,
+          "truePositives": 0,
+          "falsePositives": 0,
+          "falseNegatives": 218,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        {
+          "cwe": "CWE-22",
+          "support": 133,
+          "truePositives": 1,
+          "falsePositives": 0,
+          "falseNegatives": 132,
+          "precision": 1.0,
+          "recall": 0.0075,
+          "f1": 0.0149
+        },
+        {
+          "cwe": "CWE-78",
+          "support": 126,
+          "truePositives": 82,
+          "falsePositives": 72,
+          "falseNegatives": 44,
+          "precision": 0.5325,
+          "recall": 0.6508,
+          "f1": 0.5857
+        },
+        {
+          "cwe": "CWE-501",
+          "support": 83,
+          "truePositives": 0,
+          "falsePositives": 0,
+          "falseNegatives": 83,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        {
+          "cwe": "CWE-614",
+          "support": 36,
+          "truePositives": 0,
+          "falsePositives": 0,
+          "falseNegatives": 36,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        {
+          "cwe": "CWE-90",
+          "support": 27,
+          "truePositives": 26,
+          "falsePositives": 78,
+          "falseNegatives": 1,
+          "precision": 0.25,
+          "recall": 0.963,
+          "f1": 0.3969
+        },
+        {
+          "cwe": "CWE-643",
+          "support": 15,
+          "truePositives": 11,
+          "falsePositives": 38,
+          "falseNegatives": 4,
+          "precision": 0.2245,
+          "recall": 0.7333,
+          "f1": 0.3438
+        }
+      ],
+      "macroF1": 0.2091,
+      "microPrecision": 0.3315,
+      "microRecall": 0.2488,
+      "microF1": 0.2842,
+      "unlabelledClasses": {
+        "CWE-0": 1293,
+        "CWE-113": 4095,
+        "CWE-134": 14,
+        "CWE-197": 1,
+        "CWE-369": 1,
+        "CWE-400": 97,
+        "CWE-470": 161,
+        "CWE-506": 256,
+        "CWE-570": 270,
+        "CWE-601": 41,
+        "CWE-606": 4
+      }
+    },
+    {
+      "arm": "merged",
+      "modelId": "semgrep Installed 66 packages in 695ms + findsecbugs 4.10.4 + microsoft/graphcodebert-base fine tuned, c3-juliet",
+      "durationSeconds": 12474.681,
+      "promptTokens": 0,
+      "completionTokens": 0,
+      "costUsd": 0.0,
+      "offline": false,
+      "filesScanned": 5674,
+      "found": 15938,
+      "refused": 0,
+      "detection": {
+        "precision": 0.0888,
+        "recall": 1.0,
+        "f1": 0.1631
+      },
+      "failures": [],
+      "perClass": [
+        {
+          "cwe": "CWE-89",
+          "support": 272,
+          "truePositives": 272,
+          "falsePositives": 807,
+          "falseNegatives": 0,
+          "precision": 0.2521,
+          "recall": 1.0,
+          "f1": 0.4027
+        },
+        {
+          "cwe": "CWE-327",
+          "support": 259,
+          "truePositives": 219,
+          "falsePositives": 121,
+          "falseNegatives": 40,
+          "precision": 0.6441,
+          "recall": 0.8456,
+          "f1": 0.7312
+        },
+        {
+          "cwe": "CWE-79",
+          "support": 246,
+          "truePositives": 246,
+          "falsePositives": 1210,
+          "falseNegatives": 0,
+          "precision": 0.169,
+          "recall": 1.0,
+          "f1": 0.2891
+        },
+        {
+          "cwe": "CWE-330",
+          "support": 218,
+          "truePositives": 218,
+          "falsePositives": 0,
+          "falseNegatives": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        {
+          "cwe": "CWE-22",
+          "support": 133,
+          "truePositives": 133,
+          "falsePositives": 557,
+          "falseNegatives": 0,
+          "precision": 0.1928,
+          "recall": 1.0,
+          "f1": 0.3232
+        },
+        {
+          "cwe": "CWE-78",
+          "support": 126,
+          "truePositives": 126,
+          "falsePositives": 340,
+          "falseNegatives": 0,
+          "precision": 0.2704,
+          "recall": 1.0,
+          "f1": 0.4257
+        },
+        {
+          "cwe": "CWE-501",
+          "support": 83,
+          "truePositives": 83,
+          "falsePositives": 35,
+          "falseNegatives": 0,
+          "precision": 0.7034,
+          "recall": 1.0,
+          "f1": 0.8259
+        },
+        {
+          "cwe": "CWE-614",
+          "support": 36,
+          "truePositives": 36,
+          "falsePositives": 36,
+          "falseNegatives": 0,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6667
+        },
+        {
+          "cwe": "CWE-90",
+          "support": 27,
+          "truePositives": 27,
+          "falsePositives": 135,
+          "falseNegatives": 0,
+          "precision": 0.1667,
+          "recall": 1.0,
+          "f1": 0.2857
+        },
+        {
+          "cwe": "CWE-643",
+          "support": 15,
+          "truePositives": 15,
+          "falsePositives": 68,
+          "falseNegatives": 0,
+          "precision": 0.1807,
+          "recall": 1.0,
+          "f1": 0.3061
+        }
+      ],
+      "macroF1": 0.5256,
+      "microPrecision": 0.2936,
+      "microRecall": 0.9717,
+      "microF1": 0.4509,
+      "unlabelledClasses": {
+        "CWE-0": 1293,
+        "CWE-113": 4162,
+        "CWE-134": 14,
+        "CWE-197": 1,
+        "CWE-20": 1607,
+        "CWE-315": 2404,
+        "CWE-326": 235,
+        "CWE-329": 97,
+        "CWE-353": 97,
+        "CWE-369": 1,
+        "CWE-400": 97,
+        "CWE-470": 161,
+        "CWE-506": 256,
+        "CWE-570": 270,
+        "CWE-601": 41,
+        "CWE-606": 4,
+        "CWE-807": 514
+      }
+    }
+  ]
+}

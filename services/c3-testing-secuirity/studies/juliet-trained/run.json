@@ -1,0 +1,22 @@
+{
+  "baseModel": "microsoft/graphcodebert-base",
+  "epochs": 3,
+  "batch": 16,
+  "learningRate": 2e-05,
+  "seed": 13,
+  "maxTokens": 512,
+  "splitRule": {
+    "by": "family",
+    "seed": "c3",
+    "stratified": "within each weakness class",
+    "minFamiliesToScore": 6,
+    "why": "Juliet pairs a bad method with a near identical good one in the same file and re-emits each functional variant under seventy control flow wrappers. Splitting by family keeps every variant of one source and sink pair on one side, so a score cannot be earned by memorising a template. Splitting by file is the naive rule and is kept so the leakage can be measured rather than asserted."
+  },
+  "counts": {
+    "train": 119372,
+    "validation": 14109,
+    "test": 14094
+  },
+  "validationAccuracy": 0.995,
+  "testAccuracy": 0.995
+}

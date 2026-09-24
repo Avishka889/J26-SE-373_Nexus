@@ -1,0 +1,4 @@
+{
+  "apps/web/src/__tests__/basket.test.ts::totals the basket": "brittle",
+  "apps/web/src/__tests__/basket.test.ts::takes a percentage off": "regression"
+}
