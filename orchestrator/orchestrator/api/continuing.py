@@ -83,6 +83,7 @@ async def continue_run(conn: Any, run: store.Row, spec: ComponentSpec, *, by: st
         detail=f"From {stopped}, at version {run['requirements_version']}.",
         project_id=project_id,
         run_id=run["id"],
+        category=spec.audit_category,
     )
     await store.post_thread_message(
         conn,

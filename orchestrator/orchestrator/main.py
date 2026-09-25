@@ -37,6 +37,7 @@ from .graph.runner import RunSupervisor
 from .graph.testing_graph import build_testing_graph
 from .previews import PreviewSupervisor
 from .saga.runner import SagaRunner
+from .timing import TimeRequests
 
 log = logging.getLogger(__name__)
 
@@ -309,6 +310,9 @@ def create_app(settings: Settings | None = None, *, lifespan_factory=lifespan) -
         allow_methods=["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
         allow_headers=["Content-Type", "Accept", "Authorization"],
     )
+
+    # Added last, so it is outermost and its time is the whole request's.
+    app.add_middleware(TimeRequests)
 
     install_error_handlers(app)
 

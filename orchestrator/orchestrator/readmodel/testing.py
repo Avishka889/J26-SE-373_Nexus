@@ -31,6 +31,8 @@ from typing import Any
 from psycopg import AsyncConnection
 from sdlc_contracts import (
     TEST_STAGE_IDS,
+    FindingDecision,
+    FixShipsWith,
     GateDecision,
     GateState,
     HealDecision,
@@ -105,6 +107,32 @@ def _audit_query(project_id: str) -> store.Query:
 _ABOUT_THE_TEST = ("quarantined", "restored", "rewrite")
 
 
+def finding_decisions(rows: list[store.Row], version: int) -> list[FindingDecision]:
+    """The reader's decision on each security finding at this test version, newest per finding.
+
+    Recorded by `POST .../findings/{id}/decision`; the release gate reads the
+    same rows (G8), so the page shows what the gate counts.
+    """
+    newest: dict[str, store.Row] = {}
+    for row in rows:
+        if (
+            row["kind"] == "finding_decision"
+            and row["version"] == version
+            and isinstance(row["value"], dict)
+        ):
+            newest[row["target_id"]] = row
+    return [
+        FindingDecision(
+            finding_id=finding_id,
+            decision=row["value"].get("decision"),
+            by=row["by"],
+            at=row["at"],
+            note=row["value"].get("note") or "",
+        )
+        for finding_id, row in newest.items()
+    ]
+
+
 def heal_decisions(rows: list[store.Row], version: int) -> list[HealDecision]:
     """The reader's decision on each test at this test version, newest per test.
 
@@ -177,7 +205,7 @@ def measured_the_generated_app(report: Any) -> bool:
     while a review waits, and reading it let a switch to a sample hide the
     generated app's failing tests from the review.
     """
-    return report is not None and str(report.target).startswith("the generated app")
+    return report is not None and str(report.target).startswith(store.GENERATED_APP_REPORT)
 
 
 def selected_target(rows: list[store.Row]) -> str:
@@ -236,7 +264,10 @@ def _decided_proposals(
     **`verified` is set from the numbers, never from the act of measuring.**
     A re-verification whose totals got worse leaves the proposal `applied` and
     carries its own arithmetic, so the rollback offer follows from the figures
-    a reader can see rather than from a word somebody wrote.
+    a reader can see rather than from a word somebody wrote. So does one whose
+    finding is still raised, or one recorded before the finding was looked for:
+    totals that held called a fix verified with its own finding still open
+    (review item C3-7), so `Reverification.verified` needs it gone.
     """
     decisions = {
         row["target_id"]: row
@@ -271,7 +302,7 @@ def _decided_proposals(
         if check is not None:
             result = Reverification.model_validate(check["value"])
             update["reverification"] = result
-            if update.get("state") == "applied" and not result.worsened:
+            if update.get("state") == "applied" and result.verified:
                 update["state"] = "verified"
         proposals.append(proposal.model_copy(update=update) if update else proposal)
     return remediation.model_copy(update={"proposals": proposals})
@@ -351,14 +382,24 @@ async def prefetch_testing(conn: AsyncConnection, project_id: str, owner: str) -
         store.project_runs_query(project_id),
         store.latest_full_run_query(project_id, "c3"),
         _audit_query(project_id),
+        store.approved_test_version_query(project_id),
     )
     if not store.remembering(conn):
         return
     test_version = await store.current_test_version(conn, project_id)
+    approved = await store.approved_test_version(conn, project_id)
+    code_version = await store.current_code_version(conn, project_id)
+    second = []
     if test_version:
-        await store.prefetch(
-            conn, store.artefacts_at_query(project_id, test_version, TEST_ARTEFACT_KINDS)
-        )
+        second.append(store.artefacts_at_query(project_id, test_version, TEST_ARTEFACT_KINDS))
+    # Where a fix would ship asks which code the newest approved tests measured
+    # and which sprint the newest code builds, in the same round trip.
+    if approved:
+        second.append(store.run_for_version_query(project_id, "c3", approved))
+    if code_version:
+        second.append(store.artefacts_at_query(project_id, code_version, ("sprint-scope",)))
+    if second:
+        await store.prefetch(conn, *second)
 
 
 async def compose_testing(conn: AsyncConnection, project: store.Row) -> TestSnapshot:
@@ -431,6 +472,20 @@ async def compose_testing(conn: AsyncConnection, project: store.Row) -> TestSnap
     for stage_id in TEST_STAGE_IDS:
         stages.setdefault(stage_id, TestStageState(id=stage_id))
 
+    # A fix patches the newest code. Newer than the code that may ship, it ships
+    # with that code once its tests are approved (review item C4-13).
+    releasable = await store.releasable_code_version(conn, project_id)
+    fix_ships_with = (
+        FixShipsWith(
+            code_version=code_version,
+            sprint=await store.sprint_of_code(conn, project_id, code_version),
+            releasable_code_version=releasable,
+            releasable_sprint=await store.sprint_of_code(conn, project_id, releasable),
+        )
+        if releasable and code_version > releasable
+        else None
+    )
+
     return TestSnapshot(
         project_id=project_id,
         target=selected_target(overlay_rows),
@@ -444,9 +499,11 @@ async def compose_testing(conn: AsyncConnection, project: store.Row) -> TestSnap
         heal=heal,
         validation=validation,
         remediation=remediation,
+        fix_ships_with=fix_ships_with,
         gate=_gate_state(history_rows, test_version),
         run=await run_status(conn, project_id, component="c3"),
         heal_decisions=heal_decisions(overlay_rows, test_version),
+        finding_decisions=finding_decisions(overlay_rows, test_version),
         audit=[
             TestAuditEntry(
                 actor=row["actor"],
