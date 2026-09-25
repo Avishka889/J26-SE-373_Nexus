@@ -20,7 +20,9 @@ const DeploymentDependency = lazy(() => import("@/features/deployment"));
 const ActivityLog = lazy(() => import("@/features/activity"));
 
 function RouteFallback() {
-  return <PageLoader className="min-h-[40vh] p-8" />;
+  return (
+    <PageLoader className="min-h-[40vh] p-8" />
+  );
 }
 
 function Lazy({ children }: { children: ReactNode }) {
@@ -32,9 +34,7 @@ function ProjectPhaseRedirect() {
   const { projectId } = useParams();
   const project = useProject(projectId);
   return (
-    <ProjectGuard>
-      {project && <Navigate to={projectHomePath(project)} replace />}
-    </ProjectGuard>
+    <ProjectGuard>{project && <Navigate to={projectHomePath(project)} replace />}</ProjectGuard>
   );
 }
 
@@ -108,10 +108,7 @@ function AuthenticatedApp() {
               </GuardedProject>
             }
           />
-          <Route
-            path="/projects/:projectId/*"
-            element={<ProjectPhaseRedirect />}
-          />
+          <Route path="/projects/:projectId/*" element={<ProjectPhaseRedirect />} />
           <Route
             path="/settings"
             element={
