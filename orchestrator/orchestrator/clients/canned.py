@@ -34,6 +34,7 @@ from sdlc_contracts import (
     BuildStepReport,
     ClarifyingQuestion,
     ContractAgreement,
+    ContractRuleFinding,
     CountedFact,
     CoverageEntry,
     DiffSpan,
@@ -68,6 +69,7 @@ from sdlc_contracts import (
     StackLayer,
     TechStackArtefact,
     TestCase,
+    TestGap,
     TestReport,
     TestSuite,
     TestSummary,
@@ -366,6 +368,8 @@ class CannedC1:
         self, requirements: list[ParsedRequirement], graph: ArchitectureGraph
     ) -> StageOutcome[SprintPlan]:
         self._called("sprint-plan")
+        #: What the last plan was asked to rank, for the tests.
+        self.sprint_asked = [(r.id, r.priority) for r in requirements]
         traces = [r.id for r in requirements] or ["R-1"]
         story = UserStory(
             id="US-1",
@@ -529,6 +533,8 @@ class CannedC2:
     stack_recommendation: ArchitectureRecommendation | None = None
     #: How the typecheck step ends, so a test can have a build that ran and failed.
     typecheck_outcome: str = "passed"
+    #: What the rule arm's own check finds in its contract; none unless a test says so.
+    rule_findings: list[ContractRuleFinding] = field(default_factory=list)
     #: The branch each push was asked for, in order.
     pushed_branches: list[str | None] = field(default_factory=list)
     #: The paths each push was handed, in order.
@@ -645,11 +651,16 @@ class CannedC2:
             chosen=arm,
             contract=contract,
             comparison=ArmComparison(
-                rule=ArmCounts(endpoints=1, attempts=1),
+                rule=ArmCounts(
+                    endpoints=1,
+                    attempts=1,
+                    errors=sum(1 for one in self.rule_findings if one.severity == "error"),
+                ),
                 llm=ArmCounts(endpoints=1, attempts=1),
                 agreed=["GET /things"],
                 agreement_rate=1.0,
             ),
+            rule_findings=list(self.rule_findings),
         )
         return StageOutcome(
             artefact=artefact,
@@ -729,6 +740,8 @@ class CannedC2:
         self, sources: dict[str, str], *, on_step: Callable[[str], None] | None = None
     ) -> StageOutcome[BuildReport]:
         self._called("build")
+        #: The files the build was handed, to be installed, checked and tested.
+        self.built_paths = set(sources)
         if on_step is not None:
             on_step("install")
         report = BuildReport(
@@ -881,6 +894,8 @@ class CannedC3:
     run_steps: list[tuple[str, str]] = field(default_factory=list)
     #: The sprint plan each test generation was given, in order.
     sprints: list[SprintPlan] = field(default_factory=list)
+    #: What the generator declares no test can assert; none unless a test says so.
+    gaps: list[TestGap] = field(default_factory=list)
 
     def _called(self, name: str) -> None:
         self.calls.append(name)
@@ -961,7 +976,8 @@ class CannedC3:
         """Files, plus a report whose cases have not run, because they have not."""
         self._called("test-generation")
         self.sprints.append(sprint)
-        report = self._report("not-run", version=version)
+        # With whatever a test declared no test can assert, as the service does.
+        report = self._report("not-run", version=version).model_copy(update={"gaps": self.gaps})
         return TestFilesOutcome(
             # Carried when the workspace has it, as C3 carries a written file,
             # so a decision made in it outlives the run.
@@ -977,7 +993,11 @@ class CannedC3:
                 )
             ],
             summary="1 test generated from 1 acceptance criterion",
-            notes={"report": report.model_dump(by_alias=True, mode="json"), "generated": 1},
+            notes={
+                "report": report.model_dump(by_alias=True, mode="json"),
+                "generated": 1,
+                "gaps": [gap.model_dump(by_alias=True) for gap in self.gaps],
+            },
         )
 
     async def run_tests(
