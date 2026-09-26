@@ -1,0 +1,220 @@
+{
+  "$defs": {
+    "CountedFact": {
+      "additionalProperties": false,
+      "description": "One number the scoring rests on, named so a reader can check it.",
+      "properties": {
+        "label": {
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "value": {
+          "minimum": 0,
+          "title": "Value",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "label",
+        "value"
+      ],
+      "title": "CountedFact",
+      "type": "object"
+    },
+    "ScorePart": {
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "points": {
+          "title": "Points",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "label",
+        "points"
+      ],
+      "title": "ScorePart",
+      "type": "object"
+    },
+    "StackCandidate": {
+      "additionalProperties": false,
+      "properties": {
+        "available": {
+          "default": true,
+          "title": "Available",
+          "type": "boolean"
+        },
+        "explanation": {
+          "default": "",
+          "title": "Explanation",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "layers": {
+          "items": {
+            "$ref": "#/$defs/StackLayer"
+          },
+          "minItems": 1,
+          "title": "Layers",
+          "type": "array"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "score": {
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Score",
+          "type": "integer"
+        },
+        "scoreBreakdown": {
+          "items": {
+            "$ref": "#/$defs/ScorePart"
+          },
+          "title": "Scorebreakdown",
+          "type": "array"
+        },
+        "unavailableReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unavailablereason"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "layers",
+        "score",
+        "scoreBreakdown",
+        "explanation",
+        "available",
+        "unavailableReason"
+      ],
+      "title": "StackCandidate",
+      "type": "object"
+    },
+    "StackLayer": {
+      "additionalProperties": false,
+      "properties": {
+        "choice": {
+          "minLength": 1,
+          "title": "Choice",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "rationale": {
+          "default": "",
+          "title": "Rationale",
+          "type": "string"
+        },
+        "version": {
+          "default": "",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "choice",
+        "version",
+        "rationale"
+      ],
+      "title": "StackLayer",
+      "type": "object"
+    }
+  },
+  "$id": "https://sdlc.local/contracts/tech-stack.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "candidates": {
+      "items": {
+        "$ref": "#/$defs/StackCandidate"
+      },
+      "minItems": 1,
+      "title": "Candidates",
+      "type": "array"
+    },
+    "facts": {
+      "items": {
+        "$ref": "#/$defs/CountedFact"
+      },
+      "title": "Facts",
+      "type": "array"
+    },
+    "recommendedId": {
+      "minLength": 1,
+      "title": "Recommendedid",
+      "type": "string"
+    },
+    "selectedAt": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Selectedat"
+    },
+    "selectedBy": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Selectedby"
+    },
+    "selectedId": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Selectedid"
+    }
+  },
+  "required": [
+    "facts",
+    "candidates",
+    "recommendedId",
+    "selectedId",
+    "selectedBy",
+    "selectedAt"
+  ],
+  "title": "TechStackArtefact",
+  "type": "object"
+}

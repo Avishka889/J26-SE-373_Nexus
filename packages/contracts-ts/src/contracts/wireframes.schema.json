@@ -1,0 +1,312 @@
+{
+  "$defs": {
+    "FlowLink": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "targetId": {
+          "minLength": 1,
+          "title": "Targetid",
+          "type": "string"
+        },
+        "variant": {
+          "enum": [
+            "primary",
+            "secondary",
+            "row",
+            "text"
+          ],
+          "title": "Variant",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "targetId",
+        "variant"
+      ],
+      "title": "FlowLink",
+      "type": "object"
+    },
+    "FlowScreen": {
+      "additionalProperties": false,
+      "properties": {
+        "blocks": {
+          "items": {
+            "$ref": "#/$defs/ScreenBlock"
+          },
+          "title": "Blocks",
+          "type": "array"
+        },
+        "crumbs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Crumbs",
+          "type": "array"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "links": {
+          "items": {
+            "$ref": "#/$defs/FlowLink"
+          },
+          "title": "Links",
+          "type": "array"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "terminal": {
+          "default": false,
+          "description": "True when this screen is meant to be the end of the journey, such as a confirmation or an error. A screen with no outgoing links is otherwise reported as a dead end, and this is how a flow says the dead end was the point. Assigned by rule from the screen's name and correctable by a human, never written by a generating model: a flag that silences a warning is a flag a model will set to silence the warning.",
+          "title": "Terminal",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "crumbs",
+        "blocks",
+        "links",
+        "terminal"
+      ],
+      "title": "FlowScreen",
+      "type": "object"
+    },
+    "ScreenBlock": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "field",
+            "row",
+            "summary",
+            "banner",
+            "text",
+            "list",
+            "button",
+            "display"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "linkId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Linkid"
+        },
+        "tone": {
+          "anyOf": [
+            {
+              "enum": [
+                "neutral",
+                "positive",
+                "muted"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tone"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "label",
+        "value",
+        "tone",
+        "linkId"
+      ],
+      "title": "ScreenBlock",
+      "type": "object"
+    },
+    "WireframeCoverageRow": {
+      "additionalProperties": false,
+      "properties": {
+        "covered": {
+          "title": "Covered",
+          "type": "boolean"
+        },
+        "needsScreen": {
+          "default": true,
+          "title": "Needsscreen",
+          "type": "boolean"
+        },
+        "screenIds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Screenids",
+          "type": "array"
+        },
+        "storyId": {
+          "pattern": "^US-\\d+$",
+          "title": "Storyid",
+          "type": "string"
+        },
+        "storyTitle": {
+          "title": "Storytitle",
+          "type": "string"
+        }
+      },
+      "required": [
+        "storyId",
+        "storyTitle",
+        "screenIds",
+        "covered",
+        "needsScreen"
+      ],
+      "title": "WireframeCoverageRow",
+      "type": "object"
+    },
+    "WireframeFlow": {
+      "additionalProperties": false,
+      "properties": {
+        "coversStoryIds": {
+          "items": {
+            "pattern": "^US-\\d+$",
+            "type": "string"
+          },
+          "title": "Coversstoryids",
+          "type": "array"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "pendingRefinement": {
+          "default": false,
+          "title": "Pendingrefinement",
+          "type": "boolean"
+        },
+        "refinementNote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Refinementnote"
+        },
+        "screens": {
+          "description": "The screens of this flow. The first is the entry point: the player opens there and the card thumbnail shows it, so ordering is meaning rather than presentation. Every other screen has to be reachable from it by following links.",
+          "items": {
+            "$ref": "#/$defs/FlowScreen"
+          },
+          "minItems": 1,
+          "title": "Screens",
+          "type": "array"
+        },
+        "traces": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Traces",
+          "type": "array"
+        },
+        "version": {
+          "minLength": 1,
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "version",
+        "screens",
+        "traces",
+        "coversStoryIds",
+        "pendingRefinement",
+        "refinementNote"
+      ],
+      "title": "WireframeFlow",
+      "type": "object"
+    }
+  },
+  "$id": "https://sdlc.local/contracts/wireframes.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "coverage": {
+      "items": {
+        "$ref": "#/$defs/WireframeCoverageRow"
+      },
+      "title": "Coverage",
+      "type": "array"
+    },
+    "flows": {
+      "items": {
+        "$ref": "#/$defs/WireframeFlow"
+      },
+      "title": "Flows",
+      "type": "array"
+    }
+  },
+  "required": [
+    "flows",
+    "coverage"
+  ],
+  "title": "WireframesArtefact",
+  "type": "object"
+}

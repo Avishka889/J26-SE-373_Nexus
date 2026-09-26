@@ -1,0 +1,198 @@
+{
+  "$defs": {
+    "SequenceStep": {
+      "additionalProperties": false,
+      "properties": {
+        "fromId": {
+          "description": "Id of the architecture graph node this step goes from.",
+          "minLength": 1,
+          "title": "Fromid",
+          "type": "string"
+        },
+        "kind": {
+          "description": "call for a request, return for an answer, note for an aside.",
+          "enum": [
+            "call",
+            "return",
+            "note"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "message": {
+          "description": "What is asked or answered. Names inside the text are written as `{nodeId}` tokens, referring to nodes of the architecture graph, and are replaced with the node's current label when the diagram is drawn. Never write a node's name in as text: the copy would not follow a rename. A token naming no node renders as the literal braces, which is deliberate, since a silently dropped name reads as correct.",
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        },
+        "toId": {
+          "description": "Id of the architecture graph node this step goes to.",
+          "minLength": 1,
+          "title": "Toid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "fromId",
+        "toId",
+        "message",
+        "kind"
+      ],
+      "title": "SequenceStep",
+      "type": "object"
+    },
+    "UmlDiagram": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "default": "",
+          "title": "Description",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "class",
+            "er",
+            "activity",
+            "sequence"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Authored diagram text, when there is any. Null means the diagram is projected from the architecture graph when it is drawn, which is the case for class and entity relationship diagrams: freezing their text here would keep an old name after a node is renamed.",
+          "title": "Source"
+        },
+        "title": {
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "traces": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Traces",
+          "type": "array"
+        },
+        "useCaseId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The use case this diagram draws, for sequence diagrams.",
+          "title": "Usecaseid"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "title",
+        "description",
+        "source",
+        "useCaseId",
+        "traces"
+      ],
+      "title": "UmlDiagram",
+      "type": "object"
+    },
+    "UseCase": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "steps": {
+          "items": {
+            "$ref": "#/$defs/SequenceStep"
+          },
+          "minItems": 1,
+          "title": "Steps",
+          "type": "array"
+        },
+        "storyId": {
+          "anyOf": [
+            {
+              "pattern": "^US-\\d+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Storyid"
+        },
+        "traces": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Traces",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "traces",
+        "storyId",
+        "steps"
+      ],
+      "title": "UseCase",
+      "type": "object"
+    }
+  },
+  "$id": "https://sdlc.local/contracts/uml-diagrams.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "diagrams": {
+      "items": {
+        "$ref": "#/$defs/UmlDiagram"
+      },
+      "title": "Diagrams",
+      "type": "array"
+    },
+    "useCases": {
+      "items": {
+        "$ref": "#/$defs/UseCase"
+      },
+      "title": "Usecases",
+      "type": "array"
+    }
+  },
+  "required": [
+    "useCases",
+    "diagrams"
+  ],
+  "title": "UmlArtefact",
+  "type": "object"
+}

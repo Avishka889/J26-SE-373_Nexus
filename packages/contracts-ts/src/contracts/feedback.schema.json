@@ -1,0 +1,136 @@
+{
+  "$defs": {
+    "FeedbackItem": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence": {
+          "minLength": 1,
+          "title": "Evidence",
+          "type": "string"
+        },
+        "evidenceRef": {
+          "default": "",
+          "title": "Evidenceref",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "dependency",
+            "runtime",
+            "security"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "nodeIds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Nodeids",
+          "type": "array"
+        },
+        "source": {
+          "enum": [
+            "monitoring",
+            "risk-assessment",
+            "release"
+          ],
+          "title": "Source",
+          "type": "string"
+        },
+        "suggestedRequirement": {
+          "minLength": 1,
+          "title": "Suggestedrequirement",
+          "type": "string"
+        },
+        "summary": {
+          "minLength": 1,
+          "title": "Summary",
+          "type": "string"
+        },
+        "traces": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Traces",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "source",
+        "summary",
+        "evidence",
+        "evidenceRef",
+        "suggestedRequirement",
+        "traces",
+        "nodeIds"
+      ],
+      "title": "FeedbackItem",
+      "type": "object"
+    }
+  },
+  "$id": "https://sdlc.local/contracts/feedback.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "deployVersion": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Deployversion"
+    },
+    "generatedAt": {
+      "title": "Generatedat",
+      "type": "string"
+    },
+    "items": {
+      "items": {
+        "$ref": "#/$defs/FeedbackItem"
+      },
+      "title": "Items",
+      "type": "array"
+    },
+    "projectId": {
+      "minLength": 1,
+      "title": "Projectid",
+      "type": "string"
+    },
+    "reportId": {
+      "minLength": 1,
+      "title": "Reportid",
+      "type": "string"
+    },
+    "sourceReports": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Sourcereports",
+      "type": "array"
+    }
+  },
+  "required": [
+    "reportId",
+    "projectId",
+    "generatedAt",
+    "deployVersion",
+    "sourceReports",
+    "items"
+  ],
+  "title": "FeedbackReport",
+  "type": "object"
+}

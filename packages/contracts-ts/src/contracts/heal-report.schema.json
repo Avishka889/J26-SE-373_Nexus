@@ -1,0 +1,312 @@
+{
+  "$defs": {
+    "ClassificationEvidence": {
+      "additionalProperties": false,
+      "description": "Why this failure was called brittle or a regression.\n\n`changed_artefacts` is what the test traces to that moved between the two\nversions, and it is the whole argument when the rules decide alone. The\nreferee's citation is required when the model decided, because a verdict\nthat cannot point at a diff is a guess with a confident tone.",
+      "properties": {
+        "changedArtefacts": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Changedartefacts",
+          "type": "array"
+        },
+        "citedDiffSpan": {
+          "default": "",
+          "title": "Citeddiffspan",
+          "type": "string"
+        },
+        "refereeReasoning": {
+          "default": "",
+          "title": "Refereereasoning",
+          "type": "string"
+        },
+        "tracedTo": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Tracedto",
+          "type": "array"
+        }
+      },
+      "required": [
+        "tracedTo",
+        "changedArtefacts",
+        "citedDiffSpan",
+        "refereeReasoning"
+      ],
+      "title": "ClassificationEvidence",
+      "type": "object"
+    },
+    "DiffSpan": {
+      "additionalProperties": false,
+      "description": "The change, as a unified diff over test files only.\n\nKept verbatim rather than summarised. A refusal whose diff is paraphrased\ncannot be audited, and the refused diffs are the evidence this component is\njudged on.",
+      "properties": {
+        "diff": {
+          "minLength": 1,
+          "title": "Diff",
+          "type": "string"
+        },
+        "path": {
+          "minLength": 1,
+          "title": "Path",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "diff"
+      ],
+      "title": "DiffSpan",
+      "type": "object"
+    },
+    "GuardCheck": {
+      "additionalProperties": false,
+      "description": "One of the three conditions, with what was observed.\n\n`detail` is not optional prose. A guard that says False without saying what\nit saw cannot be argued with, and the point of the guard is that a person\ncan check it.",
+      "properties": {
+        "detail": {
+          "minLength": 1,
+          "title": "Detail",
+          "type": "string"
+        },
+        "name": {
+          "enum": [
+            "test-code-only",
+            "passes-unchanged-code",
+            "kills-a-mutant"
+          ],
+          "title": "Name",
+          "type": "string"
+        },
+        "passed": {
+          "title": "Passed",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "name",
+        "passed",
+        "detail"
+      ],
+      "title": "GuardCheck",
+      "type": "object"
+    },
+    "HealAttempt": {
+      "additionalProperties": false,
+      "description": "One failing test, and what happened to it.\n\nAccepted and refused attempts share this shape deliberately: they are the\nsame event with different outcomes, and separating them into two lists is\nhow a refusal rate stops being reported.",
+      "properties": {
+        "accepted": {
+          "description": "All three checks, and a repair to apply them to.\n\nComputed rather than stored: acceptance is the conjunction of the\nguard's conditions, and a stored flag is a place for it to be set\nwithout them.",
+          "readOnly": true,
+          "title": "Accepted",
+          "type": "boolean"
+        },
+        "attempts": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Attempts",
+          "type": "integer"
+        },
+        "checks": {
+          "items": {
+            "$ref": "#/$defs/GuardCheck"
+          },
+          "title": "Checks",
+          "type": "array"
+        },
+        "classification": {
+          "enum": [
+            "brittle",
+            "regression",
+            "undecided"
+          ],
+          "title": "Classification",
+          "type": "string"
+        },
+        "classifiedBy": {
+          "enum": [
+            "trace-changed",
+            "trace-unchanged",
+            "model-referee",
+            "unclassified"
+          ],
+          "title": "Classifiedby",
+          "type": "string"
+        },
+        "diff": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DiffSpan"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "evidence": {
+          "$ref": "#/$defs/ClassificationEvidence"
+        },
+        "failureMessage": {
+          "minLength": 1,
+          "title": "Failuremessage",
+          "type": "string"
+        },
+        "killedMutantIds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Killedmutantids",
+          "type": "array"
+        },
+        "passedOnUnchangedRunId": {
+          "default": "",
+          "title": "Passedonunchangedrunid",
+          "type": "string"
+        },
+        "refusalReason": {
+          "anyOf": [
+            {
+              "enum": [
+                "touched-production-code",
+                "assertion-weakened",
+                "test-deleted",
+                "still-failing",
+                "kills-no-mutant",
+                "no-repair-produced",
+                "malformed-output",
+                "no-code-to-check"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Refusalreason"
+        },
+        "rejectedDrafts": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Rejecteddrafts",
+          "type": "array"
+        },
+        "suitePath": {
+          "minLength": 1,
+          "title": "Suitepath",
+          "type": "string"
+        },
+        "testId": {
+          "minLength": 1,
+          "title": "Testid",
+          "type": "string"
+        },
+        "testName": {
+          "minLength": 1,
+          "title": "Testname",
+          "type": "string"
+        }
+      },
+      "required": [
+        "testId",
+        "testName",
+        "suitePath",
+        "failureMessage",
+        "classification",
+        "classifiedBy",
+        "evidence",
+        "attempts",
+        "rejectedDrafts",
+        "diff",
+        "checks",
+        "refusalReason",
+        "passedOnUnchangedRunId",
+        "killedMutantIds",
+        "accepted"
+      ],
+      "title": "HealAttempt",
+      "type": "object"
+    }
+  },
+  "$id": "https://sdlc.local/contracts/heal-report.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "One pass of the loop over one version's failures.\n\nOutlives the test report that produced it. A test report is replaced by the\nnext run; a refused repair is evidence about how the model behaves, and the\nstudy reads it long after the suite has moved on.",
+  "properties": {
+    "attempts": {
+      "items": {
+        "$ref": "#/$defs/HealAttempt"
+      },
+      "title": "Attempts",
+      "type": "array"
+    },
+    "flaggedRegressions": {
+      "readOnly": true,
+      "title": "Flaggedregressions",
+      "type": "integer"
+    },
+    "fromCodeVersion": {
+      "minimum": 1,
+      "title": "Fromcodeversion",
+      "type": "integer"
+    },
+    "generatedAt": {
+      "title": "Generatedat",
+      "type": "string"
+    },
+    "healed": {
+      "readOnly": true,
+      "title": "Healed",
+      "type": "integer"
+    },
+    "naiveConvergence": {
+      "description": "The number a loop without the guard would have reported.\n\nEvery brittle test the model produced a repair for, whether or not the\nrepair kept the test's power. Reported beside the strict rate because\nthe gap between them is the guard's effect, and the gap is the result.",
+      "readOnly": true,
+      "title": "Naiveconvergence",
+      "type": "number"
+    },
+    "refused": {
+      "readOnly": true,
+      "title": "Refused",
+      "type": "integer"
+    },
+    "strictConvergence": {
+      "description": "The number this loop reports: repairs that cleared the guard.",
+      "readOnly": true,
+      "title": "Strictconvergence",
+      "type": "number"
+    },
+    "target": {
+      "minLength": 1,
+      "title": "Target",
+      "type": "string"
+    },
+    "toCodeVersion": {
+      "minimum": 1,
+      "title": "Tocodeversion",
+      "type": "integer"
+    },
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "version",
+    "generatedAt",
+    "target",
+    "fromCodeVersion",
+    "toCodeVersion",
+    "attempts",
+    "healed",
+    "refused",
+    "flaggedRegressions",
+    "naiveConvergence",
+    "strictConvergence"
+  ],
+  "title": "HealReport",
+  "type": "object"
+}

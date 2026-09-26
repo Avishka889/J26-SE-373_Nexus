@@ -1,0 +1,283 @@
+{
+  "$defs": {
+    "EntityAttribute": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "type": {
+          "minLength": 1,
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "type"
+      ],
+      "title": "EntityAttribute",
+      "type": "object"
+    },
+    "GraphEdge": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "action",
+            "data",
+            "dependency",
+            "constraint"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "source": {
+          "minLength": 1,
+          "title": "Source",
+          "type": "string"
+        },
+        "target": {
+          "minLength": 1,
+          "title": "Target",
+          "type": "string"
+        },
+        "traces": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Traces",
+          "type": "array"
+        },
+        "verb": {
+          "minLength": 1,
+          "title": "Verb",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "source",
+        "target",
+        "kind",
+        "verb",
+        "traces"
+      ],
+      "title": "GraphEdge",
+      "type": "object"
+    },
+    "GraphNode": {
+      "additionalProperties": false,
+      "properties": {
+        "actorKind": {
+          "anyOf": [
+            {
+              "enum": [
+                "primary",
+                "external_system"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Actorkind"
+        },
+        "appliesTo": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Appliesto",
+          "type": "array"
+        },
+        "attributes": {
+          "items": {
+            "$ref": "#/$defs/EntityAttribute"
+          },
+          "title": "Attributes",
+          "type": "array"
+        },
+        "changedInVersion": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Changedinversion"
+        },
+        "description": {
+          "default": "",
+          "title": "Description",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "actor",
+            "entity",
+            "service",
+            "constraint"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "position": {
+          "$ref": "#/$defs/Position"
+        },
+        "standard": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Standard"
+        },
+        "traces": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Traces",
+          "type": "array"
+        },
+        "unconfirmed": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ValidationFinding"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "label",
+        "description",
+        "position",
+        "traces",
+        "attributes",
+        "actorKind",
+        "standard",
+        "appliesTo",
+        "unconfirmed",
+        "changedInVersion"
+      ],
+      "title": "GraphNode",
+      "type": "object"
+    },
+    "Position": {
+      "additionalProperties": false,
+      "properties": {
+        "x": {
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "title": "Y",
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "title": "Position",
+      "type": "object"
+    },
+    "ValidationFinding": {
+      "additionalProperties": false,
+      "description": "A named rule check that could not confirm a node.\n\nCarried on the node itself rather than reported in a separate list, because a\nwarning the reader cannot trace to a cause is worse than no warning: the\ncanvas has to be able to say which rule fired, in plain words, and which\nrequirement the reader should go and look at.\n\n`rule_id` is the stable name of one of C1's rule checks, so the same finding\ncan be counted across runs for the evaluation. `reason` is written for the\nperson reading the design, and doubles as the repair hint the extraction loop\nfeeds back to the model.",
+      "properties": {
+        "reason": {
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        },
+        "ruleId": {
+          "minLength": 1,
+          "title": "Ruleid",
+          "type": "string"
+        },
+        "traces": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Traces",
+          "type": "array"
+        }
+      },
+      "required": [
+        "ruleId",
+        "reason",
+        "traces"
+      ],
+      "title": "ValidationFinding",
+      "type": "object"
+    }
+  },
+  "$id": "https://sdlc.local/contracts/architecture-graph.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "changedNodeIds": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Changednodeids",
+      "type": "array"
+    },
+    "edges": {
+      "items": {
+        "$ref": "#/$defs/GraphEdge"
+      },
+      "title": "Edges",
+      "type": "array"
+    },
+    "nodes": {
+      "items": {
+        "$ref": "#/$defs/GraphNode"
+      },
+      "title": "Nodes",
+      "type": "array"
+    }
+  },
+  "required": [
+    "nodes",
+    "edges",
+    "changedNodeIds"
+  ],
+  "title": "ArchitectureGraph",
+  "type": "object"
+}
