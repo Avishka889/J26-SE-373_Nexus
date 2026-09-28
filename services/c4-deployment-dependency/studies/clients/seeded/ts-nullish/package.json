@@ -1,0 +1,11 @@
+{
+  "name": "seeded-ts-nullish",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc --noEmit -p ."
+  },
+  "devDependencies": {
+    "typescript": "5.5.4"
+  }
+}

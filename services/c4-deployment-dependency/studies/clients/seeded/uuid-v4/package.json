@@ -1,0 +1,12 @@
+{
+  "name": "seeded-uuid-v4",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node check.js"
+  },
+  "dependencies": {
+    "uuid": "9.0.1"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "seeded-express-del",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "node check.js"
+  },
+  "dependencies": {
+    "express": "4.21.2"
+  }
+}
