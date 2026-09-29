@@ -1,0 +1,132 @@
+[
+  {
+    "binaryBreaking": true,
+    "impactedSymbol": "org.apache.dubbo.config.AbstractConfig.checkKey(java.lang.String,java.lang.String)",
+    "nature": "DELETION",
+    "kind": "EXECUTABLE_REMOVED",
+    "sourceBreaking": true,
+    "impactedType": "com.alibaba.dubbo.config.ApplicationConfig",
+    "location": {
+      "path": "org/apache/dubbo/config/AbstractConfig.java",
+      "line": 353
+    },
+    "newSymbol": null
+  },
+  {
+    "binaryBreaking": true,
+    "impactedSymbol": "com.alibaba.dubbo.rpc.RpcContext.<init>()",
+    "nature": "DELETION",
+    "kind": "EXECUTABLE_REMOVED",
+    "sourceBreaking": true,
+    "impactedType": "com.alibaba.dubbo.rpc.RpcContext",
+    "location": {
+      "path": "com/alibaba/dubbo/rpc/RpcContext.java",
+      "line": 28
+    },
+    "newSymbol": null
+  },
+  {
+    "binaryBreaking": true,
+    "impactedSymbol": "org.apache.dubbo.rpc.RpcContext.getServerContext()",
+    "nature": "MUTATION",
+    "kind": "METHOD_RETURN_TYPE_ERASURE_CHANGED",
+    "sourceBreaking": false,
+    "impactedType": "com.alibaba.dubbo.rpc.RpcContext",
+    "location": {
+      "path": "org/apache/dubbo/rpc/RpcContext.java",
+      "line": 118
+    },
+    "newSymbol": "com.alibaba.dubbo.rpc.RpcContext.getServerContext()"
+  },
+  {
+    "binaryBreaking": true,
+    "impactedSymbol": "com.alibaba.dubbo.rpc.protocol.http.HttpRemoteInvocation",
+    "nature": "DELETION",
+    "kind": "TYPE_REMOVED",
+    "sourceBreaking": true,
+    "impactedType": "com.alibaba.dubbo.rpc.protocol.http.HttpRemoteInvocation",
+    "location": {
+      "path": "com/alibaba/dubbo/rpc/protocol/http/HttpRemoteInvocation.java",
+      "line": null
+    },
+    "newSymbol": null
+  },
+  {
+    "binaryBreaking": true,
+    "impactedSymbol": "org.apache.dubbo.common.constants.CommonConstants.GROUP_CHAR_SEPERATOR",
+    "nature": "DELETION",
+    "kind": "FIELD_REMOVED",
+    "sourceBreaking": true,
+    "impactedType": "com.alibaba.dubbo.common.Constants",
+    "location": {
+      "path": "org/apache/dubbo/common/constants/CommonConstants.java",
+      "line": null
+    },
+    "newSymbol": null
+  },
+  {
+    "binaryBreaking": false,
+    "impactedSymbol": "org.apache.dubbo.remoting.Transporter.bind(org.apache.dubbo.common.URL,org.apache.dubbo.remoting.ChannelHandler)",
+    "nature": "MUTATION",
+    "kind": "METHOD_RETURN_TYPE_CHANGED_INCOMPATIBLE",
+    "sourceBreaking": true,
+    "impactedType": "com.alibaba.dubbo.remoting.Transporter",
+    "location": {
+      "path": "org/apache/dubbo/remoting/Transporter.java",
+      "line": null
+    },
+    "newSymbol": "com.alibaba.dubbo.remoting.Transporter.bind(org.apache.dubbo.common.URL,org.apache.dubbo.remoting.ChannelHandler)"
+  },
+  {
+    "binaryBreaking": false,
+    "impactedSymbol": "com.alibaba.com.caucho.hessian.io.AbstractHessianInput",
+    "nature": "ADDITION",
+    "kind": "TYPE_NEW_ABSTRACT_METHOD",
+    "sourceBreaking": true,
+    "impactedType": "com.alibaba.com.caucho.hessian.io.AbstractHessianInput",
+    "location": {
+      "path": "com/alibaba/com/caucho/hessian/io/AbstractHessianInput.java",
+      "line": null
+    },
+    "newSymbol": "com.alibaba.com.caucho.hessian.io.AbstractHessianInput.checkAndReadNull()"
+  },
+  {
+    "binaryBreaking": true,
+    "impactedSymbol": "com.alibaba.dubbo.rpc.Result$AbstractResult",
+    "nature": "MUTATION",
+    "kind": "TYPE_SUPERTYPE_REMOVED",
+    "sourceBreaking": true,
+    "impactedType": "com.alibaba.dubbo.rpc.Result$AbstractResult",
+    "location": {
+      "path": "com/alibaba/dubbo/rpc/Result.java",
+      "line": null
+    },
+    "newSymbol": null
+  },
+  {
+    "binaryBreaking": true,
+    "impactedSymbol": "com.alibaba.dubbo.common.Constants",
+    "nature": "MUTATION",
+    "kind": "TYPE_SUPERTYPE_REMOVED",
+    "sourceBreaking": true,
+    "impactedType": "com.alibaba.dubbo.common.Constants",
+    "location": {
+      "path": "com/alibaba/dubbo/common/Constants.java",
+      "line": null
+    },
+    "newSymbol": null
+  },
+  {
+    "binaryBreaking": true,
+    "impactedSymbol": "com.alibaba.dubbo.common.Constants",
+    "nature": "MUTATION",
+    "kind": "TYPE_SUPERTYPE_REMOVED",
+    "sourceBreaking": true,
+    "impactedType": "com.alibaba.dubbo.common.Constants",
+    "location": {
+      "path": "com/alibaba/dubbo/common/Constants.java",
+      "line": null
+    },
+    "newSymbol": null
+  }
+]
