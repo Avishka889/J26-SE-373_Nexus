@@ -1,0 +1,15 @@
+{
+  "nodes": [
+    {"id": "a-planner", "kind": "actor", "label": "Planner", "description": "Someone who keeps task lists.", "position": {"x": 0, "y": 0}, "traces": ["R-1"], "actorKind": "primary"},
+    {"id": "e-task-list", "kind": "entity", "label": "TaskList", "position": {"x": 200, "y": 0}, "traces": ["R-1"], "attributes": [{"name": "title", "type": "string"}]},
+    {"id": "e-task", "kind": "entity", "label": "Task", "position": {"x": 400, "y": 0}, "traces": ["R-2"], "attributes": [{"name": "title", "type": "string"}, {"name": "done", "type": "boolean"}]},
+    {"id": "s-task-api", "kind": "service", "label": "Task API", "position": {"x": 300, "y": 200}, "traces": ["R-1", "R-2"]},
+    {"id": "c-owner-only", "kind": "constraint", "label": "Only the owner sees a list", "position": {"x": 500, "y": 200}, "traces": ["R-3"], "standard": "internal", "appliesTo": ["e-task-list"]}
+  ],
+  "edges": [
+    {"id": "g1", "source": "a-planner", "target": "e-task-list", "kind": "action", "verb": "creates", "traces": ["R-1"]},
+    {"id": "g2", "source": "e-task-list", "target": "e-task", "kind": "data", "verb": "contains", "traces": ["R-2"]},
+    {"id": "g3", "source": "s-task-api", "target": "e-task", "kind": "dependency", "verb": "serves", "traces": ["R-2"]}
+  ],
+  "changedNodeIds": []
+}

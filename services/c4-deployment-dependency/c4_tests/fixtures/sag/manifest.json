@@ -1,0 +1,8 @@
+[
+  {"path": "apps/api/src/routes/task-lists.ts", "stage": "backend-code", "generator": "rule", "implements": ["ep-list-task-lists", "ep-create-task-list"]},
+  {"path": "apps/api/src/routes/tasks.ts", "stage": "backend-code", "generator": "rule", "implements": ["ep-list-tasks", "ep-update-task"]},
+  {"path": "apps/api/src/models/TaskList.ts", "stage": "backend-code", "generator": "rule", "implements": ["TaskList"]},
+  {"path": "apps/api/src/models/Task.ts", "stage": "backend-code", "generator": "rule", "implements": ["Task"]},
+  {"path": "apps/api/src/server.ts", "stage": "backend-code", "generator": "static", "implements": []},
+  {"path": "apps/web/src/screens/TaskListScreen.tsx", "stage": "frontend-code", "generator": "rule", "implements": ["scr-task-lists"]}
+]

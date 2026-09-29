@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "entities": [
+    {"name": "TaskList", "fields": [{"name": "id", "type": "id"}, {"name": "title", "type": "string"}], "traces": ["R-1"]},
+    {"name": "Task", "fields": [{"name": "id", "type": "id"}, {"name": "title", "type": "string"}, {"name": "done", "type": "boolean"}], "traces": ["R-2"]}
+  ],
+  "endpoints": [
+    {"id": "ep-list-task-lists", "method": "GET", "path": "/task-lists", "response": {"entity": "TaskList"}, "traces": {"requirementIds": ["R-1"]}},
+    {"id": "ep-create-task-list", "method": "POST", "path": "/task-lists", "request": {"entity": "TaskList"}, "response": {"entity": "TaskList"}, "traces": {"requirementIds": ["R-1"]}},
+    {"id": "ep-list-tasks", "method": "GET", "path": "/task-lists/{id}/tasks", "response": {"entity": "Task"}, "traces": {"requirementIds": ["R-2"]}},
+    {"id": "ep-update-task", "method": "PATCH", "path": "/tasks/{id}", "request": {"entity": "Task"}, "response": {"entity": "Task"}, "traces": {"requirementIds": ["R-2"]}}
+  ]
+}
