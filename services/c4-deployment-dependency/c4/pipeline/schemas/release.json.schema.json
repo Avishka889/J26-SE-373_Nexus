@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdlc-platform.local/c4/release.json",
+  "title": "The fingerprint a release serves at /release.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["candidateHash", "deployVersion", "codeVersion", "lockfileSha256"],
+  "properties": {
+    "candidateHash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "deployVersion": { "type": "integer", "minimum": 1 },
+    "codeVersion": { "type": "integer", "minimum": 1 },
+    "lockfileSha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  }
+}
