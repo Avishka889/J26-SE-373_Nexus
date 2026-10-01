@@ -1,0 +1,64 @@
+{
+  "caseId": "bump-dc9a40fde9a9",
+  "client": {
+    "commit": "dc9a40fde9a9fee5aaec3f60695385ba539406d4",
+    "image": "ghcr.io/chains-project/breaking-updates@sha256:72c1eb2bcfa60c4f15d2a1a1c28e5d52c86bccc64aeb525d5999444d56c94517",
+    "kind": "github",
+    "repoUrl": "https://github.com/arextest/arex-agent-java",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:dc9a40fde9a9fee5aaec3f60695385ba539406d4-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:dc9a40fde9a9fee5aaec3f60695385ba539406d4-breaking",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "COMPILATION_FAILURE",
+    "failureLocations": [
+      {
+        "line": 43,
+        "path": "arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/main/java/io/arex/inst/dubbo/apache/v2/DubboConsumerExtractor.java"
+      },
+      {
+        "line": 45,
+        "path": "arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/main/java/io/arex/inst/dubbo/apache/v2/DubboConsumerExtractor.java"
+      }
+    ],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/dc9a40fde9a9fee5aaec3f60695385ba539406d4.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb; failure locations from running the breaking image, pinned by digest, on 2026-09-27 (mvn clean test, the compiler's errors)",
+  "source": "bump",
+  "sourceChange": "patch",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "2.7.3",
+    "manifestPaths": [],
+    "package": "org.apache.dubbo:dubbo",
+    "scope": "provided",
+    "toVersion": "2.7.21"
+  }
+}

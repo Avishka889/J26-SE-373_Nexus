@@ -1,0 +1,55 @@
+{
+  "caseId": "bump-c09896887acf",
+  "client": {
+    "commit": "c09896887acf0fe59320e01145a7034cd8d4e326",
+    "image": "ghcr.io/chains-project/breaking-updates:c09896887acf0fe59320e01145a7034cd8d4e326-breaking",
+    "kind": "github",
+    "repoUrl": "https://github.com/jenkinsci/incrementals-tools",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:c09896887acf0fe59320e01145a7034cd8d4e326-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:c09896887acf0fe59320e01145a7034cd8d4e326-breaking",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "COMPILATION_FAILURE",
+    "failureLocations": [],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/c09896887acf0fe59320e01145a7034cd8d4e326.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb",
+  "source": "bump",
+  "sourceChange": "minor",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "1.93",
+    "manifestPaths": [],
+    "package": "org.kohsuke:github-api",
+    "scope": "compile",
+    "toVersion": "1.314"
+  }
+}
