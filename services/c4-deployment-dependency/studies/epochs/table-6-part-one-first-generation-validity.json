@@ -1,0 +1,3174 @@
+{
+  "byProject": {
+    "calculator": {
+      "files": 23,
+      "generations": 3,
+      "valid": 3,
+      "validFiles": 23
+    },
+    "cold-chain": {
+      "files": 23,
+      "generations": 3,
+      "valid": 3,
+      "validFiles": 23
+    },
+    "nexuspay": {
+      "files": 23,
+      "generations": 3,
+      "valid": 3,
+      "validFiles": 23
+    },
+    "shopflow": {
+      "files": 23,
+      "generations": 3,
+      "valid": 3,
+      "validFiles": 23
+    },
+    "task-tracker": {
+      "files": 23,
+      "generations": 3,
+      "valid": 3,
+      "validFiles": 23
+    }
+  },
+  "byValidator": {
+    "actionlint": {
+      "checked": 30,
+      "failed": 0,
+      "notRun": 0,
+      "passed": 30
+    },
+    "hadolint": {
+      "checked": 15,
+      "failed": 0,
+      "notRun": 0,
+      "passed": 15
+    },
+    "json-schema": {
+      "checked": 75,
+      "failed": 0,
+      "notRun": 0,
+      "passed": 75
+    },
+    "kubeconform": {
+      "checked": 10,
+      "failed": 0,
+      "notRun": 0,
+      "passed": 10
+    },
+    "secret-scan": {
+      "checked": 115,
+      "failed": 0,
+      "notRun": 0,
+      "passed": 115
+    },
+    "yaml-parse": {
+      "checked": 55,
+      "failed": 0,
+      "notRun": 0,
+      "passed": 55
+    }
+  },
+  "generations": [
+    {
+      "files": [
+        {
+          "path": "Dockerfile",
+          "templateId": "mern/Dockerfile@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "hadolint 2.15.1, default threshold",
+              "validator": "hadolint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".dockerignore",
+          "templateId": "mern/dockerignore@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "render.yaml",
+          "templateId": "mern/render.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Render Blueprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "vercel.json",
+          "templateId": "mern/vercel.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Vercel project schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/deploy.yml",
+          "templateId": "mern/deploy.yml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/verify-release.yml",
+          "templateId": "mern/verify-release.yml@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "apps/web/public/release.json",
+          "templateId": "mern/release.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, release.json fingerprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        }
+      ],
+      "project": "task-tracker",
+      "reason": "",
+      "supported": true,
+      "valid": true,
+      "variant": "private"
+    },
+    {
+      "files": [
+        {
+          "path": "Dockerfile",
+          "templateId": "mern/Dockerfile@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "hadolint 2.15.1, default threshold",
+              "validator": "hadolint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".dockerignore",
+          "templateId": "mern/dockerignore@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "render.yaml",
+          "templateId": "mern/render.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Render Blueprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "vercel.json",
+          "templateId": "mern/vercel.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Vercel project schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/deploy.yml",
+          "templateId": "mern/deploy.yml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/verify-release.yml",
+          "templateId": "mern/verify-release.yml@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "apps/web/public/release.json",
+          "templateId": "mern/release.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, release.json fingerprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        }
+      ],
+      "project": "task-tracker",
+      "reason": "",
+      "supported": true,
+      "valid": true,
+      "variant": "public"
+    },
+    {
+      "files": [
+        {
+          "path": "Dockerfile",
+          "templateId": "mern/Dockerfile@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "hadolint 2.15.1, default threshold",
+              "validator": "hadolint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".dockerignore",
+          "templateId": "mern/dockerignore@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "render.yaml",
+          "templateId": "mern/render.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Render Blueprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "vercel.json",
+          "templateId": "mern/vercel.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Vercel project schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/deploy.yml",
+          "templateId": "mern/deploy.yml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/verify-release.yml",
+          "templateId": "mern/verify-release.yml@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "k8s/deployment.yaml",
+          "templateId": "mern/k8s-deployment.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "kubeconform 0.8.0, strict, Kubernetes 1.37.1 schemas",
+              "validator": "kubeconform"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "k8s/service.yaml",
+          "templateId": "mern/k8s-service.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "kubeconform 0.8.0, strict, Kubernetes 1.37.1 schemas",
+              "validator": "kubeconform"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "apps/web/public/release.json",
+          "templateId": "mern/release.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, release.json fingerprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        }
+      ],
+      "project": "task-tracker",
+      "reason": "",
+      "supported": true,
+      "valid": true,
+      "variant": "kubernetes"
+    },
+    {
+      "files": [
+        {
+          "path": "Dockerfile",
+          "templateId": "mern/Dockerfile@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "hadolint 2.15.1, default threshold",
+              "validator": "hadolint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".dockerignore",
+          "templateId": "mern/dockerignore@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "render.yaml",
+          "templateId": "mern/render.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Render Blueprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "vercel.json",
+          "templateId": "mern/vercel.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Vercel project schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/deploy.yml",
+          "templateId": "mern/deploy.yml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/verify-release.yml",
+          "templateId": "mern/verify-release.yml@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "apps/web/public/release.json",
+          "templateId": "mern/release.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, release.json fingerprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        }
+      ],
+      "project": "calculator",
+      "reason": "",
+      "supported": true,
+      "valid": true,
+      "variant": "private"
+    },
+    {
+      "files": [
+        {
+          "path": "Dockerfile",
+          "templateId": "mern/Dockerfile@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "hadolint 2.15.1, default threshold",
+              "validator": "hadolint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".dockerignore",
+          "templateId": "mern/dockerignore@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "render.yaml",
+          "templateId": "mern/render.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Render Blueprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "vercel.json",
+          "templateId": "mern/vercel.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Vercel project schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/deploy.yml",
+          "templateId": "mern/deploy.yml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/verify-release.yml",
+          "templateId": "mern/verify-release.yml@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "apps/web/public/release.json",
+          "templateId": "mern/release.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, release.json fingerprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        }
+      ],
+      "project": "calculator",
+      "reason": "",
+      "supported": true,
+      "valid": true,
+      "variant": "public"
+    },
+    {
+      "files": [
+        {
+          "path": "Dockerfile",
+          "templateId": "mern/Dockerfile@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "hadolint 2.15.1, default threshold",
+              "validator": "hadolint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".dockerignore",
+          "templateId": "mern/dockerignore@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "render.yaml",
+          "templateId": "mern/render.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Render Blueprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "vercel.json",
+          "templateId": "mern/vercel.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Vercel project schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/deploy.yml",
+          "templateId": "mern/deploy.yml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/verify-release.yml",
+          "templateId": "mern/verify-release.yml@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "k8s/deployment.yaml",
+          "templateId": "mern/k8s-deployment.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "kubeconform 0.8.0, strict, Kubernetes 1.37.1 schemas",
+              "validator": "kubeconform"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "k8s/service.yaml",
+          "templateId": "mern/k8s-service.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "kubeconform 0.8.0, strict, Kubernetes 1.37.1 schemas",
+              "validator": "kubeconform"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "apps/web/public/release.json",
+          "templateId": "mern/release.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, release.json fingerprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        }
+      ],
+      "project": "calculator",
+      "reason": "",
+      "supported": true,
+      "valid": true,
+      "variant": "kubernetes"
+    },
+    {
+      "files": [
+        {
+          "path": "Dockerfile",
+          "templateId": "mern/Dockerfile@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "hadolint 2.15.1, default threshold",
+              "validator": "hadolint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".dockerignore",
+          "templateId": "mern/dockerignore@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "render.yaml",
+          "templateId": "mern/render.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Render Blueprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "vercel.json",
+          "templateId": "mern/vercel.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Vercel project schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/deploy.yml",
+          "templateId": "mern/deploy.yml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/verify-release.yml",
+          "templateId": "mern/verify-release.yml@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "apps/web/public/release.json",
+          "templateId": "mern/release.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, release.json fingerprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        }
+      ],
+      "project": "cold-chain",
+      "reason": "",
+      "supported": true,
+      "valid": true,
+      "variant": "private"
+    },
+    {
+      "files": [
+        {
+          "path": "Dockerfile",
+          "templateId": "mern/Dockerfile@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "hadolint 2.15.1, default threshold",
+              "validator": "hadolint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".dockerignore",
+          "templateId": "mern/dockerignore@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "render.yaml",
+          "templateId": "mern/render.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Render Blueprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "vercel.json",
+          "templateId": "mern/vercel.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Vercel project schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/deploy.yml",
+          "templateId": "mern/deploy.yml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/verify-release.yml",
+          "templateId": "mern/verify-release.yml@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "apps/web/public/release.json",
+          "templateId": "mern/release.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, release.json fingerprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        }
+      ],
+      "project": "cold-chain",
+      "reason": "",
+      "supported": true,
+      "valid": true,
+      "variant": "public"
+    },
+    {
+      "files": [
+        {
+          "path": "Dockerfile",
+          "templateId": "mern/Dockerfile@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "hadolint 2.15.1, default threshold",
+              "validator": "hadolint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".dockerignore",
+          "templateId": "mern/dockerignore@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "render.yaml",
+          "templateId": "mern/render.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Render Blueprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "vercel.json",
+          "templateId": "mern/vercel.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Vercel project schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/deploy.yml",
+          "templateId": "mern/deploy.yml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/verify-release.yml",
+          "templateId": "mern/verify-release.yml@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "k8s/deployment.yaml",
+          "templateId": "mern/k8s-deployment.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "kubeconform 0.8.0, strict, Kubernetes 1.37.1 schemas",
+              "validator": "kubeconform"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "k8s/service.yaml",
+          "templateId": "mern/k8s-service.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "kubeconform 0.8.0, strict, Kubernetes 1.37.1 schemas",
+              "validator": "kubeconform"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "apps/web/public/release.json",
+          "templateId": "mern/release.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, release.json fingerprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        }
+      ],
+      "project": "cold-chain",
+      "reason": "",
+      "supported": true,
+      "valid": true,
+      "variant": "kubernetes"
+    },
+    {
+      "files": [
+        {
+          "path": "Dockerfile",
+          "templateId": "mern/Dockerfile@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "hadolint 2.15.1, default threshold",
+              "validator": "hadolint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".dockerignore",
+          "templateId": "mern/dockerignore@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "render.yaml",
+          "templateId": "mern/render.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Render Blueprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "vercel.json",
+          "templateId": "mern/vercel.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Vercel project schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/deploy.yml",
+          "templateId": "mern/deploy.yml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/verify-release.yml",
+          "templateId": "mern/verify-release.yml@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "apps/web/public/release.json",
+          "templateId": "mern/release.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, release.json fingerprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        }
+      ],
+      "project": "nexuspay",
+      "reason": "",
+      "supported": true,
+      "valid": true,
+      "variant": "private"
+    },
+    {
+      "files": [
+        {
+          "path": "Dockerfile",
+          "templateId": "mern/Dockerfile@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "hadolint 2.15.1, default threshold",
+              "validator": "hadolint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".dockerignore",
+          "templateId": "mern/dockerignore@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "render.yaml",
+          "templateId": "mern/render.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Render Blueprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "vercel.json",
+          "templateId": "mern/vercel.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Vercel project schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/deploy.yml",
+          "templateId": "mern/deploy.yml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/verify-release.yml",
+          "templateId": "mern/verify-release.yml@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "apps/web/public/release.json",
+          "templateId": "mern/release.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, release.json fingerprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        }
+      ],
+      "project": "nexuspay",
+      "reason": "",
+      "supported": true,
+      "valid": true,
+      "variant": "public"
+    },
+    {
+      "files": [
+        {
+          "path": "Dockerfile",
+          "templateId": "mern/Dockerfile@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "hadolint 2.15.1, default threshold",
+              "validator": "hadolint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".dockerignore",
+          "templateId": "mern/dockerignore@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "render.yaml",
+          "templateId": "mern/render.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Render Blueprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "vercel.json",
+          "templateId": "mern/vercel.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Vercel project schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/deploy.yml",
+          "templateId": "mern/deploy.yml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/verify-release.yml",
+          "templateId": "mern/verify-release.yml@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "k8s/deployment.yaml",
+          "templateId": "mern/k8s-deployment.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "kubeconform 0.8.0, strict, Kubernetes 1.37.1 schemas",
+              "validator": "kubeconform"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "k8s/service.yaml",
+          "templateId": "mern/k8s-service.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "kubeconform 0.8.0, strict, Kubernetes 1.37.1 schemas",
+              "validator": "kubeconform"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "apps/web/public/release.json",
+          "templateId": "mern/release.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, release.json fingerprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        }
+      ],
+      "project": "nexuspay",
+      "reason": "",
+      "supported": true,
+      "valid": true,
+      "variant": "kubernetes"
+    },
+    {
+      "files": [
+        {
+          "path": "Dockerfile",
+          "templateId": "mern/Dockerfile@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "hadolint 2.15.1, default threshold",
+              "validator": "hadolint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".dockerignore",
+          "templateId": "mern/dockerignore@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "render.yaml",
+          "templateId": "mern/render.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Render Blueprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "vercel.json",
+          "templateId": "mern/vercel.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Vercel project schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/deploy.yml",
+          "templateId": "mern/deploy.yml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/verify-release.yml",
+          "templateId": "mern/verify-release.yml@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "apps/web/public/release.json",
+          "templateId": "mern/release.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, release.json fingerprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        }
+      ],
+      "project": "shopflow",
+      "reason": "",
+      "supported": true,
+      "valid": true,
+      "variant": "private"
+    },
+    {
+      "files": [
+        {
+          "path": "Dockerfile",
+          "templateId": "mern/Dockerfile@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "hadolint 2.15.1, default threshold",
+              "validator": "hadolint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".dockerignore",
+          "templateId": "mern/dockerignore@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "render.yaml",
+          "templateId": "mern/render.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Render Blueprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "vercel.json",
+          "templateId": "mern/vercel.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Vercel project schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/deploy.yml",
+          "templateId": "mern/deploy.yml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/verify-release.yml",
+          "templateId": "mern/verify-release.yml@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "apps/web/public/release.json",
+          "templateId": "mern/release.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, release.json fingerprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        }
+      ],
+      "project": "shopflow",
+      "reason": "",
+      "supported": true,
+      "valid": true,
+      "variant": "public"
+    },
+    {
+      "files": [
+        {
+          "path": "Dockerfile",
+          "templateId": "mern/Dockerfile@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "hadolint 2.15.1, default threshold",
+              "validator": "hadolint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".dockerignore",
+          "templateId": "mern/dockerignore@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "render.yaml",
+          "templateId": "mern/render.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Render Blueprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "vercel.json",
+          "templateId": "mern/vercel.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, Vercel project schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/deploy.yml",
+          "templateId": "mern/deploy.yml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": ".github/workflows/verify-release.yml",
+          "templateId": "mern/verify-release.yml@2",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, GitHub workflow schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "actionlint 1.7.12, with shellcheck",
+              "validator": "actionlint"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "k8s/deployment.yaml",
+          "templateId": "mern/k8s-deployment.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "kubeconform 0.8.0, strict, Kubernetes 1.37.1 schemas",
+              "validator": "kubeconform"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "k8s/service.yaml",
+          "templateId": "mern/k8s-service.yaml@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "PyYAML 6.0.3, read as YAML 1.2",
+              "validator": "yaml-parse"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "kubeconform 0.8.0, strict, Kubernetes 1.37.1 schemas",
+              "validator": "kubeconform"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        },
+        {
+          "path": "apps/web/public/release.json",
+          "templateId": "mern/release.json@1",
+          "valid": true,
+          "validations": [
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "jsonschema 4.26.0, release.json fingerprint schema",
+              "validator": "json-schema"
+            },
+            {
+              "findings": [],
+              "outcome": "passed",
+              "reason": "",
+              "tool": "c4 secret scan, 9 rules",
+              "validator": "secret-scan"
+            }
+          ]
+        }
+      ],
+      "project": "shopflow",
+      "reason": "",
+      "supported": true,
+      "valid": true,
+      "variant": "kubernetes"
+    }
+  ],
+  "overall": {
+    "files": 115,
+    "generations": 15,
+    "valid": 15,
+    "validFiles": 115
+  },
+  "study": {
+    "commit": "585a2b5",
+    "date": "2026-09-27",
+    "label": "Table 6, part one: first-generation validity",
+    "projects": {
+      "calculator": "b39574254bbd2f9f98379e260abd41bae93920c791ca8ecef52d7ed70f3e5bb8",
+      "cold-chain": "26537392e8d22221f543d3a8ac06790159a8ea7ae076e4889f89ea4e8c658ed2",
+      "nexuspay": "684d4d4c57c461dbe35d9353409ad398ec9cdb89d94044f0eba08bb78c987c42",
+      "shopflow": "38ca57e81e61986922106dca15545cb3707834e49d6409f81a48dca87dce6408",
+      "task-tracker": "23f7e0aa4defd523aa2b2c9127549bd695d0bf710e5273decdf362e6526be4a2"
+    },
+    "schemas": {
+      "github-workflow.json": "d10c9f4656e1bd5bc6727e9b35080e017dc167154726fca93da33c7a6bd1c4f3",
+      "kubernetes/v1.37.1-standalone-strict/deployment-apps-v1.json": "0b64451c0b8c36ea06dfebf952718810ae24a07779fb0ed2a6b03f1cc8735a54",
+      "kubernetes/v1.37.1-standalone-strict/service-v1.json": "8bf019854daed511e7c174896a898173fa65d88ec5937c687a37303d4cc9351b",
+      "release.json.schema.json": "e852f9192fe006751a6c7e0824fcbd83d32593253619a0c8bc6168d86c501698",
+      "render.yaml.json": "57aa0a1ff9c3b2d0fcb91b790b7b285aef6397adb0c92930e6e601054444cfe5",
+      "vercel.json": "b405f65e3165bd49bb3df5102ffc8edf447c871fdd8366e4192f123dbbb83169"
+    },
+    "templates": {
+      "mern/Dockerfile@2": "bc4be32cba90ecad2287346d52038beda2a5da27f7e48e3ea6a6bd09f764f24b",
+      "mern/deploy.yml@1": "3382b8ebd9c6a81a38af47eb35b47d4e4341fd6ec321d3c29adc110890421102",
+      "mern/dockerignore@1": "b21daf713a810b4decd9e221d0d2fd8c6a7749bbed58bf50de03f9703b2d6039",
+      "mern/k8s-deployment.yaml@1": "02ebb34f1db7a020772f8def60867213295e7b2c50c21edd8cd18f4c801a365f",
+      "mern/k8s-service.yaml@1": "e8af592d148719df1a0501832dbe1d91345a3df919909e55e6330ccf9b0cfc1e",
+      "mern/release.json@1": "52069d1a7a34e6e6e4df7fd9968469f3405a2fd6082c3bfc97c87bc075c5e65e",
+      "mern/render.yaml@1": "1d93856b4b0284809f310214740665a092d71ebd5c3e4513345bedebe1b164a3",
+      "mern/vercel.json@1": "b6bf2f8cd08b2431939c234322df00a02cb13b7d7e13f6df56527296c599c549",
+      "mern/verify-release.yml@2": "802eca266c0437ae3cab6105f1073c88fb3167a04f8221637816a56f11700611"
+    },
+    "tools": [
+      "PyYAML 6.0.3, read as YAML 1.2",
+      "actionlint 1.7.12, with shellcheck",
+      "c4 secret scan, 9 rules",
+      "hadolint 2.15.1, default threshold",
+      "jsonschema 4.26.0, GitHub workflow schema",
+      "jsonschema 4.26.0, Render Blueprint schema",
+      "jsonschema 4.26.0, Vercel project schema",
+      "jsonschema 4.26.0, release.json fingerprint schema",
+      "kubeconform 0.8.0, strict, Kubernetes 1.37.1 schemas"
+    ],
+    "variants": {
+      "kubernetes": {
+        "github_protection": "unavailable-private-repo",
+        "kubernetes": true
+      },
+      "private": {
+        "github_protection": "unavailable-private-repo"
+      },
+      "public": {
+        "github_protection": "configured"
+      }
+    }
+  }
+}

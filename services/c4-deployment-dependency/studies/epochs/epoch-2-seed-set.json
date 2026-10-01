@@ -1,0 +1,996 @@
+{
+  "arms": {
+    "always-high": {
+      "abstained": 0,
+      "accuracy": 0.45,
+      "cases": 20,
+      "confusion": {
+        "high": {
+          "high": 9,
+          "low": 0,
+          "medium": 0
+        },
+        "low": {
+          "high": 10,
+          "low": 0,
+          "medium": 0
+        },
+        "medium": {
+          "high": 1,
+          "low": 0,
+          "medium": 0
+        }
+      },
+      "degenerate": true,
+      "high_recall": 1.0,
+      "macro_f1": 0.20689655172413793,
+      "macro_precision": 0.15,
+      "macro_recall": 0.3333333333333333,
+      "missed_high": 0
+    },
+    "semver": {
+      "abstained": 0,
+      "accuracy": 0.3,
+      "cases": 20,
+      "confusion": {
+        "high": {
+          "high": 4,
+          "low": 3,
+          "medium": 2
+        },
+        "low": {
+          "high": 4,
+          "low": 2,
+          "medium": 4
+        },
+        "medium": {
+          "high": 1,
+          "low": 0,
+          "medium": 0
+        }
+      },
+      "degenerate": false,
+      "high_recall": 0.4444444444444444,
+      "macro_f1": 0.23703703703703702,
+      "macro_precision": 0.2814814814814815,
+      "macro_recall": 0.2148148148148148,
+      "missed_high": 5
+    },
+    "semver+usage": {
+      "abstained": 0,
+      "accuracy": 0.4,
+      "cases": 20,
+      "confusion": {
+        "high": {
+          "high": 6,
+          "low": 2,
+          "medium": 1
+        },
+        "low": {
+          "high": 4,
+          "low": 2,
+          "medium": 4
+        },
+        "medium": {
+          "high": 1,
+          "low": 0,
+          "medium": 0
+        }
+      },
+      "degenerate": false,
+      "high_recall": 0.6666666666666666,
+      "macro_f1": 0.29523809523809524,
+      "macro_precision": 0.34848484848484845,
+      "macro_recall": 0.2888888888888889,
+      "missed_high": 3
+    },
+    "usage": {
+      "abstained": 11,
+      "accuracy": 0.5,
+      "cases": 20,
+      "confusion": {
+        "high": {
+          "high": 7,
+          "low": 2,
+          "medium": 0
+        },
+        "low": {
+          "high": 7,
+          "low": 3,
+          "medium": 0
+        },
+        "medium": {
+          "high": 0,
+          "low": 1,
+          "medium": 0
+        }
+      },
+      "degenerate": false,
+      "high_recall": 0.7777777777777778,
+      "macro_f1": 0.3278985507246377,
+      "macro_precision": 0.3333333333333333,
+      "macro_recall": 0.3592592592592592,
+      "missed_high": 2
+    }
+  },
+  "byEcosystem": {
+    "maven": {
+      "always-high": {
+        "abstained": 0,
+        "accuracy": 0.8,
+        "cases": 10,
+        "confusion": {
+          "high": {
+            "high": 8,
+            "low": 0,
+            "medium": 0
+          },
+          "low": {
+            "high": 2,
+            "low": 0,
+            "medium": 0
+          },
+          "medium": {
+            "high": 0,
+            "low": 0,
+            "medium": 0
+          }
+        },
+        "high_recall": 1.0,
+        "macro_f1": 0.4444444444444445,
+        "macro_precision": 0.4,
+        "macro_recall": 0.5,
+        "missed_high": 0
+      },
+      "semver": {
+        "abstained": 0,
+        "accuracy": 0.3,
+        "cases": 10,
+        "confusion": {
+          "high": {
+            "high": 3,
+            "low": 3,
+            "medium": 2
+          },
+          "low": {
+            "high": 1,
+            "low": 0,
+            "medium": 1
+          },
+          "medium": {
+            "high": 0,
+            "low": 0,
+            "medium": 0
+          }
+        },
+        "high_recall": 0.375,
+        "macro_f1": 0.16666666666666666,
+        "macro_precision": 0.25,
+        "macro_recall": 0.125,
+        "missed_high": 5
+      },
+      "semver+usage": {
+        "abstained": 0,
+        "accuracy": 0.5,
+        "cases": 10,
+        "confusion": {
+          "high": {
+            "high": 5,
+            "low": 2,
+            "medium": 1
+          },
+          "low": {
+            "high": 1,
+            "low": 0,
+            "medium": 1
+          },
+          "medium": {
+            "high": 0,
+            "low": 0,
+            "medium": 0
+          }
+        },
+        "high_recall": 0.625,
+        "macro_f1": 0.2380952380952381,
+        "macro_precision": 0.2777777777777778,
+        "macro_recall": 0.20833333333333334,
+        "missed_high": 3
+      },
+      "usage": {
+        "abstained": 5,
+        "accuracy": 0.6,
+        "cases": 10,
+        "confusion": {
+          "high": {
+            "high": 6,
+            "low": 2,
+            "medium": 0
+          },
+          "low": {
+            "high": 2,
+            "low": 0,
+            "medium": 0
+          },
+          "medium": {
+            "high": 0,
+            "low": 0,
+            "medium": 0
+          }
+        },
+        "high_recall": 0.75,
+        "macro_f1": 0.375,
+        "macro_precision": 0.375,
+        "macro_recall": 0.375,
+        "missed_high": 2
+      }
+    },
+    "npm": {
+      "always-high": {
+        "abstained": 0,
+        "accuracy": 0.1,
+        "cases": 10,
+        "confusion": {
+          "high": {
+            "high": 1,
+            "low": 0,
+            "medium": 0
+          },
+          "low": {
+            "high": 8,
+            "low": 0,
+            "medium": 0
+          },
+          "medium": {
+            "high": 1,
+            "low": 0,
+            "medium": 0
+          }
+        },
+        "high_recall": 1.0,
+        "macro_f1": 0.06060606060606061,
+        "macro_precision": 0.03333333333333333,
+        "macro_recall": 0.3333333333333333,
+        "missed_high": 0
+      },
+      "semver": {
+        "abstained": 0,
+        "accuracy": 0.3,
+        "cases": 10,
+        "confusion": {
+          "high": {
+            "high": 1,
+            "low": 0,
+            "medium": 0
+          },
+          "low": {
+            "high": 3,
+            "low": 2,
+            "medium": 3
+          },
+          "medium": {
+            "high": 1,
+            "low": 0,
+            "medium": 0
+          }
+        },
+        "high_recall": 1.0,
+        "macro_f1": 0.24444444444444446,
+        "macro_precision": 0.39999999999999997,
+        "macro_recall": 0.4166666666666667,
+        "missed_high": 0
+      },
+      "semver+usage": {
+        "abstained": 0,
+        "accuracy": 0.3,
+        "cases": 10,
+        "confusion": {
+          "high": {
+            "high": 1,
+            "low": 0,
+            "medium": 0
+          },
+          "low": {
+            "high": 3,
+            "low": 2,
+            "medium": 3
+          },
+          "medium": {
+            "high": 1,
+            "low": 0,
+            "medium": 0
+          }
+        },
+        "high_recall": 1.0,
+        "macro_f1": 0.24444444444444446,
+        "macro_precision": 0.39999999999999997,
+        "macro_recall": 0.4166666666666667,
+        "missed_high": 0
+      },
+      "usage": {
+        "abstained": 6,
+        "accuracy": 0.4,
+        "cases": 10,
+        "confusion": {
+          "high": {
+            "high": 1,
+            "low": 0,
+            "medium": 0
+          },
+          "low": {
+            "high": 5,
+            "low": 3,
+            "medium": 0
+          },
+          "medium": {
+            "high": 0,
+            "low": 1,
+            "medium": 0
+          }
+        },
+        "high_recall": 1.0,
+        "macro_f1": 0.2619047619047619,
+        "macro_precision": 0.3055555555555555,
+        "macro_recall": 0.4583333333333333,
+        "missed_high": 0
+      }
+    }
+  },
+  "cases": [
+    {
+      "caseId": "bump-19e20b0d69cb",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low",
+        "semver+usage": "low",
+        "usage": null
+      },
+      "sourceChange": "patch",
+      "truth": "high",
+      "votes": {
+        "changelog": null,
+        "changelogRun": false,
+        "client": "https://github.com/apache/logging-chainsaw@19e20b0d69cb6dadbc54313cb6c6e5f70670ac93",
+        "semver": "low",
+        "usage": {
+          "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, 4 type references it could not resolve), and no verified release note claim names a symbol",
+          "affectedFiles": [],
+          "apiDiff": "ran",
+          "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, 4 type references it could not resolve",
+          "changedSymbols": 0,
+          "components": [],
+          "filesIndexed": 188,
+          "level": null,
+          "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, 4 type references it could not resolve), and no verified release note claim names a symbol.",
+          "references": 0,
+          "seconds": 14.635
+        }
+      }
+    },
+    {
+      "caseId": "bump-44a15fa526c1",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high",
+        "semver+usage": "high",
+        "usage": "low"
+      },
+      "sourceChange": "major",
+      "truth": "high",
+      "votes": {
+        "changelog": null,
+        "changelogRun": false,
+        "client": "https://github.com/dadoonet/fscrawler@44a15fa526c10b0c39d8d7337b833d42448fcca4",
+        "semver": "high",
+        "usage": {
+          "abstained": "",
+          "affectedFiles": [],
+          "apiDiff": "ran",
+          "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 1008 breaking changes over 803 symbols, 2 type references it could not resolve",
+          "changedSymbols": 803,
+          "components": [],
+          "filesIndexed": 178,
+          "level": "low",
+          "rationale": "org.apache.poi:poi is not imported by any source file, and none of its 803 changed symbols is used: low project specific impact.",
+          "references": 0,
+          "seconds": 33.667
+        }
+      }
+    },
+    {
+      "caseId": "bump-70e13f6bdb7d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high",
+        "semver+usage": "high",
+        "usage": "low"
+      },
+      "sourceChange": "major",
+      "truth": "high",
+      "votes": {
+        "changelog": null,
+        "changelogRun": false,
+        "client": "https://github.com/lukas-krecan/future-converter@70e13f6bdb7de7f8eda9f174a5616284f2157ea7",
+        "semver": "high",
+        "usage": {
+          "abstained": "",
+          "affectedFiles": [],
+          "apiDiff": "ran",
+          "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 84 breaking changes over 73 symbols, 3 type references it could not resolve",
+          "changedSymbols": 73,
+          "components": [],
+          "filesIndexed": 59,
+          "level": "low",
+          "rationale": "org.springframework:spring-core is not imported by any source file, and none of its 73 changed symbols is used: low project specific impact.",
+          "references": 0,
+          "seconds": 16.674
+        }
+      }
+    },
+    {
+      "caseId": "bump-78252d13ff35",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium",
+        "semver+usage": "medium",
+        "usage": null
+      },
+      "sourceChange": "minor",
+      "truth": "high",
+      "votes": {
+        "changelog": null,
+        "changelogRun": false,
+        "client": "https://github.com/googleapis/java-pubsub-group-kafka-connector@78252d13ff355a0205fff6fb7c19791412bc6478",
+        "semver": "medium",
+        "usage": {
+          "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol",
+          "affectedFiles": [],
+          "apiDiff": "ran",
+          "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols",
+          "changedSymbols": 0,
+          "components": [],
+          "filesIndexed": 40,
+          "level": null,
+          "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol.",
+          "references": 0,
+          "seconds": 72.754
+        }
+      }
+    },
+    {
+      "caseId": "bump-c09896887acf",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium",
+        "semver+usage": "high",
+        "usage": "high"
+      },
+      "sourceChange": "minor",
+      "truth": "high",
+      "votes": {
+        "changelog": null,
+        "changelogRun": false,
+        "client": "https://github.com/jenkinsci/incrementals-tools@c09896887acf0fe59320e01145a7034cd8d4e326",
+        "semver": "medium",
+        "usage": {
+          "abstained": "",
+          "affectedFiles": [
+            "lib/src/main/java/io/jenkins/tools/incrementals/lib/UpdateChecker.java"
+          ],
+          "apiDiff": "ran",
+          "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 210 breaking changes over 200 symbols",
+          "changedSymbols": 200,
+          "components": [
+            "module:lib"
+          ],
+          "filesIndexed": 13,
+          "level": "high",
+          "rationale": "The project uses 1 of org.kohsuke:github-api's changed symbols in 1 file. The most severe, org.kohsuke.github.GHCompare#status (removed), is at lib/src/main/java/io/jenkins/tools/incrementals/lib/UpdateChecker.java:239, which usage-rule/1 rates High.",
+          "references": 1,
+          "seconds": 27.222
+        }
+      }
+    },
+    {
+      "caseId": "bump-dc9a40fde9a9",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low",
+        "semver+usage": "high",
+        "usage": "high"
+      },
+      "sourceChange": "patch",
+      "truth": "high",
+      "votes": {
+        "changelog": null,
+        "changelogRun": false,
+        "client": "https://github.com/arextest/arex-agent-java@dc9a40fde9a9fee5aaec3f60695385ba539406d4",
+        "semver": "low",
+        "usage": {
+          "abstained": "",
+          "affectedFiles": [
+            "arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/main/java/io/arex/inst/dubbo/apache/v2/DubboAdapter.java",
+            "arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/main/java/io/arex/inst/dubbo/apache/v2/DubboConsumerExtractor.java",
+            "arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/main/java/io/arex/inst/dubbo/apache/v2/DubboConsumerInstrumentation.java",
+            "arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/main/java/io/arex/inst/dubbo/apache/v2/DubboProviderExtractor.java",
+            "arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/main/java/io/arex/inst/dubbo/apache/v2/DubboProviderInstrumentation.java",
+            "arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/test/java/io/arex/inst/dubbo/apache/v2/DubboAdapterTest.java",
+            "arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/test/java/io/arex/inst/dubbo/apache/v2/DubboConsumerInstrumentationTest.java",
+            "arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/test/java/io/arex/inst/dubbo/apache/v2/DubboProviderInstrumentationTest.java"
+          ],
+          "apiDiff": "ran",
+          "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 1780 breaking changes over 1475 symbols, 135 type references it could not resolve",
+          "changedSymbols": 1475,
+          "components": [
+            "module:arex-instrumentation/dubbo/arex-dubbo-apache-v2"
+          ],
+          "filesIndexed": 428,
+          "level": "high",
+          "rationale": "The project uses 8 of org.apache.dubbo:dubbo's changed symbols in 8 files. The most severe, org.apache.dubbo.rpc.AsyncRpcResult#<init> (removed), is at arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/test/java/io/arex/inst/dubbo/apache/v2/DubboAdapterTest.java:147, which usage-rule/1 rates High.",
+          "references": 44,
+          "seconds": 32.463
+        }
+      }
+    },
+    {
+      "caseId": "bump-ed7fbdd75abc",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low",
+        "semver+usage": "low",
+        "usage": null
+      },
+      "sourceChange": "patch",
+      "truth": "high",
+      "votes": {
+        "changelog": null,
+        "changelogRun": false,
+        "client": "https://github.com/jcabi/jcabi-maven-plugin@ed7fbdd75abc666d9d5a2794e9392ed33e75de9b",
+        "semver": "low",
+        "usage": {
+          "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol",
+          "affectedFiles": [],
+          "apiDiff": "ran",
+          "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols",
+          "changedSymbols": 0,
+          "components": [],
+          "filesIndexed": 16,
+          "level": null,
+          "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol.",
+          "references": 0,
+          "seconds": 16.415
+        }
+      }
+    },
+    {
+      "caseId": "bump-feb582661e77",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high",
+        "semver+usage": "high",
+        "usage": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high",
+      "votes": {
+        "changelog": null,
+        "changelogRun": false,
+        "client": "https://github.com/sabomichal/liquibase-mssql@feb582661e77de66eadaa7550720a8751b266ee4",
+        "semver": "high",
+        "usage": {
+          "abstained": "",
+          "affectedFiles": [
+            "src/java-test/liquibase/ext/mssql/sqlgenerator/DatabaseSelectionTest.java",
+            "src/java-test/liquibase/ext/mssql/sqlgenerator/IndexGeneratorTest.java",
+            "src/java-test/liquibase/ext/mssql/sqlgenerator/InsertGeneratorTest.java",
+            "src/java-test/liquibase/ext/mssql/sqlgenerator/PrimaryKeyGeneratorTest.java",
+            "src/java/liquibase/ext/mssql/change/AddPrimaryKeyChangeMSSQL.java",
+            "src/java/liquibase/ext/mssql/change/CreateIndexChangeMSSQL.java",
+            "src/java/liquibase/ext/mssql/change/DropStoredProcedureChange.java",
+            "src/java/liquibase/ext/mssql/change/InsertDataChangeMSSQL.java",
+            "src/java/liquibase/ext/mssql/change/LoadDataChangeMSSQL.java",
+            "src/java/liquibase/ext/mssql/database/MSSQLDatabase.java",
+            "src/java/liquibase/ext/mssql/sqlgenerator/AddPrimaryKeyGeneratorMSSQL.java",
+            "src/java/liquibase/ext/mssql/sqlgenerator/CreateIndexGeneratorMSSQL.java",
+            "src/java/liquibase/ext/mssql/sqlgenerator/DropStoredProcedureGeneratorMSSQL.java",
+            "src/java/liquibase/ext/mssql/sqlgenerator/InsertGenerator.java",
+            "src/java/liquibase/ext/mssql/sqlgenerator/InsertSetGenerator.java"
+          ],
+          "apiDiff": "ran",
+          "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 1491 breaking changes over 1356 symbols, 21 type references it could not resolve",
+          "changedSymbols": 1356,
+          "components": [
+            "module:."
+          ],
+          "filesIndexed": 20,
+          "level": "high",
+          "rationale": "The project uses 5 of org.liquibase:liquibase-core's changed symbols in 15 files. The most severe, liquibase.executor.ExecutorService#getInstance (removed), is at src/java/liquibase/ext/mssql/database/MSSQLDatabase.java:18, which usage-rule/1 rates High.",
+          "references": 76,
+          "seconds": 41.453
+        }
+      }
+    },
+    {
+      "caseId": "maven-records-junit-bom-5.12.2-5.14.4",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium",
+        "semver+usage": "medium",
+        "usage": null
+      },
+      "sourceChange": "minor",
+      "truth": "low",
+      "votes": {
+        "changelog": null,
+        "changelogRun": false,
+        "client": "studies/clients/java-records",
+        "semver": "medium",
+        "usage": {
+          "abstained": "no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download org.junit:junit-bom:5.12.2 | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol",
+          "affectedFiles": [],
+          "apiDiff": "failed",
+          "apiDiffReason": "roseau 0.7.0 exited 2: Failed to download org.junit:junit-bom:5.12.2 | Use -v/-vv for detailed error logs.",
+          "changedSymbols": 0,
+          "components": [],
+          "filesIndexed": 2,
+          "level": null,
+          "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download org.junit:junit-bom:5.12.2 | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol.",
+          "references": 0,
+          "seconds": 4.604
+        }
+      }
+    },
+    {
+      "caseId": "maven-records-junit-bom-5.12.2-6.1.3",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high",
+        "semver+usage": "high",
+        "usage": null
+      },
+      "sourceChange": "major",
+      "truth": "low",
+      "votes": {
+        "changelog": null,
+        "changelogRun": false,
+        "client": "studies/clients/java-records",
+        "semver": "high",
+        "usage": {
+          "abstained": "no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download org.junit:junit-bom:5.12.2 | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol",
+          "affectedFiles": [],
+          "apiDiff": "failed",
+          "apiDiffReason": "roseau 0.7.0 exited 2: Failed to download org.junit:junit-bom:5.12.2 | Use -v/-vv for detailed error logs.",
+          "changedSymbols": 0,
+          "components": [],
+          "filesIndexed": 2,
+          "level": null,
+          "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download org.junit:junit-bom:5.12.2 | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol.",
+          "references": 0,
+          "seconds": 4.164
+        }
+      }
+    },
+    {
+      "caseId": "platform-jsdom-25.0.1-30.1.1",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high",
+        "semver+usage": "high",
+        "usage": null
+      },
+      "sourceChange": "major",
+      "truth": "low",
+      "votes": {
+        "changelog": null,
+        "changelogRun": false,
+        "client": "studies/clients/task-tracker",
+        "semver": "high",
+        "usage": {
+          "abstained": "no changed symbols are known for this update: the API diff was unavailable (jsdom ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol",
+          "affectedFiles": [],
+          "apiDiff": "unavailable",
+          "apiDiffReason": "jsdom ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols",
+          "changedSymbols": 0,
+          "components": [],
+          "filesIndexed": 24,
+          "level": null,
+          "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff was unavailable (jsdom ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol.",
+          "references": 0,
+          "seconds": 0.169
+        }
+      }
+    },
+    {
+      "caseId": "platform-react-router-dom-7.16.0-7.18.4",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium",
+        "semver+usage": "medium",
+        "usage": null
+      },
+      "sourceChange": "minor",
+      "truth": "low",
+      "votes": {
+        "changelog": null,
+        "changelogRun": false,
+        "client": "studies/clients/task-tracker",
+        "semver": "medium",
+        "usage": {
+          "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (declaration-diff/1 compared 0 exported declarations with 0 (files dc9f63786bae): 0 removed or changed), and no verified release note claim names a symbol",
+          "affectedFiles": [],
+          "apiDiff": "ran",
+          "apiDiffReason": "declaration-diff/1 compared 0 exported declarations with 0 (files dc9f63786bae): 0 removed or changed",
+          "changedSymbols": 0,
+          "components": [],
+          "filesIndexed": 24,
+          "level": null,
+          "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (declaration-diff/1 compared 0 exported declarations with 0 (files dc9f63786bae): 0 removed or changed), and no verified release note claim names a symbol.",
+          "references": 0,
+          "seconds": 0.088
+        }
+      }
+    },
+    {
+      "caseId": "platform-supertest-7.2.2-7.3.0",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium",
+        "semver+usage": "medium",
+        "usage": null
+      },
+      "sourceChange": "minor",
+      "truth": "low",
+      "votes": {
+        "changelog": null,
+        "changelogRun": false,
+        "client": "studies/clients/task-tracker",
+        "semver": "medium",
+        "usage": {
+          "abstained": "no changed symbols are known for this update: the API diff was unavailable (supertest ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol",
+          "affectedFiles": [],
+          "apiDiff": "unavailable",
+          "apiDiffReason": "supertest ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols",
+          "changedSymbols": 0,
+          "components": [],
+          "filesIndexed": 24,
+          "level": null,
+          "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff was unavailable (supertest ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol.",
+          "references": 0,
+          "seconds": 0.031
+        }
+      }
+    },
+    {
+      "caseId": "platform-tailwindcss-4.3.0-4.3.3",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low",
+        "semver+usage": "low",
+        "usage": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "low",
+      "votes": {
+        "changelog": null,
+        "changelogRun": false,
+        "client": "studies/clients/task-tracker",
+        "semver": "low",
+        "usage": {
+          "abstained": "",
+          "affectedFiles": [],
+          "apiDiff": "ran",
+          "apiDiffReason": "declaration-diff/1 compared 45 exported declarations with 45 (files 952631a59170): 4 removed or changed",
+          "changedSymbols": 4,
+          "components": [],
+          "filesIndexed": 24,
+          "level": "low",
+          "rationale": "tailwindcss is not imported by any source file, and none of its 4 changed symbols is used: low project specific impact.",
+          "references": 0,
+          "seconds": 0.504
+        }
+      }
+    },
+    {
+      "caseId": "platform-tailwindcss-vite-4.3.0-4.3.3",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low",
+        "semver+usage": "low",
+        "usage": null
+      },
+      "sourceChange": "patch",
+      "truth": "low",
+      "votes": {
+        "changelog": null,
+        "changelogRun": false,
+        "client": "studies/clients/task-tracker",
+        "semver": "low",
+        "usage": {
+          "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (declaration-diff/1 compared 2 exported declarations with 2 (files 1821b6971555): 0 removed or changed), and no verified release note claim names a symbol",
+          "affectedFiles": [],
+          "apiDiff": "ran",
+          "apiDiffReason": "declaration-diff/1 compared 2 exported declarations with 2 (files 1821b6971555): 0 removed or changed",
+          "changedSymbols": 0,
+          "components": [],
+          "filesIndexed": 24,
+          "level": null,
+          "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (declaration-diff/1 compared 2 exported declarations with 2 (files 1821b6971555): 0 removed or changed), and no verified release note claim names a symbol.",
+          "references": 0,
+          "seconds": 0.125
+        }
+      }
+    },
+    {
+      "caseId": "platform-types-react-19.2.15-19.3.0",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium",
+        "semver+usage": "medium",
+        "usage": "low"
+      },
+      "sourceChange": "minor",
+      "truth": "low",
+      "votes": {
+        "changelog": null,
+        "changelogRun": false,
+        "client": "studies/clients/task-tracker",
+        "semver": "medium",
+        "usage": {
+          "abstained": "",
+          "affectedFiles": [],
+          "apiDiff": "ran",
+          "apiDiffReason": "declaration-diff/1 compared 242 exported declarations with 232 (files c9ec0462de39): 11 removed or changed",
+          "changedSymbols": 11,
+          "components": [],
+          "filesIndexed": 24,
+          "level": "low",
+          "rationale": "@types/react is imported in 6 files, and none of its 11 changed symbols is used: low project specific impact.",
+          "references": 0,
+          "seconds": 0.4
+        }
+      }
+    },
+    {
+      "caseId": "platform-typescript-5.9.3-7.0.2",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high",
+        "semver+usage": "high",
+        "usage": "low"
+      },
+      "sourceChange": "major",
+      "truth": "low",
+      "votes": {
+        "changelog": null,
+        "changelogRun": false,
+        "client": "studies/clients/task-tracker",
+        "semver": "high",
+        "usage": {
+          "abstained": "",
+          "affectedFiles": [],
+          "apiDiff": "ran",
+          "apiDiffReason": "declaration-diff/1 compared 1261 exported declarations with 4634 (files 94d7abe09f7a): 1261 removed or changed",
+          "changedSymbols": 1261,
+          "components": [],
+          "filesIndexed": 24,
+          "level": "low",
+          "rationale": "typescript is not imported by any source file, and none of its 1261 changed symbols is used: low project specific impact.",
+          "references": 0,
+          "seconds": 1.54
+        }
+      }
+    },
+    {
+      "caseId": "platform-vite-6.4.2-8.3.1",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high",
+        "semver+usage": "high",
+        "usage": "low"
+      },
+      "sourceChange": "major",
+      "truth": "medium",
+      "votes": {
+        "changelog": null,
+        "changelogRun": false,
+        "client": "studies/clients/task-tracker",
+        "semver": "high",
+        "usage": {
+          "abstained": "",
+          "affectedFiles": [],
+          "apiDiff": "ran",
+          "apiDiffReason": "declaration-diff/1 compared 968 exported declarations with 1058 (files 9962609205ae): 204 removed or changed",
+          "changedSymbols": 204,
+          "components": [],
+          "filesIndexed": 24,
+          "level": "low",
+          "rationale": "vite is imported in 1 file, and none of its 204 changed symbols is used: low project specific impact.",
+          "references": 0,
+          "seconds": 1.329
+        }
+      }
+    },
+    {
+      "caseId": "seeded-express-del",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high",
+        "semver+usage": "high",
+        "usage": null
+      },
+      "sourceChange": "",
+      "truth": "high",
+      "votes": {
+        "changelog": null,
+        "changelogRun": false,
+        "client": "studies/clients/seeded/express-del",
+        "semver": "high",
+        "usage": {
+          "abstained": "no changed symbols are known for this update: the API diff was unavailable (express ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol",
+          "affectedFiles": [],
+          "apiDiff": "unavailable",
+          "apiDiffReason": "express ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols",
+          "changedSymbols": 0,
+          "components": [],
+          "filesIndexed": 2,
+          "level": null,
+          "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff was unavailable (express ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol.",
+          "references": 0,
+          "seconds": 0.026
+        }
+      }
+    },
+    {
+      "caseId": "seeded-uuid-v4",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high",
+        "semver+usage": "high",
+        "usage": null
+      },
+      "sourceChange": "",
+      "truth": "low",
+      "votes": {
+        "changelog": null,
+        "changelogRun": false,
+        "client": "studies/clients/seeded/uuid-v4",
+        "semver": "high",
+        "usage": {
+          "abstained": "no changed symbols are known for this update: the API diff was unavailable (uuid ships no type declarations in one of the two releases, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol",
+          "affectedFiles": [],
+          "apiDiff": "unavailable",
+          "apiDiffReason": "uuid ships no type declarations in one of the two releases, so there is nothing to compare; the changelog is the only source of changed symbols",
+          "changedSymbols": 0,
+          "components": [],
+          "filesIndexed": 1,
+          "level": null,
+          "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff was unavailable (uuid ships no type declarations in one of the two releases, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol.",
+          "references": 0,
+          "seconds": 0.011
+        }
+      }
+    }
+  ],
+  "epoch": {
+    "byEcosystem": {
+      "maven": 10,
+      "npm": 10
+    },
+    "bySource": {
+      "bump": 8,
+      "maven-negative": 2,
+      "npm-platform": 8,
+      "npm-seeded": 2
+    },
+    "cases": 20,
+    "commit": "adce1b8",
+    "corpusSha256": "28e13d00df03e82daf40beff856105ca67760adf098822b6632bcf3bb0a80910",
+    "date": "2026-09-27",
+    "excluded": 0,
+    "final": false,
+    "label": "Epoch 2, seed set",
+    "labelled": 20,
+    "rubric": "outcome-rubric/1",
+    "split": "dev"
+  },
+  "excluded": []
+}
