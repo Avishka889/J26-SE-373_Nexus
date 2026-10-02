@@ -1,0 +1,56 @@
+{
+  "caseId": "bump-24d59062ad4e",
+  "client": {
+    "commit": "24d59062ad4e93aa8054b9d3a8f97a30e77ab785",
+    "image": "ghcr.io/chains-project/breaking-updates:24d59062ad4e93aa8054b9d3a8f97a30e77ab785-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/elimu-ai/webapp",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:24d59062ad4e93aa8054b9d3a8f97a30e77ab785-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:24d59062ad4e93aa8054b9d3a8f97a30e77ab785-breaking",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "TEST_FAILURE",
+    "failureLocations": [],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/24d59062ad4e93aa8054b9d3a8f97a30e77ab785.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb",
+  "source": "bump",
+  "sourceChange": "minor",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "2.16.0",
+    "manifestPaths": [],
+    "package": "org.apache.logging.log4j:log4j-api",
+    "scope": "compile",
+    "toVersion": "2.19.0"
+  }
+}

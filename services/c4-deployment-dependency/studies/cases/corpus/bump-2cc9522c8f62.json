@@ -1,0 +1,56 @@
+{
+  "caseId": "bump-2cc9522c8f62",
+  "client": {
+    "commit": "2cc9522c8f62871d12243b174b98bd7d5b121362",
+    "image": "ghcr.io/chains-project/breaking-updates:2cc9522c8f62871d12243b174b98bd7d5b121362-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/tokuhirom/avans",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:2cc9522c8f62871d12243b174b98bd7d5b121362-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:2cc9522c8f62871d12243b174b98bd7d5b121362-breaking",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "TEST_FAILURE",
+    "failureLocations": [],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/2cc9522c8f62871d12243b174b98bd7d5b121362.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb",
+  "source": "bump",
+  "sourceChange": "minor",
+  "split": "held-out",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "2.4.2",
+    "manifestPaths": [],
+    "package": "com.fasterxml.jackson.core:jackson-core",
+    "scope": "compile",
+    "toVersion": "2.13.3"
+  }
+}

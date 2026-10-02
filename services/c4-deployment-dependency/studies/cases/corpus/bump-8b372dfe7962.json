@@ -1,0 +1,56 @@
+{
+  "caseId": "bump-8b372dfe7962",
+  "client": {
+    "commit": "8b372dfe79625ff585c5b0392913b6b152cc7c22",
+    "image": "ghcr.io/chains-project/breaking-updates:8b372dfe79625ff585c5b0392913b6b152cc7c22-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/pac4j/dropwizard-pac4j",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:8b372dfe79625ff585c5b0392913b6b152cc7c22-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:8b372dfe79625ff585c5b0392913b6b152cc7c22-breaking",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "TEST_FAILURE",
+    "failureLocations": [],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/8b372dfe79625ff585c5b0392913b6b152cc7c22.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb",
+  "source": "bump",
+  "sourceChange": "other",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "9.4.35.v20201120",
+    "manifestPaths": [],
+    "package": "org.eclipse.jetty:jetty-server",
+    "scope": "compile",
+    "toVersion": "9.4.48.v20220622"
+  }
+}

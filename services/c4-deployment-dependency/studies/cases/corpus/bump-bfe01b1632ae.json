@@ -1,0 +1,56 @@
+{
+  "caseId": "bump-bfe01b1632ae",
+  "client": {
+    "commit": "bfe01b1632ae11371134a34066ad2d9e23e374b3",
+    "image": "ghcr.io/chains-project/breaking-updates:bfe01b1632ae11371134a34066ad2d9e23e374b3-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/jenkinsci/pull-request-monitoring-plugin",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:bfe01b1632ae11371134a34066ad2d9e23e374b3-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:bfe01b1632ae11371134a34066ad2d9e23e374b3-breaking",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "build",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "ENFORCER_FAILURE",
+    "failureLocations": [],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/bfe01b1632ae11371134a34066ad2d9e23e374b3.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb",
+  "source": "bump",
+  "sourceChange": "other",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "5.1.2-3",
+    "manifestPaths": [],
+    "package": "io.jenkins.plugins:echarts-api",
+    "scope": "compile",
+    "toVersion": "5.2.2-2"
+  }
+}

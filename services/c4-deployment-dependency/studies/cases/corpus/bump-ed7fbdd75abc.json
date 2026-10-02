@@ -1,0 +1,55 @@
+{
+  "caseId": "bump-ed7fbdd75abc",
+  "client": {
+    "commit": "ed7fbdd75abc666d9d5a2794e9392ed33e75de9b",
+    "image": "ghcr.io/chains-project/breaking-updates:ed7fbdd75abc666d9d5a2794e9392ed33e75de9b-breaking",
+    "kind": "github",
+    "repoUrl": "https://github.com/jcabi/jcabi-maven-plugin",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:ed7fbdd75abc666d9d5a2794e9392ed33e75de9b-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:ed7fbdd75abc666d9d5a2794e9392ed33e75de9b-breaking",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "WERROR_FAILURE",
+    "failureLocations": [],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/ed7fbdd75abc666d9d5a2794e9392ed33e75de9b.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb",
+  "source": "bump",
+  "sourceChange": "patch",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "3.9.0",
+    "manifestPaths": [],
+    "package": "org.apache.maven:maven-artifact",
+    "scope": "compile",
+    "toVersion": "3.9.3"
+  }
+}

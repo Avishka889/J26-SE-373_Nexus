@@ -1,0 +1,56 @@
+{
+  "caseId": "bump-ac14d8362de4",
+  "client": {
+    "commit": "ac14d8362de4bfcf636e1468d68faa10d8b42669",
+    "image": "ghcr.io/chains-project/breaking-updates:ac14d8362de4bfcf636e1468d68faa10d8b42669-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/oripa/oripa",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:ac14d8362de4bfcf636e1468d68faa10d8b42669-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:ac14d8362de4bfcf636e1468d68faa10d8b42669-breaking",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "TEST_FAILURE",
+    "failureLocations": [],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/ac14d8362de4bfcf636e1468d68faa10d8b42669.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb",
+  "source": "bump",
+  "sourceChange": "minor",
+  "split": "held-out",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "2.12.1",
+    "manifestPaths": [],
+    "package": "org.apache.logging.log4j:log4j-core",
+    "scope": "compile",
+    "toVersion": "2.15.0"
+  }
+}

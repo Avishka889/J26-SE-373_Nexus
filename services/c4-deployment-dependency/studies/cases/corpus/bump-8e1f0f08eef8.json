@@ -1,0 +1,165 @@
+{
+  "caseId": "bump-8e1f0f08eef8",
+  "client": {
+    "commit": "8e1f0f08eef839903067c7c11432117c4897d0cd",
+    "image": "ghcr.io/chains-project/breaking-updates:8e1f0f08eef839903067c7c11432117c4897d0cd-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/sabomichal/jooq-meta-postgres-flyway",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:8e1f0f08eef839903067c7c11432117c4897d0cd-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:8e1f0f08eef839903067c7c11432117c4897d0cd-breaking",
+        "exitCode": null,
+        "logSha256": "c61cc24de941d54483844364bf1cae2df4fdac223f41d1efcb93bf321c4abb5e",
+        "name": "compile",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": "[ERROR] /jooq-meta-postgres-flyway/src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java:[109,17] cannot find symbol\n[ERROR]   symbol:   method setConnection(java.sql.Connection)\n[ERROR]   location: class com.github.sabomichal.jooq.PostgresDDLDatabase\n[ERROR] /jooq-meta-postgres-flyway/src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java:[112,27] cannot find symbol\n[ERROR]   symbol:   class DataAccessException\n[ERROR]   location: class com.github.sabomichal.jooq.PostgresDDLDatabase\n[ERROR] /jooq-meta-postgres-flyway/src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java:[118,5] method does not override or implement a method from a supertype\n[ERROR] /jooq-meta-postgres-flyway/src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java:[120,9] cannot find symbol\n[ERROR]   symbol:   variable JDBCUtils\n[ERROR]   location: class com.github.sabomichal.jooq.PostgresDDLDatabase\n[ERROR] /jooq-meta-postgres-flyway/src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java:[126,9] cannot find symbol\n[ERROR]   symbol:   variable super\n[ERROR]   location: class com.github.sabomichal.jooq.PostgresDDLDatabase\n[ERROR] -> [Help 1]\n[ERROR] \n[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.\n[ERROR] Re-run Maven using the -X switch to enable full debug logging.\n[ERROR] \n[ERROR] For more information about the errors and possible solutions, please read the following articles:\n[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException"
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "COMPILATION_FAILURE",
+    "failureLocations": [
+      {
+        "line": 12,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 13,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 14,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 15,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 16,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 17,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 18,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 23,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 38,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 40,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 49,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 48,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 50,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 59,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 61,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 78,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 79,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 84,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 88,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 89,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 97,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 98,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 109,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 112,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 118,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 120,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      },
+      {
+        "line": 126,
+        "path": "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+      }
+    ],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/8e1f0f08eef839903067c7c11432117c4897d0cd.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb; failure locations read from running ghcr.io/chains-project/breaking-updates:8e1f0f08eef839903067c7c11432117c4897d0cd-breaking on 2026-09-28",
+  "source": "bump",
+  "sourceChange": "minor",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "3.16.6",
+    "manifestPaths": [],
+    "package": "org.jooq:jooq-meta",
+    "scope": "compile",
+    "toVersion": "3.17.0"
+  }
+}

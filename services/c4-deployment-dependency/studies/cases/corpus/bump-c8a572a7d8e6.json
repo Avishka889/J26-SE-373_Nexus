@@ -1,0 +1,56 @@
+{
+  "caseId": "bump-c8a572a7d8e6",
+  "client": {
+    "commit": "c8a572a7d8e67eef75d9ab1a80d6acb952be6d7e",
+    "image": "ghcr.io/chains-project/breaking-updates:c8a572a7d8e67eef75d9ab1a80d6acb952be6d7e-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/retest/recheck",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:c8a572a7d8e67eef75d9ab1a80d6acb952be6d7e-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:c8a572a7d8e67eef75d9ab1a80d6acb952be6d7e-breaking",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "TEST_FAILURE",
+    "failureLocations": [],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/c8a572a7d8e67eef75d9ab1a80d6acb952be6d7e.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb",
+  "source": "bump",
+  "sourceChange": "major",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "1.7.36",
+    "manifestPaths": [],
+    "package": "org.slf4j:slf4j-api",
+    "scope": "compile",
+    "toVersion": "2.0.1"
+  }
+}

@@ -1,0 +1,276 @@
+{
+  "cases": [
+    {
+      "abstained": "",
+      "caseId": "bump-17778ff224c3",
+      "components": {
+        "fn": 0,
+        "fp": 0,
+        "tp": 1
+      },
+      "files": {
+        "fn": 0,
+        "fp": 0,
+        "tp": 1
+      },
+      "granularity": "module"
+    },
+    {
+      "abstained": "no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download org.jenkins-ci:acceptance-test-harness:5504.v485694f31cdf | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol",
+      "caseId": "bump-26fd1cd7639b",
+      "components": {
+        "fn": 1,
+        "fp": 0,
+        "tp": 0
+      },
+      "files": {
+        "fn": 1,
+        "fp": 0,
+        "tp": 0
+      },
+      "granularity": "module"
+    },
+    {
+      "abstained": "",
+      "caseId": "bump-2f01c46b96a8",
+      "components": {
+        "fn": 1,
+        "fp": 0,
+        "tp": 0
+      },
+      "files": {
+        "fn": 1,
+        "fp": 0,
+        "tp": 0
+      },
+      "granularity": "module"
+    },
+    {
+      "abstained": "",
+      "caseId": "bump-3ff575ae202c",
+      "components": {
+        "fn": 0,
+        "fp": 0,
+        "tp": 1
+      },
+      "files": {
+        "fn": 0,
+        "fp": 23,
+        "tp": 1
+      },
+      "granularity": "module"
+    },
+    {
+      "abstained": "",
+      "caseId": "bump-4861e40d7047",
+      "components": {
+        "fn": 0,
+        "fp": 0,
+        "tp": 1
+      },
+      "files": {
+        "fn": 6,
+        "fp": 0,
+        "tp": 1
+      },
+      "granularity": "module"
+    },
+    {
+      "abstained": "",
+      "caseId": "bump-489aad606045",
+      "components": {
+        "fn": 0,
+        "fp": 0,
+        "tp": 1
+      },
+      "files": {
+        "fn": 0,
+        "fp": 1,
+        "tp": 1
+      },
+      "granularity": "module"
+    },
+    {
+      "abstained": "no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download eu.europa.ec.joinup.sd-dss:dss-pades:5.9 | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol",
+      "caseId": "bump-4a3efad6e008",
+      "components": {
+        "fn": 1,
+        "fp": 0,
+        "tp": 0
+      },
+      "files": {
+        "fn": 1,
+        "fp": 0,
+        "tp": 0
+      },
+      "granularity": "module"
+    },
+    {
+      "abstained": "",
+      "caseId": "bump-54857351e0b0",
+      "components": {
+        "fn": 0,
+        "fp": 0,
+        "tp": 1
+      },
+      "files": {
+        "fn": 0,
+        "fp": 0,
+        "tp": 1
+      },
+      "granularity": "module"
+    },
+    {
+      "abstained": "",
+      "caseId": "bump-70e13f6bdb7d",
+      "components": {
+        "fn": 1,
+        "fp": 0,
+        "tp": 0
+      },
+      "files": {
+        "fn": 2,
+        "fp": 0,
+        "tp": 0
+      },
+      "granularity": "module"
+    },
+    {
+      "abstained": "",
+      "caseId": "bump-8e1f0f08eef8",
+      "components": {
+        "fn": 1,
+        "fp": 0,
+        "tp": 0
+      },
+      "files": {
+        "fn": 1,
+        "fp": 0,
+        "tp": 0
+      },
+      "granularity": "module"
+    },
+    {
+      "abstained": "",
+      "caseId": "bump-c09896887acf",
+      "components": {
+        "fn": 0,
+        "fp": 0,
+        "tp": 1
+      },
+      "files": {
+        "fn": 0,
+        "fp": 0,
+        "tp": 1
+      },
+      "granularity": "module"
+    },
+    {
+      "abstained": "",
+      "caseId": "bump-c8da6c3c823d",
+      "components": {
+        "fn": 0,
+        "fp": 0,
+        "tp": 1
+      },
+      "files": {
+        "fn": 6,
+        "fp": 0,
+        "tp": 1
+      },
+      "granularity": "module"
+    },
+    {
+      "abstained": "",
+      "caseId": "bump-d7cc1744503d",
+      "components": {
+        "fn": 0,
+        "fp": 0,
+        "tp": 1
+      },
+      "files": {
+        "fn": 0,
+        "fp": 2,
+        "tp": 1
+      },
+      "granularity": "module"
+    },
+    {
+      "abstained": "",
+      "caseId": "bump-dc9a40fde9a9",
+      "components": {
+        "fn": 0,
+        "fp": 0,
+        "tp": 1
+      },
+      "files": {
+        "fn": 0,
+        "fp": 7,
+        "tp": 1
+      },
+      "granularity": "module"
+    },
+    {
+      "abstained": "",
+      "caseId": "bump-e14e4c4fa024",
+      "components": {
+        "fn": 1,
+        "fp": 0,
+        "tp": 0
+      },
+      "files": {
+        "fn": 10,
+        "fp": 0,
+        "tp": 0
+      },
+      "granularity": "module"
+    },
+    {
+      "abstained": "",
+      "caseId": "bump-feb582661e77",
+      "components": {
+        "fn": 0,
+        "fp": 0,
+        "tp": 1
+      },
+      "files": {
+        "fn": 0,
+        "fp": 12,
+        "tp": 3
+      },
+      "granularity": "module"
+    }
+  ],
+  "components": {
+    "module": {
+      "cases": 16,
+      "fn": 6,
+      "fp": 0,
+      "macroF1": 0.625,
+      "micro": {
+        "f1": 0.7692307692307693,
+        "precision": 1.0,
+        "recall": 0.625
+      },
+      "tp": 10
+    }
+  },
+  "files": {
+    "cases": 16,
+    "fn": 28,
+    "fp": 45,
+    "macroF1": 0.3313888888888889,
+    "micro": {
+      "f1": 0.24742268041237106,
+      "precision": 0.21052631578947367,
+      "recall": 0.3
+    },
+    "tp": 12
+  },
+  "study": {
+    "date": "2026-09-28",
+    "label": "Table 5: impact analysis against failure locations",
+    "votes": "epoch-4-corpus-dev-changelog.json",
+    "votesRecordedOn": "2026-09-28"
+  }
+}

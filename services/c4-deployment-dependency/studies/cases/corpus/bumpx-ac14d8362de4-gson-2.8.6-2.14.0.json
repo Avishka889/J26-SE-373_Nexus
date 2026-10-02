@@ -1,0 +1,76 @@
+{
+  "caseId": "bumpx-ac14d8362de4-gson-2.8.6-2.14.0",
+  "client": {
+    "commit": "70eee5543d4fc98be66fd98ed6acfddf7dc5edb7",
+    "image": "ghcr.io/chains-project/breaking-updates:ac14d8362de4bfcf636e1468d68faa10d8b42669-pre",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/oripa/oripa",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "cd /oripa && cp -r /work/overlay/. . 2>/dev/null; mvn -B -ntp clean test-compile",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": 53.59,
+        "tail": "[INFO] \n[INFO] ----------------------------< oripa:oripa >-----------------------------\n[INFO] Building oripa 1.54\n[INFO]   from pom.xml\n[INFO] --------------------------------[ jar ]---------------------------------\n[INFO] \n[INFO] --- clean:3.2.0:clean (default-clean) @ oripa ---\n[INFO] Deleting /oripa/target\n[INFO] \n[INFO] --- resources:3.3.0:resources (default-resources) @ oripa ---\n[INFO] Copying 24 resources\n[INFO] \n[INFO] --- compiler:3.8.1:compile (default-compile) @ oripa ---\n[INFO] Changes detected - recompiling the module!\n[INFO] Compiling 395 source files to /oripa/target/classes\n[INFO] /oripa/src/main/java/oripa/persistence/dao/AbstractFileDAO.java: Some input files use unchecked or unsafe operations.\n[INFO] /oripa/src/main/java/oripa/persistence/dao/AbstractFileDAO.java: Recompile with -Xlint:unchecked for details.\n[INFO] \n[INFO] --- resources:3.3.0:testResources (default-testResources) @ oripa ---\n[INFO] Copying 4 resources\n[INFO] \n[INFO] --- compiler:3.8.1:testCompile (default-testCompile) @ oripa ---\n[INFO] Changes detected - recompiling the module!\n[INFO] Compiling 37 source files to /oripa/target/test-classes\n[INFO] /oripa/src/test/java/oripa/domain/paint/outline/OutlineAdderTest.java: Some input files use unchecked or unsafe operations.\n[INFO] /oripa/src/test/java/oripa/domain/paint/outline/OutlineAdderTest.java: Recompile with -Xlint:unchecked for details.\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  37.184 s\n[INFO] Finished at: 2026-09-28T05:26:20Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 2 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.8.1\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      },
+      {
+        "command": "cd /oripa && mvn -B -ntp test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 81.3,
+        "tail": "[WARN ] 2026-09-28 05:27:41.761 [main] AbstractButtonBinder - the label for the button is not found\nVerticalLine text:\n[WARN ] 2026-09-28 05:27:41.770 [main] AbstractButtonBinder - the label for the button is not found\nMirror text:\n[WARN ] 2026-09-28 05:27:41.787 [main] AbstractButtonBinder - the label for the button is not found\nByValue text:\n[WARN ] 2026-09-28 05:27:41.800 [main] AbstractButtonBinder - the label for the button is not found\nPBisec text:\n[WARN ] 2026-09-28 05:27:41.807 [main] AbstractButtonBinder - the label for the button is not found\nangleSnap text:\nSelectLine text:Select\nAddVertex text:Add Vertex\nChangeLineType text:Change Line Type\nDeleteLine text:Delete Line\nDeleteVertex text:Delete Vertex\nCopy_and_Paste text:Copy and Paste\nCut_and_Paste text:Cut and Paste\nEditContour text:Edit Contour\nselectAll text:Select All\n[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.404 s - in oripa.gui.bind.ButtonFactoryTest\n[INFO] \n[INFO] Results:\n[INFO] \n[INFO] Tests run: 67, Failures: 0, Errors: 0, Skipped: 0\n[INFO] \n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  01:09 min\n[INFO] Finished at: 2026-09-28T05:27:42Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 3 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.8.1\n[WARNING]  * org.apache.maven.plugins:maven-surefire-plugin:2.22.2\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      }
+    ],
+    "candidate": [
+      {
+        "command": "cd /oripa && cp -r /work/overlay/. . 2>/dev/null; mvn -B -ntp clean test-compile",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": 62.34,
+        "tail": "[INFO] \n[INFO] ----------------------------< oripa:oripa >-----------------------------\n[INFO] Building oripa 1.54\n[INFO]   from pom.xml\n[INFO] --------------------------------[ jar ]---------------------------------\n[INFO] \n[INFO] --- clean:3.2.0:clean (default-clean) @ oripa ---\n[INFO] Deleting /oripa/target\n[INFO] \n[INFO] --- resources:3.3.0:resources (default-resources) @ oripa ---\n[INFO] Copying 24 resources\n[INFO] \n[INFO] --- compiler:3.8.1:compile (default-compile) @ oripa ---\n[INFO] Changes detected - recompiling the module!\n[INFO] Compiling 395 source files to /oripa/target/classes\n[INFO] /oripa/src/main/java/oripa/persistence/dao/AbstractFileDAO.java: Some input files use unchecked or unsafe operations.\n[INFO] /oripa/src/main/java/oripa/persistence/dao/AbstractFileDAO.java: Recompile with -Xlint:unchecked for details.\n[INFO] \n[INFO] --- resources:3.3.0:testResources (default-testResources) @ oripa ---\n[INFO] Copying 4 resources\n[INFO] \n[INFO] --- compiler:3.8.1:testCompile (default-testCompile) @ oripa ---\n[INFO] Changes detected - recompiling the module!\n[INFO] Compiling 37 source files to /oripa/target/test-classes\n[INFO] /oripa/src/test/java/oripa/domain/paint/outline/OutlineAdderTest.java: Some input files use unchecked or unsafe operations.\n[INFO] /oripa/src/test/java/oripa/domain/paint/outline/OutlineAdderTest.java: Recompile with -Xlint:unchecked for details.\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  53.569 s\n[INFO] Finished at: 2026-09-28T05:29:08Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 2 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.8.1\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      },
+      {
+        "command": "cd /oripa && mvn -B -ntp test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 56.79,
+        "tail": "[WARN ] 2026-09-28 05:30:04.514 [main] AbstractButtonBinder - the label for the button is not found\nVerticalLine text:\n[WARN ] 2026-09-28 05:30:04.519 [main] AbstractButtonBinder - the label for the button is not found\nMirror text:\n[WARN ] 2026-09-28 05:30:04.529 [main] AbstractButtonBinder - the label for the button is not found\nByValue text:\n[WARN ] 2026-09-28 05:30:04.534 [main] AbstractButtonBinder - the label for the button is not found\nPBisec text:\n[WARN ] 2026-09-28 05:30:04.538 [main] AbstractButtonBinder - the label for the button is not found\nangleSnap text:\nSelectLine text:Select\nAddVertex text:Add Vertex\nChangeLineType text:Change Line Type\nDeleteLine text:Delete Line\nDeleteVertex text:Delete Vertex\nCopy_and_Paste text:Copy and Paste\nCut_and_Paste text:Cut and Paste\nEditContour text:Edit Contour\nselectAll text:Select All\n[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.211 s - in oripa.gui.bind.ButtonFactoryTest\n[INFO] \n[INFO] Results:\n[INFO] \n[INFO] Tests run: 67, Failures: 0, Errors: 0, Skipped: 0\n[INFO] \n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  48.753 s\n[INFO] Finished at: 2026-09-28T05:30:05Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 3 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.8.1\n[WARNING]  * org.apache.maven.plugins:maven-surefire-plugin:2.22.2\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      }
+    ],
+    "capturedAt": "2026-09-28",
+    "failureCategory": "",
+    "failureLocations": [],
+    "method": "container-reproduction",
+    "toolchain": "ghcr.io/chains-project/breaking-updates:ac14d8362de4bfcf636e1468d68faa10d8b42669-pre (Apache Maven 3.9.2 (c9616018c7a021c1c39be70fb2843d6f5f9b8a1c) Maven home: /usr/share/java/maven-3 Java version: 11.0.19, vendor: Alpine, runtime: /usr/lib/jvm/java-11-openjdk)",
+    "warnings": []
+  },
+  "provenance": "bump_crossings loader: https://github.com/oripa/oripa at 70eee5543d4f, the commit before BUMP's break ac14d8362de4 (BUMP, chains-project/bump, MIT, at 324d5513aa5c), its com.google.code.gson:gson crossed with the minor update Maven Central listed at capture, built in ghcr.io/chains-project/breaking-updates:ac14d8362de4bfcf636e1468d68faa10d8b42669-pre",
+  "source": "bump-crossing",
+  "sourceChange": "minor",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "2.8.6",
+    "manifestPaths": [
+      "pom.xml"
+    ],
+    "package": "com.google.code.gson:gson",
+    "scope": "compile",
+    "toVersion": "2.14.0"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "caseId": "venturini-env-cmd-typescript-eslint-parser-1.6.0",
+  "client": {
+    "commit": "",
+    "image": "",
+    "kind": "npm-package",
+    "packageSpec": "env-cmd@9.0.1",
+    "repoUrl": "https://github.com/toddbluhm/env-cmd",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {
+    "doi:10.5281/zenodo.5558085/breaking-changes-cases.json": "8fcf4842c5a38581b0e5ea1abaae459a02d27d338922b1f67eb80942686429d1"
+  },
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "the client's tests with @typescript-eslint/parser@1.5.0",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "the client's tests with @typescript-eslint/parser@1.6.0",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": "category incompatible-providers-versions; documented by issue;pull;ichangelog;fchangelog; fixed by client"
+      }
+    ],
+    "capturedAt": "2020-11-10",
+    "failureCategory": "",
+    "failureLocations": [],
+    "method": "venturini-recorded",
+    "toolchain": "as the authors ran each client's tests",
+    "warnings": []
+  },
+  "provenance": "Venturini, Cogo, Wiese, Polato and Gerosa, TOSEM 32(4), 2023; replication package doi:10.5281/zenodo.5558085 (CC BY 4.0): env-cmd@9.0.1 broke when @typescript-eslint/parser released 1.6.0; the release before it, 1.5.0, read from the registry at load",
+  "source": "npm-venturini",
+  "sourceChange": "minor",
+  "split": "dev",
+  "update": {
+    "ecosystem": "npm",
+    "fromVersion": "1.5.0",
+    "manifestPaths": [
+      "package.json"
+    ],
+    "package": "@typescript-eslint/parser",
+    "scope": "",
+    "toVersion": "1.6.0"
+  }
+}

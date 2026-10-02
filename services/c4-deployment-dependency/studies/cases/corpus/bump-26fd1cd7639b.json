@@ -1,0 +1,69 @@
+{
+  "caseId": "bump-26fd1cd7639b",
+  "client": {
+    "commit": "26fd1cd7639b7deb7078df5e4cb05c6d463ad07a",
+    "image": "ghcr.io/chains-project/breaking-updates:26fd1cd7639b7deb7078df5e4cb05c6d463ad07a-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/jenkinsci/code-coverage-api-plugin",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:26fd1cd7639b7deb7078df5e4cb05c6d463ad07a-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:26fd1cd7639b7deb7078df5e4cb05c6d463ad07a-breaking",
+        "exitCode": null,
+        "logSha256": "e7d86128ec1350e602f39f1cbfabe15bc6ab4dac568cd895479338589a56be00",
+        "name": "compile",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": "[ERROR] For more information about the errors and possible solutions, please read the following articles:\n[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException\n[ERROR] \n[ERROR] After correcting the problems, you can resume the build with the command\n[ERROR]   mvn <args> -rf :code-coverage-api-ui-tests\nWARNING: An illegal reflective access operation has occurred\nWARNING: Illegal reflective access by org.codehaus.groovy.vmplugin.v7.Java7$1 (file:/root/.m2/repository/org/codehaus/groovy/groovy-all/2.4.21/groovy-all-2.4.21.jar) to constructor java.lang.invoke.MethodHandles$Lookup(java.lang.Class,int)\nWARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.vmplugin.v7.Java7$1\nWARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations\nWARNING: All illegal access operations will be denied in a future release\nWARNING: An illegal reflective access operation has occurred\nWARNING: Illegal reflective access by org.codehaus.groovy.vmplugin.v7.Java7$1 (file:/root/.m2/repository/org/codehaus/groovy/groovy-all/2.4.21/groovy-all-2.4.21.jar) to constructor java.lang.invoke.MethodHandles$Lookup(java.lang.Class,int)\nWARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.vmplugin.v7.Java7$1\nWARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations\nWARNING: All illegal access operations will be denied in a future release\nWARNING: An illegal reflective access operation has occurred\nWARNING: Illegal reflective access by org.codehaus.groovy.vmplugin.v7.Java7$1 (file:/root/.m2/repository/org/codehaus/groovy/groovy-all/2.4.21/groovy-all-2.4.21.jar) to constructor java.lang.invoke.MethodHandles$Lookup(java.lang.Class,int)\nWARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.vmplugin.v7.Java7$1\nWARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations\nWARNING: All illegal access operations will be denied in a future release"
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "COMPILATION_FAILURE",
+    "failureLocations": [
+      {
+        "line": 7,
+        "path": "ui-tests/src/main/java/io/jenkins/plugins/coverage/util/ChartUtil.java"
+      },
+      {
+        "line": 35,
+        "path": "ui-tests/src/main/java/io/jenkins/plugins/coverage/util/ChartUtil.java"
+      },
+      {
+        "line": 60,
+        "path": "ui-tests/src/main/java/io/jenkins/plugins/coverage/util/ChartUtil.java"
+      }
+    ],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/26fd1cd7639b7deb7078df5e4cb05c6d463ad07a.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb; failure locations read from running ghcr.io/chains-project/breaking-updates:26fd1cd7639b7deb7078df5e4cb05c6d463ad07a-breaking on 2026-09-28",
+  "source": "bump",
+  "sourceChange": "other",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "5504.v485694f31cdf",
+    "manifestPaths": [],
+    "package": "org.jenkins-ci:acceptance-test-harness",
+    "scope": "compile",
+    "toVersion": "5534.vcb_64728b_649b_"
+  }
+}

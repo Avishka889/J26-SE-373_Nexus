@@ -1,0 +1,56 @@
+{
+  "caseId": "bump-863f64e40b3d",
+  "client": {
+    "commit": "863f64e40b3dce33fe357e8096138830254c15ea",
+    "image": "ghcr.io/chains-project/breaking-updates:863f64e40b3dce33fe357e8096138830254c15ea-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/googleapis/java-datastore",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:863f64e40b3dce33fe357e8096138830254c15ea-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:863f64e40b3dce33fe357e8096138830254c15ea-breaking",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "build",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "ENFORCER_FAILURE",
+    "failureLocations": [],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/863f64e40b3dce33fe357e8096138830254c15ea.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb",
+  "source": "bump",
+  "sourceChange": "minor",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "2.6.0",
+    "manifestPaths": [],
+    "package": "com.google.cloud:google-cloud-shared-dependencies",
+    "scope": "import",
+    "toVersion": "2.7.0"
+  }
+}

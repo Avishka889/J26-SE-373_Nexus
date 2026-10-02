@@ -1,0 +1,61 @@
+{
+  "caseId": "bump-54857351e0b0",
+  "client": {
+    "commit": "54857351e0b0a655970d7e2ccdb67f175cc5d688",
+    "image": "ghcr.io/chains-project/breaking-updates:54857351e0b0a655970d7e2ccdb67f175cc5d688-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/allure-framework/allure-maven",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:54857351e0b0a655970d7e2ccdb67f175cc5d688-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:54857351e0b0a655970d7e2ccdb67f175cc5d688-breaking",
+        "exitCode": null,
+        "logSha256": "39884aa1a3240ee2a5150a4e14129ecb2a8070caea22cd8a04c859a99dd43fec",
+        "name": "compile",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": "[WARNING] \n[WARNING] Plugin validation issues were detected in 5 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-checkstyle-plugin:3.1.2\n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.8.1\n[WARNING]  * org.apache.maven.plugins:maven-plugin-plugin:3.6.1\n[WARNING]  * org.apache.maven.plugins:maven-pmd-plugin:3.15.0\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING] \n[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.8.1:compile (default-compile) on project allure-maven: Compilation failure\n[ERROR] /allure-maven/src/main/java/io/qameta/allure/maven/AllureCommandline.java:[18,30] package net.lingala.zip4j.core does not exist\n[ERROR] -> [Help 1]\n[ERROR] \n[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.\n[ERROR] Re-run Maven using the -X switch to enable full debug logging.\n[ERROR] \n[ERROR] For more information about the errors and possible solutions, please read the following articles:\n[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException"
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "COMPILATION_FAILURE",
+    "failureLocations": [
+      {
+        "line": 18,
+        "path": "src/main/java/io/qameta/allure/maven/AllureCommandline.java"
+      }
+    ],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/54857351e0b0a655970d7e2ccdb67f175cc5d688.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb; failure locations read from running ghcr.io/chains-project/breaking-updates:54857351e0b0a655970d7e2ccdb67f175cc5d688-breaking on 2026-09-28",
+  "source": "bump",
+  "sourceChange": "major",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "1.3.2",
+    "manifestPaths": [],
+    "package": "net.lingala.zip4j:zip4j",
+    "scope": "compile",
+    "toVersion": "2.10.0"
+  }
+}

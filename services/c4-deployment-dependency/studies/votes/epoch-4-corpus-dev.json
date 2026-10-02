@@ -1,0 +1,3071 @@
+{
+  "recordedOn": "2026-09-28",
+  "split": "dev",
+  "votes": {
+    "bump-0671a30e3673": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services@0671a30e3673989830ed7f4aa345b867c29547f0",
+      "semver": "medium",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 168,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 10.72
+      }
+    },
+    "bump-0ee8b9376b96": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/pholser/junit-quickcheck@0ee8b9376b967938e8efd89a0959214a30d1b3fb",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 14 breaking changes over 13 symbols, 22 type references it could not resolve",
+        "changedSymbols": 13,
+        "components": [],
+        "filesIndexed": 507,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.mockito:mockito-core is not imported by any source file, and none of its 13 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 22.805
+      }
+    },
+    "bump-125f1253d833": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/leonardehrenfried/jspc-maven-plugin@125f1253d8331f14752a4a8d49559445301ab02d",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 22 breaking changes over 22 symbols",
+        "changedSymbols": 22,
+        "components": [],
+        "filesIndexed": 14,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.codehaus.plexus:plexus-utils is not imported by any source file, and none of its 22 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 8.561
+      }
+    },
+    "bump-1266a8c84cd0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/alphagov/pay-adminusers@1266a8c84cd04cedfa316bed94b1e9b014da872f",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 41 breaking changes over 16 symbols",
+        "changedSymbols": 16,
+        "components": [],
+        "filesIndexed": 320,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.slf4j:slf4j-api is not imported by any source file, and none of its 16 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 8.546
+      }
+    },
+    "bump-17778ff224c3": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/camunda-community-hub/camunda-platform-7-mockito@17778ff224c38fe03999cac8caa1814b68fd0ef2",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [
+          "src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java"
+        ],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 205 breaking changes over 176 symbols, 27 type references it could not resolve",
+        "changedSymbols": 176,
+        "components": [
+          "module:."
+        ],
+        "filesIndexed": 132,
+        "granularity": "module",
+        "level": "high",
+        "rationale": "The project uses 2 of org.springframework:spring-context's changed symbols in 1 file. The most severe, org.springframework.context.ApplicationContext (signature-changed), is at src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java:5, which usage-rule/1 rates High.",
+        "references": 7,
+        "seconds": 22.382,
+        "truth": {
+          "components": [
+            "module:."
+          ],
+          "files": [
+            "src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java"
+          ],
+          "granularity": "module"
+        }
+      }
+    },
+    "bump-18ab6d7afbd1": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/jenkinsci/config-file-provider-plugin@18ab6d7afbd1663c940167f15ab7aa39011041e1",
+      "semver": "high",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download io.jenkins.tools.bom:bom-2.277.x:29 | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "failed",
+        "apiDiffReason": "roseau 0.7.0 exited 2: Failed to download io.jenkins.tools.bom:bom-2.277.x:29 | Use -v/-vv for detailed error logs.",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 84,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download io.jenkins.tools.bom:bom-2.277.x:29 | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 4.808
+      }
+    },
+    "bump-19e20b0d69cb": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/apache/logging-chainsaw@19e20b0d69cb6dadbc54313cb6c6e5f70670ac93",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, 4 type references it could not resolve), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, 4 type references it could not resolve",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 188,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, 4 type references it could not resolve), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 8.565
+      }
+    },
+    "bump-1c3529eaf282": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/tokuhirom/avans@1c3529eaf282deb4868f4b13439170ef47db3e8c",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 17 breaking changes over 14 symbols",
+        "changedSymbols": 14,
+        "components": [],
+        "filesIndexed": 139,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "com.fasterxml.jackson.dataformat:jackson-dataformat-cbor is not imported by any source file, and none of its 14 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 11.804
+      }
+    },
+    "bump-1cd22b76f9ea": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services@1cd22b76f9ea6564382ebf1160b01c0e5bcbb975",
+      "semver": "medium",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, read from the cache), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, read from the cache",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 168,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, read from the cache), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 0.439
+      }
+    },
+    "bump-24d59062ad4e": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/elimu-ai/webapp@24d59062ad4e93aa8054b9d3a8f97a30e77ab785",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 11 breaking changes over 8 symbols, 4 type references it could not resolve",
+        "changedSymbols": 8,
+        "components": [],
+        "filesIndexed": 353,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.apache.logging.log4j:log4j-api is not imported by any source file, and none of its 8 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 12.21
+      }
+    },
+    "bump-26fd1cd7639b": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/jenkinsci/code-coverage-api-plugin@26fd1cd7639b7deb7078df5e4cb05c6d463ad07a",
+      "semver": "high",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download org.jenkins-ci:acceptance-test-harness:5504.v485694f31cdf | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "failed",
+        "apiDiffReason": "roseau 0.7.0 exited 2: Failed to download org.jenkins-ci:acceptance-test-harness:5504.v485694f31cdf | Use -v/-vv for detailed error logs.",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 5,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download org.jenkins-ci:acceptance-test-harness:5504.v485694f31cdf | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 3.586,
+        "truth": {
+          "components": [
+            "module:ui-tests"
+          ],
+          "files": [
+            "ui-tests/src/main/java/io/jenkins/plugins/coverage/util/ChartUtil.java"
+          ],
+          "granularity": "module"
+        }
+      }
+    },
+    "bump-27226f9df7c2": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/pac4j/dropwizard-pac4j@27226f9df7c2209de8206f92fd707af9381932b0",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [
+          "src/main/java/org/pac4j/dropwizard/DefaultFeatureSupport.java",
+          "src/test/java/org/pac4j/dropwizard/AbstractConfigurationTest.java",
+          "src/test/java/org/pac4j/dropwizard/bundle/BundleFactoryTest.java"
+        ],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 814 breaking changes over 688 symbols, 16 type references it could not resolve",
+        "changedSymbols": 688,
+        "components": [
+          "module:."
+        ],
+        "filesIndexed": 16,
+        "granularity": "module",
+        "level": "high",
+        "rationale": "The project uses 1 of com.fasterxml.jackson.core:jackson-databind's changed symbols in 3 files. The most severe, com.fasterxml.jackson.databind.ObjectMapper (signature-changed), is at src/main/java/org/pac4j/dropwizard/DefaultFeatureSupport.java:22, which usage-rule/1 rates High.",
+        "references": 7,
+        "seconds": 15.611
+      }
+    },
+    "bump-2f01c46b96a8": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/ASSERT-KTH/depclean@2f01c46b96a8edf437edf20e6dbd848edcb27085",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 22 breaking changes over 22 symbols, read from the cache",
+        "changedSymbols": 22,
+        "components": [],
+        "filesIndexed": 110,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.codehaus.plexus:plexus-utils is not imported by any source file, and none of its 22 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 0.172,
+        "truth": {
+          "components": [
+            "module:depclean-maven-plugin"
+          ],
+          "files": [
+            "depclean-maven-plugin/src/main/java/se/kth/depclean/wrapper/MavenDependencyManager.java"
+          ],
+          "granularity": "module"
+        }
+      }
+    },
+    "bump-3ff575ae202c": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/codehaus-plexus/plexus-archiver@3ff575ae202cdf76ddfa8a4228a1711a6fa1e921",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [
+          "src/main/java/org/codehaus/plexus/archiver/AbstractArchiver.java",
+          "src/main/java/org/codehaus/plexus/archiver/manager/DefaultArchiverManager.java",
+          "src/test/java/org/codehaus/plexus/archiver/BasePlexusArchiverTest.java",
+          "src/test/java/org/codehaus/plexus/archiver/DotDirectiveArchiveFinalizerTest.java",
+          "src/test/java/org/codehaus/plexus/archiver/DuplicateFilesTest.java",
+          "src/test/java/org/codehaus/plexus/archiver/EmptyDirectoryTest.java",
+          "src/test/java/org/codehaus/plexus/archiver/SymlinkTest.java",
+          "src/test/java/org/codehaus/plexus/archiver/jar/DirectoryArchiverUnpackJarTest.java",
+          "src/test/java/org/codehaus/plexus/archiver/jar/IndexTest.java",
+          "src/test/java/org/codehaus/plexus/archiver/jar/JdkManifestFactoryTest.java",
+          "src/test/java/org/codehaus/plexus/archiver/jar/ManifestTest.java",
+          "src/test/java/org/codehaus/plexus/archiver/manager/ArchiverManagerTest.java",
+          "src/test/java/org/codehaus/plexus/archiver/tar/TarArchiverTest.java",
+          "src/test/java/org/codehaus/plexus/archiver/tar/TarBZip2UnArchiverTest.java",
+          "src/test/java/org/codehaus/plexus/archiver/tar/TarFileAttributesTest.java",
+          "src/test/java/org/codehaus/plexus/archiver/tar/TarFileTest.java",
+          "src/test/java/org/codehaus/plexus/archiver/tar/TarGZipUnArchiverTest.java",
+          "src/test/java/org/codehaus/plexus/archiver/tar/TarSnappyUnArchiverTest.java",
+          "src/test/java/org/codehaus/plexus/archiver/tar/TarUnArchiverTest.java",
+          "src/test/java/org/codehaus/plexus/archiver/tar/TarXzUnArchiverTest.java",
+          "src/test/java/org/codehaus/plexus/archiver/war/WarArchiverTest.java",
+          "src/test/java/org/codehaus/plexus/archiver/zip/PlexusArchiverZipFileResourceCollectionTest.java",
+          "src/test/java/org/codehaus/plexus/archiver/zip/PlexusIoZipFileResourceCollectionTest.java",
+          "src/test/java/org/codehaus/plexus/archiver/zip/ZipUnArchiverTest.java"
+        ],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 579 breaking changes over 407 symbols, 2 type references it could not resolve",
+        "changedSymbols": 407,
+        "components": [
+          "module:."
+        ],
+        "filesIndexed": 144,
+        "granularity": "module",
+        "level": "high",
+        "rationale": "The project uses 13 of org.codehaus.plexus:plexus-container-default's changed symbols in 24 files. The most severe, org.codehaus.plexus.PlexusContainer#getLogger (removed), is at src/main/java/org/codehaus/plexus/archiver/AbstractArchiver.java:607, which usage-rule/1 rates High.",
+        "references": 306,
+        "seconds": 7.963,
+        "truth": {
+          "components": [
+            "module:."
+          ],
+          "files": [
+            "src/test/java/org/codehaus/plexus/archiver/DuplicateFilesTest.java"
+          ],
+          "granularity": "module"
+        }
+      }
+    },
+    "bump-44a15fa526c1": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/dadoonet/fscrawler@44a15fa526c10b0c39d8d7337b833d42448fcca4",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 1008 breaking changes over 803 symbols, 2 type references it could not resolve",
+        "changedSymbols": 803,
+        "components": [],
+        "filesIndexed": 178,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.apache.poi:poi is not imported by any source file, and none of its 803 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 32.13
+      }
+    },
+    "bump-4861e40d7047": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services@4861e40d7047a73bdbae1a4856a2b5ee4a79071a",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [
+          "messaging/src/main/java/ids/messaging/endpoint/MessageController.java"
+        ],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 970 breaking changes over 752 symbols, 114 type references it could not resolve",
+        "changedSymbols": 752,
+        "components": [
+          "module:messaging"
+        ],
+        "filesIndexed": 168,
+        "granularity": "module",
+        "level": "high",
+        "rationale": "The project uses 1 of org.springframework:spring-web's changed symbols in 1 file. The most severe, org.springframework.http.ResponseEntity#status (removed), is at messaging/src/main/java/ids/messaging/endpoint/MessageController.java:137, which usage-rule/1 rates High.",
+        "references": 7,
+        "seconds": 20.916,
+        "truth": {
+          "components": [
+            "module:messaging"
+          ],
+          "files": [
+            "messaging/src/main/java/ids/messaging/dispatcher/MessageDispatcher.java",
+            "messaging/src/main/java/ids/messaging/endpoint/EndpointService.java",
+            "messaging/src/main/java/ids/messaging/endpoint/MessageController.java",
+            "messaging/src/main/java/ids/messaging/handler/request/RequestMessageHandlerService.java",
+            "messaging/src/main/java/ids/messaging/protocol/MessageService.java",
+            "messaging/src/main/java/ids/messaging/protocol/http/IdsHttpService.java",
+            "messaging/src/main/java/ids/messaging/response/Base64EncodedFileBodyResponse.java"
+          ],
+          "granularity": "module"
+        }
+      }
+    },
+    "bump-489aad606045": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/NemProject/nem@489aad6060454d0b7b34a144e0b345c5a3a199f5",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [
+          "nis/src/main/java/org/nem/specific/deploy/appconfig/NisAppConfig.java",
+          "nis/src/test/java/org/nem/nis/dao/TestConf.java"
+        ],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 296 breaking changes over 262 symbols, 3 type references it could not resolve",
+        "changedSymbols": 262,
+        "components": [
+          "module:nis"
+        ],
+        "filesIndexed": 1601,
+        "granularity": "module",
+        "level": "high",
+        "rationale": "The project uses 6 of org.flywaydb:flyway-core's changed symbols in 2 files. The most severe, org.flywaydb.core.Flyway#getClassLoader (removed), is at nis/src/main/java/org/nem/specific/deploy/appconfig/NisAppConfig.java:89, which usage-rule/1 rates High.",
+        "references": 11,
+        "seconds": 39.27,
+        "truth": {
+          "components": [
+            "module:nis"
+          ],
+          "files": [
+            "nis/src/main/java/org/nem/specific/deploy/appconfig/NisAppConfig.java"
+          ],
+          "granularity": "module"
+        }
+      }
+    },
+    "bump-4a3efad6e008": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/open-pdf-sign/open-pdf-sign@4a3efad6e00824e5814b9c8f571c9c98aad40281",
+      "semver": "medium",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download eu.europa.ec.joinup.sd-dss:dss-pades:5.9 | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "failed",
+        "apiDiffReason": "roseau 0.7.0 exited 2: Failed to download eu.europa.ec.joinup.sd-dss:dss-pades:5.9 | Use -v/-vv for detailed error logs.",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 12,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download eu.europa.ec.joinup.sd-dss:dss-pades:5.9 | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 3.584,
+        "truth": {
+          "components": [
+            "module:."
+          ],
+          "files": [
+            "src/main/java/org/openpdfsign/Signer.java"
+          ],
+          "granularity": "module"
+        }
+      }
+    },
+    "bump-4ea77102208e": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/jenkinsci/sloccount-plugin@4ea77102208edb25d3d7623a687538aba6f184e9",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download io.jenkins.plugins:jaxb:2.3.6-1 | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "failed",
+        "apiDiffReason": "roseau 0.7.0 exited 2: Failed to download io.jenkins.plugins:jaxb:2.3.6-1 | Use -v/-vv for detailed error logs.",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 39,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download io.jenkins.plugins:jaxb:2.3.6-1 | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 3.592
+      }
+    },
+    "bump-4ef12d5388d4": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services@4ef12d5388d4d32000a9e598c2ae29a5842e80df",
+      "semver": "medium",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, read from the cache), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, read from the cache",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 168,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, read from the cache), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 0.374
+      }
+    },
+    "bump-52c069901110": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/matteobaccan/html2pop3@52c069901110c60553be85f5cc0e1381da26960c",
+      "semver": "low",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 1 breaking changes over 1 symbols, 10 type references it could not resolve",
+        "changedSymbols": 1,
+        "components": [],
+        "filesIndexed": 55,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "ch.qos.logback:logback-classic is not imported by any source file, and none of its 1 changed symbol is used: low project specific impact.",
+        "references": 0,
+        "seconds": 13.215
+      }
+    },
+    "bump-53f3dbca3fda": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/vandmo/dependency-lock-maven-plugin@53f3dbca3fdadef153a5357a9804c1f823384309",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 20,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 8.693
+      }
+    },
+    "bump-54857351e0b0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/allure-framework/allure-maven@54857351e0b0a655970d7e2ccdb67f175cc5d688",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [
+          "src/main/java/io/qameta/allure/maven/AllureCommandline.java"
+        ],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 253 breaking changes over 220 symbols",
+        "changedSymbols": 220,
+        "components": [
+          "module:."
+        ],
+        "filesIndexed": 13,
+        "granularity": "module",
+        "level": "high",
+        "rationale": "The project uses 1 of net.lingala.zip4j:zip4j's changed symbols in 1 file. The most severe, net.lingala.zip4j.core.ZipFile (removed), is at src/main/java/io/qameta/allure/maven/AllureCommandline.java:18, which usage-rule/1 rates High.",
+        "references": 2,
+        "seconds": 5.688,
+        "truth": {
+          "components": [
+            "module:."
+          ],
+          "files": [
+            "src/main/java/io/qameta/allure/maven/AllureCommandline.java"
+          ],
+          "granularity": "module"
+        }
+      }
+    },
+    "bump-64b8a013098f": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/googleapis/gax-java@64b8a013098fc450e0e6ef0f38d1acd8cfbb99c1",
+      "semver": "medium",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, 8 type references it could not resolve), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, 8 type references it could not resolve",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 467,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, 8 type references it could not resolve), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 6.479
+      }
+    },
+    "bump-6d3f6d5a9dbc": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services@6d3f6d5a9dbce8a1fea9b955e522a010f6995fbc",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 134 breaking changes over 100 symbols, 70 type references it could not resolve",
+        "changedSymbols": 100,
+        "components": [],
+        "filesIndexed": 168,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.springframework:spring-tx is not imported by any source file, and none of its 100 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 13.191
+      }
+    },
+    "bump-70e13f6bdb7d": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/lukas-krecan/future-converter@70e13f6bdb7de7f8eda9f174a5616284f2157ea7",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 84 breaking changes over 73 symbols, 3 type references it could not resolve",
+        "changedSymbols": 73,
+        "components": [],
+        "filesIndexed": 59,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.springframework:spring-core is not imported by any source file, and none of its 73 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 11.084,
+        "truth": {
+          "components": [
+            "module:common-test"
+          ],
+          "files": [
+            "common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringConvertedFutureTestHelper.java",
+            "common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringOriginalFutureTestHelper.java"
+          ],
+          "granularity": "module"
+        }
+      }
+    },
+    "bump-78252d13ff35": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/googleapis/java-pubsub-group-kafka-connector@78252d13ff355a0205fff6fb7c19791412bc6478",
+      "semver": "medium",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 40,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 40.654
+      }
+    },
+    "bump-78445745997d": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/spotify/missinglink@78445745997d3ebe5d1e35d9762d95af875c85ec",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 22 breaking changes over 22 symbols",
+        "changedSymbols": 22,
+        "components": [],
+        "filesIndexed": 86,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.codehaus.plexus:plexus-utils is not imported by any source file, and none of its 22 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 6.003
+      }
+    },
+    "bump-863f64e40b3d": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/googleapis/java-datastore@863f64e40b3dce33fe357e8096138830254c15ea",
+      "semver": "medium",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download com.google.cloud:google-cloud-shared-dependencies:2.6.0 | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "failed",
+        "apiDiffReason": "roseau 0.7.0 exited 2: Failed to download com.google.cloud:google-cloud-shared-dependencies:2.6.0 | Use -v/-vv for detailed error logs.",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 198,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download com.google.cloud:google-cloud-shared-dependencies:2.6.0 | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 4.326
+      }
+    },
+    "bump-87fbea62fa68": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/pac4j/dropwizard-pac4j@87fbea62fa6867b8288295b80718c51981ae340a",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [
+          "src/main/java/org/pac4j/dropwizard/DefaultFeatureSupport.java",
+          "src/test/java/org/pac4j/dropwizard/AbstractConfigurationTest.java",
+          "src/test/java/org/pac4j/dropwizard/bundle/BundleFactoryTest.java"
+        ],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 812 breaking changes over 685 symbols, 16 type references it could not resolve",
+        "changedSymbols": 685,
+        "components": [
+          "module:."
+        ],
+        "filesIndexed": 16,
+        "granularity": "module",
+        "level": "high",
+        "rationale": "The project uses 1 of com.fasterxml.jackson.core:jackson-databind's changed symbols in 3 files. The most severe, com.fasterxml.jackson.databind.ObjectMapper (signature-changed), is at src/main/java/org/pac4j/dropwizard/DefaultFeatureSupport.java:22, which usage-rule/1 rates High.",
+        "references": 7,
+        "seconds": 14.854
+      }
+    },
+    "bump-8b372dfe7962": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/pac4j/dropwizard-pac4j@8b372dfe79625ff585c5b0392913b6b152cc7c22",
+      "semver": "low",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 11 breaking changes over 11 symbols, 94 type references it could not resolve",
+        "changedSymbols": 11,
+        "components": [],
+        "filesIndexed": 16,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.eclipse.jetty:jetty-server is not imported by any source file, and none of its 11 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 7.28
+      }
+    },
+    "bump-8e1f0f08eef8": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/sabomichal/jooq-meta-postgres-flyway@8e1f0f08eef839903067c7c11432117c4897d0cd",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 38 breaking changes over 4 symbols",
+        "changedSymbols": 4,
+        "components": [],
+        "filesIndexed": 3,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.jooq:jooq-meta is not imported by any source file, and none of its 4 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 22.872,
+        "truth": {
+          "components": [
+            "module:."
+          ],
+          "files": [
+            "src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java"
+          ],
+          "granularity": "module"
+        }
+      }
+    },
+    "bump-8f16da085185": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/dadoonet/fscrawler@8f16da085185a09deb5f3d810cc66f6e73348a22",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 967 breaking changes over 784 symbols, 2 type references it could not resolve",
+        "changedSymbols": 784,
+        "components": [],
+        "filesIndexed": 183,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.apache.poi:poi is not imported by any source file, and none of its 784 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 29.33
+      }
+    },
+    "bump-8f91818349e8": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/googleapis/gax-java@8f91818349e823e5d865eb3ebdf561da7ae1cfd8",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download com.google.http-client:google-http-client-bom:1.42.2 | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "failed",
+        "apiDiffReason": "roseau 0.7.0 exited 2: Failed to download com.google.http-client:google-http-client-bom:1.42.2 | Use -v/-vv for detailed error logs.",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 467,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download com.google.http-client:google-http-client-bom:1.42.2 | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 4.211
+      }
+    },
+    "bump-95f718977b09": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/pac4j/dropwizard-pac4j@95f718977b09c1b664738f288f99b4ba76f78f63",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [
+          "src/main/java/org/pac4j/dropwizard/DefaultFeatureSupport.java",
+          "src/test/java/org/pac4j/dropwizard/AbstractConfigurationTest.java",
+          "src/test/java/org/pac4j/dropwizard/bundle/BundleFactoryTest.java"
+        ],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 814 breaking changes over 688 symbols, 16 type references it could not resolve",
+        "changedSymbols": 688,
+        "components": [
+          "module:."
+        ],
+        "filesIndexed": 16,
+        "granularity": "module",
+        "level": "high",
+        "rationale": "The project uses 1 of com.fasterxml.jackson.core:jackson-databind's changed symbols in 3 files. The most severe, com.fasterxml.jackson.databind.ObjectMapper (signature-changed), is at src/main/java/org/pac4j/dropwizard/DefaultFeatureSupport.java:22, which usage-rule/1 rates High.",
+        "references": 7,
+        "seconds": 13.621
+      }
+    },
+    "bump-a047d2d3f938": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/jenkinsci/incrementals-tools@a047d2d3f9385a25ced0d2ad3c49f9401ea9c624",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 1 breaking changes over 1 symbols, 22 type references it could not resolve",
+        "changedSymbols": 1,
+        "components": [],
+        "filesIndexed": 13,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.codehaus.mojo:versions-maven-plugin is not imported by any source file, and none of its 1 changed symbol is used: low project specific impact.",
+        "references": 0,
+        "seconds": 6.03
+      }
+    },
+    "bump-a3f4738330d2": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services@a3f4738330d23b9136044ae86c2093fba2c292e4",
+      "semver": "medium",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, read from the cache), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, read from the cache",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 168,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, read from the cache), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 0.326
+      }
+    },
+    "bump-abfb7dd92cff": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/vandmo/dependency-lock-maven-plugin@abfb7dd92cff85ddb69f70666f3f1705bbf55c78",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 20,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 6.826
+      }
+    },
+    "bump-bbd31a8cfb55": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/googleapis/java-storage-nio@bbd31a8cfb555ca45c1eaf43ac659e83539df201",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 1 breaking changes over 1 symbols, 2 type references it could not resolve",
+        "changedSymbols": 1,
+        "components": [],
+        "filesIndexed": 58,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "com.google.guava:guava is not imported by any source file, and none of its 1 changed symbol is used: low project specific impact.",
+        "references": 0,
+        "seconds": 14.937
+      }
+    },
+    "bump-bd93ad3b6113": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/s4u/sign-maven-plugin@bd93ad3b61139e8bf91a1a0ff5351bc9d3d8bbbc",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 41 breaking changes over 16 symbols, read from the cache",
+        "changedSymbols": 16,
+        "components": [],
+        "filesIndexed": 22,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.slf4j:slf4j-api is not imported by any source file, and none of its 16 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 0.035
+      }
+    },
+    "bump-bfe01b1632ae": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/jenkinsci/pull-request-monitoring-plugin@bfe01b1632ae11371134a34066ad2d9e23e374b3",
+      "semver": "medium",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download io.jenkins.plugins:echarts-api:5.1.2-3 | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "failed",
+        "apiDiffReason": "roseau 0.7.0 exited 2: Failed to download io.jenkins.plugins:echarts-api:5.1.2-3 | Use -v/-vv for detailed error logs.",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 17,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download io.jenkins.plugins:echarts-api:5.1.2-3 | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 3.09
+      }
+    },
+    "bump-c09896887acf": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/jenkinsci/incrementals-tools@c09896887acf0fe59320e01145a7034cd8d4e326",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [
+          "lib/src/main/java/io/jenkins/tools/incrementals/lib/UpdateChecker.java"
+        ],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 210 breaking changes over 200 symbols",
+        "changedSymbols": 200,
+        "components": [
+          "module:lib"
+        ],
+        "filesIndexed": 13,
+        "granularity": "module",
+        "level": "high",
+        "rationale": "The project uses 1 of org.kohsuke:github-api's changed symbols in 1 file. The most severe, org.kohsuke.github.GHCompare#status (removed), is at lib/src/main/java/io/jenkins/tools/incrementals/lib/UpdateChecker.java:239, which usage-rule/1 rates High.",
+        "references": 1,
+        "seconds": 16.31,
+        "truth": {
+          "components": [
+            "module:lib"
+          ],
+          "files": [
+            "lib/src/main/java/io/jenkins/tools/incrementals/lib/UpdateChecker.java"
+          ],
+          "granularity": "module"
+        }
+      }
+    },
+    "bump-c5ddd70e8ce1": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/vandmo/dependency-lock-maven-plugin@c5ddd70e8ce1555bdfd337e563b08d87ec6dc826",
+      "semver": "medium",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 25,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 12.24
+      }
+    },
+    "bump-c8a572a7d8e6": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/retest/recheck@c8a572a7d8e67eef75d9ab1a80d6acb952be6d7e",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 41 breaking changes over 16 symbols, read from the cache",
+        "changedSymbols": 16,
+        "components": [],
+        "filesIndexed": 485,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.slf4j:slf4j-api is not imported by any source file, and none of its 16 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 1.136
+      }
+    },
+    "bump-c8da6c3c823d": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services@c8da6c3c823d745bb37b072a4a33b6342a86dcd9",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [
+          "messaging/src/main/java/ids/messaging/endpoint/MessageController.java"
+        ],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 970 breaking changes over 752 symbols, 114 type references it could not resolve, read from the cache",
+        "changedSymbols": 752,
+        "components": [
+          "module:messaging"
+        ],
+        "filesIndexed": 168,
+        "granularity": "module",
+        "level": "high",
+        "rationale": "The project uses 1 of org.springframework:spring-web's changed symbols in 1 file. The most severe, org.springframework.http.ResponseEntity#status (removed), is at messaging/src/main/java/ids/messaging/endpoint/MessageController.java:137, which usage-rule/1 rates High.",
+        "references": 7,
+        "seconds": 0.877,
+        "truth": {
+          "components": [
+            "module:messaging"
+          ],
+          "files": [
+            "messaging/src/main/java/ids/messaging/dispatcher/MessageDispatcher.java",
+            "messaging/src/main/java/ids/messaging/endpoint/EndpointService.java",
+            "messaging/src/main/java/ids/messaging/endpoint/MessageController.java",
+            "messaging/src/main/java/ids/messaging/handler/request/RequestMessageHandlerService.java",
+            "messaging/src/main/java/ids/messaging/protocol/MessageService.java",
+            "messaging/src/main/java/ids/messaging/protocol/http/IdsHttpService.java",
+            "messaging/src/main/java/ids/messaging/response/Base64EncodedFileBodyResponse.java"
+          ],
+          "granularity": "module"
+        }
+      }
+    },
+    "bump-c923de11176e": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/equinor/neqsim@c923de11176e4fee34fa01bdb1cb1c90861fd0cf",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 4 breaking changes over 3 symbols, 4 type references it could not resolve",
+        "changedSymbols": 3,
+        "components": [],
+        "filesIndexed": 1119,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.apache.logging.log4j:log4j-api is not imported by any source file, and none of its 3 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 11.768
+      }
+    },
+    "bump-d0eb69d8fbb6": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/s4u/pgpverify-maven-plugin@d0eb69d8fbb6266c96fef6247b3116bc0875f6ae",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 135 breaking changes over 125 symbols, 1 type references it could not resolve",
+        "changedSymbols": 125,
+        "components": [],
+        "filesIndexed": 91,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.testng:testng is not imported by any source file, and none of its 125 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 19.878
+      }
+    },
+    "bump-d7cc1744503d": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services@d7cc1744503dcd393468db7cbc47cec0cea2a2f0",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [
+          "core/src/main/java/ids/messaging/core/config/ConfigProducer.java",
+          "core/src/main/java/ids/messaging/core/config/ssl/keystore/KeyStoreManager.java",
+          "core/src/test/java/ids/messaging/core/config/PreConfigInterceptor.java"
+        ],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 84 breaking changes over 73 symbols, 3 type references it could not resolve",
+        "changedSymbols": 73,
+        "components": [
+          "module:core"
+        ],
+        "filesIndexed": 168,
+        "granularity": "module",
+        "level": "high",
+        "rationale": "The project uses 1 of org.springframework:spring-core's changed symbols in 3 files. The most severe, org.springframework.core.io.ClassPathResource#<init> (removed), is at core/src/main/java/ids/messaging/core/config/ConfigProducer.java:173, which usage-rule/1 rates High.",
+        "references": 4,
+        "seconds": 10.486,
+        "truth": {
+          "components": [
+            "module:core"
+          ],
+          "files": [
+            "core/src/main/java/ids/messaging/core/config/ssl/keystore/KeyStoreManager.java"
+          ],
+          "granularity": "module"
+        }
+      }
+    },
+    "bump-dc9a40fde9a9": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/arextest/arex-agent-java@dc9a40fde9a9fee5aaec3f60695385ba539406d4",
+      "semver": "low",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [
+          "arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/main/java/io/arex/inst/dubbo/apache/v2/DubboAdapter.java",
+          "arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/main/java/io/arex/inst/dubbo/apache/v2/DubboConsumerExtractor.java",
+          "arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/main/java/io/arex/inst/dubbo/apache/v2/DubboConsumerInstrumentation.java",
+          "arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/main/java/io/arex/inst/dubbo/apache/v2/DubboProviderExtractor.java",
+          "arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/main/java/io/arex/inst/dubbo/apache/v2/DubboProviderInstrumentation.java",
+          "arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/test/java/io/arex/inst/dubbo/apache/v2/DubboAdapterTest.java",
+          "arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/test/java/io/arex/inst/dubbo/apache/v2/DubboConsumerInstrumentationTest.java",
+          "arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/test/java/io/arex/inst/dubbo/apache/v2/DubboProviderInstrumentationTest.java"
+        ],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 1780 breaking changes over 1475 symbols, 135 type references it could not resolve",
+        "changedSymbols": 1475,
+        "components": [
+          "module:arex-instrumentation/dubbo/arex-dubbo-apache-v2"
+        ],
+        "filesIndexed": 428,
+        "granularity": "module",
+        "level": "high",
+        "rationale": "The project uses 8 of org.apache.dubbo:dubbo's changed symbols in 8 files. The most severe, org.apache.dubbo.rpc.AsyncRpcResult#<init> (removed), is at arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/test/java/io/arex/inst/dubbo/apache/v2/DubboAdapterTest.java:147, which usage-rule/1 rates High.",
+        "references": 44,
+        "seconds": 20.238,
+        "truth": {
+          "components": [
+            "module:arex-instrumentation/dubbo/arex-dubbo-apache-v2"
+          ],
+          "files": [
+            "arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/main/java/io/arex/inst/dubbo/apache/v2/DubboConsumerExtractor.java"
+          ],
+          "granularity": "module"
+        }
+      }
+    },
+    "bump-dec73a7c6341": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/matteobaccan/html2pop3@dec73a7c634142d631306f8cf201e228fe3ebcc6",
+      "semver": "low",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 1 breaking changes over 1 symbols, 10 type references it could not resolve, read from the cache",
+        "changedSymbols": 1,
+        "components": [],
+        "filesIndexed": 55,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "ch.qos.logback:logback-classic is not imported by any source file, and none of its 1 changed symbol is used: low project specific impact.",
+        "references": 0,
+        "seconds": 0.357
+      }
+    },
+    "bump-e14e4c4fa024": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services@e14e4c4fa02468ad27d303785c26539a6b3b8eab",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 1354 breaking changes over 1144 symbols, 41 type references it could not resolve",
+        "changedSymbols": 1144,
+        "components": [],
+        "filesIndexed": 168,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.springframework:spring-webmvc is not imported by any source file, and none of its 1144 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 28.222,
+        "truth": {
+          "components": [
+            "module:messaging"
+          ],
+          "files": [
+            "messaging/src/main/java/ids/messaging/dispatcher/MessageDispatcherProvider.java",
+            "messaging/src/main/java/ids/messaging/endpoint/EndpointService.java",
+            "messaging/src/main/java/ids/messaging/endpoint/MessageController.java",
+            "messaging/src/main/java/ids/messaging/handler/request/RequestMessageHandlerService.java",
+            "messaging/src/main/java/ids/messaging/protocol/MessageService.java",
+            "messaging/src/main/java/ids/messaging/protocol/http/IdsHttpService.java",
+            "messaging/src/main/java/ids/messaging/requests/NotificationTemplateProvider.java",
+            "messaging/src/main/java/ids/messaging/requests/RequestTemplateProvider.java",
+            "messaging/src/main/java/ids/messaging/requests/builder/IdsRequestBuilderService.java",
+            "messaging/src/main/java/ids/messaging/util/SerializerProvider.java"
+          ],
+          "granularity": "module"
+        }
+      }
+    },
+    "bump-e4661d89a64f": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/elimu-ai/webapp@e4661d89a64fad5e140c2ad78df2580afdec4d52",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 24 breaking changes over 20 symbols, 68 type references it could not resolve",
+        "changedSymbols": 20,
+        "components": [],
+        "filesIndexed": 336,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.apache.logging.log4j:log4j-core is not imported by any source file, and none of its 20 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 12.292
+      }
+    },
+    "bump-e5801e745748": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/googleapis/java-bigquery@e5801e7457483c9f9e92cd10779e1281fc930fd7",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 24 breaking changes over 24 symbols",
+        "changedSymbols": 24,
+        "components": [],
+        "filesIndexed": 450,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "com.google.cloud:google-cloud-bigquerystorage is not imported by any source file, and none of its 24 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 99.997
+      }
+    },
+    "bump-ed7fbdd75abc": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/jcabi/jcabi-maven-plugin@ed7fbdd75abc666d9d5a2794e9392ed33e75de9b",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 16,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 7.173
+      }
+    },
+    "bump-f557d31b4faf": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services@f557d31b4faf102b5d2f67d86a1a4f67c09b5837",
+      "semver": "medium",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, read from the cache), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, read from the cache",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 168,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, read from the cache), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 0.335
+      }
+    },
+    "bump-fc7d1a841bfe": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/jadler-mocking/jadler@fc7d1a841bfe8a840b362fa09bae13e5231bc148",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 41 breaking changes over 16 symbols, read from the cache",
+        "changedSymbols": 16,
+        "components": [],
+        "filesIndexed": 77,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.slf4j:slf4j-api is not imported by any source file, and none of its 16 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 0.239
+      }
+    },
+    "bump-feb582661e77": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/sabomichal/liquibase-mssql@feb582661e77de66eadaa7550720a8751b266ee4",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [
+          "src/java-test/liquibase/ext/mssql/sqlgenerator/DatabaseSelectionTest.java",
+          "src/java-test/liquibase/ext/mssql/sqlgenerator/IndexGeneratorTest.java",
+          "src/java-test/liquibase/ext/mssql/sqlgenerator/InsertGeneratorTest.java",
+          "src/java-test/liquibase/ext/mssql/sqlgenerator/PrimaryKeyGeneratorTest.java",
+          "src/java/liquibase/ext/mssql/change/AddPrimaryKeyChangeMSSQL.java",
+          "src/java/liquibase/ext/mssql/change/CreateIndexChangeMSSQL.java",
+          "src/java/liquibase/ext/mssql/change/DropStoredProcedureChange.java",
+          "src/java/liquibase/ext/mssql/change/InsertDataChangeMSSQL.java",
+          "src/java/liquibase/ext/mssql/change/LoadDataChangeMSSQL.java",
+          "src/java/liquibase/ext/mssql/database/MSSQLDatabase.java",
+          "src/java/liquibase/ext/mssql/sqlgenerator/AddPrimaryKeyGeneratorMSSQL.java",
+          "src/java/liquibase/ext/mssql/sqlgenerator/CreateIndexGeneratorMSSQL.java",
+          "src/java/liquibase/ext/mssql/sqlgenerator/DropStoredProcedureGeneratorMSSQL.java",
+          "src/java/liquibase/ext/mssql/sqlgenerator/InsertGenerator.java",
+          "src/java/liquibase/ext/mssql/sqlgenerator/InsertSetGenerator.java"
+        ],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 1491 breaking changes over 1356 symbols, 21 type references it could not resolve",
+        "changedSymbols": 1356,
+        "components": [
+          "module:."
+        ],
+        "filesIndexed": 20,
+        "granularity": "module",
+        "level": "high",
+        "rationale": "The project uses 5 of org.liquibase:liquibase-core's changed symbols in 15 files. The most severe, liquibase.executor.ExecutorService#getInstance (removed), is at src/java/liquibase/ext/mssql/database/MSSQLDatabase.java:18, which usage-rule/1 rates High.",
+        "references": 76,
+        "seconds": 20.597,
+        "truth": {
+          "components": [
+            "module:."
+          ],
+          "files": [
+            "src/java/liquibase/ext/mssql/database/MSSQLDatabase.java",
+            "src/java/liquibase/ext/mssql/sqlgenerator/AddPrimaryKeyGeneratorMSSQL.java",
+            "src/java/liquibase/ext/mssql/sqlgenerator/CreateIndexGeneratorMSSQL.java"
+          ],
+          "granularity": "module"
+        }
+      }
+    },
+    "bumpx-26fd1cd7639b-coverage-model-0.21.0-0.72.1": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/jenkinsci/code-coverage-api-plugin@fd35daba65844fe136ca9acd1ef421989e5e63c3",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 72 breaking changes over 58 symbols",
+        "changedSymbols": 58,
+        "components": [],
+        "filesIndexed": 5,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "edu.hm.hafner:coverage-model is not imported by any source file, and none of its 58 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 16.132
+      }
+    },
+    "bumpx-27226f9df7c2-classmate-1.5.1-1.7.3": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/pac4j/dropwizard-pac4j@e9da18b74624d472ad1b91ab1f63a7a799878642",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 3 breaking changes over 2 symbols",
+        "changedSymbols": 2,
+        "components": [],
+        "filesIndexed": 16,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "com.fasterxml:classmate is not imported by any source file, and none of its 2 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 4.771
+      }
+    },
+    "bumpx-27226f9df7c2-error-prone-annotations-2.4.0-2.50.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/pac4j/dropwizard-pac4j@e9da18b74624d472ad1b91ab1f63a7a799878642",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 4 breaking changes over 4 symbols",
+        "changedSymbols": 4,
+        "components": [],
+        "filesIndexed": 16,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "com.google.errorprone:error_prone_annotations is not imported by any source file, and none of its 4 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 4.266
+      }
+    },
+    "bumpx-2cc9522c8f62-guice-servlet-5.1.0-7.0.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/tokuhirom/avans@14878a8c6e503bb55f6cb779da082ec75222abe2",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [
+          "avans-setup/src/main/resources/archetype-resources/src/main/java/GuiceServletConfig.java"
+        ],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 30 breaking changes over 17 symbols, 8 type references it could not resolve",
+        "changedSymbols": 17,
+        "components": [
+          "module:avans-setup/src/main/resources/archetype-resources"
+        ],
+        "filesIndexed": 139,
+        "granularity": "module",
+        "level": "high",
+        "rationale": "The project uses 3 of com.google.inject.extensions:guice-servlet's changed symbols in 1 file. The most severe, com.google.inject.servlet.GuiceServletContextListener#contextInitialized (removed), is at avans-setup/src/main/resources/archetype-resources/src/main/java/GuiceServletConfig.java:26, which usage-rule/1 rates High.",
+        "references": 5,
+        "seconds": 18.4
+      }
+    },
+    "bumpx-2cc9522c8f62-logback-classic-1.2.11-1.2.13": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/tokuhirom/avans@14878a8c6e503bb55f6cb779da082ec75222abe2",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 139,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 13.484
+      }
+    },
+    "bumpx-3f30dfff617f-h2-1.4.200-2.5.252": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/guhilling/cdi-test@f8974a6d2e02c8a4be368eb1b03357539efbfb80",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 8172 breaking changes over 7184 symbols, 17 type references it could not resolve",
+        "changedSymbols": 7184,
+        "components": [],
+        "filesIndexed": 139,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "com.h2database:h2 is not imported by any source file, and none of its 7184 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 14.974
+      }
+    },
+    "bumpx-3f30dfff617f-jakarta.jakartaee-api-8.0.0-11.0.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/guhilling/cdi-test@f8974a6d2e02c8a4be368eb1b03357539efbfb80",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [
+          "cdi-test-api/src/main/java/de/hilling/junit/cdi/annotations/ActivatableTestImplementation.java",
+          "cdi-test-api/src/main/java/de/hilling/junit/cdi/annotations/GlobalTestImplementation.java",
+          "cdi-test-api/src/main/java/de/hilling/junit/cdi/lifecycle/TestEvent.java",
+          "cdi-test-api/src/main/java/de/hilling/junit/cdi/scope/TestScoped.java",
+          "cdi-test-api/src/main/java/de/hilling/junit/cdi/scope/TestSuiteScoped.java",
+          "cdi-test-core/src/main/java/de/hilling/junit/cdi/CdiTestJunitExtension.java",
+          "cdi-test-core/src/main/java/de/hilling/junit/cdi/lifecycle/LifecycleNotifier.java",
+          "cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/ActivatableAlternativeBuilder.java",
+          "cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/CallRedirectionInterceptor.java",
+          "cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/InvocationTargetManager.java",
+          "cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/Replaceable.java",
+          "cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/TestInformation.java",
+          "cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/TestScopeExtension.java",
+          "cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/annotationreplacement/AnnotationReplacementBuilder.java",
+          "cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/annotationreplacement/AnnotationUtils.java",
+          "cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/context/AbstractScopeContext.java",
+          "cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/context/CustomScopeContextHolder.java",
+          "cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/context/CustomScopeInstance.java",
+          "cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/context/TestContext.java",
+          "cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/context/TestSuiteContext.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/ActivateAlternativeForAlternativeTest.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/ActivateAlternativeForRegularBeanTest.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/ActivatePartialAlternativeForRegularBeanTest.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/InjectionTest.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/MockProxyPartialDisabledTest.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/MockProxyTest.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/MultipleInvocationsTest.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/NotificationLifecyleSupportBean.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/NotificationLifecyleTest.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/ScopeTest.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/SimpleTest.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/beans/ConstructorInjected.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/beans/Request.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/beans/ResourceConstructorInjected.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/beans/ResourceInjected.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/scope/AbstractTestScopesTest.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/scope/ContextControlTest.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/scope/InvocationTargetManagerTest.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/scope/annotationreplacement/AnnotationReplacementHolderTest.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/scopedbeans/ApplicationScopedBean.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/scopedbeans/DependentScopedBean.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/scopedbeans/RequestScopedBean.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/scopedbeans/SessionScopedBean.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/service/BackendService.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/service/BackendServiceTestImplementation.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/service/OverriddenServiceImpl.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/service/QualifiedOverriddenServiceImpl.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/service/SampleService.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/service/TestActivatedOverridenService.java",
+          "cdi-test-core/src/test/java/de/hilling/junit/cdi/service/TestQualifier.java",
+          "cdi-test-jee/src/main/java/de/hilling/junit/cdi/jee/EntityManagerResourcesProvider.java",
+          "cdi-test-jee/src/main/java/de/hilling/junit/cdi/jee/TestEntityResources.java",
+          "cdi-test-jee/src/main/java/de/hilling/junit/cdi/jee/jpa/ConnectionWrapper.java",
+          "cdi-test-jee/src/main/java/de/hilling/junit/cdi/jee/jpa/eclipselink/EclipselinkConnectionWrapper.java",
+          "cdi-test-jee/src/main/java/de/hilling/junit/cdi/jee/jpa/hibernate/HibernateConnectionWrapper.java",
+          "cdi-test-jee/src/test/java/de/hilling/junit/cdi/jee/CustomerEntity.java",
+          "cdi-test-jee/src/test/java/de/hilling/junit/cdi/jee/EntityManagerTestProducer.java",
+          "cdi-test-jee/src/test/java/de/hilling/junit/cdi/jee/JpaCdiIntegrationTest.java",
+          "cdi-test-jee/src/test/java/de/hilling/junit/cdi/jee/SecondEntityManager.java",
+          "cdi-test-jee/src/test/java/de/hilling/junit/cdi/jee/TestEntityListener.java",
+          "cdi-test-jee/src/test/java/de/hilling/junit/cdi/jee/UpdateCounter.java",
+          "cdi-test-jee/src/test/java/de/hilling/junit/cdi/jee/UserEntity.java",
+          "cdi-test-jee/src/test/java/de/hilling/junit/cdi/jee/UserEntityTest.java",
+          "cdi-test-jee/src/test/java/de/hilling/junit/cdi/jee/jpa/eclipselink/EclipselinkConnectionWrapperTest.java",
+          "cdi-test-microprofile/src/main/java/de/hilling/junit/cdi/microprofile/TestConfigListener.java",
+          "cdi-test-microprofile/src/main/java/de/hilling/junit/cdi/microprofile/TestConfigProducer.java",
+          "cdi-test-microprofile/src/main/java/de/hilling/junit/cdi/microprofile/TestPropertiesHolder.java",
+          "cdi-test-microprofile/src/main/java/de/hilling/junit/cdi/microprofile/TestScopedConfiguration.java",
+          "cdi-test-microprofile/src/test/java/de/hilling/junit/cdi/microprofile/InjectionSample.java",
+          "cdi-test-microprofile/src/test/java/de/hilling/junit/cdi/microprofile/InjectionTest.java",
+          "cdi-test-microprofile/src/test/java/de/hilling/junit/cdi/microprofile/TestScopedConfigurationTest.java",
+          "integration-tests/test-core/src/main/java/de/hilling/junit/cdi/testing/ApplicationBean.java",
+          "integration-tests/test-core/src/main/java/de/hilling/junit/cdi/testing/OtherApplicationBean.java",
+          "integration-tests/test-core/src/main/java/de/hilling/junit/cdi/testing/RequestBean.java",
+          "integration-tests/test-core/src/test/java/de/hilling/junit/cdi/testing/RequestScopeMockTest.java",
+          "integration-tests/test-core/src/test/java/de/hilling/junit/cdi/testing/RequestScopePlainTest.java",
+          "integration-tests/test-jee/src/main/java/de/hilling/junit/cdi/jpa/BaseEntity.java",
+          "integration-tests/test-jee/src/main/java/de/hilling/junit/cdi/jpa/CounterEntityListener.java",
+          "integration-tests/test-jee/src/main/java/de/hilling/junit/cdi/jpa/InvocationCounter.java",
+          "integration-tests/test-jee/src/main/java/de/hilling/junit/cdi/jpa/UserEntity.java",
+          "integration-tests/test-jee/src/main/java/de/hilling/junit/cdi/jpa/UserService.java",
+          "integration-tests/test-jee/src/test/java/de/hilling/junit/cdi/jpa/EntityManagerTestProducer.java",
+          "integration-tests/test-jee/src/test/java/de/hilling/junit/cdi/jpa/UserEntityTest.java",
+          "integration-tests/test-jee/src/test/java/de/hilling/junit/cdi/jpa/UserServiceTest.java",
+          "integration-tests/test-jsf-war/src/main/java/de/hilling/cdi/sampleapp/UserRegistrationEntity.java",
+          "integration-tests/test-jsf-war/src/main/java/de/hilling/cdi/sampleapp/controller/RegistrationBean.java",
+          "integration-tests/test-jsf-war/src/main/java/de/hilling/cdi/sampleapp/ejb/RegistrationService.java",
+          "integration-tests/test-jsf-war/src/test/java/de/hilling/cdi/sampleapp/controller/RegistrationBeanTest.java",
+          "integration-tests/test-jsf-war/src/test/java/de/hilling/cdi/sampleapp/ejb/EntityManagerTestProducer.java",
+          "integration-tests/test-jsf-war/src/test/java/de/hilling/cdi/sampleapp/ejb/RegistrationServiceUnitTest.java",
+          "integration-tests/test-microprofile/src/main/java/de/hilling/junit/cdi/microprofile/Controller.java",
+          "integration-tests/test-microprofile/src/main/java/de/hilling/junit/cdi/microprofile/ControllerService.java",
+          "integration-tests/test-microprofile/src/main/java/de/hilling/junit/cdi/microprofile/EjbController.java",
+          "integration-tests/test-microprofile/src/main/java/de/hilling/junit/cdi/microprofile/HorseConverter.java",
+          "integration-tests/test-microprofile/src/main/java/de/hilling/junit/cdi/microprofile/SampleApplication.java",
+          "integration-tests/test-microprofile/src/test/java/de/hilling/junit/cdi/microprofile/ControllerTest.java",
+          "integration-tests/test-microprofile/src/test/java/de/hilling/junit/cdi/microprofile/EjbControllerTest.java"
+        ],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 2025 breaking changes over 2025 symbols",
+        "changedSymbols": 2025,
+        "components": [
+          "module:cdi-test-api",
+          "module:cdi-test-core",
+          "module:cdi-test-jee",
+          "module:cdi-test-microprofile",
+          "module:integration-tests/test-core",
+          "module:integration-tests/test-jee",
+          "module:integration-tests/test-jsf-war",
+          "module:integration-tests/test-microprofile"
+        ],
+        "filesIndexed": 139,
+        "granularity": "module",
+        "level": "high",
+        "rationale": "The project uses 63 of jakarta.platform:jakarta.jakartaee-api's changed symbols in 97 files. The most severe, javax.enterprise.inject.Stereotype (removed), is at cdi-test-api/src/main/java/de/hilling/junit/cdi/annotations/ActivatableTestImplementation.java:6, which usage-rule/1 rates High.",
+        "references": 546,
+        "seconds": 24.776
+      }
+    },
+    "bumpx-3ff575ae202c-plexus-utils-3.4.1-4.1.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/codehaus-plexus/plexus-archiver@ab01e2f6e06959bb8bf7c8815ab171ef0ee2b300",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 24 breaking changes over 23 symbols",
+        "changedSymbols": 23,
+        "components": [],
+        "filesIndexed": 144,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.codehaus.plexus:plexus-utils is not imported by any source file, and none of its 23 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 6.453
+      }
+    },
+    "bumpx-44a15fa526c1-commons-lang3-3.12.0-3.20.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/dadoonet/fscrawler@27b054fc800da54b3b44ce23f7189ddd32baa1e0",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 4 breaking changes over 4 symbols",
+        "changedSymbols": 4,
+        "components": [],
+        "filesIndexed": 178,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.apache.commons:commons-lang3 is not imported by any source file, and none of its 4 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 7.424
+      }
+    },
+    "bumpx-44a15fa526c1-jakarta.annotation-api-2.0.0-3.0.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/dadoonet/fscrawler@27b054fc800da54b3b44ce23f7189ddd32baa1e0",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 1 breaking changes over 1 symbols",
+        "changedSymbols": 1,
+        "components": [],
+        "filesIndexed": 178,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "jakarta.annotation:jakarta.annotation-api is not imported by any source file, and none of its 1 changed symbol is used: low project specific impact.",
+        "references": 0,
+        "seconds": 4.861
+      }
+    },
+    "bumpx-4ea77102208e-slf4j-jdk14-1.7.30-1.7.36": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/jenkinsci/sloccount-plugin@8b896dac556766f590e6135ffb06567e493aad1d",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 39,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 5.672
+      }
+    },
+    "bumpx-54857351e0b0-commons-beanutils-1.9.4-1.11.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/allure-framework/allure-maven@57e24141d4e23a9b1ada3f1957a85944ae3227f2",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 1 breaking changes over 1 symbols, 8 type references it could not resolve",
+        "changedSymbols": 1,
+        "components": [],
+        "filesIndexed": 13,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "commons-beanutils:commons-beanutils is not imported by any source file, and none of its 1 changed symbol is used: low project specific impact.",
+        "references": 0,
+        "seconds": 6.127
+      }
+    },
+    "bumpx-54857351e0b0-maven-shared-utils-3.2.0-3.5.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/allure-framework/allure-maven@57e24141d4e23a9b1ada3f1957a85944ae3227f2",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 36 breaking changes over 25 symbols, 3 type references it could not resolve",
+        "changedSymbols": 25,
+        "components": [],
+        "filesIndexed": 13,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.apache.maven.shared:maven-shared-utils is not imported by any source file, and none of its 25 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 7.016
+      }
+    },
+    "bumpx-70e13f6bdb7d-api-common-2.1.5-2.69.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/lukas-krecan/future-converter@60f8e83e1c256992cafa7b4666a525eb23869eae",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 12 breaking changes over 11 symbols, 2 type references it could not resolve",
+        "changedSymbols": 11,
+        "components": [],
+        "filesIndexed": 59,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "com.google.api:api-common is not imported by any source file, and none of its 11 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 9.074
+      }
+    },
+    "bumpx-70e13f6bdb7d-mockito-core-4.5.1-5.24.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/lukas-krecan/future-converter@60f8e83e1c256992cafa7b4666a525eb23869eae",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 295 breaking changes over 290 symbols, 14 type references it could not resolve",
+        "changedSymbols": 290,
+        "components": [],
+        "filesIndexed": 59,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.mockito:mockito-core is not imported by any source file, and none of its 290 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 27.352
+      }
+    },
+    "bumpx-a05bfd52ed33-4-4.3.3-4.3.4": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/searls/jasmine-maven-plugin@0a22a3eac2fac19fd92e11d755f63848676450e1",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 165,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 8.379
+      }
+    },
+    "bumpx-a05bfd52ed33-commons-lang3-3.12.0-3.20.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/searls/jasmine-maven-plugin@0a22a3eac2fac19fd92e11d755f63848676450e1",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 4 breaking changes over 4 symbols, read from the cache",
+        "changedSymbols": 4,
+        "components": [],
+        "filesIndexed": 165,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.apache.commons:commons-lang3 is not imported by any source file, and none of its 4 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 0.578
+      }
+    },
+    "bumpx-ac14d8362de4-gson-2.8.6-2.14.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/oripa/oripa@70eee5543d4fc98be66fd98ed6acfddf7dc5edb7",
+      "semver": "medium",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 489,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 5.28
+      }
+    },
+    "bumpx-ac14d8362de4-log4j-slf4j18-impl-2.12.1-2.12.4": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/oripa/oripa@70eee5543d4fc98be66fd98ed6acfddf7dc5edb7",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, 12 type references it could not resolve), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, 12 type references it could not resolve",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 489,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, 12 type references it could not resolve), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 7.107
+      }
+    },
+    "bumpx-bbd31a8cfb55-truth-1.1.4-1.1.5": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/googleapis/java-storage-nio@3edd4cc0ec60d8e7621cb0445d85a970971c2a7c",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, 2 type references it could not resolve), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, 2 type references it could not resolve",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 58,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, 2 type references it could not resolve), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 5.46
+      }
+    },
+    "bumpx-bbd31a8cfb55-truth-1.1.4-1.4.5": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/googleapis/java-storage-nio@3edd4cc0ec60d8e7621cb0445d85a970971c2a7c",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 3 breaking changes over 3 symbols, 2 type references it could not resolve",
+        "changedSymbols": 3,
+        "components": [],
+        "filesIndexed": 58,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "com.google.truth:truth is not imported by any source file, and none of its 3 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 5.196
+      }
+    },
+    "bumpx-bfe01b1632ae-commonmark-0.18.0-0.30.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/jenkinsci/pull-request-monitoring-plugin@387568af4fe89f500db6f0419b1f9923d925b2eb",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 62 breaking changes over 57 symbols",
+        "changedSymbols": 57,
+        "components": [],
+        "filesIndexed": 17,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.commonmark:commonmark is not imported by any source file, and none of its 57 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 5.25
+      }
+    },
+    "bumpx-bfe01b1632ae-j2html-1.4.0-1.6.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/jenkinsci/pull-request-monitoring-plugin@387568af4fe89f500db6f0419b1f9923d925b2eb",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 803 breaking changes over 256 symbols",
+        "changedSymbols": 256,
+        "components": [],
+        "filesIndexed": 17,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "com.j2html:j2html is not imported by any source file, and none of its 256 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 5.64
+      }
+    },
+    "bumpx-c09896887acf-doxia-core-1.11.1-2.1.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/jenkinsci/incrementals-tools@1a8620ed3a9adb56b67fb2765a67cc98d2bae2d7",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 888 breaking changes over 877 symbols, 4 type references it could not resolve",
+        "changedSymbols": 877,
+        "components": [],
+        "filesIndexed": 13,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.apache.maven.doxia:doxia-core is not imported by any source file, and none of its 877 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 12.21
+      }
+    },
+    "bumpx-c09896887acf-enforcer-api-3.2.1-3.6.3": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/jenkinsci/incrementals-tools@1a8620ed3a9adb56b67fb2765a67cc98d2bae2d7",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 4 breaking changes over 1 symbols, 4 type references it could not resolve",
+        "changedSymbols": 1,
+        "components": [],
+        "filesIndexed": 13,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.apache.maven.enforcer:enforcer-api is not imported by any source file, and none of its 1 changed symbol is used: low project specific impact.",
+        "references": 0,
+        "seconds": 5.836
+      }
+    },
+    "bumpx-c5ddd70e8ce1-plexus-component-annotations-2.1.0-2.2.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/vandmo/dependency-lock-maven-plugin@a05d29a602b2dfddca9115df7fad17a4b3cf6bbb",
+      "semver": "medium",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 25,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 4.101
+      }
+    },
+    "bumpx-c5ddd70e8ce1-plexus-utils-3.3.0-3.6.2": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/vandmo/dependency-lock-maven-plugin@a05d29a602b2dfddca9115df7fad17a4b3cf6bbb",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 138 breaking changes over 127 symbols",
+        "changedSymbols": 127,
+        "components": [],
+        "filesIndexed": 25,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.codehaus.plexus:plexus-utils is not imported by any source file, and none of its 127 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 5.435
+      }
+    },
+    "bumpx-d0eb69d8fbb6-commons-lang3-3.12.0-3.20.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/s4u/pgpverify-maven-plugin@89683e11a600e8f47219b3cca04b5520a7b5ee79",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 4 breaking changes over 4 symbols, read from the cache",
+        "changedSymbols": 4,
+        "components": [],
+        "filesIndexed": 91,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "org.apache.commons:commons-lang3 is not imported by any source file, and none of its 4 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 0.235
+      }
+    },
+    "bumpx-dc9a40fde9a9-arex-common-0.1.4-1.0.1": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/arextest/arex-agent-java@cd678880626888916fb7c5a115bc3eced3c06559",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 9 breaking changes over 3 symbols",
+        "changedSymbols": 3,
+        "components": [],
+        "filesIndexed": 428,
+        "granularity": "module",
+        "level": "low",
+        "rationale": "com.arextest:arex-common is not imported by any source file, and none of its 3 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 27.534
+      }
+    },
+    "bumpx-dc9a40fde9a9-dubbo-2.5.3-2.6.12": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/arextest/arex-agent-java@cd678880626888916fb7c5a115bc3eced3c06559",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [
+          "arex-instrumentation/dubbo/arex-dubbo-alibaba/src/main/java/io/arex/inst/dubbo/alibaba/DubboAdapter.java",
+          "arex-instrumentation/dubbo/arex-dubbo-alibaba/src/main/java/io/arex/inst/dubbo/alibaba/DubboCodecExtractor.java",
+          "arex-instrumentation/dubbo/arex-dubbo-alibaba/src/main/java/io/arex/inst/dubbo/alibaba/DubboCodecInstrumentation.java",
+          "arex-instrumentation/dubbo/arex-dubbo-alibaba/src/main/java/io/arex/inst/dubbo/alibaba/DubboConsumerInstrumentation.java",
+          "arex-instrumentation/dubbo/arex-dubbo-alibaba/src/main/java/io/arex/inst/dubbo/alibaba/DubboFilterExtractor.java",
+          "arex-instrumentation/dubbo/arex-dubbo-alibaba/src/main/java/io/arex/inst/dubbo/alibaba/DubboFilterInstrumentation.java",
+          "arex-instrumentation/dubbo/arex-dubbo-alibaba/src/main/java/io/arex/inst/dubbo/alibaba/DubboProviderExtractor.java",
+          "arex-instrumentation/dubbo/arex-dubbo-alibaba/src/main/java/io/arex/inst/dubbo/alibaba/DubboProviderInstrumentation.java",
+          "arex-instrumentation/dubbo/arex-dubbo-alibaba/src/test/java/io/arex/inst/dubbo/alibaba/DubboCodecExtractorTest.java",
+          "arex-instrumentation/dubbo/arex-dubbo-alibaba/src/test/java/io/arex/inst/dubbo/alibaba/DubboConsumerInstrumentationTest.java",
+          "arex-instrumentation/dubbo/arex-dubbo-alibaba/src/test/java/io/arex/inst/dubbo/alibaba/DubboFilterExtractorTest.java",
+          "arex-instrumentation/dubbo/arex-dubbo-alibaba/src/test/java/io/arex/inst/dubbo/alibaba/DubboProviderInstrumentationTest.java"
+        ],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 154 breaking changes over 145 symbols, 34 type references it could not resolve",
+        "changedSymbols": 145,
+        "components": [
+          "module:arex-instrumentation/dubbo/arex-dubbo-alibaba"
+        ],
+        "filesIndexed": 428,
+        "granularity": "module",
+        "level": "high",
+        "rationale": "The project uses 2 of com.alibaba:dubbo's changed symbols in 12 files. The most severe, com.alibaba.dubbo.rpc.Invocation (signature-changed), is at arex-instrumentation/dubbo/arex-dubbo-alibaba/src/main/java/io/arex/inst/dubbo/alibaba/DubboAdapter.java:25, which usage-rule/1 rates High.",
+        "references": 30,
+        "seconds": 19.412
+      }
+    },
+    "bumpx-e14e4c4fa024-junit-jupiter-engine-5.9.1-5.9.3": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services@70731ef41c4f9ab4de972218e600166c2058be0b",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 168,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 5.589
+      }
+    },
+    "bumpx-e14e4c4fa024-spring-web-5.3.24-5.3.39": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services@70731ef41c4f9ab4de972218e600166c2058be0b",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, 100 type references it could not resolve), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, 100 type references it could not resolve",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 168,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, 100 type references it could not resolve), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 17.425
+      }
+    },
+    "bumpx-e4661d89a64f-mysql-connector-java-8.0.28-8.0.33": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/elimu-ai/webapp@72f9fd7cfc83fd151da0fc239f88431da0e5d797",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download mysql:mysql-connector-java:8.0.33 | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "failed",
+        "apiDiffReason": "roseau 0.7.0 exited 2: Failed to download mysql:mysql-connector-java:8.0.33 | Use -v/-vv for detailed error logs.",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 336,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download mysql:mysql-connector-java:8.0.33 | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 39.388
+      }
+    },
+    "bumpx-e4661d89a64f-scribejava-apis-8.3.1-8.3.3": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/elimu-ai/webapp@72f9fd7cfc83fd151da0fc239f88431da0e5d797",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 336,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 11.157
+      }
+    },
+    "bumpx-ed7fbdd75abc-commons-lang3-3.12.0-3.20.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/jcabi/jcabi-maven-plugin@91993a656ff99d40975b083b91fce986ce6ea4a7",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [
+          "src/main/java/com/jcabi/maven/plugin/AjcMojo.java"
+        ],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 4 breaking changes over 4 symbols, read from the cache",
+        "changedSymbols": 4,
+        "components": [
+          "module:."
+        ],
+        "filesIndexed": 16,
+        "granularity": "module",
+        "level": "high",
+        "rationale": "The project uses 1 of org.apache.commons:commons-lang3's changed symbols in 1 file. The most severe, org.apache.commons.lang3.StringUtils#toString (signature-changed), is at src/main/java/com/jcabi/maven/plugin/AjcMojo.java:420, which usage-rule/1 rates High.",
+        "references": 2,
+        "seconds": 0.029
+      }
+    },
+    "bumpx-ed7fbdd75abc-junit-vintage-engine-5.9.3-6.1.3": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/jcabi/jcabi-maven-plugin@91993a656ff99d40975b083b91fce986ce6ea4a7",
+      "semver": "high",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 16,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 5.534
+      }
+    },
+    "bumpx-feb582661e77-junit-4.13.1-4.13.2": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "https://github.com/sabomichal/liquibase-mssql@c9d4b546f5a14a46a70da29dacb4857276274135",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, 6 type references it could not resolve), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, 6 type references it could not resolve",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 20,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (roseau 0.7.0 compared the two artifacts without their dependencies: 0 breaking changes over 0 symbols, 6 type references it could not resolve), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 5.197
+      }
+    },
+    "maven-records-junit-bom-5.12.2-5.14.4": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/java-records",
+      "semver": "medium",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download org.junit:junit-bom:5.12.2 | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "failed",
+        "apiDiffReason": "roseau 0.7.0 exited 2: Failed to download org.junit:junit-bom:5.12.2 | Use -v/-vv for detailed error logs.",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 2,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download org.junit:junit-bom:5.12.2 | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 2.913
+      }
+    },
+    "maven-records-junit-bom-5.12.2-6.1.3": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/java-records",
+      "semver": "high",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download org.junit:junit-bom:5.12.2 | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "failed",
+        "apiDiffReason": "roseau 0.7.0 exited 2: Failed to download org.junit:junit-bom:5.12.2 | Use -v/-vv for detailed error logs.",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 2,
+        "granularity": "module",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff failed (roseau 0.7.0 exited 2: Failed to download org.junit:junit-bom:5.12.2 | Use -v/-vv for detailed error logs.), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 2.633
+      }
+    },
+    "platform-jsdom-25.0.1-30.1.1": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "high",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff was unavailable (jsdom ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "unavailable",
+        "apiDiffReason": "jsdom ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff was unavailable (jsdom ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 0.135
+      }
+    },
+    "platform-react-19.2.6-19.2.8": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff was unavailable (react ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "unavailable",
+        "apiDiffReason": "react ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff was unavailable (react ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 1.327
+      }
+    },
+    "platform-react-19.2.8-19.3.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "medium",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff was unavailable (react ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "unavailable",
+        "apiDiffReason": "react ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff was unavailable (react ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 0.145
+      }
+    },
+    "platform-react-dom-19.2.6-19.2.8": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff was unavailable (react-dom ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "unavailable",
+        "apiDiffReason": "react-dom ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff was unavailable (react-dom ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 6.141
+      }
+    },
+    "platform-react-dom-19.2.6-19.3.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "medium",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff was unavailable (react-dom ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "unavailable",
+        "apiDiffReason": "react-dom ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff was unavailable (react-dom ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 2.237
+      }
+    },
+    "platform-react-dom-19.2.7-19.2.8": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff was unavailable (react-dom ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "unavailable",
+        "apiDiffReason": "react-dom ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff was unavailable (react-dom ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 2.021
+      }
+    },
+    "platform-react-dom-19.2.7-19.3.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "medium",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff was unavailable (react-dom ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "unavailable",
+        "apiDiffReason": "react-dom ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff was unavailable (react-dom ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 0.185
+      }
+    },
+    "platform-react-dom-19.2.8-19.3.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "medium",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff was unavailable (react-dom ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "unavailable",
+        "apiDiffReason": "react-dom ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff was unavailable (react-dom ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 0.285
+      }
+    },
+    "platform-react-router-dom-7.16.0-7.18.4": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "medium",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (declaration-diff/1 compared 0 exported declarations with 0 (files dc9f63786bae): 0 removed or changed), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "declaration-diff/1 compared 0 exported declarations with 0 (files dc9f63786bae): 0 removed or changed",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (declaration-diff/1 compared 0 exported declarations with 0 (files dc9f63786bae): 0 removed or changed), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 0.067
+      }
+    },
+    "platform-react-router-dom-7.18.2-7.18.4": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (declaration-diff/1 compared 0 exported declarations with 0 (files dc9f63786bae): 0 removed or changed), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "declaration-diff/1 compared 0 exported declarations with 0 (files dc9f63786bae): 0 removed or changed",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (declaration-diff/1 compared 0 exported declarations with 0 (files dc9f63786bae): 0 removed or changed), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 0.079
+      }
+    },
+    "platform-react-router-dom-7.18.3-7.18.4": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (declaration-diff/1 compared 0 exported declarations with 0 (files dc9f63786bae): 0 removed or changed), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "declaration-diff/1 compared 0 exported declarations with 0 (files dc9f63786bae): 0 removed or changed",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (declaration-diff/1 compared 0 exported declarations with 0 (files dc9f63786bae): 0 removed or changed), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 0.07
+      }
+    },
+    "platform-supertest-7.2.2-7.3.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "medium",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff was unavailable (supertest ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "unavailable",
+        "apiDiffReason": "supertest ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff was unavailable (supertest ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 0.029
+      }
+    },
+    "platform-tailwindcss-4.3.0-4.3.3": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "low",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "declaration-diff/1 compared 45 exported declarations with 45 (files 952631a59170): 4 removed or changed",
+        "changedSymbols": 4,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": "low",
+        "rationale": "tailwindcss is not imported by any source file, and none of its 4 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 0.187
+      }
+    },
+    "platform-tailwindcss-4.3.2-4.3.3": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (declaration-diff/1 compared 45 exported declarations with 45 (files b8e105ea7877): 0 removed or changed), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "declaration-diff/1 compared 45 exported declarations with 45 (files b8e105ea7877): 0 removed or changed",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (declaration-diff/1 compared 45 exported declarations with 45 (files b8e105ea7877): 0 removed or changed), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 0.369
+      }
+    },
+    "platform-tailwindcss-vite-4.3.0-4.3.3": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (declaration-diff/1 compared 2 exported declarations with 2 (files 1821b6971555): 0 removed or changed), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "declaration-diff/1 compared 2 exported declarations with 2 (files 1821b6971555): 0 removed or changed",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (declaration-diff/1 compared 2 exported declarations with 2 (files 1821b6971555): 0 removed or changed), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 0.052
+      }
+    },
+    "platform-testing-library-react-16.3.2-16.3.3": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (declaration-diff/1 compared 37 exported declarations with 37 (files a7530007ecbe): 0 removed or changed), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "declaration-diff/1 compared 37 exported declarations with 37 (files a7530007ecbe): 0 removed or changed",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (declaration-diff/1 compared 37 exported declarations with 37 (files a7530007ecbe): 0 removed or changed), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 0.761
+      }
+    },
+    "platform-types-react-19.2.15-19.2.18": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "low",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "declaration-diff/1 compared 242 exported declarations with 232 (files c9ec0462de39): 10 removed or changed",
+        "changedSymbols": 10,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": "low",
+        "rationale": "@types/react is imported in 6 files, and none of its 10 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 0.332
+      }
+    },
+    "platform-types-react-19.2.15-19.3.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "declaration-diff/1 compared 242 exported declarations with 232 (files c9ec0462de39): 11 removed or changed",
+        "changedSymbols": 11,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": "low",
+        "rationale": "@types/react is imported in 6 files, and none of its 11 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 0.142
+      }
+    },
+    "platform-types-react-19.2.17-19.2.18": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (declaration-diff/1 compared 232 exported declarations with 232 (files c9ec0462de39): 0 removed or changed), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "declaration-diff/1 compared 232 exported declarations with 232 (files c9ec0462de39): 0 removed or changed",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (declaration-diff/1 compared 232 exported declarations with 232 (files c9ec0462de39): 0 removed or changed), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 0.456
+      }
+    },
+    "platform-types-react-19.2.17-19.3.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "declaration-diff/1 compared 232 exported declarations with 232 (files c9ec0462de39): 1 removed or changed",
+        "changedSymbols": 1,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": "low",
+        "rationale": "@types/react is imported in 6 files, and none of its 1 changed symbol is used: low project specific impact.",
+        "references": 0,
+        "seconds": 0.171
+      }
+    },
+    "platform-types-react-19.2.18-19.3.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "declaration-diff/1 compared 232 exported declarations with 232 (files c9ec0462de39): 1 removed or changed",
+        "changedSymbols": 1,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": "low",
+        "rationale": "@types/react is imported in 6 files, and none of its 1 changed symbol is used: low project specific impact.",
+        "references": 0,
+        "seconds": 0.133
+      }
+    },
+    "platform-types-react-dom-19.2.3-19.2.7": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "low",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "declaration-diff/1 compared 159 exported declarations with 170 (files 18e5e6be93e9): 9 removed or changed",
+        "changedSymbols": 9,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": "low",
+        "rationale": "@types/react-dom is imported in 1 file, and none of its 9 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 0.3
+      }
+    },
+    "platform-types-react-dom-19.2.3-19.3.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "declaration-diff/1 compared 159 exported declarations with 176 (files 18e5e6be93e9): 9 removed or changed",
+        "changedSymbols": 9,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": "low",
+        "rationale": "@types/react-dom is imported in 1 file, and none of its 9 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 0.063
+      }
+    },
+    "platform-types-react-dom-19.2.4-19.2.7": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "low",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "declaration-diff/1 compared 161 exported declarations with 170 (files 18e5e6be93e9): 9 removed or changed",
+        "changedSymbols": 9,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": "low",
+        "rationale": "@types/react-dom is imported in 1 file, and none of its 9 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 0.059
+      }
+    },
+    "platform-types-react-dom-19.2.4-19.3.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "declaration-diff/1 compared 161 exported declarations with 176 (files 18e5e6be93e9): 9 removed or changed",
+        "changedSymbols": 9,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": "low",
+        "rationale": "@types/react-dom is imported in 1 file, and none of its 9 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 0.031
+      }
+    },
+    "platform-types-react-dom-19.2.5-19.3.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "medium",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "declaration-diff/1 compared 161 exported declarations with 176 (files 18e5e6be93e9): 9 removed or changed",
+        "changedSymbols": 9,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": "low",
+        "rationale": "@types/react-dom is imported in 1 file, and none of its 9 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 0.318
+      }
+    },
+    "platform-typescript-5.9.3-7.0.2": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "declaration-diff/1 compared 1261 exported declarations with 4634 (files 94d7abe09f7a): 1261 removed or changed",
+        "changedSymbols": 1261,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": "low",
+        "rationale": "typescript is not imported by any source file, and none of its 1261 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 0.658
+      }
+    },
+    "platform-vite-6.4.2-8.3.1": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "declaration-diff/1 compared 968 exported declarations with 1058 (files 9962609205ae): 204 removed or changed",
+        "changedSymbols": 204,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": "low",
+        "rationale": "vite is imported in 1 file, and none of its 204 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 0.703
+      }
+    },
+    "platform-vite-6.4.3-8.3.1": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/task-tracker",
+      "semver": "high",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "declaration-diff/1 compared 968 exported declarations with 1058 (files 9962609205ae): 204 removed or changed",
+        "changedSymbols": 204,
+        "components": [],
+        "filesIndexed": 24,
+        "granularity": "graph-node",
+        "level": "low",
+        "rationale": "vite is imported in 1 file, and none of its 204 changed symbols is used: low project specific impact.",
+        "references": 0,
+        "seconds": 0.628
+      }
+    },
+    "seeded-express-del": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/seeded/express-del",
+      "semver": "high",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff was unavailable (express ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "unavailable",
+        "apiDiffReason": "express ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 2,
+        "granularity": "graph-node",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff was unavailable (express ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 0.019
+      }
+    },
+    "seeded-uuid-v4": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "studies/clients/seeded/uuid-v4",
+      "semver": "high",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff was unavailable (uuid ships no type declarations in one of the two releases, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "unavailable",
+        "apiDiffReason": "uuid ships no type declarations in one of the two releases, so there is nothing to compare; the changelog is the only source of changed symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 1,
+        "granularity": "graph-node",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff was unavailable (uuid ships no type declarations in one of the two releases, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 0.012
+      }
+    },
+    "venturini-assetgraph-builder-assetgraph-5.7.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "npm assetgraph-builder@6.8.0",
+      "semver": "medium",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff was unavailable (assetgraph ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "unavailable",
+        "apiDiffReason": "assetgraph ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 5,
+        "granularity": "graph-node",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff was unavailable (assetgraph ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 0.891
+      }
+    },
+    "venturini-assetgraph-builder-optipng-0.2.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "npm assetgraph-builder@3.9.0",
+      "semver": "medium",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff was unavailable (optipng ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "unavailable",
+        "apiDiffReason": "optipng ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 28,
+        "granularity": "graph-node",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff was unavailable (optipng ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 0.725
+      }
+    },
+    "venturini-backbone-mongo-mongodb-1.3.13": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "npm backbone-mongo@0.5.2",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff was unavailable (the registry names no tarball for 1.3.13), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "unavailable",
+        "apiDiffReason": "the registry names no tarball for 1.3.13",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 7,
+        "granularity": "graph-node",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff was unavailable (the registry names no tarball for 1.3.13), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 0.405
+      }
+    },
+    "venturini-env-cmd-typescript-eslint-parser-1.6.0": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "npm env-cmd@9.0.1",
+      "semver": "medium",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff ran and found no breaking change (declaration-diff/1 compared 32 exported declarations with 32 (files fafa42b989d4): 0 removed or changed), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "ran",
+        "apiDiffReason": "declaration-diff/1 compared 32 exported declarations with 32 (files fafa42b989d4): 0 removed or changed",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 1,
+        "granularity": "graph-node",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff ran and found no breaking change (declaration-diff/1 compared 32 exported declarations with 32 (files fafa42b989d4): 0 removed or changed), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 0.807
+      }
+    },
+    "venturini-godot-window-stream-0.5.3": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "npm godot@0.7.7",
+      "semver": "low",
+      "usage": {
+        "abstained": "no changed symbols are known for this update: the API diff was unavailable (window-stream ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol",
+        "affectedFiles": [],
+        "apiDiff": "unavailable",
+        "apiDiffReason": "window-stream ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols",
+        "changedSymbols": 0,
+        "components": [],
+        "filesIndexed": 100,
+        "granularity": "graph-node",
+        "level": null,
+        "rationale": "The usage signal abstains: no changed symbols are known for this update: the API diff was unavailable (window-stream ships no type declarations in either release, so there is nothing to compare; the changelog is the only source of changed symbols), and no verified release note claim names a symbol.",
+        "references": 0,
+        "seconds": 0.43
+      }
+    },
+    "venturini-heroku-cli-util-netrc-parser-3.1.2": {
+      "changelog": null,
+      "changelogRun": false,
+      "client": "npm heroku-cli-util@8.0.4",
+      "semver": "low",
+      "usage": {
+        "abstained": "",
+        "affectedFiles": [
+          "lib/auth.js"
+        ],
+        "apiDiff": "ran",
+        "apiDiffReason": "declaration-diff/1 compared 86 exported declarations with 76 (files a4c51f96961d): 54 removed or changed",
+        "changedSymbols": 54,
+        "components": [],
+        "filesIndexed": 22,
+        "granularity": "graph-node",
+        "level": "high",
+        "rationale": "The project uses 9 of netrc-parser's changed symbols in 1 file. The most severe, Netrc#default (removed), is at lib/auth.js:35, which usage-rule/1 rates High.",
+        "references": 21,
+        "seconds": 0.384
+      }
+    }
+  }
+}

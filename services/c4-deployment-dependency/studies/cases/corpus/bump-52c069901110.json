@@ -1,0 +1,56 @@
+{
+  "caseId": "bump-52c069901110",
+  "client": {
+    "commit": "52c069901110c60553be85f5cc0e1381da26960c",
+    "image": "ghcr.io/chains-project/breaking-updates:52c069901110c60553be85f5cc0e1381da26960c-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/matteobaccan/html2pop3",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:52c069901110c60553be85f5cc0e1381da26960c-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:52c069901110c60553be85f5cc0e1381da26960c-breaking",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "TEST_FAILURE",
+    "failureLocations": [],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/52c069901110c60553be85f5cc0e1381da26960c.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb",
+  "source": "bump",
+  "sourceChange": "patch",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "1.4.1",
+    "manifestPaths": [],
+    "package": "ch.qos.logback:logback-classic",
+    "scope": "compile",
+    "toVersion": "1.4.3"
+  }
+}

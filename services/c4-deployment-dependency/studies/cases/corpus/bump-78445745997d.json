@@ -1,0 +1,56 @@
+{
+  "caseId": "bump-78445745997d",
+  "client": {
+    "commit": "78445745997d3ebe5d1e35d9762d95af875c85ec",
+    "image": "ghcr.io/chains-project/breaking-updates:78445745997d3ebe5d1e35d9762d95af875c85ec-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/spotify/missinglink",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:78445745997d3ebe5d1e35d9762d95af875c85ec-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:78445745997d3ebe5d1e35d9762d95af875c85ec-breaking",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "TEST_FAILURE",
+    "failureLocations": [],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/78445745997d3ebe5d1e35d9762d95af875c85ec.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb",
+  "source": "bump",
+  "sourceChange": "major",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "3.5.0",
+    "manifestPaths": [],
+    "package": "org.codehaus.plexus:plexus-utils",
+    "scope": "compile",
+    "toVersion": "4.0.0"
+  }
+}

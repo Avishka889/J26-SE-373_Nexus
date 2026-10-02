@@ -1,0 +1,61 @@
+{
+  "caseId": "bump-4a3efad6e008",
+  "client": {
+    "commit": "4a3efad6e00824e5814b9c8f571c9c98aad40281",
+    "image": "ghcr.io/chains-project/breaking-updates:4a3efad6e00824e5814b9c8f571c9c98aad40281-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/open-pdf-sign/open-pdf-sign",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:4a3efad6e00824e5814b9c8f571c9c98aad40281-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:4a3efad6e00824e5814b9c8f571c9c98aad40281-breaking",
+        "exitCode": null,
+        "logSha256": "8ca6e3fa5cd60b2068d2305a7e8045cb3b597e146786e6ad214df07ec03ce220",
+        "name": "compile",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": "[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 2 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.8.1\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING] \n[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.8.1:compile (default-compile) on project openpdfsign: Compilation failure\n[ERROR] /open-pdf-sign/src/main/java/org/openpdfsign/Signer.java:[7,32] cannot find symbol\n[ERROR]   symbol:   class CertificationPermission\n[ERROR]   location: package eu.europa.esig.dss.pades\n[ERROR] -> [Help 1]\n[ERROR] \n[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.\n[ERROR] Re-run Maven using the -X switch to enable full debug logging.\n[ERROR] \n[ERROR] For more information about the errors and possible solutions, please read the following articles:\n[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException"
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "COMPILATION_FAILURE",
+    "failureLocations": [
+      {
+        "line": 7,
+        "path": "src/main/java/org/openpdfsign/Signer.java"
+      }
+    ],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/4a3efad6e00824e5814b9c8f571c9c98aad40281.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb; failure locations read from running ghcr.io/chains-project/breaking-updates:4a3efad6e00824e5814b9c8f571c9c98aad40281-breaking on 2026-09-28",
+  "source": "bump",
+  "sourceChange": "minor",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "5.9",
+    "manifestPaths": [],
+    "package": "eu.europa.ec.joinup.sd-dss:dss-pades",
+    "scope": "compile",
+    "toVersion": "5.10.2"
+  }
+}

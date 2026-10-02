@@ -1,0 +1,77 @@
+{
+  "caseId": "bumpx-2cc9522c8f62-logback-classic-1.2.11-1.2.13",
+  "client": {
+    "commit": "14878a8c6e503bb55f6cb779da082ec75222abe2",
+    "image": "ghcr.io/chains-project/breaking-updates:2cc9522c8f62871d12243b174b98bd7d5b121362-pre",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/tokuhirom/avans",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "cd /avans && cp -r /work/overlay/. . 2>/dev/null; mvn -B -ntp clean test-compile",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": 30.82,
+        "tail": "[INFO] \n[INFO] --- clean:3.2.0:clean (default-clean) @ avans-setup ---\n[INFO] Deleting /avans/avans-setup/target\n[INFO] \n[INFO] --- resources:3.3.0:resources (default-resources) @ avans-setup ---\n[INFO] Copying 61 resources\n[INFO] \n[INFO] --- compiler:3.10.1:compile (default-compile) @ avans-setup ---\n[INFO] No sources to compile\n[INFO] \n[INFO] --- resources:3.3.0:testResources (default-testResources) @ avans-setup ---\n[INFO] skip non existing resourceDirectory /avans/avans-setup/src/test/resources\n[INFO] \n[INFO] --- compiler:3.10.1:testCompile (default-testCompile) @ avans-setup ---\n[INFO] No sources to compile\n[INFO] ------------------------------------------------------------------------\n[INFO] Reactor Summary for avans :: parent 2.5.1-SNAPSHOT:\n[INFO] \n[INFO] avans :: parent .................................... SUCCESS [  0.396 s]\n[INFO] avans .............................................. SUCCESS [ 14.186 s]\n[INFO] avans-jmh .......................................... SUCCESS [  1.901 s]\n[INFO] avans-freemarker ................................... SUCCESS [  1.919 s]\n[INFO] avans-tinyvalidator ................................ SUCCESS [  1.624 s]\n[INFO] avans-session ...................................... SUCCESS [  1.702 s]\n[INFO] avans-session-spymemcached ......................... SUCCESS [  1.900 s]\n[INFO] avans-setup ........................................ SUCCESS [  0.237 s]\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  26.095 s\n[INFO] Finished at: 2026-09-28T06:07:21Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 2 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.10.1\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      },
+      {
+        "command": "cd /avans && mvn -B -ntp test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 24.3,
+        "tail": "[INFO] --- resources:3.3.0:resources (default-resources) @ avans-setup ---\n[INFO] Copying 61 resources\n[INFO] \n[INFO] --- compiler:3.10.1:compile (default-compile) @ avans-setup ---\n[INFO] No sources to compile\n[INFO] \n[INFO] --- resources:3.3.0:testResources (default-testResources) @ avans-setup ---\n[INFO] skip non existing resourceDirectory /avans/avans-setup/src/test/resources\n[INFO] \n[INFO] --- compiler:3.10.1:testCompile (default-testCompile) @ avans-setup ---\n[INFO] No sources to compile\n[INFO] \n[INFO] --- surefire:2.5:test (default-test) @ avans-setup ---\n[INFO] No tests to run.\n[INFO] ------------------------------------------------------------------------\n[INFO] Reactor Summary for avans :: parent 2.5.1-SNAPSHOT:\n[INFO] \n[INFO] avans :: parent .................................... SUCCESS [  0.187 s]\n[INFO] avans .............................................. SUCCESS [  7.723 s]\n[INFO] avans-jmh .......................................... SUCCESS [  0.063 s]\n[INFO] avans-freemarker ................................... SUCCESS [  2.624 s]\n[INFO] avans-tinyvalidator ................................ SUCCESS [  2.303 s]\n[INFO] avans-session ...................................... SUCCESS [  2.890 s]\n[INFO] avans-session-spymemcached ......................... SUCCESS [  3.133 s]\n[INFO] avans-setup ........................................ SUCCESS [  0.078 s]\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  20.740 s\n[INFO] Finished at: 2026-09-28T06:07:46Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 3 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.10.1\n[WARNING]  * org.apache.maven.plugins:maven-surefire-plugin:2.5\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      }
+    ],
+    "candidate": [
+      {
+        "command": "cd /avans && cp -r /work/overlay/. . 2>/dev/null; mvn -B -ntp clean test-compile",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": 24.11,
+        "tail": "[INFO] \n[INFO] --- clean:3.2.0:clean (default-clean) @ avans-setup ---\n[INFO] Deleting /avans/avans-setup/target\n[INFO] \n[INFO] --- resources:3.3.0:resources (default-resources) @ avans-setup ---\n[INFO] Copying 61 resources\n[INFO] \n[INFO] --- compiler:3.10.1:compile (default-compile) @ avans-setup ---\n[INFO] No sources to compile\n[INFO] \n[INFO] --- resources:3.3.0:testResources (default-testResources) @ avans-setup ---\n[INFO] skip non existing resourceDirectory /avans/avans-setup/src/test/resources\n[INFO] \n[INFO] --- compiler:3.10.1:testCompile (default-testCompile) @ avans-setup ---\n[INFO] No sources to compile\n[INFO] ------------------------------------------------------------------------\n[INFO] Reactor Summary for avans :: parent 2.5.1-SNAPSHOT:\n[INFO] \n[INFO] avans :: parent .................................... SUCCESS [  0.491 s]\n[INFO] avans .............................................. SUCCESS [ 10.185 s]\n[INFO] avans-jmh .......................................... SUCCESS [  1.490 s]\n[INFO] avans-freemarker ................................... SUCCESS [  1.568 s]\n[INFO] avans-tinyvalidator ................................ SUCCESS [  1.857 s]\n[INFO] avans-session ...................................... SUCCESS [  1.910 s]\n[INFO] avans-session-spymemcached ......................... SUCCESS [  1.324 s]\n[INFO] avans-setup ........................................ SUCCESS [  0.172 s]\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  20.791 s\n[INFO] Finished at: 2026-09-28T06:08:15Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 2 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.10.1\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      },
+      {
+        "command": "cd /avans && mvn -B -ntp test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 22.41,
+        "tail": "[INFO] --- resources:3.3.0:resources (default-resources) @ avans-setup ---\n[INFO] Copying 61 resources\n[INFO] \n[INFO] --- compiler:3.10.1:compile (default-compile) @ avans-setup ---\n[INFO] No sources to compile\n[INFO] \n[INFO] --- resources:3.3.0:testResources (default-testResources) @ avans-setup ---\n[INFO] skip non existing resourceDirectory /avans/avans-setup/src/test/resources\n[INFO] \n[INFO] --- compiler:3.10.1:testCompile (default-testCompile) @ avans-setup ---\n[INFO] No sources to compile\n[INFO] \n[INFO] --- surefire:2.5:test (default-test) @ avans-setup ---\n[INFO] No tests to run.\n[INFO] ------------------------------------------------------------------------\n[INFO] Reactor Summary for avans :: parent 2.5.1-SNAPSHOT:\n[INFO] \n[INFO] avans :: parent .................................... SUCCESS [  0.127 s]\n[INFO] avans .............................................. SUCCESS [  7.945 s]\n[INFO] avans-jmh .......................................... SUCCESS [  0.064 s]\n[INFO] avans-freemarker ................................... SUCCESS [  2.069 s]\n[INFO] avans-tinyvalidator ................................ SUCCESS [  2.447 s]\n[INFO] avans-session ...................................... SUCCESS [  2.102 s]\n[INFO] avans-session-spymemcached ......................... SUCCESS [  2.799 s]\n[INFO] avans-setup ........................................ SUCCESS [  0.020 s]\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  19.053 s\n[INFO] Finished at: 2026-09-28T06:08:38Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 3 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.10.1\n[WARNING]  * org.apache.maven.plugins:maven-surefire-plugin:2.5\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      }
+    ],
+    "capturedAt": "2026-09-28",
+    "failureCategory": "",
+    "failureLocations": [],
+    "method": "container-reproduction",
+    "toolchain": "ghcr.io/chains-project/breaking-updates:2cc9522c8f62871d12243b174b98bd7d5b121362-pre (Apache Maven 3.9.2 (c9616018c7a021c1c39be70fb2843d6f5f9b8a1c) Maven home: /usr/share/java/maven-3 Java version: 11.0.19, vendor: Alpine, runtime: /usr/lib/jvm/java-11-openjdk)",
+    "warnings": []
+  },
+  "provenance": "bump_crossings loader: https://github.com/tokuhirom/avans at 14878a8c6e50, the commit before BUMP's break 2cc9522c8f62 (BUMP, chains-project/bump, MIT, at 324d5513aa5c), its ch.qos.logback:logback-classic crossed with the patch update Maven Central listed at capture, built in ghcr.io/chains-project/breaking-updates:2cc9522c8f62871d12243b174b98bd7d5b121362-pre",
+  "source": "bump-crossing",
+  "sourceChange": "patch",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "1.2.11",
+    "manifestPaths": [
+      "avans-setup/src/main/resources/archetype-resources/pom.xml",
+      "avans-setup/target/classes/archetype-resources/pom.xml"
+    ],
+    "package": "ch.qos.logback:logback-classic",
+    "scope": "compile",
+    "toVersion": "1.2.13"
+  }
+}

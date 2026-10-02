@@ -1,0 +1,77 @@
+{
+  "caseId": "seeded-uuid-v4",
+  "client": {
+    "commit": "",
+    "image": "",
+    "kind": "seeded",
+    "repoUrl": "",
+    "snapshot": "studies/clients/seeded/uuid-v4",
+    "snapshotSha256": "3c5f1342162281ae8a75bd4e4a6a451d179650daf5568cc3ae96ab4395aedf4a"
+  },
+  "frozenInputs": {
+    "studies/pins/seeded-uuid-v4.package-lock.json": "befee186e2228b1b3da8de68bcf47a4f0b2335a1ef39598493ca86e8aa7a00b1"
+  },
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "npm install uuid@9.0.1 --save-exact --package-lock-only --ignore-scripts --no-audit --no-fund && npm ci --ignore-scripts --no-audit --no-fund && node .c4/installed.mjs uuid 9.0.1",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "resolution",
+        "outcome": "passed",
+        "seconds": 2.38,
+        "tail": "up to date in 1s\n\nadded 1 package in 439ms\n. resolves uuid@9.0.1\nnpm warn deprecated uuid@9.0.1: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028)."
+      },
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 0.41,
+        "tail": "> seeded-uuid-v4@0.1.0 test\n> node check.js\n\nminted e65368ab-9244-474c-b4af-d837fd1069e3"
+      }
+    ],
+    "candidate": [
+      {
+        "command": "npm install uuid@14.0.2 --save-exact --package-lock-only --ignore-scripts --no-audit --no-fund && npm ci --ignore-scripts --no-audit --no-fund && node .c4/installed.mjs uuid 14.0.2",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "resolution",
+        "outcome": "passed",
+        "seconds": 2.07,
+        "tail": "up to date in 660ms\n\nadded 1 package in 817ms\n. resolves uuid@14.0.2"
+      },
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 0.57,
+        "tail": "> seeded-uuid-v4@0.1.0 test\n> node check.js\n\nminted e0f43e89-5fb3-472f-ac64-47756f3db7ac"
+      }
+    ],
+    "capturedAt": "2026-09-27",
+    "failureCategory": "",
+    "failureLocations": [],
+    "method": "container-reproduction",
+    "toolchain": "node:22-bookworm-slim@sha256:43ac6c60b8f89723f746e8a92ce91abd5017e627ce1ddfe4238355d3a30b772c (v22.23.3 10.9.9)",
+    "warnings": []
+  },
+  "provenance": "npm_seeded loader: the client seeded/uuid-v4, written for the study to show five majors of a package whose one used function, v4, did not change; its tree pinned by npm 10.9.2 install --package-lock-only --ignore-scripts",
+  "source": "npm-seeded",
+  "sourceChange": "",
+  "split": "dev",
+  "update": {
+    "ecosystem": "npm",
+    "fromVersion": "9.0.1",
+    "manifestPaths": [
+      "package.json"
+    ],
+    "package": "uuid",
+    "scope": "prod",
+    "toVersion": "14.0.2"
+  }
+}

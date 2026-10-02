@@ -1,0 +1,56 @@
+{
+  "caseId": "bump-bbd31a8cfb55",
+  "client": {
+    "commit": "bbd31a8cfb555ca45c1eaf43ac659e83539df201",
+    "image": "ghcr.io/chains-project/breaking-updates:bbd31a8cfb555ca45c1eaf43ac659e83539df201-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/googleapis/java-storage-nio",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:bbd31a8cfb555ca45c1eaf43ac659e83539df201-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:bbd31a8cfb555ca45c1eaf43ac659e83539df201-breaking",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "build",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "ENFORCER_FAILURE",
+    "failureLocations": [],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/bbd31a8cfb555ca45c1eaf43ac659e83539df201.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb",
+  "source": "bump",
+  "sourceChange": "other",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "31.1-android",
+    "manifestPaths": [],
+    "package": "com.google.guava:guava",
+    "scope": "compile",
+    "toVersion": "32.0.0-android"
+  }
+}

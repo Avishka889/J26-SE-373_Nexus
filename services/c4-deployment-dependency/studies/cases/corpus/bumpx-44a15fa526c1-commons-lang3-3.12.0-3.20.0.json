@@ -1,0 +1,76 @@
+{
+  "caseId": "bumpx-44a15fa526c1-commons-lang3-3.12.0-3.20.0",
+  "client": {
+    "commit": "27b054fc800da54b3b44ce23f7189ddd32baa1e0",
+    "image": "ghcr.io/chains-project/breaking-updates:44a15fa526c10b0c39d8d7337b833d42448fcca4-pre",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/dadoonet/fscrawler",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "cd /fscrawler && cp -r /work/overlay/. . 2>/dev/null; mvn -B -ntp clean test-compile",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": 89.03,
+        "tail": "[INFO] Copying 1 resource\n[INFO] ------------------------------------------------------------------------\n[INFO] Reactor Summary for FSCrawler 2.10-SNAPSHOT:\n[INFO] \n[INFO] FSCrawler .......................................... SUCCESS [  0.889 s]\n[INFO] FSCrawler Test Framework ........................... SUCCESS [  8.521 s]\n[INFO] FSCrawler Framework ................................ SUCCESS [  4.337 s]\n[INFO] FSCrawler Settings ................................. SUCCESS [  3.446 s]\n[INFO] FSCrawler Test Documents ........................... SUCCESS [  0.233 s]\n[INFO] FSCrawler Beans .................................... SUCCESS [  2.000 s]\n[INFO] FSCrawler 3rd Party libraries ...................... SUCCESS [  0.015 s]\n[INFO] FSCrawler Workplace Search Client .................. SUCCESS [  2.417 s]\n[INFO] FSCrawler Elasticsearch Client ..................... SUCCESS [ 10.835 s]\n[INFO] FSCrawler Tika ..................................... SUCCESS [ 30.395 s]\n[INFO] FSCrawler Crawlers ................................. SUCCESS [  0.046 s]\n[INFO] FSCrawler Abstract Crawler ......................... SUCCESS [  0.550 s]\n[INFO] FSCrawler Crawlers: FS ............................. SUCCESS [  0.222 s]\n[INFO] FSCrawler Crawlers: FTP ............................ SUCCESS [  0.754 s]\n[INFO] FSCrawler Crawlers: SSH ............................ SUCCESS [  0.419 s]\n[INFO] FSCrawler Core ..................................... SUCCESS [  3.242 s]\n[INFO] FSCrawler Rest Server .............................. SUCCESS [  1.601 s]\n[INFO] FSCrawler Integration Tests ........................ SUCCESS [  4.021 s]\n[INFO] FSCrawler Cli ...................................... SUCCESS [  1.359 s]\n[INFO] FSCrawler ZIP Distribution ......................... SUCCESS [  0.894 s]\n[INFO] FSCrawler Documentation ............................ SUCCESS [  0.603 s]\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  01:18 min\n[INFO] Finished at: 2026-09-28T03:38:05Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 3 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.2.0\n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.10.0\n[WARNING]  * org.apache.maven.plugins:maven-enforcer-plugin:3.0.0-M3\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      },
+      {
+        "command": "cd /fscrawler && mvn -B -ntp test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 68.46,
+        "tail": "[INFO] ------------------------------------------------------------------------\n[INFO] Reactor Summary for FSCrawler 2.10-SNAPSHOT:\n[INFO] \n[INFO] FSCrawler .......................................... SUCCESS [  0.006 s]\n[INFO] FSCrawler Test Framework ........................... SUCCESS [  8.387 s]\n[INFO] FSCrawler Framework ................................ SUCCESS [  0.972 s]\n[INFO] FSCrawler Settings ................................. SUCCESS [ 10.791 s]\n[INFO] FSCrawler Test Documents ........................... SUCCESS [  0.025 s]\n[INFO] FSCrawler Beans .................................... SUCCESS [  3.507 s]\n[INFO] FSCrawler 3rd Party libraries ...................... SUCCESS [  0.001 s]\n[INFO] FSCrawler Workplace Search Client .................. SUCCESS [  0.174 s]\n[INFO] FSCrawler Elasticsearch Client ..................... SUCCESS [  5.488 s]\n[INFO] FSCrawler Tika ..................................... SUCCESS [ 20.506 s]\n[INFO] FSCrawler Crawlers ................................. SUCCESS [  0.029 s]\n[INFO] FSCrawler Abstract Crawler ......................... SUCCESS [  0.118 s]\n[INFO] FSCrawler Crawlers: FS ............................. SUCCESS [  0.309 s]\n[INFO] FSCrawler Crawlers: FTP ............................ SUCCESS [  4.330 s]\n[INFO] FSCrawler Crawlers: SSH ............................ SUCCESS [  2.930 s]\n[INFO] FSCrawler Core ..................................... SUCCESS [  3.923 s]\n[INFO] FSCrawler Rest Server .............................. SUCCESS [  0.992 s]\n[INFO] FSCrawler Integration Tests ........................ SUCCESS [  0.157 s]\n[INFO] FSCrawler Cli ...................................... SUCCESS [  0.076 s]\n[INFO] FSCrawler ZIP Distribution ......................... SUCCESS [  0.686 s]\n[INFO] FSCrawler Documentation ............................ SUCCESS [  0.049 s]\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  01:04 min\n[INFO] Finished at: 2026-09-28T03:39:13Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 4 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.2.0\n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.10.0\n[WARNING]  * com.carrotsearch.randomizedtesting:junit4-maven-plugin:2.7.9\n[WARNING]  * org.apache.maven.plugins:maven-enforcer-plugin:3.0.0-M3\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      }
+    ],
+    "candidate": [
+      {
+        "command": "cd /fscrawler && cp -r /work/overlay/. . 2>/dev/null; mvn -B -ntp clean test-compile",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": 44.02,
+        "tail": "[INFO] Copying 1 resource\n[INFO] ------------------------------------------------------------------------\n[INFO] Reactor Summary for FSCrawler 2.10-SNAPSHOT:\n[INFO] \n[INFO] FSCrawler .......................................... SUCCESS [  0.573 s]\n[INFO] FSCrawler Test Framework ........................... SUCCESS [  4.472 s]\n[INFO] FSCrawler Framework ................................ SUCCESS [  3.575 s]\n[INFO] FSCrawler Settings ................................. SUCCESS [  2.408 s]\n[INFO] FSCrawler Test Documents ........................... SUCCESS [  0.112 s]\n[INFO] FSCrawler Beans .................................... SUCCESS [  0.709 s]\n[INFO] FSCrawler 3rd Party libraries ...................... SUCCESS [  0.005 s]\n[INFO] FSCrawler Workplace Search Client .................. SUCCESS [  0.567 s]\n[INFO] FSCrawler Elasticsearch Client ..................... SUCCESS [  1.856 s]\n[INFO] FSCrawler Tika ..................................... SUCCESS [ 10.826 s]\n[INFO] FSCrawler Crawlers ................................. SUCCESS [  0.016 s]\n[INFO] FSCrawler Abstract Crawler ......................... SUCCESS [  0.224 s]\n[INFO] FSCrawler Crawlers: FS ............................. SUCCESS [  0.421 s]\n[INFO] FSCrawler Crawlers: FTP ............................ SUCCESS [  0.923 s]\n[INFO] FSCrawler Crawlers: SSH ............................ SUCCESS [  1.085 s]\n[INFO] FSCrawler Core ..................................... SUCCESS [  2.889 s]\n[INFO] FSCrawler Rest Server .............................. SUCCESS [  1.427 s]\n[INFO] FSCrawler Integration Tests ........................ SUCCESS [  3.737 s]\n[INFO] FSCrawler Cli ...................................... SUCCESS [  1.656 s]\n[INFO] FSCrawler ZIP Distribution ......................... SUCCESS [  0.930 s]\n[INFO] FSCrawler Documentation ............................ SUCCESS [  0.922 s]\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  39.890 s\n[INFO] Finished at: 2026-09-28T03:40:17Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 3 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.2.0\n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.10.0\n[WARNING]  * org.apache.maven.plugins:maven-enforcer-plugin:3.0.0-M3\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      },
+      {
+        "command": "cd /fscrawler && mvn -B -ntp test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 70.41,
+        "tail": "[INFO] ------------------------------------------------------------------------\n[INFO] Reactor Summary for FSCrawler 2.10-SNAPSHOT:\n[INFO] \n[INFO] FSCrawler .......................................... SUCCESS [  0.005 s]\n[INFO] FSCrawler Test Framework ........................... SUCCESS [  8.052 s]\n[INFO] FSCrawler Framework ................................ SUCCESS [  0.815 s]\n[INFO] FSCrawler Settings ................................. SUCCESS [  9.409 s]\n[INFO] FSCrawler Test Documents ........................... SUCCESS [  0.078 s]\n[INFO] FSCrawler Beans .................................... SUCCESS [  3.352 s]\n[INFO] FSCrawler 3rd Party libraries ...................... SUCCESS [  0.001 s]\n[INFO] FSCrawler Workplace Search Client .................. SUCCESS [  0.195 s]\n[INFO] FSCrawler Elasticsearch Client ..................... SUCCESS [  5.075 s]\n[INFO] FSCrawler Tika ..................................... SUCCESS [ 23.673 s]\n[INFO] FSCrawler Crawlers ................................. SUCCESS [  0.022 s]\n[INFO] FSCrawler Abstract Crawler ......................... SUCCESS [  0.270 s]\n[INFO] FSCrawler Crawlers: FS ............................. SUCCESS [  0.306 s]\n[INFO] FSCrawler Crawlers: FTP ............................ SUCCESS [  5.293 s]\n[INFO] FSCrawler Crawlers: SSH ............................ SUCCESS [  2.923 s]\n[INFO] FSCrawler Core ..................................... SUCCESS [  5.101 s]\n[INFO] FSCrawler Rest Server .............................. SUCCESS [  0.997 s]\n[INFO] FSCrawler Integration Tests ........................ SUCCESS [  0.147 s]\n[INFO] FSCrawler Cli ...................................... SUCCESS [  0.068 s]\n[INFO] FSCrawler ZIP Distribution ......................... SUCCESS [  0.428 s]\n[INFO] FSCrawler Documentation ............................ SUCCESS [  0.048 s]\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  01:06 min\n[INFO] Finished at: 2026-09-28T03:41:28Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 4 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.2.0\n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.10.0\n[WARNING]  * com.carrotsearch.randomizedtesting:junit4-maven-plugin:2.7.9\n[WARNING]  * org.apache.maven.plugins:maven-enforcer-plugin:3.0.0-M3\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      }
+    ],
+    "capturedAt": "2026-09-28",
+    "failureCategory": "",
+    "failureLocations": [],
+    "method": "container-reproduction",
+    "toolchain": "ghcr.io/chains-project/breaking-updates:44a15fa526c10b0c39d8d7337b833d42448fcca4-pre (Apache Maven 3.9.2 (c9616018c7a021c1c39be70fb2843d6f5f9b8a1c) Maven home: /usr/share/java/maven-3 Java version: 11.0.19, vendor: Alpine, runtime: /usr/lib/jvm/java-11-openjdk)",
+    "warnings": []
+  },
+  "provenance": "bump_crossings loader: https://github.com/dadoonet/fscrawler at 27b054fc800d, the commit before BUMP's break 44a15fa526c1 (BUMP, chains-project/bump, MIT, at 324d5513aa5c), its org.apache.commons:commons-lang3 crossed with the minor update Maven Central listed at capture, built in ghcr.io/chains-project/breaking-updates:44a15fa526c10b0c39d8d7337b833d42448fcca4-pre",
+  "source": "bump-crossing",
+  "sourceChange": "minor",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "3.12.0",
+    "manifestPaths": [
+      "pom.xml"
+    ],
+    "package": "org.apache.commons:commons-lang3",
+    "scope": "compile",
+    "toVersion": "3.20.0"
+  }
+}

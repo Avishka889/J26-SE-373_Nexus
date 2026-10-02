@@ -1,0 +1,61 @@
+{
+  "caseId": "bump-c09896887acf",
+  "client": {
+    "commit": "c09896887acf0fe59320e01145a7034cd8d4e326",
+    "image": "ghcr.io/chains-project/breaking-updates:c09896887acf0fe59320e01145a7034cd8d4e326-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/jenkinsci/incrementals-tools",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:c09896887acf0fe59320e01145a7034cd8d4e326-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:c09896887acf0fe59320e01145a7034cd8d4e326-breaking",
+        "exitCode": null,
+        "logSha256": "723633565e33d85847a0f7d7d8714c547e9f37d6738b10978e952390bb2a8c45",
+        "name": "compile",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": "[WARNING] Plugin validation issues were detected in 3 plugin(s)\n[WARNING] \n[WARNING]  * org.codehaus.gmaven:gmaven-plugin:1.4\n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.3\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING] \n[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.3:compile (default-compile) on project lib: Compilation failure\n[ERROR] /incrementals-tools/lib/src/main/java/io/jenkins/tools/incrementals/lib/UpdateChecker.java:[239,126] status has private access in org.kohsuke.github.GHCompare\n[ERROR] -> [Help 1]\n[ERROR] \n[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.\n[ERROR] Re-run Maven using the -X switch to enable full debug logging.\n[ERROR] \n[ERROR] For more information about the errors and possible solutions, please read the following articles:\n[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException\n[ERROR] \n[ERROR] After correcting the problems, you can resume the build with the command\n[ERROR]   mvn <args> -rf :lib"
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "COMPILATION_FAILURE",
+    "failureLocations": [
+      {
+        "line": 239,
+        "path": "lib/src/main/java/io/jenkins/tools/incrementals/lib/UpdateChecker.java"
+      }
+    ],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/c09896887acf0fe59320e01145a7034cd8d4e326.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb; failure locations read from running ghcr.io/chains-project/breaking-updates:c09896887acf0fe59320e01145a7034cd8d4e326-breaking on 2026-09-28",
+  "source": "bump",
+  "sourceChange": "minor",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "1.93",
+    "manifestPaths": [],
+    "package": "org.kohsuke:github-api",
+    "scope": "compile",
+    "toVersion": "1.314"
+  }
+}

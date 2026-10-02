@@ -1,0 +1,141 @@
+{
+  "caseId": "bump-70e13f6bdb7d",
+  "client": {
+    "commit": "70e13f6bdb7de7f8eda9f174a5616284f2157ea7",
+    "image": "ghcr.io/chains-project/breaking-updates:70e13f6bdb7de7f8eda9f174a5616284f2157ea7-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/lukas-krecan/future-converter",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:70e13f6bdb7de7f8eda9f174a5616284f2157ea7-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:70e13f6bdb7de7f8eda9f174a5616284f2157ea7-breaking",
+        "exitCode": null,
+        "logSha256": "b87863f38da46821f6553b60f446da021b9c168e8c53d8f0c6a4c999cf1cc931",
+        "name": "compile",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": "[ERROR] /future-converter/common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringConvertedFutureTestHelper.java:[37,41] cannot find symbol\n[ERROR]   symbol:   class ListenableFutureCallback\n[ERROR]   location: class net.javacrumbs.futureconverter.common.test.spring.SpringConvertedFutureTestHelper\n[ERROR] /future-converter/common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringConvertedFutureTestHelper.java:[38,13] method does not override or implement a method from a supertype\n[ERROR] /future-converter/common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringConvertedFutureTestHelper.java:[43,13] method does not override or implement a method from a supertype\n[ERROR] /future-converter/common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringConvertedFutureTestHelper.java:[73,41] cannot find symbol\n[ERROR]   symbol:   class ListenableFutureCallback\n[ERROR]   location: class net.javacrumbs.futureconverter.common.test.spring.SpringConvertedFutureTestHelper\n[ERROR] /future-converter/common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringConvertedFutureTestHelper.java:[74,13] method does not override or implement a method from a supertype\n[ERROR] /future-converter/common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringConvertedFutureTestHelper.java:[80,13] method does not override or implement a method from a supertype\n[ERROR] -> [Help 1]\n[ERROR] \n[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.\n[ERROR] Re-run Maven using the -X switch to enable full debug logging.\n[ERROR] \n[ERROR] For more information about the errors and possible solutions, please read the following articles:\n[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException\n[ERROR] \n[ERROR] After correcting the problems, you can resume the build with the command\n[ERROR]   mvn <args> -rf :future-converter-common-test"
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "COMPILATION_FAILURE",
+    "failureLocations": [
+      {
+        "line": 21,
+        "path": "common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringOriginalFutureTestHelper.java"
+      },
+      {
+        "line": 22,
+        "path": "common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringOriginalFutureTestHelper.java"
+      },
+      {
+        "line": 23,
+        "path": "common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringOriginalFutureTestHelper.java"
+      },
+      {
+        "line": 24,
+        "path": "common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringOriginalFutureTestHelper.java"
+      },
+      {
+        "line": 29,
+        "path": "common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringOriginalFutureTestHelper.java"
+      },
+      {
+        "line": 31,
+        "path": "common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringOriginalFutureTestHelper.java"
+      },
+      {
+        "line": 34,
+        "path": "common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringOriginalFutureTestHelper.java"
+      },
+      {
+        "line": 44,
+        "path": "common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringOriginalFutureTestHelper.java"
+      },
+      {
+        "line": 51,
+        "path": "common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringOriginalFutureTestHelper.java"
+      },
+      {
+        "line": 22,
+        "path": "common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringConvertedFutureTestHelper.java"
+      },
+      {
+        "line": 31,
+        "path": "common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringConvertedFutureTestHelper.java"
+      },
+      {
+        "line": 32,
+        "path": "common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringConvertedFutureTestHelper.java"
+      },
+      {
+        "line": 35,
+        "path": "common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringConvertedFutureTestHelper.java"
+      },
+      {
+        "line": 72,
+        "path": "common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringConvertedFutureTestHelper.java"
+      },
+      {
+        "line": 45,
+        "path": "common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringOriginalFutureTestHelper.java"
+      },
+      {
+        "line": 37,
+        "path": "common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringConvertedFutureTestHelper.java"
+      },
+      {
+        "line": 38,
+        "path": "common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringConvertedFutureTestHelper.java"
+      },
+      {
+        "line": 43,
+        "path": "common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringConvertedFutureTestHelper.java"
+      },
+      {
+        "line": 73,
+        "path": "common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringConvertedFutureTestHelper.java"
+      },
+      {
+        "line": 74,
+        "path": "common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringConvertedFutureTestHelper.java"
+      },
+      {
+        "line": 80,
+        "path": "common-test/src/main/java/net/javacrumbs/futureconverter/common/test/spring/SpringConvertedFutureTestHelper.java"
+      }
+    ],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/70e13f6bdb7de7f8eda9f174a5616284f2157ea7.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb; failure locations read from running ghcr.io/chains-project/breaking-updates:70e13f6bdb7de7f8eda9f174a5616284f2157ea7-breaking on 2026-09-28",
+  "source": "bump",
+  "sourceChange": "major",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "5.3.19",
+    "manifestPaths": [],
+    "package": "org.springframework:spring-core",
+    "scope": "compile",
+    "toVersion": "6.0.2"
+  }
+}

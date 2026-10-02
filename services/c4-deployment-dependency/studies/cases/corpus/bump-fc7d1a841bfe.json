@@ -1,0 +1,56 @@
+{
+  "caseId": "bump-fc7d1a841bfe",
+  "client": {
+    "commit": "fc7d1a841bfe8a840b362fa09bae13e5231bc148",
+    "image": "ghcr.io/chains-project/breaking-updates:fc7d1a841bfe8a840b362fa09bae13e5231bc148-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/jadler-mocking/jadler",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:fc7d1a841bfe8a840b362fa09bae13e5231bc148-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:fc7d1a841bfe8a840b362fa09bae13e5231bc148-breaking",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "TEST_FAILURE",
+    "failureLocations": [],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/fc7d1a841bfe8a840b362fa09bae13e5231bc148.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb",
+  "source": "bump",
+  "sourceChange": "major",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "1.7.36",
+    "manifestPaths": [],
+    "package": "org.slf4j:slf4j-api",
+    "scope": "compile",
+    "toVersion": "2.0.1"
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "caseId": "bump-4861e40d7047",
+  "client": {
+    "commit": "4861e40d7047a73bdbae1a4856a2b5ee4a79071a",
+    "image": "ghcr.io/chains-project/breaking-updates:4861e40d7047a73bdbae1a4856a2b5ee4a79071a-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:4861e40d7047a73bdbae1a4856a2b5ee4a79071a-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:4861e40d7047a73bdbae1a4856a2b5ee4a79071a-breaking",
+        "exitCode": null,
+        "logSha256": "26f872fdb91fff3cdae8508d4ee871719e947c51303260d1fef0d5d0d024d873",
+        "name": "compile",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": "[ERROR]   location: class ids.messaging.endpoint.MessageController\n[ERROR] /IDS-Messaging-Services/messaging/src/main/java/ids/messaging/endpoint/MessageController.java:[94,6] cannot find symbol\n[ERROR]   symbol:   class Value\n[ERROR]   location: class ids.messaging.endpoint.MessageController\n[ERROR] /IDS-Messaging-Services/messaging/src/main/java/ids/messaging/endpoint/MessageController.java:[103,6] cannot find symbol\n[ERROR]   symbol:   class Autowired\n[ERROR]   location: class ids.messaging.endpoint.MessageController\n[ERROR] /IDS-Messaging-Services/messaging/src/main/java/ids/messaging/handler/request/RequestMessageHandlerService.java:[51,6] cannot find symbol\n[ERROR]   symbol:   class Autowired\n[ERROR]   location: class ids.messaging.handler.request.RequestMessageHandlerService\n[ERROR] -> [Help 1]\n[ERROR] \n[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.\n[ERROR] Re-run Maven using the -X switch to enable full debug logging.\n[ERROR] \n[ERROR] For more information about the errors and possible solutions, please read the following articles:\n[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException\n[ERROR] \n[ERROR] After correcting the problems, you can resume the build with the command\n[ERROR]   mvn <args> -rf :messaging"
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "COMPILATION_FAILURE",
+    "failureLocations": [
+      {
+        "line": 38,
+        "path": "messaging/src/main/java/ids/messaging/protocol/MessageService.java"
+      },
+      {
+        "line": 57,
+        "path": "messaging/src/main/java/ids/messaging/protocol/http/IdsHttpService.java"
+      },
+      {
+        "line": 26,
+        "path": "messaging/src/main/java/ids/messaging/endpoint/EndpointService.java"
+      },
+      {
+        "line": 28,
+        "path": "messaging/src/main/java/ids/messaging/endpoint/EndpointService.java"
+      },
+      {
+        "line": 50,
+        "path": "messaging/src/main/java/ids/messaging/endpoint/MessageController.java"
+      },
+      {
+        "line": 52,
+        "path": "messaging/src/main/java/ids/messaging/endpoint/MessageController.java"
+      },
+      {
+        "line": 35,
+        "path": "messaging/src/main/java/ids/messaging/response/Base64EncodedFileBodyResponse.java"
+      },
+      {
+        "line": 36,
+        "path": "messaging/src/main/java/ids/messaging/response/Base64EncodedFileBodyResponse.java"
+      },
+      {
+        "line": 120,
+        "path": "messaging/src/main/java/ids/messaging/endpoint/MessageController.java"
+      },
+      {
+        "line": 54,
+        "path": "messaging/src/main/java/ids/messaging/response/Base64EncodedFileBodyResponse.java"
+      },
+      {
+        "line": 66,
+        "path": "messaging/src/main/java/ids/messaging/response/Base64EncodedFileBodyResponse.java"
+      },
+      {
+        "line": 95,
+        "path": "messaging/src/main/java/ids/messaging/response/Base64EncodedFileBodyResponse.java"
+      },
+      {
+        "line": 75,
+        "path": "messaging/src/main/java/ids/messaging/protocol/MessageService.java"
+      },
+      {
+        "line": 96,
+        "path": "messaging/src/main/java/ids/messaging/protocol/http/IdsHttpService.java"
+      },
+      {
+        "line": 102,
+        "path": "messaging/src/main/java/ids/messaging/protocol/http/IdsHttpService.java"
+      },
+      {
+        "line": 108,
+        "path": "messaging/src/main/java/ids/messaging/protocol/http/IdsHttpService.java"
+      },
+      {
+        "line": 59,
+        "path": "messaging/src/main/java/ids/messaging/dispatcher/MessageDispatcher.java"
+      },
+      {
+        "line": 55,
+        "path": "messaging/src/main/java/ids/messaging/endpoint/EndpointService.java"
+      },
+      {
+        "line": 82,
+        "path": "messaging/src/main/java/ids/messaging/endpoint/MessageController.java"
+      },
+      {
+        "line": 88,
+        "path": "messaging/src/main/java/ids/messaging/endpoint/MessageController.java"
+      },
+      {
+        "line": 94,
+        "path": "messaging/src/main/java/ids/messaging/endpoint/MessageController.java"
+      },
+      {
+        "line": 103,
+        "path": "messaging/src/main/java/ids/messaging/endpoint/MessageController.java"
+      },
+      {
+        "line": 51,
+        "path": "messaging/src/main/java/ids/messaging/handler/request/RequestMessageHandlerService.java"
+      }
+    ],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/4861e40d7047a73bdbae1a4856a2b5ee4a79071a.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb; failure locations read from running ghcr.io/chains-project/breaking-updates:4861e40d7047a73bdbae1a4856a2b5ee4a79071a-breaking on 2026-09-28",
+  "source": "bump",
+  "sourceChange": "major",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "5.3.24",
+    "manifestPaths": [],
+    "package": "org.springframework:spring-web",
+    "scope": "compile",
+    "toVersion": "6.0.0"
+  }
+}

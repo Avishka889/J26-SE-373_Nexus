@@ -1,0 +1,97 @@
+{
+  "caseId": "bump-f714a41f0ffe",
+  "client": {
+    "commit": "f714a41f0ffe9720939d4980da5119d1f45bd770",
+    "image": "ghcr.io/chains-project/breaking-updates:f714a41f0ffe9720939d4980da5119d1f45bd770-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/knowm/XChange",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:f714a41f0ffe9720939d4980da5119d1f45bd770-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:f714a41f0ffe9720939d4980da5119d1f45bd770-breaking",
+        "exitCode": null,
+        "logSha256": "cb0ef4e52ffd2ce8e160032b6bbfcf92c83e5993ae17fee83ec320e94d3eb31e",
+        "name": "compile",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": "[ERROR]       (actual and formal argument lists differ in length)\n[ERROR] /XChange/xchange-stream-service-pubnub/src/main/java/info/bitrich/xchangestream/service/pubnub/PubnubStreamingService.java:[94,49] cannot find symbol\n[ERROR]   symbol: class PNUserResult\n[ERROR] /XChange/xchange-stream-service-pubnub/src/main/java/info/bitrich/xchangestream/service/pubnub/PubnubStreamingService.java:[99,50] cannot find symbol\n[ERROR]   symbol: class PNSpaceResult\n[ERROR] /XChange/xchange-stream-service-pubnub/src/main/java/info/bitrich/xchangestream/service/pubnub/PubnubStreamingService.java:[104,55] cannot find symbol\n[ERROR]   symbol: class PNMembershipResult\n[ERROR] /XChange/xchange-stream-service-pubnub/src/main/java/info/bitrich/xchangestream/service/pubnub/PubnubStreamingService.java:[50,39] <anonymous info.bitrich.xchangestream.service.pubnub.PubnubStreamingService$1> is not abstract and does not override abstract method file(com.pubnub.api.PubNub,com.pubnub.api.models.consumer.pubsub.files.PNFileEventResult) in com.pubnub.api.callbacks.SubscribeCallback\n[ERROR] /XChange/xchange-stream-service-pubnub/src/main/java/info/bitrich/xchangestream/service/pubnub/PubnubStreamingService.java:[93,17] method does not override or implement a method from a supertype\n[ERROR] /XChange/xchange-stream-service-pubnub/src/main/java/info/bitrich/xchangestream/service/pubnub/PubnubStreamingService.java:[98,17] method does not override or implement a method from a supertype\n[ERROR] -> [Help 1]\n[ERROR] \n[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.\n[ERROR] Re-run Maven using the -X switch to enable full debug logging.\n[ERROR] \n[ERROR] For more information about the errors and possible solutions, please read the following articles:\n[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException\n[ERROR] \n[ERROR] After correcting the problems, you can resume the build with the command\n[ERROR]   mvn <args> -rf :xchange-stream-service-pubnub"
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "COMPILATION_FAILURE",
+    "failureLocations": [
+      {
+        "line": 15,
+        "path": "xchange-stream-service-pubnub/src/main/java/info/bitrich/xchangestream/service/pubnub/PubnubStreamingService.java"
+      },
+      {
+        "line": 16,
+        "path": "xchange-stream-service-pubnub/src/main/java/info/bitrich/xchangestream/service/pubnub/PubnubStreamingService.java"
+      },
+      {
+        "line": 17,
+        "path": "xchange-stream-service-pubnub/src/main/java/info/bitrich/xchangestream/service/pubnub/PubnubStreamingService.java"
+      },
+      {
+        "line": 40,
+        "path": "xchange-stream-service-pubnub/src/main/java/info/bitrich/xchangestream/service/pubnub/PubnubStreamingService.java"
+      },
+      {
+        "line": 94,
+        "path": "xchange-stream-service-pubnub/src/main/java/info/bitrich/xchangestream/service/pubnub/PubnubStreamingService.java"
+      },
+      {
+        "line": 99,
+        "path": "xchange-stream-service-pubnub/src/main/java/info/bitrich/xchangestream/service/pubnub/PubnubStreamingService.java"
+      },
+      {
+        "line": 104,
+        "path": "xchange-stream-service-pubnub/src/main/java/info/bitrich/xchangestream/service/pubnub/PubnubStreamingService.java"
+      },
+      {
+        "line": 50,
+        "path": "xchange-stream-service-pubnub/src/main/java/info/bitrich/xchangestream/service/pubnub/PubnubStreamingService.java"
+      },
+      {
+        "line": 93,
+        "path": "xchange-stream-service-pubnub/src/main/java/info/bitrich/xchangestream/service/pubnub/PubnubStreamingService.java"
+      },
+      {
+        "line": 98,
+        "path": "xchange-stream-service-pubnub/src/main/java/info/bitrich/xchangestream/service/pubnub/PubnubStreamingService.java"
+      }
+    ],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/f714a41f0ffe9720939d4980da5119d1f45bd770.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb; failure locations read from running ghcr.io/chains-project/breaking-updates:f714a41f0ffe9720939d4980da5119d1f45bd770-breaking on 2026-09-28",
+  "source": "bump",
+  "sourceChange": "major",
+  "split": "held-out",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "4.31.3",
+    "manifestPaths": [],
+    "package": "com.pubnub:pubnub-gson",
+    "scope": "compile",
+    "toVersion": "6.3.2"
+  }
+}

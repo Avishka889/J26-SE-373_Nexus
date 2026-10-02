@@ -1,0 +1,76 @@
+{
+  "caseId": "bumpx-27226f9df7c2-classmate-1.5.1-1.7.3",
+  "client": {
+    "commit": "e9da18b74624d472ad1b91ab1f63a7a799878642",
+    "image": "ghcr.io/chains-project/breaking-updates:27226f9df7c2209de8206f92fd707af9381932b0-pre",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/pac4j/dropwizard-pac4j",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "cd /dropwizard-pac4j && cp -r /work/overlay/. . 2>/dev/null; mvn -B -ntp clean test-compile",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": 21.92,
+        "tail": "[INFO] Compiling 7 source files to /dropwizard-pac4j/target/classes\n[INFO] \n[INFO] >>> pmd:3.14.0:check (run-pmd) > :pmd @ dropwizard-pac4j >>>\n[INFO] \n[INFO] --- pmd:3.14.0:pmd (pmd) @ dropwizard-pac4j ---\n[WARNING] Unable to locate Source XRef to link to - DISABLED\n[WARNING] Unable to locate Source XRef to link to - DISABLED\n[WARNING] Unable to locate Source XRef to link to - DISABLED\n[INFO] \n[INFO] <<< pmd:3.14.0:check (run-pmd) < :pmd @ dropwizard-pac4j <<<\n[INFO] \n[INFO] \n[INFO] --- pmd:3.14.0:check (run-pmd) @ dropwizard-pac4j ---\n[INFO] PMD version: 6.29.0\n[INFO] \n[INFO] \n[INFO] --- resources:3.3.0:testResources (default-testResources) @ dropwizard-pac4j ---\n[INFO] Copying 10 resources\n[INFO] \n[INFO] --- compiler:3.10.1:testCompile (default-testCompile) @ dropwizard-pac4j ---\n[INFO] Changes detected - recompiling the module!\n[INFO] Compiling 9 source files to /dropwizard-pac4j/target/test-classes\n[INFO] /dropwizard-pac4j/src/test/java/org/pac4j/dropwizard/factory/FakeConfigFactory.java: /dropwizard-pac4j/src/test/java/org/pac4j/dropwizard/factory/FakeConfigFactory.java uses unchecked or unsafe operations.\n[INFO] /dropwizard-pac4j/src/test/java/org/pac4j/dropwizard/factory/FakeConfigFactory.java: Recompile with -Xlint:unchecked for details.\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  17.881 s\n[INFO] Finished at: 2026-09-28T04:56:31Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 4 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.10.1\n[WARNING]  * org.apache.maven.plugins:maven-pmd-plugin:3.14.0\n[WARNING]  * org.apache.maven.plugins:maven-enforcer-plugin:3.0.0-M3\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      },
+      {
+        "command": "cd /dropwizard-pac4j && mvn -B -ntp test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 27.55,
+        "tail": "!         APPLICATION'S DEPENDENCIES WHICH FULLY (BUT LIGHTLY) TESTS IT.       !\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\nINFO  [2026-09-28 04:56:57,485] org.eclipse.jetty.server.handler.ContextHandler: Started i.d.j.MutableServletContextHandler@54f25b42{/,null,AVAILABLE}\nINFO  [2026-09-28 04:56:57,489] org.eclipse.jetty.server.AbstractConnector: Started application@bc52a41{HTTP/1.1, (http/1.1)}{0.0.0.0:45357}\nINFO  [2026-09-28 04:56:57,497] org.eclipse.jetty.server.AbstractConnector: Started admin@9f48198{HTTP/1.1, (http/1.1)}{0.0.0.0:40275}\nINFO  [2026-09-28 04:56:57,497] org.eclipse.jetty.server.Server: Started @9377ms\nINFO  [2026-09-28 04:56:57,573] org.pac4j.http.client.direct.DirectBasicAuthClient: Failed to retrieve or validate credentials: Username : 'boy' does not match password\n127.0.0.1 - - [28/Sep/2026:04:56:57 +0000] \"GET /dogs/pierre HTTP/1.1\" 401 0 \"-\" \"Jersey/2.32 (HttpUrlConnection 11.0.19)\" 5\nINFO  [2026-09-28 04:56:57,583] org.eclipse.jetty.server.AbstractConnector: Stopped application@bc52a41{HTTP/1.1, (http/1.1)}{0.0.0.0:0}\nINFO  [2026-09-28 04:56:57,588] org.eclipse.jetty.server.AbstractConnector: Stopped admin@9f48198{HTTP/1.1, (http/1.1)}{0.0.0.0:0}\nINFO  [2026-09-28 04:56:57,589] org.eclipse.jetty.server.session: node0 Stopped scavenging\nINFO  [2026-09-28 04:56:57,590] org.eclipse.jetty.server.handler.ContextHandler: Stopped i.d.j.MutableServletContextHandler@54f25b42{/,null,STOPPED}\nINFO  [2026-09-28 04:56:57,593] org.eclipse.jetty.server.handler.ContextHandler: Stopped i.d.j.MutableServletContextHandler@3c826498{/,null,STOPPED}\n[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.266 s - in org.pac4j.dropwizard.e2e.EndToEndServletTest\n[INFO] Running org.pac4j.dropwizard.factory.DefaultConfigurationTest\nWARN  [2026-09-28 04:56:58,847] org.pac4j.core.matching.matcher.PathMatcher: Be careful when using the 'excludeBranch' or 'excludeRegex' methods. They use regular expressions and their definitions may be error prone. You could exclude more URLs than expected.\nINFO  [2026-09-28 04:56:58,912] org.pac4j.core.config.ConfigBuilder: Build the configuration from factory: org.pac4j.dropwizard.factory.FakeConfigFactory\n[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.475 s - in org.pac4j.dropwizard.factory.DefaultConfigurationTest\n[INFO] \n[INFO] Results:\n[INFO] \n[INFO] Tests run: 16, Failures: 0, Errors: 0, Skipped: 0\n[INFO] \n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  24.507 s\n[INFO] Finished at: 2026-09-28T04:56:59Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 4 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.10.1\n[WARNING]  * org.apache.maven.plugins:maven-pmd-plugin:3.14.0\n[WARNING]  * org.apache.maven.plugins:maven-enforcer-plugin:3.0.0-M3\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      }
+    ],
+    "candidate": [
+      {
+        "command": "cd /dropwizard-pac4j && cp -r /work/overlay/. . 2>/dev/null; mvn -B -ntp clean test-compile",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": 20.69,
+        "tail": "[INFO] Compiling 7 source files to /dropwizard-pac4j/target/classes\n[INFO] \n[INFO] >>> pmd:3.14.0:check (run-pmd) > :pmd @ dropwizard-pac4j >>>\n[INFO] \n[INFO] --- pmd:3.14.0:pmd (pmd) @ dropwizard-pac4j ---\n[WARNING] Unable to locate Source XRef to link to - DISABLED\n[WARNING] Unable to locate Source XRef to link to - DISABLED\n[WARNING] Unable to locate Source XRef to link to - DISABLED\n[INFO] \n[INFO] <<< pmd:3.14.0:check (run-pmd) < :pmd @ dropwizard-pac4j <<<\n[INFO] \n[INFO] \n[INFO] --- pmd:3.14.0:check (run-pmd) @ dropwizard-pac4j ---\n[INFO] PMD version: 6.29.0\n[INFO] \n[INFO] \n[INFO] --- resources:3.3.0:testResources (default-testResources) @ dropwizard-pac4j ---\n[INFO] Copying 10 resources\n[INFO] \n[INFO] --- compiler:3.10.1:testCompile (default-testCompile) @ dropwizard-pac4j ---\n[INFO] Changes detected - recompiling the module!\n[INFO] Compiling 9 source files to /dropwizard-pac4j/target/test-classes\n[INFO] /dropwizard-pac4j/src/test/java/org/pac4j/dropwizard/factory/FakeConfigFactory.java: /dropwizard-pac4j/src/test/java/org/pac4j/dropwizard/factory/FakeConfigFactory.java uses unchecked or unsafe operations.\n[INFO] /dropwizard-pac4j/src/test/java/org/pac4j/dropwizard/factory/FakeConfigFactory.java: Recompile with -Xlint:unchecked for details.\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  17.205 s\n[INFO] Finished at: 2026-09-28T04:57:24Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 4 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.10.1\n[WARNING]  * org.apache.maven.plugins:maven-pmd-plugin:3.14.0\n[WARNING]  * org.apache.maven.plugins:maven-enforcer-plugin:3.0.0-M3\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      },
+      {
+        "command": "cd /dropwizard-pac4j && mvn -B -ntp test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 23.73,
+        "tail": "!         APPLICATION'S DEPENDENCIES WHICH FULLY (BUT LIGHTLY) TESTS IT.       !\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\nINFO  [2026-09-28 04:57:46,888] org.eclipse.jetty.server.handler.ContextHandler: Started i.d.j.MutableServletContextHandler@54f25b42{/,null,AVAILABLE}\nINFO  [2026-09-28 04:57:46,891] org.eclipse.jetty.server.AbstractConnector: Started application@bc52a41{HTTP/1.1, (http/1.1)}{0.0.0.0:43051}\nINFO  [2026-09-28 04:57:46,895] org.eclipse.jetty.server.AbstractConnector: Started admin@9f48198{HTTP/1.1, (http/1.1)}{0.0.0.0:36131}\nINFO  [2026-09-28 04:57:46,895] org.eclipse.jetty.server.Server: Started @9248ms\nINFO  [2026-09-28 04:57:46,963] org.pac4j.http.client.direct.DirectBasicAuthClient: Failed to retrieve or validate credentials: Username : 'boy' does not match password\n127.0.0.1 - - [28/Sep/2026:04:57:46 +0000] \"GET /dogs/pierre HTTP/1.1\" 401 0 \"-\" \"Jersey/2.32 (HttpUrlConnection 11.0.19)\" 2\nINFO  [2026-09-28 04:57:46,970] org.eclipse.jetty.server.AbstractConnector: Stopped application@bc52a41{HTTP/1.1, (http/1.1)}{0.0.0.0:0}\nINFO  [2026-09-28 04:57:46,972] org.eclipse.jetty.server.AbstractConnector: Stopped admin@9f48198{HTTP/1.1, (http/1.1)}{0.0.0.0:0}\nINFO  [2026-09-28 04:57:46,972] org.eclipse.jetty.server.session: node0 Stopped scavenging\nINFO  [2026-09-28 04:57:46,973] org.eclipse.jetty.server.handler.ContextHandler: Stopped i.d.j.MutableServletContextHandler@54f25b42{/,null,STOPPED}\nINFO  [2026-09-28 04:57:46,974] org.eclipse.jetty.server.handler.ContextHandler: Stopped i.d.j.MutableServletContextHandler@3c826498{/,null,STOPPED}\n[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.195 s - in org.pac4j.dropwizard.e2e.EndToEndServletTest\n[INFO] Running org.pac4j.dropwizard.factory.DefaultConfigurationTest\nWARN  [2026-09-28 04:57:47,889] org.pac4j.core.matching.matcher.PathMatcher: Be careful when using the 'excludeBranch' or 'excludeRegex' methods. They use regular expressions and their definitions may be error prone. You could exclude more URLs than expected.\nINFO  [2026-09-28 04:57:47,952] org.pac4j.core.config.ConfigBuilder: Build the configuration from factory: org.pac4j.dropwizard.factory.FakeConfigFactory\n[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.101 s - in org.pac4j.dropwizard.factory.DefaultConfigurationTest\n[INFO] \n[INFO] Results:\n[INFO] \n[INFO] Tests run: 16, Failures: 0, Errors: 0, Skipped: 0\n[INFO] \n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  21.330 s\n[INFO] Finished at: 2026-09-28T04:57:48Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 4 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.10.1\n[WARNING]  * org.apache.maven.plugins:maven-pmd-plugin:3.14.0\n[WARNING]  * org.apache.maven.plugins:maven-enforcer-plugin:3.0.0-M3\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      }
+    ],
+    "capturedAt": "2026-09-28",
+    "failureCategory": "",
+    "failureLocations": [],
+    "method": "container-reproduction",
+    "toolchain": "ghcr.io/chains-project/breaking-updates:27226f9df7c2209de8206f92fd707af9381932b0-pre (Apache Maven 3.9.2 (c9616018c7a021c1c39be70fb2843d6f5f9b8a1c) Maven home: /usr/share/java/maven-3 Java version: 11.0.19, vendor: Alpine, runtime: /usr/lib/jvm/java-11-openjdk)",
+    "warnings": []
+  },
+  "provenance": "bump_crossings loader: https://github.com/pac4j/dropwizard-pac4j at e9da18b74624, the commit before BUMP's break 27226f9df7c2 (BUMP, chains-project/bump, MIT, at 324d5513aa5c), its com.fasterxml:classmate crossed with the minor update Maven Central listed at capture, built in ghcr.io/chains-project/breaking-updates:27226f9df7c2209de8206f92fd707af9381932b0-pre",
+  "source": "bump-crossing",
+  "sourceChange": "minor",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "1.5.1",
+    "manifestPaths": [
+      "pom.xml"
+    ],
+    "package": "com.fasterxml:classmate",
+    "scope": "compile",
+    "toVersion": "1.7.3"
+  }
+}

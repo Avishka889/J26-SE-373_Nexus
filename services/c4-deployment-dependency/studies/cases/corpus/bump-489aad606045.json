@@ -1,0 +1,77 @@
+{
+  "caseId": "bump-489aad606045",
+  "client": {
+    "commit": "489aad6060454d0b7b34a144e0b345c5a3a199f5",
+    "image": "ghcr.io/chains-project/breaking-updates:489aad6060454d0b7b34a144e0b345c5a3a199f5-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/NemProject/nem",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:489aad6060454d0b7b34a144e0b345c5a3a199f5-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:489aad6060454d0b7b34a144e0b345c5a3a199f5-breaking",
+        "exitCode": null,
+        "logSha256": "32704c39cf0c18c43a631c8d08d37fc19ab960cb12a67cfc00747ad262ff3638",
+        "name": "compile",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": "Sep 28, 2026 8:46:43 AM org.nem.peer.trust.CachedTrustProvider computeTrust\nINFO: calculating trust values\nSep 28, 2026 8:46:43 AM org.nem.peer.trust.CachedTrustProvider computeTrust\nINFO: trust calculation finished (2 values)\nSep 28, 2026 8:46:43 AM org.nem.peer.trust.CachedTrustProvider computeTrust\nINFO: calculating trust values\nSep 28, 2026 8:46:43 AM org.nem.peer.trust.CachedTrustProvider computeTrust\nINFO: trust calculation finished (2 values)\nSep 28, 2026 8:46:44 AM org.nem.peer.trust.CachedTrustProvider computeTrust\nINFO: calculating trust values\nSep 28, 2026 8:46:44 AM org.nem.peer.trust.CachedTrustProvider truncateContext\nINFO: truncating trust calculation from 200 nodes\nSep 28, 2026 8:46:44 AM org.nem.peer.trust.CachedTrustProvider computeTrust\nINFO: trust calculation finished (1 values)\nSep 28, 2026 8:46:44 AM org.nem.peer.PeerNetworkState updateExperience\nINFO: Updating experience with Node [(Weak Id) p] @ [127.0.0.1]: FAILURE\nSep 28, 2026 8:46:44 AM org.nem.peer.PeerNetworkState updateExperience\nINFO: Updating experience with Node [(Weak Id) p] @ [127.0.0.1]: FAILURE\nSep 28, 2026 8:46:44 AM org.nem.peer.PeerNetworkState updateExperience\nINFO: Updating experience with Node [(Weak Id) p] @ [127.0.0.1]: FAILURE"
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "COMPILATION_FAILURE",
+    "failureLocations": [
+      {
+        "line": 108,
+        "path": "nis/src/main/java/org/nem/specific/deploy/appconfig/NisAppConfig.java"
+      },
+      {
+        "line": 109,
+        "path": "nis/src/main/java/org/nem/specific/deploy/appconfig/NisAppConfig.java"
+      },
+      {
+        "line": 110,
+        "path": "nis/src/main/java/org/nem/specific/deploy/appconfig/NisAppConfig.java"
+      },
+      {
+        "line": 111,
+        "path": "nis/src/main/java/org/nem/specific/deploy/appconfig/NisAppConfig.java"
+      },
+      {
+        "line": 112,
+        "path": "nis/src/main/java/org/nem/specific/deploy/appconfig/NisAppConfig.java"
+      }
+    ],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/489aad6060454d0b7b34a144e0b345c5a3a199f5.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb; failure locations read from running ghcr.io/chains-project/breaking-updates:489aad6060454d0b7b34a144e0b345c5a3a199f5-breaking on 2026-09-28",
+  "source": "bump",
+  "sourceChange": "major",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "3.2.1",
+    "manifestPaths": [],
+    "package": "org.flywaydb:flyway-core",
+    "scope": "compile",
+    "toVersion": "9.19.1"
+  }
+}

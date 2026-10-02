@@ -1,0 +1,61 @@
+{
+  "caseId": "bump-d7cc1744503d",
+  "client": {
+    "commit": "d7cc1744503dcd393468db7cbc47cec0cea2a2f0",
+    "image": "ghcr.io/chains-project/breaking-updates:d7cc1744503dcd393468db7cbc47cec0cea2a2f0-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:d7cc1744503dcd393468db7cbc47cec0cea2a2f0-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:d7cc1744503dcd393468db7cbc47cec0cea2a2f0-breaking",
+        "exitCode": null,
+        "logSha256": "c4c6ef5aff2540150dc6c807dd253caf608c68c882d579c49c79df3b1b7ed356",
+        "name": "compile",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": "[WARNING]  * org.codehaus.mojo:flatten-maven-plugin:1.3.0\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING] \n[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.10.1:compile (default-compile) on project core: Compilation failure\n[ERROR] /IDS-Messaging-Services/core/src/main/java/ids/messaging/core/config/ssl/keystore/KeyStoreManager.java:[61,35] cannot access org.springframework.core.io.ClassPathResource\n[ERROR]   bad class file: /root/.m2/repository/org/springframework/spring-core/6.0.3/spring-core-6.0.3.jar(/org/springframework/core/io/ClassPathResource.class)\n[ERROR]     class file has wrong version 61.0, should be 55.0\n[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.\n[ERROR] -> [Help 1]\n[ERROR] \n[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.\n[ERROR] Re-run Maven using the -X switch to enable full debug logging.\n[ERROR] \n[ERROR] For more information about the errors and possible solutions, please read the following articles:\n[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException\n[ERROR] \n[ERROR] After correcting the problems, you can resume the build with the command\n[ERROR]   mvn <args> -rf :core"
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "COMPILATION_FAILURE",
+    "failureLocations": [
+      {
+        "line": 61,
+        "path": "core/src/main/java/ids/messaging/core/config/ssl/keystore/KeyStoreManager.java"
+      }
+    ],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/d7cc1744503dcd393468db7cbc47cec0cea2a2f0.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb; failure locations read from running ghcr.io/chains-project/breaking-updates:d7cc1744503dcd393468db7cbc47cec0cea2a2f0-breaking on 2026-09-28",
+  "source": "bump",
+  "sourceChange": "major",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "5.3.24",
+    "manifestPaths": [],
+    "package": "org.springframework:spring-core",
+    "scope": "compile",
+    "toVersion": "6.0.3"
+  }
+}

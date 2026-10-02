@@ -1,0 +1,77 @@
+{
+  "caseId": "seeded-ts-nullish",
+  "client": {
+    "commit": "",
+    "image": "",
+    "kind": "seeded",
+    "repoUrl": "",
+    "snapshot": "studies/clients/seeded/ts-nullish",
+    "snapshotSha256": "636e7f50454e88789c6274f9adf0dbc1637cc7668aeed03470af104f4e76cf67"
+  },
+  "frozenInputs": {
+    "studies/pins/seeded-ts-nullish.package-lock.json": "a2a609b6fe51f4d40f7bcbbd32d972ab33cc8195ddec40493e03e758cc537667"
+  },
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "npm install typescript@5.5.4 --save-exact --package-lock-only --ignore-scripts --no-audit --no-fund && npm ci --ignore-scripts --no-audit --no-fund && node .c4/installed.mjs typescript 5.5.4",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "resolution",
+        "outcome": "passed",
+        "seconds": 3.57,
+        "tail": "up to date in 2s\n\nadded 1 package in 910ms\n. resolves typescript@5.5.4"
+      },
+      {
+        "command": "npm run typecheck",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "typecheck",
+        "outcome": "passed",
+        "seconds": 2.11,
+        "tail": "> seeded-ts-nullish@0.1.0 typecheck\n> tsc --noEmit -p ."
+      }
+    ],
+    "candidate": [
+      {
+        "command": "npm install typescript@5.6.3 --save-exact --package-lock-only --ignore-scripts --no-audit --no-fund && npm ci --ignore-scripts --no-audit --no-fund && node .c4/installed.mjs typescript 5.6.3",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "resolution",
+        "outcome": "passed",
+        "seconds": 3.36,
+        "tail": "up to date in 1s\n\nadded 1 package in 802ms\n. resolves typescript@5.6.3"
+      },
+      {
+        "command": "npm run typecheck",
+        "exitCode": 2,
+        "logSha256": "",
+        "name": "typecheck",
+        "outcome": "failed",
+        "seconds": 1.63,
+        "tail": "> seeded-ts-nullish@0.1.0 typecheck\n> tsc --noEmit -p .\n\nsrc/limits.ts(13,10): error TS2869: Right operand of ?? is unreachable because the left operand is never nullish.\nsrc/limits.ts(17,7): error TS2872: This kind of expression is always truthy."
+      }
+    ],
+    "capturedAt": "2026-09-27",
+    "failureCategory": "",
+    "failureLocations": [],
+    "method": "container-reproduction",
+    "toolchain": "node:22-bookworm-slim@sha256:43ac6c60b8f89723f746e8a92ce91abd5017e627ce1ddfe4238355d3a30b772c (v22.23.3 10.9.9)",
+    "warnings": []
+  },
+  "provenance": "npm_seeded loader: the client seeded/ts-nullish, written for the study to show a never-nullish ?? and an always-truthy condition, which TypeScript 5.6 reports; its tree pinned by npm 10.9.2 install --package-lock-only --ignore-scripts",
+  "source": "npm-seeded",
+  "sourceChange": "",
+  "split": "held-out",
+  "update": {
+    "ecosystem": "npm",
+    "fromVersion": "5.5.4",
+    "manifestPaths": [
+      "package.json"
+    ],
+    "package": "typescript",
+    "scope": "dev",
+    "toVersion": "5.6.3"
+  }
+}

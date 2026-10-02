@@ -1,0 +1,75 @@
+{
+  "caseId": "maven-records-junit-bom-5.12.2-5.14.4",
+  "client": {
+    "commit": "",
+    "image": "",
+    "kind": "seeded",
+    "repoUrl": "",
+    "snapshot": "studies/clients/java-records",
+    "snapshotSha256": "2dfd50d2de6ad558b73617d351cfc782438e6acfb970ac235346346e2a1432ee"
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "mvn -B -ntp -q test-compile",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": 40.93,
+        "tail": ""
+      },
+      {
+        "command": "mvn -B -ntp test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 22.05,
+        "tail": "[INFO] Scanning for projects...\n[INFO] \n[INFO] ------------------------< com.example:records >-------------------------\n[INFO] Building records 0.1.0\n[INFO]   from pom.xml\n[INFO] --------------------------------[ jar ]---------------------------------\n[INFO] \n[INFO] --- resources:3.4.0:resources (default-resources) @ records ---\n[INFO] skip non existing resourceDirectory /work/src/main/resources\n[INFO] \n[INFO] --- compiler:3.15.0:compile (default-compile) @ records ---\n[INFO] Nothing to compile - all classes are up to date.\n[INFO] \n[INFO] --- resources:3.4.0:testResources (default-testResources) @ records ---\n[INFO] skip non existing resourceDirectory /work/src/test/resources\n[INFO] \n[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ records ---\n[INFO] Nothing to compile - all classes are up to date.\n[INFO] \n[INFO] --- surefire:3.5.6:test (default-test) @ records ---\n[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider\n[INFO] \n[INFO] -------------------------------------------------------\n[INFO]  T E S T S\n[INFO] -------------------------------------------------------\n[INFO] Running com.example.records.TotalsTest\n[WARNING] Tests run: 5, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.179 s -- in com.example.records.TotalsTest\n[INFO] \n[INFO] Results:\n[INFO] \n[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 1\n[INFO] \n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  18.277 s\n[INFO] Finished at: 2026-09-27T08:35:38Z\n[INFO] ------------------------------------------------------------------------"
+      }
+    ],
+    "candidate": [
+      {
+        "command": "mvn -B -ntp -q test-compile",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": 13.7,
+        "tail": ""
+      },
+      {
+        "command": "mvn -B -ntp test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 10.5,
+        "tail": "[INFO] Scanning for projects...\n[INFO] \n[INFO] ------------------------< com.example:records >-------------------------\n[INFO] Building records 0.1.0\n[INFO]   from pom.xml\n[INFO] --------------------------------[ jar ]---------------------------------\n[INFO] \n[INFO] --- resources:3.4.0:resources (default-resources) @ records ---\n[INFO] skip non existing resourceDirectory /work/src/main/resources\n[INFO] \n[INFO] --- compiler:3.15.0:compile (default-compile) @ records ---\n[INFO] Nothing to compile - all classes are up to date.\n[INFO] \n[INFO] --- resources:3.4.0:testResources (default-testResources) @ records ---\n[INFO] skip non existing resourceDirectory /work/src/test/resources\n[INFO] \n[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ records ---\n[INFO] Nothing to compile - all classes are up to date.\n[INFO] \n[INFO] --- surefire:3.5.6:test (default-test) @ records ---\n[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider\n[INFO] \n[INFO] -------------------------------------------------------\n[INFO]  T E S T S\n[INFO] -------------------------------------------------------\n[INFO] Running com.example.records.TotalsTest\n[WARNING] Tests run: 5, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.109 s -- in com.example.records.TotalsTest\n[INFO] \n[INFO] Results:\n[INFO] \n[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 1\n[INFO] \n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  5.401 s\n[INFO] Finished at: 2026-09-27T08:36:04Z\n[INFO] ------------------------------------------------------------------------"
+      }
+    ],
+    "capturedAt": "2026-09-27",
+    "failureCategory": "",
+    "failureLocations": [],
+    "method": "container-reproduction",
+    "toolchain": "maven:3.9-eclipse-temurin-21@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320 (Apache Maven 3.9.16 (2bdd9fddda4b155ebf8000e807eb73fd829a51d5) Maven home: /usr/share/maven Java version: 21.0.12.1, vendor: Eclipse Adoptium, runtime: /opt/java/openjdk)",
+    "warnings": []
+  },
+  "provenance": "maven_negatives loader: the client java-records, its JUnit BOM crossed with the minor update Maven Central listed at capture",
+  "source": "maven-negative",
+  "sourceChange": "minor",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "5.12.2",
+    "manifestPaths": [
+      "pom.xml"
+    ],
+    "package": "org.junit:junit-bom",
+    "scope": "import",
+    "toVersion": "5.14.4"
+  }
+}

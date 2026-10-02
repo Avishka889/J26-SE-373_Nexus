@@ -1,0 +1,56 @@
+{
+  "caseId": "bump-d0eb69d8fbb6",
+  "client": {
+    "commit": "d0eb69d8fbb6266c96fef6247b3116bc0875f6ae",
+    "image": "ghcr.io/chains-project/breaking-updates:d0eb69d8fbb6266c96fef6247b3116bc0875f6ae-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/s4u/pgpverify-maven-plugin",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:d0eb69d8fbb6266c96fef6247b3116bc0875f6ae-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:d0eb69d8fbb6266c96fef6247b3116bc0875f6ae-breaking",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "build",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "ENFORCER_FAILURE",
+    "failureLocations": [],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/d0eb69d8fbb6266c96fef6247b3116bc0875f6ae.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb",
+  "source": "bump",
+  "sourceChange": "minor",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "7.4.0",
+    "manifestPaths": [],
+    "package": "org.testng:testng",
+    "scope": "compile",
+    "toVersion": "7.5"
+  }
+}

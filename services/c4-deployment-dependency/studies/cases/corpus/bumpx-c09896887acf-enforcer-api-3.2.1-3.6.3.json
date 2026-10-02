@@ -1,0 +1,76 @@
+{
+  "caseId": "bumpx-c09896887acf-enforcer-api-3.2.1-3.6.3",
+  "client": {
+    "commit": "1a8620ed3a9adb56b67fb2765a67cc98d2bae2d7",
+    "image": "ghcr.io/chains-project/breaking-updates:c09896887acf0fe59320e01145a7034cd8d4e326-pre",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/jenkinsci/incrementals-tools",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "cd /incrementals-tools && cp -r /work/overlay/. . 2>/dev/null; mvn -B -ntp clean test-compile",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": 25.12,
+        "tail": "[INFO] --- resources:3.3.0:resources (default-resources) @ incrementals-enforcer-rules ---\n[INFO] skip non existing resourceDirectory /incrementals-tools/enforcer-rules/src/main/resources\n[INFO] \n[INFO] --- compiler:3.3:compile (default-compile) @ incrementals-enforcer-rules ---\n[INFO] Changes detected - recompiling the module!\n[INFO] Compiling 1 source file to /incrementals-tools/enforcer-rules/target/classes\n[INFO] \n[INFO] --- resources:3.3.0:testResources (default-testResources) @ incrementals-enforcer-rules ---\n[INFO] skip non existing resourceDirectory /incrementals-tools/enforcer-rules/src/test/resources\n[INFO] \n[INFO] --- compiler:3.3:testCompile (default-testCompile) @ incrementals-enforcer-rules ---\n[INFO] No sources to compile\n[INFO] \n[INFO] --- groovy:1.4:testCompile (default) @ incrementals-enforcer-rules ---\n[INFO] No sources found to compile\n[INFO] ------------------------------------------------------------------------\n[INFO] Reactor Summary for Incrementals Tools POM 1.7-SNAPSHOT:\n[INFO] \n[INFO] Incrementals Tools POM ............................. SUCCESS [  1.275 s]\n[INFO] lib ................................................ SUCCESS [  3.228 s]\n[INFO] incrementals-maven-plugin .......................... SUCCESS [ 11.194 s]\n[INFO] Git Changelist Maven Extension ..................... SUCCESS [  1.498 s]\n[INFO] incrementals-enforcer-rules ........................ SUCCESS [  0.350 s]\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  20.066 s\n[INFO] Finished at: 2026-09-28T02:56:07Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 5 plugin(s)\n[WARNING] \n[WARNING]  * org.codehaus.gmaven:gmaven-plugin:1.4\n[WARNING]  * org.apache.maven.plugins:maven-plugin-plugin:3.7.1\n[WARNING]  * org.codehaus.plexus:plexus-component-metadata:2.1.1\n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.3\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      },
+      {
+        "command": "cd /incrementals-tools && mvn -B -ntp test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 19.74,
+        "tail": "[INFO] \n[INFO] --- compiler:3.3:compile (default-compile) @ incrementals-enforcer-rules ---\n[INFO] Nothing to compile - all classes are up to date\n[INFO] \n[INFO] --- resources:3.3.0:testResources (default-testResources) @ incrementals-enforcer-rules ---\n[INFO] skip non existing resourceDirectory /incrementals-tools/enforcer-rules/src/test/resources\n[INFO] \n[INFO] --- compiler:3.3:testCompile (default-testCompile) @ incrementals-enforcer-rules ---\n[INFO] No sources to compile\n[INFO] \n[INFO] --- groovy:1.4:testCompile (default) @ incrementals-enforcer-rules ---\n[INFO] No sources found to compile\n[INFO] \n[INFO] --- surefire:3.0.0:test (default-test) @ incrementals-enforcer-rules ---\n[INFO] No tests to run.\n[INFO] ------------------------------------------------------------------------\n[INFO] Reactor Summary for Incrementals Tools POM 1.7-SNAPSHOT:\n[INFO] \n[INFO] Incrementals Tools POM ............................. SUCCESS [  1.430 s]\n[INFO] lib ................................................ SUCCESS [  1.817 s]\n[INFO] incrementals-maven-plugin .......................... SUCCESS [  6.817 s]\n[INFO] Git Changelist Maven Extension ..................... SUCCESS [  2.376 s]\n[INFO] incrementals-enforcer-rules ........................ SUCCESS [  0.048 s]\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  15.728 s\n[INFO] Finished at: 2026-09-28T02:56:26Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 5 plugin(s)\n[WARNING] \n[WARNING]  * org.codehaus.gmaven:gmaven-plugin:1.4\n[WARNING]  * org.apache.maven.plugins:maven-plugin-plugin:3.7.1\n[WARNING]  * org.codehaus.plexus:plexus-component-metadata:2.1.1\n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.3\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      }
+    ],
+    "candidate": [
+      {
+        "command": "cd /incrementals-tools && cp -r /work/overlay/. . 2>/dev/null; mvn -B -ntp clean test-compile",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": 27.4,
+        "tail": "[INFO] --- resources:3.3.0:resources (default-resources) @ incrementals-enforcer-rules ---\n[INFO] skip non existing resourceDirectory /incrementals-tools/enforcer-rules/src/main/resources\n[INFO] \n[INFO] --- compiler:3.3:compile (default-compile) @ incrementals-enforcer-rules ---\n[INFO] Changes detected - recompiling the module!\n[INFO] Compiling 1 source file to /incrementals-tools/enforcer-rules/target/classes\n[INFO] \n[INFO] --- resources:3.3.0:testResources (default-testResources) @ incrementals-enforcer-rules ---\n[INFO] skip non existing resourceDirectory /incrementals-tools/enforcer-rules/src/test/resources\n[INFO] \n[INFO] --- compiler:3.3:testCompile (default-testCompile) @ incrementals-enforcer-rules ---\n[INFO] No sources to compile\n[INFO] \n[INFO] --- groovy:1.4:testCompile (default) @ incrementals-enforcer-rules ---\n[INFO] No sources found to compile\n[INFO] ------------------------------------------------------------------------\n[INFO] Reactor Summary for Incrementals Tools POM 1.7-SNAPSHOT:\n[INFO] \n[INFO] Incrementals Tools POM ............................. SUCCESS [  1.815 s]\n[INFO] lib ................................................ SUCCESS [  3.008 s]\n[INFO] incrementals-maven-plugin .......................... SUCCESS [  9.461 s]\n[INFO] Git Changelist Maven Extension ..................... SUCCESS [  1.524 s]\n[INFO] incrementals-enforcer-rules ........................ SUCCESS [  3.799 s]\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  22.163 s\n[INFO] Finished at: 2026-09-28T02:57:01Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 5 plugin(s)\n[WARNING] \n[WARNING]  * org.codehaus.gmaven:gmaven-plugin:1.4\n[WARNING]  * org.apache.maven.plugins:maven-plugin-plugin:3.7.1\n[WARNING]  * org.codehaus.plexus:plexus-component-metadata:2.1.1\n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.3\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      },
+      {
+        "command": "cd /incrementals-tools && mvn -B -ntp test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 26.75,
+        "tail": "[INFO] \n[INFO] --- compiler:3.3:compile (default-compile) @ incrementals-enforcer-rules ---\n[INFO] Nothing to compile - all classes are up to date\n[INFO] \n[INFO] --- resources:3.3.0:testResources (default-testResources) @ incrementals-enforcer-rules ---\n[INFO] skip non existing resourceDirectory /incrementals-tools/enforcer-rules/src/test/resources\n[INFO] \n[INFO] --- compiler:3.3:testCompile (default-testCompile) @ incrementals-enforcer-rules ---\n[INFO] No sources to compile\n[INFO] \n[INFO] --- groovy:1.4:testCompile (default) @ incrementals-enforcer-rules ---\n[INFO] No sources found to compile\n[INFO] \n[INFO] --- surefire:3.0.0:test (default-test) @ incrementals-enforcer-rules ---\n[INFO] No tests to run.\n[INFO] ------------------------------------------------------------------------\n[INFO] Reactor Summary for Incrementals Tools POM 1.7-SNAPSHOT:\n[INFO] \n[INFO] Incrementals Tools POM ............................. SUCCESS [  1.730 s]\n[INFO] lib ................................................ SUCCESS [  1.901 s]\n[INFO] incrementals-maven-plugin .......................... SUCCESS [ 11.507 s]\n[INFO] Git Changelist Maven Extension ..................... SUCCESS [  3.189 s]\n[INFO] incrementals-enforcer-rules ........................ SUCCESS [  0.152 s]\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  21.354 s\n[INFO] Finished at: 2026-09-28T02:57:27Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 5 plugin(s)\n[WARNING] \n[WARNING]  * org.codehaus.gmaven:gmaven-plugin:1.4\n[WARNING]  * org.apache.maven.plugins:maven-plugin-plugin:3.7.1\n[WARNING]  * org.codehaus.plexus:plexus-component-metadata:2.1.1\n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.3\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      }
+    ],
+    "capturedAt": "2026-09-28",
+    "failureCategory": "",
+    "failureLocations": [],
+    "method": "container-reproduction",
+    "toolchain": "ghcr.io/chains-project/breaking-updates:c09896887acf0fe59320e01145a7034cd8d4e326-pre (Apache Maven 3.9.2 (c9616018c7a021c1c39be70fb2843d6f5f9b8a1c) Maven home: /usr/share/java/maven-3 Java version: 11.0.19, vendor: Alpine, runtime: /usr/lib/jvm/java-11-openjdk)",
+    "warnings": []
+  },
+  "provenance": "bump_crossings loader: https://github.com/jenkinsci/incrementals-tools at 1a8620ed3a9a, the commit before BUMP's break c09896887acf (BUMP, chains-project/bump, MIT, at 324d5513aa5c), its org.apache.maven.enforcer:enforcer-api crossed with the minor update Maven Central listed at capture, built in ghcr.io/chains-project/breaking-updates:c09896887acf0fe59320e01145a7034cd8d4e326-pre",
+  "source": "bump-crossing",
+  "sourceChange": "minor",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "3.2.1",
+    "manifestPaths": [
+      "enforcer-rules/pom.xml"
+    ],
+    "package": "org.apache.maven.enforcer:enforcer-api",
+    "scope": "provided",
+    "toVersion": "3.6.3"
+  }
+}

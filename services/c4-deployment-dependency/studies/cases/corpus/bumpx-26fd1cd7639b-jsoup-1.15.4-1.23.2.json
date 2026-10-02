@@ -1,0 +1,76 @@
+{
+  "caseId": "bumpx-26fd1cd7639b-jsoup-1.15.4-1.23.2",
+  "client": {
+    "commit": "fd35daba65844fe136ca9acd1ef421989e5e63c3",
+    "image": "ghcr.io/chains-project/breaking-updates:26fd1cd7639b7deb7078df5e4cb05c6d463ad07a-pre",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/jenkinsci/code-coverage-api-plugin",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "cd /code-coverage-api-plugin && cp -r /work/overlay/. . 2>/dev/null; mvn -B -ntp clean test-compile",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": 109.1,
+        "tail": "(see https://errorprone.info/bugpattern/Varifier)\n  Did you mean 'var cs = new CoverageSummary(build, \"coverage\");'?\n[WARNING] /code-coverage-api-plugin/ui-tests/src/test/java/io/jenkins/plugins/coverage/CoverageSummaryTest.java:[76,24] [Varifier] Consider using `var` here to avoid boilerplate.\n    (see https://errorprone.info/bugpattern/Varifier)\n  Did you mean 'var cs = new CoverageSummary(build, \"coverage\");'?\n[WARNING] /code-coverage-api-plugin/ui-tests/src/test/java/io/jenkins/plugins/coverage/CoverageSummaryTest.java:[96,24] [Varifier] Consider using `var` here to avoid boilerplate.\n    (see https://errorprone.info/bugpattern/Varifier)\n  Did you mean 'var cs = new CoverageSummary(build, \"coverage\");'?\n[INFO] \n[INFO] ------------< io.jenkins.plugins:code-coverage-api-parent >-------------\n[INFO] Building Aggregator for Code Coverage Plugin UNVERSIONED           [3/3]\n[INFO]   from pom.xml\n[INFO] --------------------------------[ pom ]---------------------------------\n[INFO] \n[INFO] --- clean:3.2.0:clean (default-clean) @ code-coverage-api-parent ---\n[INFO] ------------------------------------------------------------------------\n[INFO] Reactor Summary:\n[INFO] \n[INFO] Code Coverage API Plugin 4.2.0-SNAPSHOT ............ SUCCESS [01:09 min]\n[INFO] UI Tests of Code Coverage Plugin UNVERSIONED ....... SUCCESS [ 25.204 s]\n[INFO] Aggregator for Code Coverage Plugin UNVERSIONED .... SUCCESS [  0.023 s]\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  01:42 min\n[INFO] Finished at: 2026-09-28T07:07:33Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 7 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.2.0\n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.10.1\n[WARNING]  * org.assertj:assertj-assertions-generator-maven-plugin:2.2.0\n[WARNING]  * org.apache.maven.plugins:maven-enforcer-plugin:3.1.0\n[WARNING]  * org.jenkins-ci.tools:maven-hpi-plugin:3.41\n[WARNING]  * org.jvnet.localizer:localizer-maven-plugin:1.31\n[WARNING]  * org.apache.maven.plugins:maven-javadoc-plugin:3.5.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      },
+      {
+        "command": "cd /code-coverage-api-plugin && mvn -B -ntp test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 350.41,
+        "tail": "[INFO] \n[INFO] Code Coverage API Plugin 4.2.0-SNAPSHOT ............ SUCCESS [05:29 min]\n[INFO] UI Tests of Code Coverage Plugin UNVERSIONED ....... SUCCESS [ 13.929 s]\n[INFO] Aggregator for Code Coverage Plugin UNVERSIONED .... SUCCESS [  0.001 s]\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  05:46 min\n[INFO] Finished at: 2026-09-28T07:13:24Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 9 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.2.0\n[WARNING]  * org.jacoco:jacoco-maven-plugin:0.8.8\n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.10.1\n[WARNING]  * org.assertj:assertj-assertions-generator-maven-plugin:2.2.0\n[WARNING]  * org.apache.maven.plugins:maven-enforcer-plugin:3.1.0\n[WARNING]  * org.apache.maven.plugins:maven-surefire-plugin:3.0.0-M7\n[WARNING]  * org.jenkins-ci.tools:maven-hpi-plugin:3.41\n[WARNING]  * org.jvnet.localizer:localizer-maven-plugin:1.31\n[WARNING]  * org.apache.maven.plugins:maven-javadoc-plugin:3.5.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING] \nWARNING: An illegal reflective access operation has occurred\nWARNING: Illegal reflective access by org.codehaus.groovy.vmplugin.v7.Java7$1 (file:/root/.m2/repository/org/codehaus/groovy/groovy-all/2.4.21/groovy-all-2.4.21.jar) to constructor java.lang.invoke.MethodHandles$Lookup(java.lang.Class,int)\nWARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.vmplugin.v7.Java7$1\nWARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations\nWARNING: All illegal access operations will be denied in a future release\nWARNING: An illegal reflective access operation has occurred\nWARNING: Illegal reflective access by org.codehaus.groovy.vmplugin.v7.Java7$1 (file:/root/.m2/repository/org/codehaus/groovy/groovy-all/2.4.21/groovy-all-2.4.21.jar) to constructor java.lang.invoke.MethodHandles$Lookup(java.lang.Class,int)\nWARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.vmplugin.v7.Java7$1\nWARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations\nWARNING: All illegal access operations will be denied in a future release\nWARNING: An illegal reflective access operation has occurred\nWARNING: Illegal reflective access by org.codehaus.groovy.vmplugin.v7.Java7$1 (file:/root/.m2/repository/org/codehaus/groovy/groovy-all/2.4.21/groovy-all-2.4.21.jar) to constructor java.lang.invoke.MethodHandles$Lookup(java.lang.Class,int)\nWARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.vmplugin.v7.Java7$1\nWARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations\nWARNING: All illegal access operations will be denied in a future release"
+      }
+    ],
+    "candidate": [
+      {
+        "command": "cd /code-coverage-api-plugin && cp -r /work/overlay/. . 2>/dev/null; mvn -B -ntp clean test-compile",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": 103.99,
+        "tail": "(see https://errorprone.info/bugpattern/Varifier)\n  Did you mean 'var cs = new CoverageSummary(build, \"coverage\");'?\n[WARNING] /code-coverage-api-plugin/ui-tests/src/test/java/io/jenkins/plugins/coverage/CoverageSummaryTest.java:[76,24] [Varifier] Consider using `var` here to avoid boilerplate.\n    (see https://errorprone.info/bugpattern/Varifier)\n  Did you mean 'var cs = new CoverageSummary(build, \"coverage\");'?\n[WARNING] /code-coverage-api-plugin/ui-tests/src/test/java/io/jenkins/plugins/coverage/CoverageSummaryTest.java:[96,24] [Varifier] Consider using `var` here to avoid boilerplate.\n    (see https://errorprone.info/bugpattern/Varifier)\n  Did you mean 'var cs = new CoverageSummary(build, \"coverage\");'?\n[INFO] \n[INFO] ------------< io.jenkins.plugins:code-coverage-api-parent >-------------\n[INFO] Building Aggregator for Code Coverage Plugin UNVERSIONED           [3/3]\n[INFO]   from pom.xml\n[INFO] --------------------------------[ pom ]---------------------------------\n[INFO] \n[INFO] --- clean:3.2.0:clean (default-clean) @ code-coverage-api-parent ---\n[INFO] ------------------------------------------------------------------------\n[INFO] Reactor Summary:\n[INFO] \n[INFO] Code Coverage API Plugin 4.2.0-SNAPSHOT ............ SUCCESS [01:08 min]\n[INFO] UI Tests of Code Coverage Plugin UNVERSIONED ....... SUCCESS [ 23.129 s]\n[INFO] Aggregator for Code Coverage Plugin UNVERSIONED .... SUCCESS [  0.033 s]\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  01:38 min\n[INFO] Finished at: 2026-09-28T07:15:50Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 7 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.2.0\n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.10.1\n[WARNING]  * org.assertj:assertj-assertions-generator-maven-plugin:2.2.0\n[WARNING]  * org.apache.maven.plugins:maven-enforcer-plugin:3.1.0\n[WARNING]  * org.jenkins-ci.tools:maven-hpi-plugin:3.41\n[WARNING]  * org.jvnet.localizer:localizer-maven-plugin:1.31\n[WARNING]  * org.apache.maven.plugins:maven-javadoc-plugin:3.5.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      },
+      {
+        "command": "cd /code-coverage-api-plugin && mvn -B -ntp test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 369.81,
+        "tail": "[INFO] \n[INFO] Code Coverage API Plugin 4.2.0-SNAPSHOT ............ SUCCESS [05:45 min]\n[INFO] UI Tests of Code Coverage Plugin UNVERSIONED ....... SUCCESS [ 13.765 s]\n[INFO] Aggregator for Code Coverage Plugin UNVERSIONED .... SUCCESS [  0.001 s]\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  06:04 min\n[INFO] Finished at: 2026-09-28T07:22:00Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 9 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.2.0\n[WARNING]  * org.jacoco:jacoco-maven-plugin:0.8.8\n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.10.1\n[WARNING]  * org.assertj:assertj-assertions-generator-maven-plugin:2.2.0\n[WARNING]  * org.apache.maven.plugins:maven-enforcer-plugin:3.1.0\n[WARNING]  * org.apache.maven.plugins:maven-surefire-plugin:3.0.0-M7\n[WARNING]  * org.jenkins-ci.tools:maven-hpi-plugin:3.41\n[WARNING]  * org.jvnet.localizer:localizer-maven-plugin:1.31\n[WARNING]  * org.apache.maven.plugins:maven-javadoc-plugin:3.5.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING] \nWARNING: An illegal reflective access operation has occurred\nWARNING: Illegal reflective access by org.codehaus.groovy.vmplugin.v7.Java7$1 (file:/root/.m2/repository/org/codehaus/groovy/groovy-all/2.4.21/groovy-all-2.4.21.jar) to constructor java.lang.invoke.MethodHandles$Lookup(java.lang.Class,int)\nWARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.vmplugin.v7.Java7$1\nWARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations\nWARNING: All illegal access operations will be denied in a future release\nWARNING: An illegal reflective access operation has occurred\nWARNING: Illegal reflective access by org.codehaus.groovy.vmplugin.v7.Java7$1 (file:/root/.m2/repository/org/codehaus/groovy/groovy-all/2.4.21/groovy-all-2.4.21.jar) to constructor java.lang.invoke.MethodHandles$Lookup(java.lang.Class,int)\nWARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.vmplugin.v7.Java7$1\nWARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations\nWARNING: All illegal access operations will be denied in a future release\nWARNING: An illegal reflective access operation has occurred\nWARNING: Illegal reflective access by org.codehaus.groovy.vmplugin.v7.Java7$1 (file:/root/.m2/repository/org/codehaus/groovy/groovy-all/2.4.21/groovy-all-2.4.21.jar) to constructor java.lang.invoke.MethodHandles$Lookup(java.lang.Class,int)\nWARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.vmplugin.v7.Java7$1\nWARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations\nWARNING: All illegal access operations will be denied in a future release"
+      }
+    ],
+    "capturedAt": "2026-09-28",
+    "failureCategory": "",
+    "failureLocations": [],
+    "method": "container-reproduction",
+    "toolchain": "ghcr.io/chains-project/breaking-updates:26fd1cd7639b7deb7078df5e4cb05c6d463ad07a-pre (Apache Maven 3.9.2 (c9616018c7a021c1c39be70fb2843d6f5f9b8a1c) Maven home: /usr/share/java/maven-3 Java version: 11.0.19, vendor: Alpine, runtime: /usr/lib/jvm/java-11-openjdk)",
+    "warnings": []
+  },
+  "provenance": "bump_crossings loader: https://github.com/jenkinsci/code-coverage-api-plugin at fd35daba6584, the commit before BUMP's break 26fd1cd7639b (BUMP, chains-project/bump, MIT, at 324d5513aa5c), its org.jsoup:jsoup crossed with the minor update Maven Central listed at capture, built in ghcr.io/chains-project/breaking-updates:26fd1cd7639b7deb7078df5e4cb05c6d463ad07a-pre",
+  "source": "bump-crossing",
+  "sourceChange": "minor",
+  "split": "held-out",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "1.15.4",
+    "manifestPaths": [
+      "plugin/pom.xml"
+    ],
+    "package": "org.jsoup:jsoup",
+    "scope": "compile",
+    "toVersion": "1.23.2"
+  }
+}
