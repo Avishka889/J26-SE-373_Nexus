@@ -4,7 +4,7 @@ import { refreshProject } from "@/entities/project";
 import type { DesignStageId } from "@/types/project";
 import { codeKeys, requirementsKeys } from "@/lib/query";
 import { requirementsApi } from "../api";
-import type { DesignSnapshot, GateDecisionInput } from "../api/types";
+import type { DesignSnapshot, GateDecisionInput, RequirementPriority } from "../api/types";
 import { regeneratingStageIds } from "../model/outdated";
 
 /**
@@ -60,6 +60,12 @@ export function useDesignMutations(projectId: string) {
   const editRequirement = useMutation({
     mutationFn: ({ id, text }: { id: string; text: string }) =>
       requirementsApi.editRequirement(projectId, id, text),
+    onSuccess: commit,
+  });
+
+  const setRequirementPriority = useMutation({
+    mutationFn: ({ id, priority }: { id: string; priority: RequirementPriority }) =>
+      requirementsApi.setRequirementPriority(projectId, id, priority),
     onSuccess: commit,
   });
 
@@ -156,6 +162,7 @@ export function useDesignMutations(projectId: string) {
     startOver,
     continueRun,
     editRequirement,
+    setRequirementPriority,
     editAssumption,
     dismissAssumption,
     answerQuestion,

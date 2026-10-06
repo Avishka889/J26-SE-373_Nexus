@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Project } from "@/types/project";
-import { triage } from "./triage";
+import { STATUS_FILTERS, triage } from "./triage";
 
 const project = (over: Partial<Project>): Project =>
   ({
@@ -45,3 +45,23 @@ describe("the projects listed", () => {
     expect(ids(triage(all, { query: "LED", status: "all", sort: "newest" }))).toEqual(["a"]);
   });
 });
+
+// X-8: released with a backlog left is not complete, and has a filter of its own.
+describe("a project released with a backlog left", () => {
+  const released = [
+    project({ id: "r", name: "Relay", status: "released", createdAt: "2026-10-05T00:00:00Z" }),
+    project({ id: "d", name: "Done", status: "complete", createdAt: "2026-10-04T00:00:00Z" }),
+  ];
+
+  it("has its own entry in the filter", () => {
+    expect(STATUS_FILTERS.find((one) => one.value === "released")?.label).toBe(
+      "Released, backlog left",
+    );
+  });
+
+  it("is listed under released, not complete", () => {
+    expect(ids(triage(released, { query: "", status: "released", sort: "newest" }))).toEqual(["r"]);
+    expect(ids(triage(released, { query: "", status: "complete", sort: "newest" }))).toEqual(["d"]);
+  });
+});
+

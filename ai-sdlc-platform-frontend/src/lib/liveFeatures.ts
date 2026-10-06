@@ -74,7 +74,7 @@ export function parseLiveFeatures(
   if (unknown.length > 0) {
     throw new Error(
       `VITE_LIVE_FEATURES names features that do not exist: ${unknown.join(", ")}. ` +
-      `Known features are: ${LIVE_FEATURES.join(", ")}.`,
+        `Known features are: ${LIVE_FEATURES.join(", ")}.`,
     );
   }
 
@@ -86,8 +86,8 @@ export function parseLiveFeatures(
     if (live.has(feature) && !live.has(needed)) {
       throw new Error(
         `VITE_LIVE_FEATURES has "${feature}" live but not "${needed}". ` +
-        `${feature} reads data that belongs to a ${needed} record, so on fixtures it would ` +
-        `answer with a blank instead of an error. Add "${needed}" or remove "${feature}".`,
+          `${feature} reads data that belongs to a ${needed} record, so on fixtures it would ` +
+          `answer with a blank instead of an error. Add "${needed}" or remove "${feature}".`,
       );
     }
   }

@@ -278,6 +278,8 @@ function RequirementList({
                     <Chip>{priorityLabel[requirement.priority]}</Chip>
                     {requirement.qualityAttribute && <Chip>{requirement.qualityAttribute}</Chip>}
                     {requirement.adjusted && <Chip tone="info">Adjusted</Chip>}
+                    {requirement.priorityCorrected && <Chip tone="info">Priority set by you</Chip>}
+                    {requirement.setAsideCorrection && <Chip tone="caution">Changed since your correction</Chip>}
                     {requirement.lowConfidence && <Chip tone="caution">Check</Chip>}
                   </>
                 }
@@ -338,8 +340,22 @@ function RequirementList({
                       <Chip>{priorityLabel[requirement.priority]}</Chip>
                       {requirement.qualityAttribute && <Chip>{requirement.qualityAttribute}</Chip>}
                       {requirement.adjusted && <Chip tone="info">Adjusted</Chip>}
+                      {requirement.priorityCorrected && <Chip tone="info">Priority set by you</Chip>}
+                      {requirement.setAsideCorrection && <Chip tone="caution">Changed since your correction</Chip>}
                       {requirement.lowConfidence && <Chip tone="caution">Check</Chip>}
                     </div>
+
+                    {/* A change reworded this requirement after a person corrected
+                        it. The correction is not laid over the new wording, which
+                        would hide the change, and is shown so it is not lost
+                        (review item C1-8). */}
+                    {requirement.setAsideCorrection && (
+                      <Note>
+                        This requirement changed after you corrected it, so your correction is not
+                        applied: {requirement.setAsideCorrection} Correct the wording again if it
+                        still holds.
+                      </Note>
+                    )}
 
                     {requirement.sourceQuote ? (
                       <p className="tp-den italic leading-relaxed">
@@ -364,6 +380,41 @@ function RequirementList({
                       <Pencil className="h-3.5 w-3.5" />
                       Correct the wording
                     </Button>
+
+                    {/* The priority is a rule's reading of a modal verb, and a
+                        brief that states none gets a default nobody chose, so a
+                        person can set it (review item C1-2). */}
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      <span className="tp-den">Priority</span>
+                      {ALL_PRIORITIES.map((priority) => (
+                        <Button
+                          key={priority}
+                          size="sm"
+                          variant={priority === requirement.priority ? "primary" : "outline"}
+                          aria-pressed={priority === requirement.priority}
+                          aria-label={`Set ${requirement.id} to ${priorityLabel[priority]}`}
+                          disabled={mutations.setRequirementPriority.isPending}
+                          onClick={async () => {
+                            if (priority === requirement.priority) return;
+                            try {
+                              await mutations.setRequirementPriority.mutateAsync({
+                                id: requirement.id,
+                                priority,
+                              });
+                            } catch {
+                              // Reported where it failed; the priority stays as it was.
+                            }
+                          }}
+                        >
+                          {priorityLabel[priority]}
+                        </Button>
+                      ))}
+                    </div>
+                    <Note>
+                      {requirement.priorityCorrected
+                        ? "You set this priority. Plan the sprint again in Sprint Planning to rank on it."
+                        : "Read from the wording of your input: must, should or may. Where it says none of them, this is a default, and you can set it."}
+                    </Note>
                   </div>
                 )}
               </CompactRow>

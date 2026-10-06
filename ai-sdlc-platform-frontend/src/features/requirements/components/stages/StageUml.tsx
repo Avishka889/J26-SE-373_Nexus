@@ -4,6 +4,7 @@ import { cn } from "@/shared/utils/cn";
 import { StageSection, TraceChips } from "@/shared/ui/stage";
 import { Button, CodeBlock } from "@/shared/ui/primitives";
 import { Chip, Note, Panel } from "@/shared/ui/phase";
+import { Select } from "@/shared/ui/Select";
 import { MermaidDiagram } from "@/shared/viz";
 import { UmlDiagramModal } from "../uml/UmlDiagramModal";
 import type { DesignSnapshot, UmlDiagram } from "../../api/types";
@@ -71,18 +72,14 @@ export function StageUml({
       version={snapshot.stages["uml-diagrams"].generatedFromVersion}
       useCaseSelector={
         diagram.kind === "sequence" ? (
-          <select
+          <Select
+            size="sm"
+            className="max-w-[16rem]"
             value={useCaseId}
-            onChange={(e) => setUseCaseId(e.target.value)}
+            onChange={setUseCaseId}
             aria-label="Which interaction to show"
-            className="rounded-lg border border-[color:var(--tp-line)] bg-transparent px-2 py-1 text-[12px] outline-none focus:border-blue-500/50"
-          >
-            {snapshot.uml.useCases.map((useCase) => (
-              <option key={useCase.id} value={useCase.id}>
-                {useCase.name}
-              </option>
-            ))}
-          </select>
+            options={snapshot.uml.useCases.map((useCase) => ({ value: useCase.id, label: useCase.name }))}
+          />
         ) : null
       }
       extraTraces={

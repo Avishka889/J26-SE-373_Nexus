@@ -25,11 +25,17 @@ import { useUiStore } from "@/store/ui";
  * typed: saving the Atlas secret within a second of typing an identifier
  * checked the identifier the server still held.
  */
+/**
+ * Where a field's edit stands: nothing typed, typed and on its way (waiting
+ * for the pause or being sent), kept by the server, or refused.
+ */
+export type SaveState = "idle" | "saving" | "saved" | "failed";
+
 export function useDebouncedText(
   value: string,
   save: (next: string) => void | Promise<unknown>,
   delay = 600,
-): [string, (next: string) => void, () => Promise<void>] {
+): [string, (next: string) => void, () => Promise<void>, SaveState] {
   const addToast = useUiStore((s) => s.addToast);
   const [draft, setDraft] = useState<string | null>(null);
   // What was sent, shown until its save has settled. Dropping it the moment
@@ -44,12 +50,19 @@ export function useDebouncedText(
     send: async () => undefined,
   });
 
+  // How the last save went, for a field that says so beside itself.
+  const [outcome, setOutcome] = useState<"saved" | "failed" | null>(null);
+
   const send = (text: string) =>
-    Promise.resolve(save(text)).catch((error: unknown) => {
-      // A refused save puts the server's copy back, which is how the field shows
-      // it; this says it out loud.
-      addToast({ type: "error", title: "Not saved", message: messageOf(error) });
-    });
+    Promise.resolve(save(text)).then(
+      () => setOutcome("saved"),
+      (error: unknown) => {
+        setOutcome("failed");
+        // A refused save puts the server's copy back, which is how the field shows
+        // it; this says it out loud.
+        addToast({ type: "error", title: "Not saved", message: messageOf(error) });
+      },
+    );
   useEffect(() => {
     pending.current = { draft, send };
   });
@@ -87,5 +100,6 @@ export function useDebouncedText(
     setSending((now) => (now === held ? null : now));
   };
 
-  return [draft ?? sending ?? value, setDraft, flush];
+  const state: SaveState = draft !== null || sending !== null ? "saving" : (outcome ?? "idle");
+  return [draft ?? sending ?? value, setDraft, flush, state];
 }

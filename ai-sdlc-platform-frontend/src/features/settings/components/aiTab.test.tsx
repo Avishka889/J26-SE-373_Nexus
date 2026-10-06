@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { choose } from "@/shared/testing/choose";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   forgetSettings,
@@ -117,18 +118,14 @@ describe("the AI model tab", () => {
     ];
     show();
 
-    const design = (await screen.findByLabelText(
-      "Thinking for Requirements and Design",
-    )) as HTMLSelectElement;
-    expect(design.value).toBe("off");
-    expect(
-      (screen.getByLabelText("Thinking for Code Generation") as HTMLSelectElement).value,
-    ).toBe("low");
+    const design = await screen.findByLabelText("Thinking for Requirements and Design");
+    expect(design.textContent).toBe("Off");
+    expect(screen.getByLabelText("Thinking for Code Generation").textContent).toBe("On, low effort");
     expect(screen.getByText("As the platform is configured")).toBeTruthy();
     expect(screen.getByText("Your choice")).toBeTruthy();
     const read = answer.reads;
 
-    fireEvent.change(design, { target: { value: "high" } });
+    await choose(design, "On, high effort");
 
     await waitFor(() =>
       expect(getSettingsSnapshot().ai.thinking).toEqual({
@@ -147,14 +144,12 @@ describe("the AI model tab", () => {
     );
     answer.models = [choosable({})];
     show();
-    const design = (await screen.findByLabelText(
-      "Thinking for Requirements and Design",
-    )) as HTMLSelectElement;
+    const design = await screen.findByLabelText("Thinking for Requirements and Design");
 
-    fireEvent.change(design, { target: { value: "max" } });
+    await choose(design, "On, max effort");
 
     expect(await screen.findByText("Not saved: 503 Service Unavailable")).toBeTruthy();
-    expect(design.value).toBe("off");
+    expect(design.textContent).toBe("Off");
   });
 
   // A phase run as a separate service thinks as that service is configured, and

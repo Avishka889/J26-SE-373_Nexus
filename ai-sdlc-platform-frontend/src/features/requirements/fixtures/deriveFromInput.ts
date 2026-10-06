@@ -136,6 +136,8 @@ export function deriveSeedFromInput(projectName: string, text: string): ProjectD
     qualityAttribute: null,
     lowConfidence: true,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: fragment,
   }));
 
@@ -149,6 +151,8 @@ export function deriveSeedFromInput(projectName: string, text: string): ProjectD
       qualityAttribute: null,
       lowConfidence: true,
       adjusted: false,
+      priorityCorrected: false,
+      setAsideCorrection: null,
       sourceQuote: null,
     });
   }
@@ -398,6 +402,7 @@ export function deriveSeedFromInput(projectName: string, text: string): ProjectD
 
     sprint: {
       sprintName: "Sprint 1",
+      backlogDependencies: [],
       goal: `Get the first ${thing.toLowerCase()} working end to end.`,
       velocityAssumption: {
         points: 20,

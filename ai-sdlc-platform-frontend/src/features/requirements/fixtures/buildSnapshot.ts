@@ -244,6 +244,7 @@ export function buildSnapshot(
     appName: seed.appName,
     requirementsVersion: generated ? 1 : 0,
     stages: emptyStages(),
+    changes: null,
     requirements: generated ? structuredClone(seed.requirements) : [],
     assumptions: generated ? structuredClone(seed.assumptions) : [],
     questions: generated ? questions.map(stripPreset) : [],
@@ -266,6 +267,7 @@ export function buildSnapshot(
       ? structuredClone(seed.sprint)
       : {
           sprintName: "Sprint 1",
+          backlogDependencies: [],
           goal: "",
           velocityAssumption: { points: 0, basis: "" },
           estimatedPoints: 0,

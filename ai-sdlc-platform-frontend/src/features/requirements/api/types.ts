@@ -115,6 +115,12 @@ export interface RequirementsApi {
   /** Run every design stage again at the current version, after a run that stopped. */
   startOver(projectId: string): Promise<DesignSnapshot>;
   editRequirement(projectId: string, requirementId: string, text: string): Promise<DesignSnapshot>;
+  /** Set a requirement's priority over what the rule read. The sprint is not replanned. */
+  setRequirementPriority(
+    projectId: string,
+    requirementId: string,
+    priority: RequirementPriority,
+  ): Promise<DesignSnapshot>;
   editAssumption(projectId: string, assumptionId: string, text: string): Promise<DesignSnapshot>;
   dismissAssumption(projectId: string, assumptionId: string, dismissed: boolean): Promise<DesignSnapshot>;
   answerQuestion(projectId: string, questionId: string, answer: string): Promise<DesignSnapshot>;

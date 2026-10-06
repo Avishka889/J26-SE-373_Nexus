@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { AlertTriangle, Download, Clock, RefreshCw } from "lucide-react";
 import { Card, CardContent, Button } from "@/shared/ui/primitives";
 import type { ActivityLogCategory, ActivityLogEntry } from "./fixtures/activityData";
@@ -8,6 +8,7 @@ import { useUiStore } from "@/store/ui";
 import { cn } from "@/shared/utils/cn";
 import { PageLoader, PhaseSectionHeader, surface } from "@/shared/ui";
 import { ActivityFilters, ActivityTimeline } from "./components";
+import { categories } from "./components/categories";
 
 /** One empty list for every render, so nothing downstream sees a new value. */
 const NO_ENTRIES: ActivityLogEntry[] = [];
@@ -19,7 +20,12 @@ export function ActivityLog() {
   const theme = useUiStore((s) => s.theme);
   const addToast = useUiStore((s) => s.addToast);
   const isDark = theme === "dark";
-  const [filter, setFilter] = useState<ActivityLogCategory | "all">("all");
+  // The address can name the category, so a phase's review can link to its
+  // own entries; one this page does not have shows everything.
+  const [params] = useSearchParams();
+  const [filter, setFilter] = useState<ActivityLogCategory | "all">(
+    () => categories.find((one) => one.id === params.get("filter"))?.id ?? "all",
+  );
   const { projectId = "" } = useParams();
   const log = useActivityLog(projectId);
   const entries = log.data ?? NO_ENTRIES;

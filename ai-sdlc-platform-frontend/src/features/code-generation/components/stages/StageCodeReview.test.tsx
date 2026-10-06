@@ -2,7 +2,8 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, render, screen } from "@testing-library/react";
 import { StageCodeReview } from "./StageCodeReview";
 import { CODE_STAGE_IDS } from "@/types/project";
-import type { CodeSnapshot, CodeStages, PreviewState } from "../../api/types";
+import { fireEvent } from "@testing-library/react";
+import type { CodeChanges, CodeSnapshot, CodeStages, PreviewState } from "../../api/types";
 
 /**
  * The preview row on the review page, in the states fixtures cannot produce.
@@ -16,9 +17,11 @@ import type { CodeSnapshot, CodeStages, PreviewState } from "../../api/types";
  */
 
 let preview: PreviewState = { status: "none" };
+let changes: CodeChanges | undefined;
 
 vi.mock("../../hooks/useCode", () => ({
   usePreview: () => ({ data: preview }),
+  useCodeChanges: () => ({ data: changes }),
 }));
 
 afterEach(cleanup);
@@ -265,3 +268,65 @@ describe("the agreement line", () => {
     expect(screen.queryByText(/of the contract is implemented/)).toBeNull();
   });
 });
+
+describe("what a version changed", () => {
+  // The review showed a version's files and nothing of what had changed since
+  // the one before, and no pull request to read it in (review item C2-8).
+  const open = (data: CodeSnapshot) =>
+    render(<StageCodeReview projectId="p1" snapshot={data} onOpenStage={vi.fn()} onContinue={vi.fn()} />);
+
+  it("lists each file changed since the version before, and shows a file's diff when opened", () => {
+    preview = { status: "none" };
+    changes = {
+      version: CODE_VERSION,
+      againstVersion: 2,
+      files: [
+        {
+          path: "apps/api/src/routes/orders.ts",
+          status: "changed",
+          additions: 2,
+          deletions: 1,
+          diff: "@@ -1,2 +1,3 @@\n one\n-two\n+TWO\n+three",
+          truncated: false,
+        },
+        { path: "apps/api/src/new.ts", status: "added", additions: 4, deletions: 0, diff: "+x", truncated: false },
+      ],
+    };
+    open(snapshot(true));
+
+    expect(screen.getByText("2 files changed since code version 2")).toBeTruthy();
+    expect(screen.getByText("+2 -1")).toBeTruthy();
+    expect(screen.queryByText("+TWO")).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: /apps\/api\/src\/routes\/orders.ts/ }));
+    expect(screen.getByText("+TWO")).toBeTruthy();
+  });
+
+  it("says the first version has nothing before it", () => {
+    changes = { version: CODE_VERSION, againstVersion: null, files: [] };
+    open(snapshot(true));
+
+    expect(screen.getByText("This is the first code version, so there is nothing to compare it with.")).toBeTruthy();
+  });
+
+  it("links the pull request that proposes the version", () => {
+    changes = undefined;
+    const data = snapshot(true);
+    if (!data.repository) throw new Error("built");
+    data.repository.repository = {
+      provider: "github",
+      owner: "presenter",
+      name: "tracker",
+      defaultBranch: "main",
+      commitSha: "c".repeat(40),
+      url: "https://github.com/presenter/tracker",
+      branch: "code/v3",
+      pullRequestUrl: "https://github.com/presenter/tracker/pull/7",
+      pullRequestNumber: 7,
+    };
+    open(data);
+
+    const link = screen.getByRole("link", { name: "Pull request #7" }) as HTMLAnchorElement;
+    expect(link.href).toBe("https://github.com/presenter/tracker/pull/7");
+  });
+});
+

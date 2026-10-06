@@ -25,6 +25,8 @@ function requirement(over: Partial<ParsedRequirement> & { id: string }): ParsedR
     qualityAttribute: null,
     lowConfidence: false,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: null,
     ...over,
   };

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Menu, Upload, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { NexusWordmark } from "@/shared/ui/brand/NexusWordmark";
+import { useVisitorActions } from "../model/visitorActions";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -15,6 +16,7 @@ const navLinks = [
 export function Navbar() {
   const navigate = useNavigate();
   const [mobileNav, setMobileNav] = useState(false);
+  const { primary, secondary } = useVisitorActions();
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/40 bg-white/70 backdrop-blur-xl">
@@ -36,18 +38,19 @@ export function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
+          {secondary && (
+            <button
+              onClick={() => navigate(secondary.to)}
+              className="rounded-xl px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:text-blue-600"
+            >
+              {secondary.label}
+            </button>
+          )}
           <button
-            onClick={() => navigate("/login")}
-            className="rounded-xl px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:text-blue-600"
-          >
-            Log In
-          </button>
-          <button
-            onClick={() => navigate("/projects/new")}
+            onClick={() => navigate(primary.to)}
             className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-medium text-white shadow-lg shadow-blue-600/25 transition-all hover:bg-blue-500"
           >
-            <Upload className="h-4 w-4" />
-            Upload SRS
+            {primary.label}
           </button>
         </div>
 
@@ -74,18 +77,19 @@ export function Navbar() {
               </a>
             ))}
             <hr className="my-2 border-slate-200" />
+            {secondary && (
+              <button
+                onClick={() => navigate(secondary.to)}
+                className="rounded-xl px-3 py-3 text-left text-sm font-medium text-slate-700 hover:bg-slate-50"
+              >
+                {secondary.label}
+              </button>
+            )}
             <button
-              onClick={() => navigate("/login")}
-              className="rounded-xl px-3 py-3 text-left text-sm font-medium text-slate-700 hover:bg-slate-50"
-            >
-              Log In
-            </button>
-            <button
-              onClick={() => navigate("/projects/new")}
+              onClick={() => navigate(primary.to)}
               className="mt-1 inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-sm font-medium text-white"
             >
-              <Upload className="h-4 w-4" />
-              Upload SRS
+              {primary.label}
             </button>
           </nav>
         </div>

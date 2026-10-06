@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, LogIn, Sparkles, Upload } from "lucide-react";
+import { ArrowRight, LogIn, Sparkles } from "lucide-react";
 import { HeroVisual } from "./HeroVisual";
+import { useVisitorActions } from "../model/visitorActions";
 
 export function Hero() {
   const navigate = useNavigate();
+  const { primary, secondary } = useVisitorActions();
 
   return (
     <section id="home" className="relative px-4 pb-16 pt-24 sm:px-6 sm:pb-24 sm:pt-32 lg:px-8 lg:pt-40">
@@ -26,20 +28,21 @@ export function Hero() {
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
             <button
-              onClick={() => navigate("/projects/new")}
+              onClick={() => navigate(primary.to)}
               className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 text-sm font-semibold text-white shadow-xl shadow-blue-600/30 transition-all hover:bg-blue-500 hover:shadow-blue-500/30 sm:w-auto"
             >
-              <Upload className="h-4 w-4" />
-              Upload SRS
+              {primary.label}
               <ArrowRight className="h-4 w-4" />
             </button>
-            <button
-              onClick={() => navigate("/login")}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white/80 px-6 py-3.5 text-sm font-semibold text-slate-800 shadow-sm backdrop-blur-sm transition-all hover:border-blue-200 hover:bg-blue-50/50 sm:w-auto"
-            >
-              <LogIn className="h-4 w-4" />
-              Log In to Workspace
-            </button>
+            {secondary && (
+              <button
+                onClick={() => navigate(secondary.to)}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white/80 px-6 py-3.5 text-sm font-semibold text-slate-800 shadow-sm backdrop-blur-sm transition-all hover:border-blue-200 hover:bg-blue-50/50 sm:w-auto"
+              >
+                <LogIn className="h-4 w-4" />
+                {secondary.label}
+              </button>
+            )}
           </div>
           <p className="mt-5 text-xs text-slate-500 sm:mt-6 sm:text-sm">
             A research preview, built as final-year research at the Sri Lanka Institute of Information Technology.

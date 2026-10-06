@@ -1,11 +1,14 @@
-import { Field, surface, useFieldClasses } from "@/shared/ui";
+import { Field, Select, surface, useFieldClasses } from "@/shared/ui";
+import { useState } from "react";
 import { Server } from "lucide-react";
 import { messageOf } from "@/lib/http";
 import { useUiStore } from "@/store/ui";
 import { useSettings, useSettingsActions } from "@/entities/settings";
 import { cn } from "@/shared/utils/cn";
 import { ConnectionSecret } from "./ConnectionSecret";
+import { SaveStatus } from "./SaveStatus";
 import { SettingsPanel } from "./SettingsPanel";
+import type { SaveState } from "../useDebouncedText";
 import { useConnection } from "../hooks/useConnection";
 
 /**
@@ -17,12 +20,32 @@ import { useConnection } from "../hooks/useConnection";
  * key never goes to GitHub. Render builds only repositories its GitHub app can
  * read, which is the one thing to grant on Render's side.
  */
+const REGIONS = [
+  { value: "oregon", label: "Oregon (US West)" },
+  { value: "ohio", label: "Ohio (US East)" },
+  { value: "virginia", label: "Virginia (US East)" },
+  { value: "frankfurt", label: "Frankfurt (EU)" },
+  { value: "singapore", label: "Singapore (Asia)" },
+];
+
 export function RenderTab() {
   const { status } = useConnection("render");
   const settings = useSettings();
   const { updateRenderSettings } = useSettingsActions();
   const addToast = useUiStore((st) => st.addToast);
-  const { isDark, fieldClass } = useFieldClasses();
+  const { isDark } = useFieldClasses();
+  // A choice saves at once, so it says what became of it, as the typed fields do.
+  const [regionSaving, setRegionSaving] = useState<SaveState>("idle");
+  const saveRegion = (region: string) => {
+    setRegionSaving("saving");
+    void updateRenderSettings({ region }).then(
+      () => setRegionSaving("saved"),
+      (error: unknown) => {
+        setRegionSaving("failed");
+        addToast({ type: "error", title: "Not saved", message: messageOf(error) });
+      },
+    );
+  };
 
   return (
     <SettingsPanel
@@ -42,23 +65,20 @@ export function RenderTab() {
         hint="Create one in Render's Account Settings, API Keys. It stays on the server: the platform makes services and deploys with it, and it never goes to GitHub."
         placeholder="(never stored in the browser)"
       />
-      <Field label="Region" hint="Where the platform makes each project's service">
-        <select
-          className={fieldClass}
-          value={settings.render.region}
-          onChange={(e) =>
-            void updateRenderSettings({ region: e.target.value }).catch((error: unknown) =>
-              addToast({ type: "error", title: "Not saved", message: messageOf(error) }),
-            )
-          }
-        >
-          <option value="oregon">Oregon (US West)</option>
-          <option value="ohio">Ohio (US East)</option>
-          <option value="virginia">Virginia (US East)</option>
-          <option value="frankfurt">Frankfurt (EU)</option>
-          <option value="singapore">Singapore (Asia)</option>
-        </select>
-      </Field>
+      <div>
+        <Field label="Region" hint="Where the platform makes each project's service">
+          {(control) => (
+            <Select
+              {...control}
+              className="w-full"
+              value={settings.render.region}
+              options={REGIONS}
+              onChange={saveRegion}
+            />
+          )}
+        </Field>
+        <SaveStatus state={regionSaving} />
+      </div>
     </SettingsPanel>
   );
 }

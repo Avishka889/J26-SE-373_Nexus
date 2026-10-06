@@ -32,7 +32,7 @@ function signInFrom(from: string) {
   );
   fireEvent.change(screen.getByLabelText("Email"), { target: { value: "ada@example.com" } });
   fireEvent.change(screen.getByLabelText("Password"), { target: { value: "correct horse battery staple" } });
-  fireEvent.click(screen.getByRole("button", { name: /log in/i }));
+  fireEvent.click(screen.getByRole("button", { name: "Sign in" }));
 }
 
 /**

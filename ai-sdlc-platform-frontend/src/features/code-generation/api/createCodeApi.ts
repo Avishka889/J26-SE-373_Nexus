@@ -5,6 +5,7 @@ import { BLANK_SEED, DESIGN_SEEDS } from "@/entities/design-seed";
 import { CODE_STAGE_IDS, type CodeStageId } from "@/types/project";
 import type {
   CodeApi,
+  CodeChanges,
   CodeDecisionInput,
   CodeFile,
   CodeSnapshot,
@@ -170,6 +171,8 @@ function createFixtureApi(): CodeApi {
           commitSha: "0".repeat(40),
           url: `https://github.com/demo/${projectId}`,
           branch: `code/v${version}`,
+          pullRequestUrl: "",
+          pullRequestNumber: null,
         };
       });
     },
@@ -215,6 +218,12 @@ function createFixtureApi(): CodeApi {
           "//\n// The demo does not carry file bodies. Generate with the live\n" +
           "// backend to read what was actually written.\n",
       } satisfies CodeFile;
+    },
+
+    async getChanges(projectId, version) {
+      await sleep(FIXTURE_DELAY_MS);
+      // The demo carries no file bodies, so it has nothing to compare.
+      return { version: version ?? readCode(projectId).codeVersion, againstVersion: null, files: [] };
     },
 
     async generate(projectId) {
@@ -388,6 +397,8 @@ function createHttpApi(): CodeApi {
       http.get<CodeFile>(
         `${base(projectId)}/files/${path}${version ? `?version=${version}` : ""}`,
       ),
+    getChanges: (projectId, version) =>
+      http.get<CodeChanges>(`${base(projectId)}/changes${version ? `?version=${version}` : ""}`),
     generate: (projectId, supersede = false) =>
       http.post<CodeSnapshot>(`${base(projectId)}/generate`, { supersede }),
     setStoryScope: (projectId, storyId, inScope, by, supersede = false) =>

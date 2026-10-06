@@ -1,16 +1,6 @@
 import type { ActivityLogCategory } from "../fixtures/activityData";
+import { categories } from "./categories";
 import { cn } from "@/shared/utils/cn";
-
-const categories: { id: ActivityLogCategory | "all"; label: string }[] = [
-  { id: "all", label: "All" },
-  { id: "requirement", label: "Requirements" },
-  { id: "design", label: "Design" },
-  { id: "code", label: "Code" },
-  { id: "testing", label: "Testing" },
-  { id: "security", label: "Security" },
-  { id: "deployment", label: "Deployment" },
-  { id: "approval", label: "Approvals" },
-];
 
 export function ActivityFilters({
   filter,

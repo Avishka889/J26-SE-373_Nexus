@@ -3,6 +3,7 @@ import { Database } from "lucide-react";
 import { useSettings, useSettingsActions } from "@/entities/settings";
 import { cn } from "@/shared/utils/cn";
 import { useDebouncedText } from "../useDebouncedText";
+import { SaveStatus } from "./SaveStatus";
 import { ConnectionSecret } from "./ConnectionSecret";
 import { SettingsPanel } from "./SettingsPanel";
 import { useConnection } from "../hooks/useConnection";
@@ -24,13 +25,13 @@ export function DatabaseTab() {
   const { isDark, fieldClass } = useFieldClasses();
 
   // Saved when the typing stops, not on every keystroke: see the hook.
-  const [projectId, setProjectId, flushProjectId] = useDebouncedText(settings.database.projectId, (next) =>
+  const [projectId, setProjectId, flushProjectId, projectIdSaving] = useDebouncedText(settings.database.projectId, (next) =>
     updateDatabaseSettings({ provider: "mongodb_atlas", projectId: next.trim() }),
   );
-  const [cluster, setCluster, flushCluster] = useDebouncedText(settings.database.cluster, (next) =>
+  const [cluster, setCluster, flushCluster, clusterSaving] = useDebouncedText(settings.database.cluster, (next) =>
     updateDatabaseSettings({ provider: "mongodb_atlas", cluster: next.trim() }),
   );
-  const [clientId, setClientId, flushClientId] = useDebouncedText(settings.database.clientId, (next) =>
+  const [clientId, setClientId, flushClientId, clientIdSaving] = useDebouncedText(settings.database.clientId, (next) =>
     updateDatabaseSettings({ provider: "mongodb_atlas", clientId: next.trim() }),
   );
 
@@ -47,39 +48,48 @@ export function DatabaseTab() {
         cloud target. Without a connection, a released app keeps its records in memory, so a
         restart or a new release starts it empty.
       </p>
-      <Field
-        label="Atlas project ID"
-        hint="The 24 character id after /v2/ in Atlas's address bar while you are in the project, or at the top of its Project Settings"
-      >
-        <input
-          autoComplete="off"
-          className={cn(fieldClass, "font-mono text-[13px]")}
-          placeholder="66f0c0ffee0123456789abcd"
-          value={projectId}
-          onChange={(e) => setProjectId(e.target.value)}
-        />
-      </Field>
-      <Field label="Cluster" hint="The cluster's name in that project; the free M0 tier is enough">
-        <input
-          autoComplete="off"
-          className={fieldClass}
-          placeholder="Cluster0"
-          value={cluster}
-          onChange={(e) => setCluster(e.target.value)}
-        />
-      </Field>
-      <Field
-        label="Service account client ID"
-        hint="In Atlas: Project Identity & Access, Create Application, Service Account, with Project Read Only and Project Database Access Admin and nothing more. Its Client ID, not your email."
-      >
-        <input
-          autoComplete="off"
-          className={cn(fieldClass, "font-mono text-[13px]")}
-          placeholder="mdb_sa_id_..."
-          value={clientId}
-          onChange={(e) => setClientId(e.target.value)}
-        />
-      </Field>
+      <div>
+        <Field
+          label="Atlas project ID"
+          hint="The 24 character id after /v2/ in Atlas's address bar while you are in the project, or at the top of its Project Settings"
+        >
+          <input
+            autoComplete="off"
+            className={cn(fieldClass, "font-mono text-[13px]")}
+            placeholder="66f0c0ffee0123456789abcd"
+            value={projectId}
+            onChange={(e) => setProjectId(e.target.value)}
+          />
+        </Field>
+        <SaveStatus state={projectIdSaving} />
+      </div>
+      <div>
+        <Field label="Cluster" hint="The cluster's name in that project; the free M0 tier is enough">
+          <input
+            autoComplete="off"
+            className={fieldClass}
+            placeholder="Cluster0"
+            value={cluster}
+            onChange={(e) => setCluster(e.target.value)}
+          />
+        </Field>
+        <SaveStatus state={clusterSaving} />
+      </div>
+      <div>
+        <Field
+          label="Service account client ID"
+          hint="In Atlas: Project Identity & Access, Create Application, Service Account, with Project Read Only and Project Database Access Admin and nothing more. Its Client ID, not your email."
+        >
+          <input
+            autoComplete="off"
+            className={cn(fieldClass, "font-mono text-[13px]")}
+            placeholder="mdb_sa_id_..."
+            value={clientId}
+            onChange={(e) => setClientId(e.target.value)}
+          />
+        </Field>
+        <SaveStatus state={clientIdSaving} />
+      </div>
       <ConnectionSecret
         provider="atlas"
         label="Service account secret"

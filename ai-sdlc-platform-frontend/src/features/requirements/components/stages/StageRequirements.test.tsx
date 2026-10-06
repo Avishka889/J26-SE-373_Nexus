@@ -101,3 +101,119 @@ describe("the questions the design waits on", () => {
     expect(screen.getByRole("button", { name: /answer in chat/i })).toBeTruthy();
   });
 });
+
+/**
+ * A requirement's priority came from a rule and nothing could correct it: the
+ * wording could be edited, the priority could not (review item C1-2).
+ */
+describe("a requirement's priority", () => {
+  function show(design: DesignSnapshot, setRequirementPriority = vi.fn(async () => undefined)) {
+    const idle = { isPending: false, mutate: vi.fn(), mutateAsync: vi.fn(async () => undefined) };
+    const these = new Proxy(
+      {},
+      {
+        get: (_target, name) =>
+          name === "setRequirementPriority" ? { ...idle, mutateAsync: setRequirementPriority } : idle,
+      },
+    ) as never;
+    render(
+      <StageRequirements
+        snapshot={design}
+        mutations={these}
+        focusedRequirementId={design.requirements[0].id}
+        onClearFocus={vi.fn()}
+        onJump={vi.fn()}
+        onOpenChat={vi.fn()}
+        onContinueWithAnswers={vi.fn(async () => undefined)}
+        onContinueWithAssumptions={vi.fn(async () => undefined)}
+      />,
+    );
+    return setRequirementPriority;
+  }
+
+  async function design(over: { priority: "must" | "should" | "could"; priorityCorrected: boolean }) {
+    const base = await requirementsApi.getDesign("p1");
+    const [first, ...rest] = base.requirements;
+    return { ...base, requirements: [{ ...first, ...over }, ...rest] };
+  }
+
+  it("can be set, and the one it has is the one pressed", async () => {
+    const snapshot = await design({ priority: "should", priorityCorrected: false });
+    const id = snapshot.requirements[0].id;
+    const setRequirementPriority = show(snapshot);
+
+    expect(screen.getByRole("button", { name: `Set ${id} to Should` }).getAttribute("aria-pressed")).toBe(
+      "true",
+    );
+    fireEvent.click(screen.getByRole("button", { name: `Set ${id} to Must` }));
+
+    expect(setRequirementPriority).toHaveBeenCalledWith({ id, priority: "must" });
+  });
+
+  it("does not ask for the priority it already has", async () => {
+    const snapshot = await design({ priority: "should", priorityCorrected: false });
+    const setRequirementPriority = show(snapshot);
+
+    fireEvent.click(screen.getByRole("button", { name: `Set ${snapshot.requirements[0].id} to Should` }));
+
+    expect(setRequirementPriority).not.toHaveBeenCalled();
+  });
+
+  it("says when a person set it, and that the sprint is planned again to use it", async () => {
+    show(await design({ priority: "must", priorityCorrected: true }));
+
+    expect(screen.getAllByText("Priority set by you").length).toBeGreaterThan(0);
+    expect(screen.getByText(/Plan the sprint again in Sprint Planning to rank on it/)).toBeTruthy();
+  });
+
+  it("says where a priority that nobody set came from", async () => {
+    show(await design({ priority: "should", priorityCorrected: false }));
+
+    expect(screen.queryByText("Priority set by you")).toBeNull();
+    expect(screen.getByText(/Read from the wording of your input/)).toBeTruthy();
+  });
+});
+
+/**
+ * A correction is kept against a requirement, and a change can reword the
+ * requirement under it. Laid over anyway, the correction hid the change
+ * (review item C1-8); left off in silence, the person's words would vanish.
+ */
+describe("a correction made to an earlier wording", () => {
+  async function show(setAsideCorrection: string | null) {
+    const base = await requirementsApi.getDesign("p1");
+    const [first, ...rest] = base.requirements;
+    render(
+      <StageRequirements
+        snapshot={{ ...base, requirements: [{ ...first, adjusted: false, setAsideCorrection }, ...rest] }}
+        mutations={mutations}
+        focusedRequirementId={first.id}
+        onClearFocus={vi.fn()}
+        onJump={vi.fn()}
+        onOpenChat={vi.fn()}
+        onContinueWithAnswers={vi.fn(async () => undefined)}
+        onContinueWithAssumptions={vi.fn(async () => undefined)}
+      />,
+    );
+  }
+
+  it("is shown beside the requirement it no longer covers, and said not to apply", async () => {
+    await show("A shopper pays by saved card.");
+
+    // On the row, and again in the opened panel, where a narrow screen reads its tags.
+    expect(screen.getAllByText("Changed since your correction")).toHaveLength(2);
+    expect(
+      screen.getByText(
+        "This requirement changed after you corrected it, so your correction is not applied: A shopper pays by saved card.",
+        { exact: false },
+      ),
+    ).toBeTruthy();
+  });
+
+  it("is not mentioned on a requirement that has none", async () => {
+    await show(null);
+
+    expect(screen.queryByText("Changed since your correction")).toBeNull();
+    expect(screen.queryByText(/your correction is not applied/)).toBeNull();
+  });
+});
