@@ -1,0 +1,1260 @@
+{
+  "accuracy": 1.0,
+  "confusion": {
+    "cold-start": {
+      "cold-start": 3,
+      "degraded": 0,
+      "down": 0,
+      "healthy": 0,
+      "unknown": 0
+    },
+    "degraded": {
+      "cold-start": 0,
+      "degraded": 12,
+      "down": 0,
+      "healthy": 0,
+      "unknown": 0
+    },
+    "down": {
+      "cold-start": 0,
+      "degraded": 0,
+      "down": 9,
+      "healthy": 0,
+      "unknown": 0
+    },
+    "healthy": {
+      "cold-start": 0,
+      "degraded": 0,
+      "down": 0,
+      "healthy": 6,
+      "unknown": 0
+    },
+    "unknown": {
+      "cold-start": 0,
+      "degraded": 0,
+      "down": 0,
+      "healthy": 0,
+      "unknown": 0
+    }
+  },
+  "correct": 30,
+  "episodes": [
+    {
+      "condition": "healthy",
+      "correct": true,
+      "detected": "healthy",
+      "evidence": "5 rounds answered, p95 457 ms",
+      "idleSeconds": null,
+      "known": "healthy",
+      "repeat": 1,
+      "rounds": [
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 427.6
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 456.5
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 78.8
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 80.9
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 147.4
+        }
+      ],
+      "seconds": 10.2
+    },
+    {
+      "condition": "healthy after an idle spell",
+      "correct": true,
+      "detected": "healthy",
+      "evidence": "5 rounds answered, p95 217 ms",
+      "idleSeconds": 1200.0,
+      "known": "healthy",
+      "repeat": 1,
+      "rounds": [
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 217.4
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 115.4
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 100.7
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 90.5
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 89.4
+        }
+      ],
+      "seconds": 9.1
+    },
+    {
+      "condition": "waking after an idle spell",
+      "correct": true,
+      "detected": "cold-start",
+      "evidence": "idle for 1200s, the first round was slow or failed, and every round after it answered within 2000 ms",
+      "idleSeconds": 1200.0,
+      "known": "cold-start",
+      "repeat": 1,
+      "rounds": [
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 5152.3
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 106.8
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 91.2
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 102.6
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 79.5
+        }
+      ],
+      "seconds": 14.0
+    },
+    {
+      "condition": "frozen with no idle spell",
+      "correct": true,
+      "detected": "degraded",
+      "evidence": "p95 5181 ms, over the 2000 ms threshold",
+      "idleSeconds": null,
+      "known": "degraded",
+      "repeat": 1,
+      "rounds": [
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 5181.3
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 94.4
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 82.9
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 72.0
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 78.4
+        }
+      ],
+      "seconds": 14.0
+    },
+    {
+      "condition": "throttled",
+      "correct": true,
+      "detected": "degraded",
+      "evidence": "p95 4099 ms, over the 2000 ms threshold",
+      "idleSeconds": null,
+      "known": "degraded",
+      "repeat": 1,
+      "rounds": [
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 4098.9
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 3203.2
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 3248.4
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 3232.2
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 3148.3
+        }
+      ],
+      "seconds": 25.4
+    },
+    {
+      "condition": "throttled after an idle spell",
+      "correct": true,
+      "detected": "degraded",
+      "evidence": "p95 4303 ms, over the 2000 ms threshold",
+      "idleSeconds": 1200.0,
+      "known": "degraded",
+      "repeat": 1,
+      "rounds": [
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 4303.1
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 3299.5
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 3370.3
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 3488.6
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 2923.0
+        }
+      ],
+      "seconds": 26.1
+    },
+    {
+      "condition": "flapping",
+      "correct": true,
+      "detected": "degraded",
+      "evidence": "1 of 5 rounds had a probe fail",
+      "idleSeconds": null,
+      "known": "degraded",
+      "repeat": 1,
+      "rounds": [
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 189.1
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 85.0
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 83.6
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 74.6
+        }
+      ],
+      "seconds": 10.9
+    },
+    {
+      "condition": "stopped",
+      "correct": true,
+      "detected": "down",
+      "evidence": "the last 3 rounds of probes all failed",
+      "idleSeconds": null,
+      "known": "down",
+      "repeat": 1,
+      "rounds": [
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        }
+      ],
+      "seconds": 8.6
+    },
+    {
+      "condition": "stopped after an idle spell",
+      "correct": true,
+      "detected": "down",
+      "evidence": "the last 3 rounds of probes all failed",
+      "idleSeconds": 1200.0,
+      "known": "down",
+      "repeat": 1,
+      "rounds": [
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        }
+      ],
+      "seconds": 8.5
+    },
+    {
+      "condition": "another candidate",
+      "correct": true,
+      "detected": "down",
+      "evidence": "it serves candidate 888888888888, not the verified 777777777777",
+      "idleSeconds": null,
+      "known": "down",
+      "repeat": 1,
+      "rounds": [
+        {
+          "ok": true,
+          "served": "8888888888888888888888888888888888888888888888888888888888888888",
+          "slowestMs": 83.8
+        },
+        {
+          "ok": true,
+          "served": "8888888888888888888888888888888888888888888888888888888888888888",
+          "slowestMs": 162.9
+        },
+        {
+          "ok": true,
+          "served": "8888888888888888888888888888888888888888888888888888888888888888",
+          "slowestMs": 80.9
+        },
+        {
+          "ok": true,
+          "served": "8888888888888888888888888888888888888888888888888888888888888888",
+          "slowestMs": 81.2
+        },
+        {
+          "ok": true,
+          "served": "8888888888888888888888888888888888888888888888888888888888888888",
+          "slowestMs": 84.4
+        }
+      ],
+      "seconds": 8.9
+    },
+    {
+      "condition": "healthy",
+      "correct": true,
+      "detected": "healthy",
+      "evidence": "5 rounds answered, p95 118 ms",
+      "idleSeconds": null,
+      "known": "healthy",
+      "repeat": 2,
+      "rounds": [
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 117.8
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 76.8
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 93.8
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 84.9
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 79.9
+        }
+      ],
+      "seconds": 8.8
+    },
+    {
+      "condition": "healthy after an idle spell",
+      "correct": true,
+      "detected": "healthy",
+      "evidence": "5 rounds answered, p95 159 ms",
+      "idleSeconds": 1200.0,
+      "known": "healthy",
+      "repeat": 2,
+      "rounds": [
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 139.6
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 159.1
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 75.6
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 96.9
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 130.1
+        }
+      ],
+      "seconds": 9.1
+    },
+    {
+      "condition": "waking after an idle spell",
+      "correct": true,
+      "detected": "cold-start",
+      "evidence": "idle for 1200s, the first round was slow or failed, and every round after it answered within 2000 ms",
+      "idleSeconds": 1200.0,
+      "known": "cold-start",
+      "repeat": 2,
+      "rounds": [
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 5138.8
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 92.6
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 81.8
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 79.9
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 82.3
+        }
+      ],
+      "seconds": 14.0
+    },
+    {
+      "condition": "frozen with no idle spell",
+      "correct": true,
+      "detected": "degraded",
+      "evidence": "p95 5110 ms, over the 2000 ms threshold",
+      "idleSeconds": null,
+      "known": "degraded",
+      "repeat": 2,
+      "rounds": [
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 5110.4
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 138.6
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 103.1
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 83.3
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 171.2
+        }
+      ],
+      "seconds": 14.3
+    },
+    {
+      "condition": "throttled",
+      "correct": true,
+      "detected": "degraded",
+      "evidence": "p95 4037 ms, over the 2000 ms threshold",
+      "idleSeconds": null,
+      "known": "degraded",
+      "repeat": 2,
+      "rounds": [
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 3698.1
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 3201.6
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 3496.1
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 3241.0
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 4037.2
+        }
+      ],
+      "seconds": 26.5
+    },
+    {
+      "condition": "throttled after an idle spell",
+      "correct": true,
+      "detected": "degraded",
+      "evidence": "p95 4244 ms, over the 2000 ms threshold",
+      "idleSeconds": 1200.0,
+      "known": "degraded",
+      "repeat": 2,
+      "rounds": [
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 3292.4
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 4244.2
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 3726.0
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 4198.0
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 3230.0
+        }
+      ],
+      "seconds": 27.2
+    },
+    {
+      "condition": "flapping",
+      "correct": true,
+      "detected": "degraded",
+      "evidence": "1 of 5 rounds had a probe fail",
+      "idleSeconds": null,
+      "known": "degraded",
+      "repeat": 2,
+      "rounds": [
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 122.6
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 94.0
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 103.7
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 71.2
+        }
+      ],
+      "seconds": 11.0
+    },
+    {
+      "condition": "stopped",
+      "correct": true,
+      "detected": "down",
+      "evidence": "the last 3 rounds of probes all failed",
+      "idleSeconds": null,
+      "known": "down",
+      "repeat": 2,
+      "rounds": [
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        }
+      ],
+      "seconds": 8.5
+    },
+    {
+      "condition": "stopped after an idle spell",
+      "correct": true,
+      "detected": "down",
+      "evidence": "the last 3 rounds of probes all failed",
+      "idleSeconds": 1200.0,
+      "known": "down",
+      "repeat": 2,
+      "rounds": [
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        }
+      ],
+      "seconds": 8.7
+    },
+    {
+      "condition": "another candidate",
+      "correct": true,
+      "detected": "down",
+      "evidence": "it serves candidate 888888888888, not the verified 777777777777",
+      "idleSeconds": null,
+      "known": "down",
+      "repeat": 2,
+      "rounds": [
+        {
+          "ok": true,
+          "served": "8888888888888888888888888888888888888888888888888888888888888888",
+          "slowestMs": 138.7
+        },
+        {
+          "ok": true,
+          "served": "8888888888888888888888888888888888888888888888888888888888888888",
+          "slowestMs": 224.6
+        },
+        {
+          "ok": true,
+          "served": "8888888888888888888888888888888888888888888888888888888888888888",
+          "slowestMs": 90.1
+        },
+        {
+          "ok": true,
+          "served": "8888888888888888888888888888888888888888888888888888888888888888",
+          "slowestMs": 81.9
+        },
+        {
+          "ok": true,
+          "served": "8888888888888888888888888888888888888888888888888888888888888888",
+          "slowestMs": 100.0
+        }
+      ],
+      "seconds": 9.2
+    },
+    {
+      "condition": "healthy",
+      "correct": true,
+      "detected": "healthy",
+      "evidence": "5 rounds answered, p95 154 ms",
+      "idleSeconds": null,
+      "known": "healthy",
+      "repeat": 3,
+      "rounds": [
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 118.2
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 81.0
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 91.1
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 154.4
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 81.1
+        }
+      ],
+      "seconds": 8.9
+    },
+    {
+      "condition": "healthy after an idle spell",
+      "correct": true,
+      "detected": "healthy",
+      "evidence": "5 rounds answered, p95 271 ms",
+      "idleSeconds": 1200.0,
+      "known": "healthy",
+      "repeat": 3,
+      "rounds": [
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 270.9
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 106.3
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 101.0
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 73.7
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 88.7
+        }
+      ],
+      "seconds": 9.1
+    },
+    {
+      "condition": "waking after an idle spell",
+      "correct": true,
+      "detected": "cold-start",
+      "evidence": "idle for 1200s, the first round was slow or failed, and every round after it answered within 2000 ms",
+      "idleSeconds": 1200.0,
+      "known": "cold-start",
+      "repeat": 3,
+      "rounds": [
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 5146.3
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 84.1
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 106.5
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 88.4
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 83.9
+        }
+      ],
+      "seconds": 14.1
+    },
+    {
+      "condition": "frozen with no idle spell",
+      "correct": true,
+      "detected": "degraded",
+      "evidence": "p95 5132 ms, over the 2000 ms threshold",
+      "idleSeconds": null,
+      "known": "degraded",
+      "repeat": 3,
+      "rounds": [
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 5131.9
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 114.5
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 111.3
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 90.1
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 101.5
+        }
+      ],
+      "seconds": 14.0
+    },
+    {
+      "condition": "throttled",
+      "correct": true,
+      "detected": "degraded",
+      "evidence": "p95 3800 ms, over the 2000 ms threshold",
+      "idleSeconds": null,
+      "known": "degraded",
+      "repeat": 3,
+      "rounds": [
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 3799.6
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 3800.4
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 3124.5
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 2730.1
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 3700.2
+        }
+      ],
+      "seconds": 25.9
+    },
+    {
+      "condition": "throttled after an idle spell",
+      "correct": true,
+      "detected": "degraded",
+      "evidence": "p95 4034 ms, over the 2000 ms threshold",
+      "idleSeconds": 1200.0,
+      "known": "degraded",
+      "repeat": 3,
+      "rounds": [
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 3294.2
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 4034.4
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 3838.1
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 3244.0
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 3376.5
+        }
+      ],
+      "seconds": 26.5
+    },
+    {
+      "condition": "flapping",
+      "correct": true,
+      "detected": "degraded",
+      "evidence": "1 of 5 rounds had a probe fail",
+      "idleSeconds": null,
+      "known": "degraded",
+      "repeat": 3,
+      "rounds": [
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 194.4
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 127.7
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 95.3
+        },
+        {
+          "ok": true,
+          "served": "7777777777777777777777777777777777777777777777777777777777777777",
+          "slowestMs": 153.9
+        }
+      ],
+      "seconds": 11.5
+    },
+    {
+      "condition": "stopped",
+      "correct": true,
+      "detected": "down",
+      "evidence": "the last 3 rounds of probes all failed",
+      "idleSeconds": null,
+      "known": "down",
+      "repeat": 3,
+      "rounds": [
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        }
+      ],
+      "seconds": 8.6
+    },
+    {
+      "condition": "stopped after an idle spell",
+      "correct": true,
+      "detected": "down",
+      "evidence": "the last 3 rounds of probes all failed",
+      "idleSeconds": 1200.0,
+      "known": "down",
+      "repeat": 3,
+      "rounds": [
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        },
+        {
+          "ok": false,
+          "served": null,
+          "slowestMs": null
+        }
+      ],
+      "seconds": 8.5
+    },
+    {
+      "condition": "another candidate",
+      "correct": true,
+      "detected": "down",
+      "evidence": "it serves candidate 888888888888, not the verified 777777777777",
+      "idleSeconds": null,
+      "known": "down",
+      "repeat": 3,
+      "rounds": [
+        {
+          "ok": true,
+          "served": "8888888888888888888888888888888888888888888888888888888888888888",
+          "slowestMs": 105.8
+        },
+        {
+          "ok": true,
+          "served": "8888888888888888888888888888888888888888888888888888888888888888",
+          "slowestMs": 83.0
+        },
+        {
+          "ok": true,
+          "served": "8888888888888888888888888888888888888888888888888888888888888888",
+          "slowestMs": 103.8
+        },
+        {
+          "ok": true,
+          "served": "8888888888888888888888888888888888888888888888888888888888888888",
+          "slowestMs": 94.1
+        },
+        {
+          "ok": true,
+          "served": "8888888888888888888888888888888888888888888888888888888888888888",
+          "slowestMs": 104.6
+        }
+      ],
+      "seconds": 8.9
+    }
+  ],
+  "perState": {
+    "cold-start": {
+      "detected": 3,
+      "precision": 1.0,
+      "recall": 1.0,
+      "support": 3
+    },
+    "degraded": {
+      "detected": 12,
+      "precision": 1.0,
+      "recall": 1.0,
+      "support": 12
+    },
+    "down": {
+      "detected": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "support": 9
+    },
+    "healthy": {
+      "detected": 6,
+      "precision": 1.0,
+      "recall": 1.0,
+      "support": 6
+    }
+  },
+  "study": {
+    "commit": "9285737",
+    "conditions": [
+      {
+        "how": "nothing injected",
+        "known": "healthy",
+        "name": "healthy"
+      },
+      {
+        "how": "nothing injected; 20 idle minutes given",
+        "known": "healthy",
+        "name": "healthy after an idle spell"
+      },
+      {
+        "how": "frozen, thawed 5 s into the first request; 20 idle minutes given",
+        "known": "cold-start",
+        "name": "waking after an idle spell"
+      },
+      {
+        "how": "frozen, thawed 5 s into the first request; not idle",
+        "known": "degraded",
+        "name": "frozen with no idle spell"
+      },
+      {
+        "how": "2 percent of a CPU (`throttle-cpu`)",
+        "known": "degraded",
+        "name": "throttled"
+      },
+      {
+        "how": "2 percent of a CPU; 20 idle minutes given",
+        "known": "degraded",
+        "name": "throttled after an idle spell"
+      },
+      {
+        "how": "stopped for the second round, started before the third",
+        "known": "degraded",
+        "name": "flapping"
+      },
+      {
+        "how": "stopped (`stop-container`)",
+        "known": "down",
+        "name": "stopped"
+      },
+      {
+        "how": "stopped; 20 idle minutes given",
+        "known": "down",
+        "name": "stopped after an idle spell"
+      },
+      {
+        "how": "serves a candidate other than the verified one",
+        "known": "down",
+        "name": "another candidate"
+      }
+    ],
+    "date": "2026-09-27",
+    "docker": "29.2.1",
+    "label": "Table 7: monitoring state detection",
+    "repeats": 3,
+    "requests": [
+      "/release.json",
+      "/",
+      "/tasks"
+    ],
+    "rule": "health-rule/1",
+    "thresholds": {
+      "coldStartFirstMs": 90000,
+      "coldStartIdleSeconds": 900,
+      "degradedP95Ms": 2000,
+      "minSamples": 3
+    },
+    "watchedApp": {
+      "base": "node:22-bookworm-slim@sha256:43ac6c60b8f89723f746e8a92ce91abd5017e627ce1ddfe4238355d3a30b772c",
+      "imageDigest": "sha256:05b2ee65904ec74b87c8724bff411d0f092e24b8df155b28a3ae426010b00437",
+      "workIterations": 250000
+    },
+    "window": {
+      "intervalSeconds": 2.0,
+      "rounds": 5
+    }
+  },
+  "total": 30
+}
