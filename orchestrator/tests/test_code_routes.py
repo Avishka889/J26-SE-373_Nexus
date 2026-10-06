@@ -11,12 +11,20 @@ from collections.abc import AsyncIterator
 
 import httpx
 import pytest
+from orchestrator.api.code import contract_concern
 from orchestrator.api.deps import DEV_OWNER_ID
+from orchestrator.clients.canned import CANNED_CONTRACT
 from orchestrator.config import Settings
 from orchestrator.db import store
 from orchestrator.graph.runner import RunSupervisor
 from orchestrator.main import create_app, lifespan_for_tests
-from sdlc_contracts import CODE_STAGE_IDS
+from sdlc_contracts import (
+    CODE_STAGE_IDS,
+    ApiContractArtefact,
+    ArmComparison,
+    ArmCounts,
+    ContractRuleFinding,
+)
 
 from .conftest import needs_db
 
@@ -330,6 +338,44 @@ class TestTheGate:
         )
         assert approved.status_code == 200, approved.text
         assert approved.json()["gate"]["decision"]["note"] == note
+
+    async def test_approving_over_an_error_in_the_contract_needs_a_note(self, client) -> None:
+        """The clinic project (2026-10-13) was approved over a contract with no
+        way to create a doctor or a patient: the rule arm's own check had said
+        "'Book Appointment' is a form with 5 fields and no write endpoint traces
+        to it", and nothing at the review asked about it."""
+        client.app.state.c2.rule_findings = [BOOK_APPOINTMENT]  # type: ignore[attr-defined]
+        try:
+            project_id, _ = await _generated(client)
+        finally:
+            client.app.state.c2.rule_findings = []  # type: ignore[attr-defined]
+
+        refused = await client.post(
+            f"/projects/{project_id}/code/decision", json={"kind": "approved", "by": "you"}
+        )
+        assert refused.status_code == 409
+        assert "1 error in the API contract it was built from" in refused.json()["error"]
+
+        note = "The booking form is next sprint's; this one only records doctors and patients."
+        approved = await client.post(
+            f"/projects/{project_id}/code/decision",
+            json={"kind": "approved", "by": "you", "note": note},
+        )
+        assert approved.status_code == 200, approved.text
+
+    async def test_a_warning_in_the_contract_needs_no_note(self, client) -> None:
+        client.app.state.c2.rule_findings = [  # type: ignore[attr-defined]
+            BOOK_APPOINTMENT.model_copy(update={"severity": "warning"})
+        ]
+        try:
+            project_id, _ = await _generated(client)
+        finally:
+            client.app.state.c2.rule_findings = []  # type: ignore[attr-defined]
+
+        approved = await client.post(
+            f"/projects/{project_id}/code/decision", json={"kind": "approved", "by": "you"}
+        )
+        assert approved.status_code == 200, approved.text
 
     async def test_requesting_changes_without_a_note_refuses(self, client) -> None:
         project_id, _ = await _generated(client)
@@ -960,3 +1006,143 @@ async def _apply_a_fix(client, project_id: str, version: int, path: str) -> int:
             by="you",
         )
     return fixed
+
+
+class TestWhatChangedSinceTheVersionBefore:
+    """The code review showed no diff: nothing said what a new version changed
+    (review item C2-8)."""
+
+    async def test_the_first_version_has_nothing_before_it(self, client) -> None:
+        project_id, snapshot = await _generated(client)
+
+        changes = (await client.get(f"/projects/{project_id}/code/changes")).json()
+
+        assert changes["version"] == snapshot["codeVersion"]
+        assert changes["againstVersion"] is None and changes["files"] == []
+
+    async def test_a_later_version_is_compared_with_the_one_before(self, client) -> None:
+        project_id, snapshot = await _generated(client)
+        version = snapshot["codeVersion"]
+        async with client.app.state.pool.connection() as conn:
+            files = await store.code_files(conn, project_id, version=version)
+            path = sorted(files)[0]
+            later = {**files, path: files[path] + "// changed\n", "apps/api/src/new.ts": "x\n"}
+            await store.put_code_files(
+                conn, project_id, version=version + 1, stage_id="backend-code", files=later
+            )
+
+        changes = (
+            await client.get(
+                f"/projects/{project_id}/code/changes", params={"version": version + 1}
+            )
+        ).json()
+
+        assert (changes["version"], changes["againstVersion"]) == (version + 1, version)
+        assert [(one["path"], one["status"]) for one in changes["files"]] == sorted(
+            [(path, "changed"), ("apps/api/src/new.ts", "added")]
+        )
+        changed = next(one for one in changes["files"] if one["path"] == path)
+        assert "+// changed" in changed["diff"]
+
+
+class TestTheBuildIsOfTheGeneratedCode:
+    """Testing's tests come forward to a regenerated version, beside the code.
+    Code Generation's build read every file at the version, so it ran them and
+    pushed them, though Push and Download leave them out (review item C2-11)."""
+
+    async def test_the_build_neither_runs_nor_pushes_the_tests_testing_wrote(self, client) -> None:
+        project_id, snapshot = await _generated(client)
+        written = "apps/api/src/__tests__/us-1.criteria.test.ts"
+        async with client.app.state.pool.connection() as conn:
+            await store.put_code_files(
+                conn,
+                project_id,
+                version=snapshot["codeVersion"],
+                stage_id=store.TEST_FILE_STAGE,
+                files={written: "// a written test\n"},
+            )
+        decided = await client.post(
+            f"/projects/{project_id}/code/decision",
+            json={"kind": "changes", "by": "you", "note": "split the order endpoints"},
+        )
+        assert decided.status_code == 200, decided.text
+
+        await _advance_all(client, project_id)
+
+        c2 = client.app.state.c2  # type: ignore[attr-defined]
+        assert c2.calls.count("build") == 2
+        assert written not in c2.built_paths
+        assert written not in c2.pushed_paths[-1]
+        # The build still has the code, and the tests are still the version's.
+        assert any(path.startswith("apps/api/src/") for path in c2.built_paths)
+        async with client.app.state.pool.connection() as conn:
+            following = (await store.latest_run(conn, project_id))["requirements_version"]
+            carried = await store.code_files(
+                conn, project_id, version=following, stage_id=store.TEST_FILE_STAGE
+            )
+        assert written in carried
+
+
+#: The rule arm's finding on the clinic project's contract, as it was recorded.
+BOOK_APPOINTMENT = ContractRuleFinding(
+    rule_id="screen-action-has-an-endpoint",
+    severity="error",
+    reason="screen flow-a1/s2 ('Book Appointment') is a form with 5 fields and no write endpoint traces to it",
+    subject="flow-a1/s2",
+)
+
+
+def _artefact(*, chosen: str, rule_errors: int, llm_errors: int | None) -> ApiContractArtefact:
+    """A contract artefact with this many errors in each arm; `None` for a failed model arm."""
+    return ApiContractArtefact(
+        version=1,
+        rule_arm=CANNED_CONTRACT,
+        llm_arm=CANNED_CONTRACT if llm_errors is not None else None,
+        llm_failure=None if llm_errors is not None else "the model answered nothing usable",
+        chosen=chosen,  # type: ignore[arg-type]
+        contract=CANNED_CONTRACT,
+        comparison=ArmComparison(
+            rule=ArmCounts(endpoints=6, errors=rule_errors),
+            llm=ArmCounts(endpoints=13, errors=llm_errors or 0),
+        ),
+        rule_findings=[BOOK_APPOINTMENT] * rule_errors,
+    )
+
+
+class TestWhatTheContractAsksOfAnApproval:
+    """The errors in the arm the code was built from, said as the review says it."""
+
+    def test_the_rule_arm_s_errors_are_named_with_the_first_reason(self) -> None:
+        said = contract_concern(_artefact(chosen="rule", rule_errors=1, llm_errors=0))
+
+        assert said is not None
+        assert said.startswith("1 error in the API contract it was built from")
+        assert "('Book Appointment') is a form with 5 fields" in said
+
+    def test_it_says_when_the_other_contract_has_none(self) -> None:
+        said = contract_concern(_artefact(chosen="rule", rule_errors=2, llm_errors=0))
+
+        assert said is not None
+        assert said.startswith("2 errors in the API contract it was built from")
+        assert said.endswith("the AI model's contract has none")
+
+    def test_it_says_nothing_of_a_model_arm_that_failed(self) -> None:
+        said = contract_concern(_artefact(chosen="rule", rule_errors=1, llm_errors=None))
+
+        assert said is not None
+        assert "AI model's contract" not in said
+
+    def test_the_model_arm_s_errors_count_when_it_was_chosen(self) -> None:
+        said = contract_concern(_artefact(chosen="llm", rule_errors=0, llm_errors=3))
+
+        assert said == (
+            "3 errors in the API contract it was built from; the rule-based contract has none"
+        )
+
+    def test_a_contract_without_errors_asks_nothing(self) -> None:
+        assert contract_concern(_artefact(chosen="rule", rule_errors=0, llm_errors=2)) is None
+        assert contract_concern(None) is None
+
+    def test_a_merged_contract_is_not_judged_by_either_arm(self) -> None:
+        # Its endpoints are a person's pick from both, and neither arm's count is about it.
+        assert contract_concern(_artefact(chosen="merged", rule_errors=2, llm_errors=2)) is None

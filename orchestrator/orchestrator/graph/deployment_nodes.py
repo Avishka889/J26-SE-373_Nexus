@@ -168,7 +168,11 @@ async def _cloud_settings(pool: AsyncConnectionPool, c4: C4Client, state: C4RunS
         await canned(project_id)
         if canned is not None
         else await provisioning.provision(
-            pool, project_id, owner=owner, secret_key=get_settings().secret_key
+            pool,
+            project_id,
+            owner=owner,
+            secret_key=get_settings().secret_key,
+            code_version=state["code_version"],
         )
     )
     settings: dict[str, Any] = {

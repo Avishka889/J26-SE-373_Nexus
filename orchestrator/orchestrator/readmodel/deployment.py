@@ -255,13 +255,6 @@ async def ledger(
     return views
 
 
-async def approved_test_version(conn: AsyncConnection, project_id: str) -> int:
-    """The newest test version the test review approved, or zero."""
-    history = await store.gate_history(conn, project_id, kind=TEST_GATE_KIND)
-    approved = [row["requirements_version"] for row in history if row["decision"] == "approved"]
-    return max(approved, default=0)
-
-
 async def chosen_release_target(conn: AsyncConnection, project_id: str) -> str:
     """Where a release goes: the newest choice, or the orchestrator's default."""
     from ..config import get_settings
@@ -326,6 +319,7 @@ async def prefetch_deployment(conn: AsyncConnection, project_id: str, owner: str
         store.gate_history_query(project_id, GATE_KIND),
         store.overlays_query(project_id),
         store.latest_verified_release_query(project_id),
+        store.standing_release_ids_query(project_id),
         store.newest_artefact_query(project_id, "monitoring-report"),
         store.list_deployments_query(project_id),
         store.count_deployments_query(project_id),
@@ -334,6 +328,7 @@ async def prefetch_deployment(conn: AsyncConnection, project_id: str, owner: str
         store.unwatched_releases_query(RECENT_SECONDS),
         store.current_test_version_query(project_id),
         store.gate_history_query(project_id, TEST_GATE_KIND),
+        store.approved_test_version_query(project_id),
         store.current_code_version_query(project_id),
         store.settings_body_query(owner),
         store.pending_gate_query(project_id, GATE_KIND),
@@ -344,7 +339,7 @@ async def prefetch_deployment(conn: AsyncConnection, project_id: str, owner: str
     deploy_version = await store.current_deploy_version(conn, project_id)
     gate = await store.pending_gate(conn, project_id=project_id, kind=GATE_KIND)
     second = []
-    approved = await approved_test_version(conn, project_id)
+    approved = await store.approved_test_version(conn, project_id)
     if approved:
         second.append(store.run_for_version_query(project_id, "c3", approved))
     if deploy_version:
@@ -365,6 +360,10 @@ async def prefetch_deployment(conn: AsyncConnection, project_id: str, owner: str
             conn,
             store.run_for_version_query(project_id, "c3", tested),
             store.version_is_approved_query(project_id, TEST_GATE_KIND, tested),
+            # The findings G8 reads, in the code the waiting review would release.
+            store.artefacts_at_query(project_id, tested, ("validation-report",)),
+            # And the tests G4 compares with the ones their approval recorded.
+            store.test_files_digest_query(project_id, tested),
         )
 
 
@@ -420,11 +419,18 @@ async def compose_deployment(
         watched,
     )
 
-    approved = await approved_test_version(conn, project_id)
+    approved = await store.approved_test_version(conn, project_id)
     approved_run = (
         await store.run_for_version(conn, project_id, component="c3", version=approved)
         if approved
         else None
+    )
+    # The run that produced this deploy version started from one test version.
+    newest = await store.latest_run(conn, project_id, component="c4")
+    analysed = (
+        int(newest.get("source_version") or 0)
+        if newest is not None and newest["requirements_version"] == deploy_version
+        else 0
     )
     return DeploySnapshot(
         project_id=project_id,
@@ -434,6 +440,7 @@ async def compose_deployment(
         approved_tested_code_version=int((approved_run or {}).get("source_version") or 0),
         code_version=await store.current_code_version(conn, project_id),
         deployed_code_version=updates.code_version if updates else 0,
+        analysed_test_version=analysed,
         target=str(scope.get("target", "generated")) if isinstance(scope, dict) else "generated",
         scope_packages=[str(one) for one in scope.get("packages") or []]
         if isinstance(scope, dict)
