@@ -12,8 +12,8 @@ import { test, expect, type Page } from "@playwright/test";
 async function login(page: Page) {
   await page.goto("/login");
   await page.getByLabel(/email/i).fill("alex@acme.dev");
-  await page.getByLabel(/password/i).fill("demo");
-  await page.getByRole("button", { name: /log in/i }).click();
+  await page.getByLabel("Password", { exact: true }).fill("demo");
+  await page.getByRole("button", { name: "Sign in", exact: true }).click();
   await expect(page).toHaveURL(/\/workspace/);
 }
 
@@ -162,3 +162,64 @@ for (const width of [390, 768]) {
     });
   });
 }
+
+/**
+ * A laptop, with the conversation open beside the work.
+ *
+ * The sweep above looks at a phone and a tablet, where the conversation is a
+ * sheet over the page. On a 1366 laptop it is a column, and the stage column
+ * beside it is 650 pixels in a window Tailwind calls `lg`: every `lg:` and
+ * `xl:` layout in a stage is laid out for a width the stage does not have.
+ * Testing's header was 808 pixels wide there, with its progress bar and its
+ * run button cut off at the edge, and nothing looked at this width.
+ */
+test.describe("at 1366 wide, beside the conversation", () => {
+  test.use({ viewport: { width: 1366, height: 768 } });
+
+  for (const phase of [
+    { name: "design", url: "/projects/p3/requirements", stages: 8 },
+    { name: "code", url: "/projects/p2/code", stages: 8 },
+    // NexusPay waits at its test review, which is when the header says why
+    // running again is held: the sentence that made it too wide.
+    { name: "testing, at its review", url: "/projects/p1/testing", stages: 7 },
+    { name: "testing, approved", url: "/projects/p4/testing", stages: 7 },
+    { name: "deployment", url: "/projects/p4/deployment", stages: 10 },
+  ]) {
+    test(`no ${phase.name} stage is wider than its column`, async ({ page }) => {
+      await login(page);
+      await page.goto(phase.url);
+      await expect(page.locator("[data-stage-rail]")).toBeVisible({ timeout: 30_000 });
+      // The conversation is a column here, and it is open: that is the case.
+      await expect(page.getByRole("button", { name: "Hide the conversation" })).toBeVisible();
+
+      // Back to the first stage, then forward through every one by the rail's
+      // own arrows, which is the form the rail takes beside the conversation.
+      const previous = page.locator("[data-stage-rail]").getByRole("button", { name: /^Previous: / });
+      while ((await previous.count()) > 0) await previous.click();
+
+      const seen: { stage: string; scroll: number; client: number }[] = [];
+      for (;;) {
+        await page.waitForTimeout(500);
+        seen.push(
+          await page.evaluate(() => {
+            const column = document.querySelector("[data-stage-scroller]") as HTMLElement;
+            const stage =
+              document.querySelector("[data-stage-rail] .truncate")?.textContent?.trim() ?? "unknown";
+            return { stage, scroll: column.scrollWidth, client: column.clientWidth };
+          }),
+        );
+        const next = page.locator("[data-stage-rail]").getByRole("button", { name: /^Next: / });
+        if ((await next.count()) === 0) break;
+        await next.click();
+      }
+
+      expect(seen.length).toBe(phase.stages);
+      for (const row of seen) {
+        expect(
+          row.scroll,
+          `${row.stage} is ${row.scroll}px wide in a ${row.client}px column`,
+        ).toBeLessThanOrEqual(row.client + 1);
+      }
+    });
+  }
+});
