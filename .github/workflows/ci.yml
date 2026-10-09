@@ -10,6 +10,86 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      # Docker is not available on every developer machine, so CI supplies the
+      # database. Nothing here depends on docker compose.
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: sdlc
+          POSTGRES_PASSWORD: sdlc
+          POSTGRES_DB: sdlc
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://sdlc:sdlc@localhost:5432/sdlc
+      DATABASE_DIRECT_URL: postgresql://sdlc:sdlc@localhost:5432/sdlc
+      # Named rather than inferred. The suite refuses to run without this and
+      # refuses to share a database with DATABASE_URL, because its cleanup
+      # deletes projects, settings rows and stored credentials: it once deleted
+      # a real GitHub token that way. CI is no exception to the rule.
+      TEST_DATABASE_URL: postgresql://sdlc:sdlc@localhost:5432/sdlc_test
+    steps:
+      - uses: actions/checkout@v4
+      # The Java lane compiles the seeded sample, and the sample sets
+      # maven.compiler.release to 21. The runner's default JDK is older, so
+      # without this Maven fails with "release version 21 not supported" and
+      # four tests report it as a broken lane, a broken kill check and a
+      # scanner that left no report. Pinned to the version the reports stamp
+      # into their toolchain string rather than to whatever the image ships.
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - run: uv sync --frozen
+      - name: Lint
+        run: uv run ruff check .
+      - name: Format check
+        run: uv run ruff format --check .
+      # Without this the schema does not exist and the spine tests fail on a
+      # missing table rather than proving anything. They skip only when no
+      # database answers at all, which is the offline case, not this one.
+      - name: Apply migrations
+        working-directory: orchestrator
+        run: uv run alembic upgrade head
+      - name: Test
+        run: uv run pytest -q
+
+  contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: uv sync --frozen
+      # Two axes of drift, both fatal. The committed schemas are what other
+      # components read, and the generated types are what the frontend compiles
+      # against, so neither may quietly diverge from the Pydantic models.
+      - name: Schemas match the models
+        run: uv run python -m sdlc_contracts.export_schemas --check
+      - name: Generated types match the schemas
+        working-directory: packages/contracts-ts
+        run: |
+          npm ci
+          npm run gen:contracts
+          git diff --exit-code -- . || {
+            echo "::error::Generated contract types are stale. Run npm run gen:contracts and commit."
+            exit 1
+          }
+
   frontend:
     runs-on: ubuntu-latest
     defaults:
@@ -24,5 +104,13 @@ jobs:
           cache-dependency-path: ai-sdlc-platform-frontend/package-lock.json
       - run: npm ci
       - run: npm run lint
+      # The build does not typecheck and eslint does not either, so without
+      # this a type error only ever surfaces in an editor. Two test files
+      # carried one for a week while every job here stayed green.
+      - run: npm run typecheck
       - run: npm test
+      # A compile check, not a deployable build: the build refuses to run
+      # without the orchestrator's address, so the check names one.
       - run: npm run build
+        env:
+          VITE_API_URL: http://127.0.0.1:8000
