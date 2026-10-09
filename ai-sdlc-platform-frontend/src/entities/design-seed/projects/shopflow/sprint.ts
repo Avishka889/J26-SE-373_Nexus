@@ -151,6 +151,7 @@ const proposed = stories.filter((s) => ["US-201", "US-202", "US-203"].includes(s
 
 export const seedSprint: SprintPlan = {
   sprintName: "Sprint 1",
+  backlogDependencies: [],
   goal: "A shopper can find a product, put it in a cart and buy it.",
   velocityAssumption: {
     points: 26,

@@ -19,6 +19,8 @@ export const seedRequirements: ParsedRequirement[] = [
     qualityAttribute: null,
     lowConfidence: false,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: "Create a headless e-commerce platform with product catalog",
   },
   {
@@ -30,6 +32,8 @@ export const seedRequirements: ParsedRequirement[] = [
     qualityAttribute: null,
     lowConfidence: false,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: "product catalog, cart, checkout",
   },
   {
@@ -41,6 +45,8 @@ export const seedRequirements: ParsedRequirement[] = [
     qualityAttribute: null,
     lowConfidence: false,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: "cart, checkout, inventory sync and order management",
   },
   {
@@ -52,6 +58,8 @@ export const seedRequirements: ParsedRequirement[] = [
     qualityAttribute: null,
     lowConfidence: true,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: "inventory sync",
   },
   {
@@ -63,6 +71,8 @@ export const seedRequirements: ParsedRequirement[] = [
     qualityAttribute: null,
     lowConfidence: false,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: "order management",
   },
   {
@@ -74,6 +84,8 @@ export const seedRequirements: ParsedRequirement[] = [
     qualityAttribute: null,
     lowConfidence: false,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: "Support multi-tenant storefronts.",
   },
   {
@@ -85,6 +97,8 @@ export const seedRequirements: ParsedRequirement[] = [
     qualityAttribute: null,
     lowConfidence: true,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: null,
   },
   {
@@ -96,6 +110,8 @@ export const seedRequirements: ParsedRequirement[] = [
     qualityAttribute: "performance",
     lowConfidence: true,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: null,
   },
   {
@@ -107,6 +123,8 @@ export const seedRequirements: ParsedRequirement[] = [
     qualityAttribute: "security",
     lowConfidence: false,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: "Support multi-tenant storefronts.",
   },
   {
@@ -118,6 +136,8 @@ export const seedRequirements: ParsedRequirement[] = [
     qualityAttribute: null,
     lowConfidence: false,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: "Create a headless e-commerce platform",
   },
   {
@@ -129,6 +149,8 @@ export const seedRequirements: ParsedRequirement[] = [
     qualityAttribute: null,
     lowConfidence: true,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: null,
   },
   {
@@ -140,6 +162,8 @@ export const seedRequirements: ParsedRequirement[] = [
     qualityAttribute: null,
     lowConfidence: true,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: null,
   },
 ];

@@ -41,6 +41,7 @@ export const BLANK_SEED: ProjectDesignSeed = {
   flows: [],
   sprint: {
     sprintName: "Sprint 1",
+    backlogDependencies: [],
     goal: "",
     velocityAssumption: { points: 0, basis: "" },
     estimatedPoints: 0,

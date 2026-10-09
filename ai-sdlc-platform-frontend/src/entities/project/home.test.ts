@@ -13,6 +13,7 @@ describe("where opening a project takes you", () => {
     ["code", "code"],
     ["testing", "testing"],
     ["deploy", "deployment"],
+    ["released", "deployment"],
     ["complete", "deployment"],
   ])("a project in %s opens at %s", (status, phase) => {
     expect(projectHomePath({ id: "p1", status })).toBe(`/projects/p1/${phase}`);

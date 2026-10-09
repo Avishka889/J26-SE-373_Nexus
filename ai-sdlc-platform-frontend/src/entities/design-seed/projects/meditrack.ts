@@ -22,6 +22,8 @@ export const meditrackSeed: ProjectDesignSeed = {
       qualityAttribute: null,
       lowConfidence: false,
       adjusted: false,
+      priorityCorrected: false,
+      setAsideCorrection: null,
       sourceQuote: "Build an EHR system for clinics with patient records",
     },
     {
@@ -33,6 +35,8 @@ export const meditrackSeed: ProjectDesignSeed = {
       qualityAttribute: null,
       lowConfidence: false,
       adjusted: false,
+      priorityCorrected: false,
+      setAsideCorrection: null,
       sourceQuote: "patient records, appointments, prescriptions",
     },
     {
@@ -44,6 +48,8 @@ export const meditrackSeed: ProjectDesignSeed = {
       qualityAttribute: null,
       lowConfidence: false,
       adjusted: false,
+      priorityCorrected: false,
+      setAsideCorrection: null,
       sourceQuote: "appointments, prescriptions",
     },
     {
@@ -55,6 +61,8 @@ export const meditrackSeed: ProjectDesignSeed = {
       qualityAttribute: null,
       lowConfidence: false,
       adjusted: false,
+      priorityCorrected: false,
+      setAsideCorrection: null,
       sourceQuote: "HL7 FHIR interoperability",
     },
     {
@@ -66,6 +74,8 @@ export const meditrackSeed: ProjectDesignSeed = {
       qualityAttribute: "security",
       lowConfidence: false,
       adjusted: false,
+      priorityCorrected: false,
+      setAsideCorrection: null,
       sourceQuote: "Role-based access for doctors, nurses, and admins.",
     },
     {
@@ -77,6 +87,8 @@ export const meditrackSeed: ProjectDesignSeed = {
       qualityAttribute: "security",
       lowConfidence: true,
       adjusted: false,
+      priorityCorrected: false,
+      setAsideCorrection: null,
       sourceQuote: null,
     },
   ],
@@ -462,6 +474,7 @@ export const meditrackSeed: ProjectDesignSeed = {
 
   sprint: {
     sprintName: "Sprint 1",
+    backlogDependencies: [],
     goal: "A clinician can open a record and book an appointment against it.",
     velocityAssumption: {
       points: 20,

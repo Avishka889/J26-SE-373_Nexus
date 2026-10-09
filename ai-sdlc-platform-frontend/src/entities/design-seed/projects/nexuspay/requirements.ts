@@ -15,6 +15,8 @@ export const seedRequirements: ParsedRequirement[] = [
     qualityAttribute: null,
     lowConfidence: false,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: "The system shall allow customers to make payments using credit cards and digital wallets.",
   },
   {
@@ -26,6 +28,8 @@ export const seedRequirements: ParsedRequirement[] = [
     qualityAttribute: null,
     lowConfidence: false,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: "Integrate Stripe and PayPal.",
   },
   {
@@ -37,6 +41,8 @@ export const seedRequirements: ParsedRequirement[] = [
     qualityAttribute: null,
     lowConfidence: false,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: "KYC verification is required before processing payments above $1000.",
   },
   {
@@ -48,6 +54,8 @@ export const seedRequirements: ParsedRequirement[] = [
     qualityAttribute: null,
     lowConfidence: false,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: "KYC verification is required before processing payments above $1000.",
   },
   {
@@ -59,6 +67,8 @@ export const seedRequirements: ParsedRequirement[] = [
     qualityAttribute: null,
     lowConfidence: false,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: "All transactions must be audited.",
   },
   {
@@ -70,6 +80,8 @@ export const seedRequirements: ParsedRequirement[] = [
     qualityAttribute: null,
     lowConfidence: false,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: null,
   },
   {
@@ -81,6 +93,8 @@ export const seedRequirements: ParsedRequirement[] = [
     qualityAttribute: null,
     lowConfidence: true,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: null,
   },
   {
@@ -92,6 +106,8 @@ export const seedRequirements: ParsedRequirement[] = [
     qualityAttribute: null,
     lowConfidence: false,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: "The system shall allow customers to make payments using credit cards and digital wallets.",
   },
   {
@@ -103,6 +119,8 @@ export const seedRequirements: ParsedRequirement[] = [
     qualityAttribute: null,
     lowConfidence: false,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: null,
   },
   {
@@ -114,6 +132,8 @@ export const seedRequirements: ParsedRequirement[] = [
     qualityAttribute: "performance",
     lowConfidence: true,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: null,
   },
   {
@@ -125,6 +145,8 @@ export const seedRequirements: ParsedRequirement[] = [
     qualityAttribute: "security",
     lowConfidence: false,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: null,
   },
   {
@@ -136,6 +158,8 @@ export const seedRequirements: ParsedRequirement[] = [
     qualityAttribute: "reliability",
     lowConfidence: false,
     adjusted: false,
+    priorityCorrected: false,
+    setAsideCorrection: null,
     sourceQuote: null,
   },
 ];

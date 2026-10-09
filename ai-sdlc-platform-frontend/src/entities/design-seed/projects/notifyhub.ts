@@ -21,6 +21,8 @@ export const notifyhubSeed: ProjectDesignSeed = {
       qualityAttribute: null,
       lowConfidence: false,
       adjusted: false,
+      priorityCorrected: false,
+      setAsideCorrection: null,
       sourceQuote: "Design a notification service supporting email, SMS, and push.",
     },
     {
@@ -32,6 +34,8 @@ export const notifyhubSeed: ProjectDesignSeed = {
       qualityAttribute: null,
       lowConfidence: false,
       adjusted: false,
+      priorityCorrected: false,
+      setAsideCorrection: null,
       sourceQuote: "Include templates, delivery tracking, retries",
     },
     {
@@ -43,6 +47,8 @@ export const notifyhubSeed: ProjectDesignSeed = {
       qualityAttribute: null,
       lowConfidence: false,
       adjusted: false,
+      priorityCorrected: false,
+      setAsideCorrection: null,
       sourceQuote: "templates, delivery tracking, retries",
     },
     {
@@ -54,6 +60,8 @@ export const notifyhubSeed: ProjectDesignSeed = {
       qualityAttribute: null,
       lowConfidence: true,
       adjusted: false,
+      priorityCorrected: false,
+      setAsideCorrection: null,
       sourceQuote: "delivery tracking, retries, and preference management",
     },
     {
@@ -65,6 +73,8 @@ export const notifyhubSeed: ProjectDesignSeed = {
       qualityAttribute: null,
       lowConfidence: false,
       adjusted: false,
+      priorityCorrected: false,
+      setAsideCorrection: null,
       sourceQuote: "and preference management",
     },
     {
@@ -76,6 +86,8 @@ export const notifyhubSeed: ProjectDesignSeed = {
       qualityAttribute: "reliability",
       lowConfidence: true,
       adjusted: false,
+      priorityCorrected: false,
+      setAsideCorrection: null,
       sourceQuote: null,
     },
   ],
@@ -482,6 +494,7 @@ export const notifyhubSeed: ProjectDesignSeed = {
 
   sprint: {
     sprintName: "Sprint 1",
+    backlogDependencies: [],
     goal: "A calling system can ask for a notification and see what happened to it.",
     velocityAssumption: {
       points: 22,
