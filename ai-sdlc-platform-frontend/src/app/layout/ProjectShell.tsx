@@ -13,7 +13,7 @@ import { cn } from "@/shared/utils/cn";
 import { Badge } from "@/shared/ui/primitives";
 import { RunStoppedChip } from "@/shared/ui/RunStoppedChip";
 
-function statusBadge(status: Project["status"]) {
+function statusBadge({ status, sprint }: Pick<Project, "status" | "sprint">) {
   switch (status) {
     case "draft":
       return { label: "Draft", variant: "default" as const };
@@ -27,6 +27,8 @@ function statusBadge(status: Project["status"]) {
       return { label: "Testing", variant: "c3" as const };
     case "deploy":
       return { label: "Deploy", variant: "c4" as const };
+    case "released":
+      return { label: `Released, sprint ${sprint ?? 1}`, variant: "success" as const };
     case "complete":
       return { label: "Complete", variant: "success" as const };
     default:
@@ -105,7 +107,7 @@ function ProjectShell({ children }: { children: ReactNode }) {
     },
   ];
 
-  const status = statusBadge(project.status);
+  const status = statusBadge(project);
   // Where the overall figure comes from, for a reader who hovers it.
   const phases = project.phaseProgress;
   const breakdown = phases
