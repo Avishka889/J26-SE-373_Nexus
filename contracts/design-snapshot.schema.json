@@ -238,6 +238,34 @@
       "title": "Assumption",
       "type": "object"
     },
+    "BacklogDependency": {
+      "additionalProperties": false,
+      "description": "A story in the sprint that needs one left in the backlog.\n\nRead off the design: a requirement the sprint's story realises draws a\nconnection to something nothing in the sprint builds, and a backlog story\nbuilds it. The sprint is divided by priority and size alone, so nothing else\nwould say that it cannot be finished as proposed (review item C1-5).",
+      "properties": {
+        "because": {
+          "minLength": 1,
+          "title": "Because",
+          "type": "string"
+        },
+        "needs": {
+          "pattern": "^US-\\d+$",
+          "title": "Needs",
+          "type": "string"
+        },
+        "storyId": {
+          "pattern": "^US-\\d+$",
+          "title": "Storyid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "storyId",
+        "needs",
+        "because"
+      ],
+      "title": "BacklogDependency",
+      "type": "object"
+    },
     "ClarifyingQuestion": {
       "additionalProperties": false,
       "properties": {
@@ -355,6 +383,30 @@
         "stageId"
       ],
       "title": "ConsistencyFinding",
+      "type": "object"
+    },
+    "DesignChanges": {
+      "additionalProperties": false,
+      "description": "What this design version changed since the one before it.\n\nA change note regenerates the design, and the review showed the new version\nwith nothing saying what had moved (review item C1-6).",
+      "properties": {
+        "fromVersion": {
+          "minimum": 1,
+          "title": "Fromversion",
+          "type": "integer"
+        },
+        "requirements": {
+          "$ref": "#/$defs/RequirementDiff"
+        },
+        "stories": {
+          "$ref": "#/$defs/StoryDiff"
+        }
+      },
+      "required": [
+        "fromVersion",
+        "requirements",
+        "stories"
+      ],
+      "title": "DesignChanges",
       "type": "object"
     },
     "DesignThreadMessage": {
@@ -844,6 +896,11 @@
           "title": "Priority",
           "type": "string"
         },
+        "priorityCorrected": {
+          "default": false,
+          "title": "Prioritycorrected",
+          "type": "boolean"
+        },
         "qualityAttribute": {
           "anyOf": [
             {
@@ -861,6 +918,18 @@
           ],
           "default": null,
           "title": "Qualityattribute"
+        },
+        "setAsideCorrection": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Setasidecorrection"
         },
         "sourceQuote": {
           "anyOf": [
@@ -898,6 +967,8 @@
         "qualityAttribute",
         "lowConfidence",
         "adjusted",
+        "priorityCorrected",
+        "setAsideCorrection",
         "sourceQuote"
       ],
       "title": "ParsedRequirement",
@@ -920,6 +991,88 @@
         "y"
       ],
       "title": "Position",
+      "type": "object"
+    },
+    "RequirementChange": {
+      "additionalProperties": false,
+      "description": "One requirement that reads differently than it did.",
+      "properties": {
+        "after": {
+          "default": "",
+          "title": "After",
+          "type": "string"
+        },
+        "before": {
+          "default": "",
+          "title": "Before",
+          "type": "string"
+        },
+        "field": {
+          "minLength": 1,
+          "title": "Field",
+          "type": "string"
+        },
+        "requirementId": {
+          "pattern": "^R-\\d+$",
+          "title": "Requirementid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "requirementId",
+        "field",
+        "before",
+        "after"
+      ],
+      "title": "RequirementChange",
+      "type": "object"
+    },
+    "RequirementDiff": {
+      "additionalProperties": false,
+      "description": "What moved between two requirements versions.\n\nThe sibling of `ContractDiff`, and here for the same reason it is: the\nself healing classifier's first signal is whether the thing a failing test\ntraces to changed between the two versions, and requirements are half of\nwhat a test traces to. Endpoints are the other half.\n\nA human edit counts as a change. An overlay that rewrote a requirement is\nexactly the case where a test encoding the old wording is stale rather than\nright, which is the distinction the whole loop turns on.",
+      "properties": {
+        "added": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Added",
+          "type": "array"
+        },
+        "changed": {
+          "items": {
+            "$ref": "#/$defs/RequirementChange"
+          },
+          "title": "Changed",
+          "type": "array"
+        },
+        "fromVersion": {
+          "minimum": 1,
+          "title": "Fromversion",
+          "type": "integer"
+        },
+        "removed": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Removed",
+          "type": "array"
+        },
+        "toVersion": {
+          "minimum": 1,
+          "title": "Toversion",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "fromVersion",
+        "toVersion",
+        "added",
+        "removed",
+        "changed"
+      ],
+      "title": "RequirementDiff",
       "type": "object"
     },
     "RunStatus": {
@@ -1158,6 +1311,13 @@
           "title": "Backlog",
           "type": "array"
         },
+        "backlogDependencies": {
+          "items": {
+            "$ref": "#/$defs/BacklogDependency"
+          },
+          "title": "Backlogdependencies",
+          "type": "array"
+        },
         "estimatedPoints": {
           "minimum": 0,
           "title": "Estimatedpoints",
@@ -1190,7 +1350,8 @@
         "velocityAssumption",
         "estimatedPoints",
         "proposed",
-        "backlog"
+        "backlog",
+        "backlogDependencies"
       ],
       "title": "SprintPlan",
       "type": "object"
@@ -1339,6 +1500,43 @@
         "modelUse"
       ],
       "title": "StageState",
+      "type": "object"
+    },
+    "StoryDiff": {
+      "additionalProperties": false,
+      "description": "The stories one plan added, dropped or changed against the one before, by id.",
+      "properties": {
+        "added": {
+          "items": {
+            "pattern": "^US-\\d+$",
+            "type": "string"
+          },
+          "title": "Added",
+          "type": "array"
+        },
+        "changed": {
+          "items": {
+            "pattern": "^US-\\d+$",
+            "type": "string"
+          },
+          "title": "Changed",
+          "type": "array"
+        },
+        "removed": {
+          "items": {
+            "pattern": "^US-\\d+$",
+            "type": "string"
+          },
+          "title": "Removed",
+          "type": "array"
+        }
+      },
+      "required": [
+        "added",
+        "removed",
+        "changed"
+      ],
+      "title": "StoryDiff",
       "type": "object"
     },
     "TopologyCandidate": {
@@ -1825,6 +2023,17 @@
       "title": "Assumptions",
       "type": "array"
     },
+    "changes": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DesignChanges"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
     "consistency": {
       "items": {
         "$ref": "#/$defs/ConsistencyFinding"
@@ -1942,6 +2151,7 @@
     "uml",
     "wireframes",
     "sprint",
+    "changes",
     "gate",
     "run",
     "thread",
