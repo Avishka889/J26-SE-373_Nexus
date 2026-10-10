@@ -90,6 +90,82 @@ describe("a stage that has not run yet", () => {
   });
 });
 
+// The review is a view over the other stages and never generates anything of
+// its own, so it stays "not run yet" until the run reaches its gate. Opened
+// while Sprint Planning was still being written, it said so in still text, as
+// if nothing was happening at all.
+describe("a stage that has not run yet while the run is working", () => {
+  function waiting(waitingFor?: string) {
+    return render(
+      <StageShell
+        chrome={CHROME}
+        stage={{ status: "pending", generatedFromVersion: 0 }}
+        stageId="only"
+        version={1}
+        onRetry={vi.fn()}
+        waitingFor={waitingFor}
+      >
+        <p>the stage body</p>
+      </StageShell>,
+    ).container;
+  }
+
+  it("names the stage being generated, and shows that it is", () => {
+    const container = waiting("Sprint Planning");
+
+    expect(screen.getByRole("status").textContent).toBe("Sprint Planning is being generated now");
+    expect(container.querySelector("[data-spinner]")).not.toBeNull();
+    expect(screen.getByText(/This stage opens by itself when the run reaches it/)).toBeTruthy();
+    expect(screen.queryByText(/has not run yet/)).toBeNull();
+  });
+
+  it("shows no activity when nothing is being generated", () => {
+    const container = waiting();
+
+    expect(screen.queryByRole("status")).toBeNull();
+    expect(container.querySelector("[data-spinner]")).toBeNull();
+    expect(screen.getByText(/has not run yet/)).toBeTruthy();
+  });
+});
+
+// Seen on a live project, 2026-10-17: Sprint Planning had finished and the run
+// was opening the review, so nothing was being generated and the review said
+// "has not run yet" in still text until something else made the page read.
+describe("a stage the run opens next", () => {
+  function shellOpening(props: { opening?: boolean; pendingNote?: string }) {
+    return render(
+      <StageShell
+        chrome={CHROME}
+        stage={{ status: "pending", generatedFromVersion: 0 }}
+        stageId="only"
+        version={1}
+        onRetry={vi.fn()}
+        {...props}
+      >
+        <p>the stage body</p>
+      </StageShell>,
+    ).container;
+  }
+
+  it("says it opens in a moment, and shows that the run is working", () => {
+    const container = shellOpening({ opening: true });
+
+    expect(screen.getByRole("status").textContent).toBe("Only opens in a moment");
+    expect(container.querySelector("[data-spinner]")).not.toBeNull();
+    expect(screen.queryByText(/has not run yet/)).toBeNull();
+  });
+
+  it("leaves a stage that waits on something else saying what it waits on", () => {
+    shellOpening({
+      opening: true,
+      pendingNote: "This stage starts once you continue from the design's questions.",
+    });
+
+    expect(screen.queryByRole("status")).toBeNull();
+    expect(screen.getByText(/once you continue from the design's questions/)).toBeTruthy();
+  });
+});
+
 describe("a stage generating", () => {
   function generating(version: number) {
     render(

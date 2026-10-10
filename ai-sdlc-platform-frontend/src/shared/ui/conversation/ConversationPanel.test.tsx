@@ -292,3 +292,22 @@ describe("what a send runs on", () => {
     expect(screen.queryByText(/run:/)).toBeNull();
   });
 });
+
+/**
+ * A phase that had said nothing yet drew an empty panel under a title
+ * promising "everything the platform did": it read as a panel that had failed
+ * to load.
+ */
+describe("a conversation with nothing in it yet", () => {
+  it("says so, and what will appear there", () => {
+    show([]);
+
+    expect(screen.getByText(/Nothing has been said here yet/)).toBeTruthy();
+  });
+
+  it("says nothing of the kind once there is a message", () => {
+    show([{ id: "1", role: "user", author: "You", content: "Build a book tracker.", at: "09:12" }]);
+
+    expect(screen.queryByText(/Nothing has been said here yet/)).toBeNull();
+  });
+});

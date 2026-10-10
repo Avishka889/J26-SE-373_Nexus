@@ -134,6 +134,14 @@ export function ConversationPanel({
           }}
           className="h-full space-y-6 overflow-y-auto overscroll-contain px-5 py-5"
         >
+          {/* Said, not left blank: under a title promising everything the
+              platform did, an empty panel read as one that had not loaded. */}
+          {messages.length === 0 && (
+            <li className="tp-den list-none text-[13px] leading-relaxed">
+              Nothing has been said here yet. What this phase does, and what is decided in it, is
+              recorded here as it happens.
+            </li>
+          )}
           {items.map((item) =>
             item.kind === "events" ? (
               <EventGroup key={item.events[0].id} events={item.events} />

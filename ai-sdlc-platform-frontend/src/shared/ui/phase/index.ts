@@ -17,4 +17,5 @@ export { RunStoppedNotice } from "./RunStoppedNotice";
 export { stoppedRun } from "./stoppedRun";
 export { readState, type ReadState } from "./readState";
 export { reviewIsOpen } from "./reviewIsOpen";
+export { runIsWorking, stageOpeningNext } from "./runProgress";
 export { workingStage } from "./workingStage";

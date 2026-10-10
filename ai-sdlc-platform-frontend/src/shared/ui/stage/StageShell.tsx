@@ -45,6 +45,12 @@ export function StageShell<Id extends string>(props: {
    * it: while the design waits on its questions, the stage before has finished.
    */
   pendingNote?: string;
+  /**
+   * The run is still going, no stage is generating, and this is the stage it
+   * opens next (`stageOpeningNext`): a review, between the last stage finishing
+   * and the review opening.
+   */
+  opening?: boolean;
   children: ReactNode;
 }) {
   const top = useRef<HTMLDivElement>(null);
@@ -155,6 +161,7 @@ function StageBody<Id extends string>({
   computedBefore,
   waitingFor,
   pendingNote,
+  opening,
   children,
 }: {
   chrome: StageChrome<Id>;
@@ -168,6 +175,7 @@ function StageBody<Id extends string>({
   computedBefore?: string[];
   waitingFor?: string;
   pendingNote?: string;
+  opening?: boolean;
   children: ReactNode;
 }) {
   const meta = chrome.meta[stageId];
@@ -179,6 +187,46 @@ function StageBody<Id extends string>({
           Not reached. The run stopped before this stage, so nothing was generated here. The notice
           above says why, and how to go on.
         </Note>
+      </Panel>
+    );
+  }
+
+  // The run is working on an earlier stage. A stage that generates nothing of
+  // its own (a review) stays pending until the run reaches it, and said "not
+  // run yet" in still text meanwhile, as if nothing was happening.
+  if (stage.status === "pending" && waitingFor && !pendingNote) {
+    return (
+      <Panel
+        icon={<Spinner size="sm" tone="accent" decorative />}
+        label={meta.heading}
+        title={meta.blurb}
+      >
+        <p role="status" className="tp-den flex items-center gap-2">
+          <Spinner size="xs" decorative />
+          {waitingFor} is being generated now
+        </p>
+        <Note className="mt-3">
+          This stage opens by itself when the run reaches it. Nothing is created here until then.
+        </Note>
+      </Panel>
+    );
+  }
+
+  // The stages before it have finished and the run is opening this one. It
+  // said "has not run yet" in still text here too, between the last stage
+  // finishing and the review opening, which read as though nothing would.
+  if (stage.status === "pending" && opening && !pendingNote) {
+    return (
+      <Panel
+        icon={<Spinner size="sm" tone="accent" decorative />}
+        label={meta.heading}
+        title={meta.blurb}
+      >
+        <p role="status" className="tp-den flex items-center gap-2">
+          <Spinner size="xs" decorative />
+          {meta.label} opens in a moment
+        </p>
+        <Note className="mt-3">The run is working, and this is the next stage it opens.</Note>
       </Panel>
     );
   }
