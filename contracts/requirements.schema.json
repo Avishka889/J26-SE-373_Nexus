@@ -1,0 +1,228 @@
+{
+  "$defs": {
+    "Assumption": {
+      "additionalProperties": false,
+      "properties": {
+        "dismissed": {
+          "default": false,
+          "title": "Dismissed",
+          "type": "boolean"
+        },
+        "edited": {
+          "default": false,
+          "title": "Edited",
+          "type": "boolean"
+        },
+        "id": {
+          "pattern": "^A-\\d+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "text": {
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "traces": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Traces",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "text",
+        "traces",
+        "dismissed",
+        "edited"
+      ],
+      "title": "Assumption",
+      "type": "object"
+    },
+    "ClarifyingQuestion": {
+      "additionalProperties": false,
+      "properties": {
+        "answer": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Answer"
+        },
+        "answeredAt": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Answeredat"
+        },
+        "id": {
+          "pattern": "^Q-\\d+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "question": {
+          "minLength": 1,
+          "title": "Question",
+          "type": "string"
+        },
+        "traces": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Traces",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "question",
+        "traces",
+        "answer",
+        "answeredAt"
+      ],
+      "title": "ClarifyingQuestion",
+      "type": "object"
+    },
+    "ParsedRequirement": {
+      "additionalProperties": false,
+      "properties": {
+        "adjusted": {
+          "default": false,
+          "title": "Adjusted",
+          "type": "boolean"
+        },
+        "confidence": {
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Confidence",
+          "type": "integer"
+        },
+        "id": {
+          "pattern": "^R-\\d+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "lowConfidence": {
+          "default": false,
+          "title": "Lowconfidence",
+          "type": "boolean"
+        },
+        "priority": {
+          "enum": [
+            "must",
+            "should",
+            "could"
+          ],
+          "title": "Priority",
+          "type": "string"
+        },
+        "qualityAttribute": {
+          "anyOf": [
+            {
+              "enum": [
+                "performance",
+                "security",
+                "usability",
+                "reliability"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Qualityattribute"
+        },
+        "sourceQuote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sourcequote"
+        },
+        "text": {
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "functional",
+            "quality",
+            "constraint"
+          ],
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "text",
+        "type",
+        "priority",
+        "confidence",
+        "qualityAttribute",
+        "lowConfidence",
+        "adjusted",
+        "sourceQuote"
+      ],
+      "title": "ParsedRequirement",
+      "type": "object"
+    }
+  },
+  "$id": "https://sdlc.local/contracts/requirements.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "What C1's `/requirements` endpoint produces.",
+  "properties": {
+    "assumptions": {
+      "items": {
+        "$ref": "#/$defs/Assumption"
+      },
+      "title": "Assumptions",
+      "type": "array"
+    },
+    "questions": {
+      "items": {
+        "$ref": "#/$defs/ClarifyingQuestion"
+      },
+      "title": "Questions",
+      "type": "array"
+    },
+    "requirements": {
+      "items": {
+        "$ref": "#/$defs/ParsedRequirement"
+      },
+      "title": "Requirements",
+      "type": "array"
+    }
+  },
+  "required": [
+    "requirements",
+    "assumptions",
+    "questions"
+  ],
+  "title": "RequirementsArtefact",
+  "type": "object"
+}

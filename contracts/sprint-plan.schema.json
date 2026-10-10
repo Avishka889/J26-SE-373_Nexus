@@ -1,0 +1,166 @@
+{
+  "$defs": {
+    "AcceptanceCriterion": {
+      "additionalProperties": false,
+      "properties": {
+        "given": {
+          "minLength": 1,
+          "title": "Given",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "then": {
+          "minLength": 1,
+          "title": "Then",
+          "type": "string"
+        },
+        "when": {
+          "minLength": 1,
+          "title": "When",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "given",
+        "when",
+        "then"
+      ],
+      "title": "AcceptanceCriterion",
+      "type": "object"
+    },
+    "UserStory": {
+      "additionalProperties": false,
+      "properties": {
+        "acceptance": {
+          "items": {
+            "$ref": "#/$defs/AcceptanceCriterion"
+          },
+          "minItems": 1,
+          "title": "Acceptance",
+          "type": "array"
+        },
+        "epic": {
+          "minLength": 1,
+          "title": "Epic",
+          "type": "string"
+        },
+        "id": {
+          "pattern": "^US-\\d+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "points": {
+          "exclusiveMinimum": 0,
+          "title": "Points",
+          "type": "integer"
+        },
+        "priority": {
+          "enum": [
+            "must",
+            "should",
+            "could"
+          ],
+          "title": "Priority",
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "traces": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Traces",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "epic",
+        "points",
+        "priority",
+        "traces",
+        "acceptance"
+      ],
+      "title": "UserStory",
+      "type": "object"
+    },
+    "VelocityAssumption": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "minLength": 1,
+          "title": "Basis",
+          "type": "string"
+        },
+        "points": {
+          "exclusiveMinimum": 0,
+          "title": "Points",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "points",
+        "basis"
+      ],
+      "title": "VelocityAssumption",
+      "type": "object"
+    }
+  },
+  "$id": "https://sdlc.local/contracts/sprint-plan.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "backlog": {
+      "items": {
+        "$ref": "#/$defs/UserStory"
+      },
+      "title": "Backlog",
+      "type": "array"
+    },
+    "estimatedPoints": {
+      "minimum": 0,
+      "title": "Estimatedpoints",
+      "type": "integer"
+    },
+    "goal": {
+      "minLength": 1,
+      "title": "Goal",
+      "type": "string"
+    },
+    "proposed": {
+      "items": {
+        "$ref": "#/$defs/UserStory"
+      },
+      "title": "Proposed",
+      "type": "array"
+    },
+    "sprintName": {
+      "minLength": 1,
+      "title": "Sprintname",
+      "type": "string"
+    },
+    "velocityAssumption": {
+      "$ref": "#/$defs/VelocityAssumption"
+    }
+  },
+  "required": [
+    "sprintName",
+    "goal",
+    "velocityAssumption",
+    "estimatedPoints",
+    "proposed",
+    "backlog"
+  ],
+  "title": "SprintPlan",
+  "type": "object"
+}

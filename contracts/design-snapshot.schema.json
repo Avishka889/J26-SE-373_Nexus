@@ -1,0 +1,1954 @@
+{
+  "$defs": {
+    "AcceptanceCriterion": {
+      "additionalProperties": false,
+      "properties": {
+        "given": {
+          "minLength": 1,
+          "title": "Given",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "then": {
+          "minLength": 1,
+          "title": "Then",
+          "type": "string"
+        },
+        "when": {
+          "minLength": 1,
+          "title": "When",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "given",
+        "when",
+        "then"
+      ],
+      "title": "AcceptanceCriterion",
+      "type": "object"
+    },
+    "ArchitectureGraph": {
+      "additionalProperties": false,
+      "properties": {
+        "changedNodeIds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Changednodeids",
+          "type": "array"
+        },
+        "edges": {
+          "items": {
+            "$ref": "#/$defs/GraphEdge"
+          },
+          "title": "Edges",
+          "type": "array"
+        },
+        "nodes": {
+          "items": {
+            "$ref": "#/$defs/GraphNode"
+          },
+          "title": "Nodes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "nodes",
+        "edges",
+        "changedNodeIds"
+      ],
+      "title": "ArchitectureGraph",
+      "type": "object"
+    },
+    "ArchitectureRecommendation": {
+      "additionalProperties": false,
+      "properties": {
+        "candidates": {
+          "items": {
+            "$ref": "#/$defs/TopologyCandidate"
+          },
+          "minItems": 2,
+          "title": "Candidates",
+          "type": "array"
+        },
+        "recommendedCandidateId": {
+          "title": "Recommendedcandidateid",
+          "type": "string"
+        },
+        "selectedAt": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Selectedat"
+        },
+        "selectedBy": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Selectedby"
+        },
+        "selectedCandidateId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Selectedcandidateid"
+        },
+        "style": {
+          "$ref": "#/$defs/ArchitectureStyleNote"
+        }
+      },
+      "required": [
+        "candidates",
+        "recommendedCandidateId",
+        "selectedCandidateId",
+        "selectedAt",
+        "selectedBy",
+        "style"
+      ],
+      "title": "ArchitectureRecommendation",
+      "type": "object"
+    },
+    "ArchitectureStyleNote": {
+      "additionalProperties": false,
+      "description": "A code organisation style: applies inside whichever shape is chosen.",
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "note": {
+          "minLength": 1,
+          "title": "Note",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "note"
+      ],
+      "title": "ArchitectureStyleNote",
+      "type": "object"
+    },
+    "AskedQuestion": {
+      "additionalProperties": false,
+      "description": "The question an answer in the conversation answers, as the design asked it.",
+      "properties": {
+        "askedAt": {
+          "title": "Askedat",
+          "type": "string"
+        },
+        "id": {
+          "pattern": "^Q-\\d+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "question": {
+          "minLength": 1,
+          "title": "Question",
+          "type": "string"
+        },
+        "traces": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Traces",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "question",
+        "traces",
+        "askedAt"
+      ],
+      "title": "AskedQuestion",
+      "type": "object"
+    },
+    "Assumption": {
+      "additionalProperties": false,
+      "properties": {
+        "dismissed": {
+          "default": false,
+          "title": "Dismissed",
+          "type": "boolean"
+        },
+        "edited": {
+          "default": false,
+          "title": "Edited",
+          "type": "boolean"
+        },
+        "id": {
+          "pattern": "^A-\\d+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "text": {
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "traces": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Traces",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "text",
+        "traces",
+        "dismissed",
+        "edited"
+      ],
+      "title": "Assumption",
+      "type": "object"
+    },
+    "ClarifyingQuestion": {
+      "additionalProperties": false,
+      "properties": {
+        "answer": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Answer"
+        },
+        "answeredAt": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Answeredat"
+        },
+        "id": {
+          "pattern": "^Q-\\d+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "question": {
+          "minLength": 1,
+          "title": "Question",
+          "type": "string"
+        },
+        "traces": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Traces",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "question",
+        "traces",
+        "answer",
+        "answeredAt"
+      ],
+      "title": "ClarifyingQuestion",
+      "type": "object"
+    },
+    "ConsistencyFinding": {
+      "additionalProperties": false,
+      "description": "Something two artefacts disagree about, for the reader at the gate.\n\nSeparate from `ValidationFinding`, which is carried on a single node and says\nthat one thing could not be confirmed. This is about the design as a whole:\na must-have with no story, a diagram naming a node the graph no longer has.\nNeither can be seen from inside the artefact it concerns, and both are read\nat the moment somebody decides whether to approve.\n\nDerived at read time and never stored. It is a statement about the current\nset of artefacts, so a stored copy would go stale exactly when it mattered:\nthe moment one of them is regenerated.",
+      "properties": {
+        "reason": {
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        },
+        "ruleId": {
+          "minLength": 1,
+          "title": "Ruleid",
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "error",
+            "warning"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "stageId": {
+          "anyOf": [
+            {
+              "enum": [
+                "requirements",
+                "domain-model",
+                "architecture-graph",
+                "architecture-recommendation",
+                "uml-diagrams",
+                "wireframes",
+                "sprint-plan",
+                "design-review"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Stageid"
+        },
+        "traces": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Traces",
+          "type": "array"
+        }
+      },
+      "required": [
+        "ruleId",
+        "severity",
+        "reason",
+        "traces",
+        "stageId"
+      ],
+      "title": "ConsistencyFinding",
+      "type": "object"
+    },
+    "DesignThreadMessage": {
+      "additionalProperties": false,
+      "properties": {
+        "at": {
+          "title": "At",
+          "type": "string"
+        },
+        "author": {
+          "minLength": 1,
+          "title": "Author",
+          "type": "string"
+        },
+        "content": {
+          "minLength": 1,
+          "title": "Content",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "user_note",
+            "answer",
+            "stage_summary",
+            "system"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "producedVersion": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Producedversion"
+        },
+        "question": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AskedQuestion"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "stageId": {
+          "anyOf": [
+            {
+              "enum": [
+                "requirements",
+                "domain-model",
+                "architecture-graph",
+                "architecture-recommendation",
+                "uml-diagrams",
+                "wireframes",
+                "sprint-plan",
+                "design-review"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Stageid"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "stageId",
+        "author",
+        "content",
+        "at",
+        "producedVersion",
+        "question"
+      ],
+      "title": "DesignThreadMessage",
+      "type": "object"
+    },
+    "EntityAttribute": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "type": {
+          "minLength": 1,
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "type"
+      ],
+      "title": "EntityAttribute",
+      "type": "object"
+    },
+    "FlowLink": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "targetId": {
+          "minLength": 1,
+          "title": "Targetid",
+          "type": "string"
+        },
+        "variant": {
+          "enum": [
+            "primary",
+            "secondary",
+            "row",
+            "text"
+          ],
+          "title": "Variant",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "targetId",
+        "variant"
+      ],
+      "title": "FlowLink",
+      "type": "object"
+    },
+    "FlowScreen": {
+      "additionalProperties": false,
+      "properties": {
+        "blocks": {
+          "items": {
+            "$ref": "#/$defs/ScreenBlock"
+          },
+          "title": "Blocks",
+          "type": "array"
+        },
+        "crumbs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Crumbs",
+          "type": "array"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "links": {
+          "items": {
+            "$ref": "#/$defs/FlowLink"
+          },
+          "title": "Links",
+          "type": "array"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "terminal": {
+          "default": false,
+          "description": "True when this screen is meant to be the end of the journey, such as a confirmation or an error. A screen with no outgoing links is otherwise reported as a dead end, and this is how a flow says the dead end was the point. Assigned by rule from the screen's name and correctable by a human, never written by a generating model: a flag that silences a warning is a flag a model will set to silence the warning.",
+          "title": "Terminal",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "crumbs",
+        "blocks",
+        "links",
+        "terminal"
+      ],
+      "title": "FlowScreen",
+      "type": "object"
+    },
+    "GateDecision": {
+      "additionalProperties": false,
+      "properties": {
+        "at": {
+          "title": "At",
+          "type": "string"
+        },
+        "by": {
+          "minLength": 1,
+          "title": "By",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "approved",
+            "changes"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "kind",
+        "at",
+        "by",
+        "version",
+        "note"
+      ],
+      "title": "GateDecision",
+      "type": "object"
+    },
+    "GateState": {
+      "additionalProperties": false,
+      "properties": {
+        "decision": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/GateDecision"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "history": {
+          "items": {
+            "$ref": "#/$defs/GateDecision"
+          },
+          "title": "History",
+          "type": "array"
+        }
+      },
+      "required": [
+        "decision",
+        "history"
+      ],
+      "title": "GateState",
+      "type": "object"
+    },
+    "GraphEdge": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "action",
+            "data",
+            "dependency",
+            "constraint"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "source": {
+          "minLength": 1,
+          "title": "Source",
+          "type": "string"
+        },
+        "target": {
+          "minLength": 1,
+          "title": "Target",
+          "type": "string"
+        },
+        "traces": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Traces",
+          "type": "array"
+        },
+        "verb": {
+          "minLength": 1,
+          "title": "Verb",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "source",
+        "target",
+        "kind",
+        "verb",
+        "traces"
+      ],
+      "title": "GraphEdge",
+      "type": "object"
+    },
+    "GraphNode": {
+      "additionalProperties": false,
+      "properties": {
+        "actorKind": {
+          "anyOf": [
+            {
+              "enum": [
+                "primary",
+                "external_system"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Actorkind"
+        },
+        "appliesTo": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Appliesto",
+          "type": "array"
+        },
+        "attributes": {
+          "items": {
+            "$ref": "#/$defs/EntityAttribute"
+          },
+          "title": "Attributes",
+          "type": "array"
+        },
+        "changedInVersion": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Changedinversion"
+        },
+        "description": {
+          "default": "",
+          "title": "Description",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "actor",
+            "entity",
+            "service",
+            "constraint"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "position": {
+          "$ref": "#/$defs/Position"
+        },
+        "standard": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Standard"
+        },
+        "traces": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Traces",
+          "type": "array"
+        },
+        "unconfirmed": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ValidationFinding"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "label",
+        "description",
+        "position",
+        "traces",
+        "attributes",
+        "actorKind",
+        "standard",
+        "appliesTo",
+        "unconfirmed",
+        "changedInVersion"
+      ],
+      "title": "GraphNode",
+      "type": "object"
+    },
+    "ParsedRequirement": {
+      "additionalProperties": false,
+      "properties": {
+        "adjusted": {
+          "default": false,
+          "title": "Adjusted",
+          "type": "boolean"
+        },
+        "confidence": {
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Confidence",
+          "type": "integer"
+        },
+        "id": {
+          "pattern": "^R-\\d+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "lowConfidence": {
+          "default": false,
+          "title": "Lowconfidence",
+          "type": "boolean"
+        },
+        "priority": {
+          "enum": [
+            "must",
+            "should",
+            "could"
+          ],
+          "title": "Priority",
+          "type": "string"
+        },
+        "qualityAttribute": {
+          "anyOf": [
+            {
+              "enum": [
+                "performance",
+                "security",
+                "usability",
+                "reliability"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Qualityattribute"
+        },
+        "sourceQuote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sourcequote"
+        },
+        "text": {
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "functional",
+            "quality",
+            "constraint"
+          ],
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "text",
+        "type",
+        "priority",
+        "confidence",
+        "qualityAttribute",
+        "lowConfidence",
+        "adjusted",
+        "sourceQuote"
+      ],
+      "title": "ParsedRequirement",
+      "type": "object"
+    },
+    "Position": {
+      "additionalProperties": false,
+      "properties": {
+        "x": {
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "title": "Y",
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "title": "Position",
+      "type": "object"
+    },
+    "RunStatus": {
+      "additionalProperties": false,
+      "description": "The phase's newest full run.\n\nA stage retry is a run of its own, and it is not this one: it reports on\nits own stage, and a retry that finished must not hide the full run beneath\nit that stopped short of the review.",
+      "properties": {
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        },
+        "finishedAt": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Finishedat"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model"
+        },
+        "startedAt": {
+          "title": "Startedat",
+          "type": "string"
+        },
+        "state": {
+          "enum": [
+            "queued",
+            "running",
+            "awaiting_gate",
+            "done",
+            "failed",
+            "superseded"
+          ],
+          "title": "State",
+          "type": "string"
+        },
+        "stoppedAt": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Stoppedat"
+        },
+        "thinking": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Thinking"
+        },
+        "version": {
+          "minimum": 0,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "state",
+        "version",
+        "startedAt",
+        "finishedAt",
+        "error",
+        "stoppedAt",
+        "model",
+        "thinking"
+      ],
+      "title": "RunStatus",
+      "type": "object"
+    },
+    "ScreenBlock": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "field",
+            "row",
+            "summary",
+            "banner",
+            "text",
+            "list",
+            "button",
+            "display"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "linkId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Linkid"
+        },
+        "tone": {
+          "anyOf": [
+            {
+              "enum": [
+                "neutral",
+                "positive",
+                "muted"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tone"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "label",
+        "value",
+        "tone",
+        "linkId"
+      ],
+      "title": "ScreenBlock",
+      "type": "object"
+    },
+    "SequenceStep": {
+      "additionalProperties": false,
+      "properties": {
+        "fromId": {
+          "description": "Id of the architecture graph node this step goes from.",
+          "minLength": 1,
+          "title": "Fromid",
+          "type": "string"
+        },
+        "kind": {
+          "description": "call for a request, return for an answer, note for an aside.",
+          "enum": [
+            "call",
+            "return",
+            "note"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "message": {
+          "description": "What is asked or answered. Names inside the text are written as `{nodeId}` tokens, referring to nodes of the architecture graph, and are replaced with the node's current label when the diagram is drawn. Never write a node's name in as text: the copy would not follow a rename. A token naming no node renders as the literal braces, which is deliberate, since a silently dropped name reads as correct.",
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        },
+        "toId": {
+          "description": "Id of the architecture graph node this step goes to.",
+          "minLength": 1,
+          "title": "Toid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "fromId",
+        "toId",
+        "message",
+        "kind"
+      ],
+      "title": "SequenceStep",
+      "type": "object"
+    },
+    "SprintPlan": {
+      "additionalProperties": false,
+      "properties": {
+        "backlog": {
+          "items": {
+            "$ref": "#/$defs/UserStory"
+          },
+          "title": "Backlog",
+          "type": "array"
+        },
+        "estimatedPoints": {
+          "minimum": 0,
+          "title": "Estimatedpoints",
+          "type": "integer"
+        },
+        "goal": {
+          "minLength": 1,
+          "title": "Goal",
+          "type": "string"
+        },
+        "proposed": {
+          "items": {
+            "$ref": "#/$defs/UserStory"
+          },
+          "title": "Proposed",
+          "type": "array"
+        },
+        "sprintName": {
+          "minLength": 1,
+          "title": "Sprintname",
+          "type": "string"
+        },
+        "velocityAssumption": {
+          "$ref": "#/$defs/VelocityAssumption"
+        }
+      },
+      "required": [
+        "sprintName",
+        "goal",
+        "velocityAssumption",
+        "estimatedPoints",
+        "proposed",
+        "backlog"
+      ],
+      "title": "SprintPlan",
+      "type": "object"
+    },
+    "StageModelUse": {
+      "additionalProperties": false,
+      "description": "The model use behind one stage's current version.\n\n`answered_by` names the models the responses named, which is what the\nprovider says answered rather than the string the component was configured\nwith. `requests` counts the responses received, output retries included.\nA stage that asked no model carries none of this.",
+      "properties": {
+        "answeredBy": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Answeredby",
+          "type": "array"
+        },
+        "reasoningTokens": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Reasoningtokens",
+          "type": "integer"
+        },
+        "requests": {
+          "minimum": 1,
+          "title": "Requests",
+          "type": "integer"
+        },
+        "thinking": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Thinking",
+          "type": "array"
+        },
+        "tokensIn": {
+          "minimum": 0,
+          "title": "Tokensin",
+          "type": "integer"
+        },
+        "tokensOut": {
+          "minimum": 0,
+          "title": "Tokensout",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "answeredBy",
+        "thinking",
+        "requests",
+        "tokensIn",
+        "tokensOut",
+        "reasoningTokens"
+      ],
+      "title": "StageModelUse",
+      "type": "object"
+    },
+    "StageState": {
+      "additionalProperties": false,
+      "properties": {
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        },
+        "generatedAt": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Generatedat"
+        },
+        "generatedFromVersion": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Generatedfromversion",
+          "type": "integer"
+        },
+        "id": {
+          "enum": [
+            "requirements",
+            "domain-model",
+            "architecture-graph",
+            "architecture-recommendation",
+            "uml-diagrams",
+            "wireframes",
+            "sprint-plan",
+            "design-review"
+          ],
+          "title": "Id",
+          "type": "string"
+        },
+        "modelUse": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StageModelUse"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "status": {
+          "default": "pending",
+          "enum": [
+            "pending",
+            "generating",
+            "complete",
+            "failed"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "summary": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Summary"
+        }
+      },
+      "required": [
+        "id",
+        "status",
+        "generatedFromVersion",
+        "generatedAt",
+        "summary",
+        "error",
+        "modelUse"
+      ],
+      "title": "StageState",
+      "type": "object"
+    },
+    "TopologyCandidate": {
+      "additionalProperties": false,
+      "properties": {
+        "cons": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 2,
+          "title": "Cons",
+          "type": "array"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "pros": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Pros",
+          "type": "array"
+        },
+        "rationale": {
+          "minLength": 1,
+          "title": "Rationale",
+          "type": "string"
+        },
+        "score": {
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Score",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "score",
+        "rationale",
+        "pros",
+        "cons"
+      ],
+      "title": "TopologyCandidate",
+      "type": "object"
+    },
+    "UmlArtefact": {
+      "additionalProperties": false,
+      "properties": {
+        "diagrams": {
+          "items": {
+            "$ref": "#/$defs/UmlDiagram"
+          },
+          "title": "Diagrams",
+          "type": "array"
+        },
+        "useCases": {
+          "items": {
+            "$ref": "#/$defs/UseCase"
+          },
+          "title": "Usecases",
+          "type": "array"
+        }
+      },
+      "required": [
+        "useCases",
+        "diagrams"
+      ],
+      "title": "UmlArtefact",
+      "type": "object"
+    },
+    "UmlDiagram": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "default": "",
+          "title": "Description",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "class",
+            "er",
+            "activity",
+            "sequence"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Authored diagram text, when there is any. Null means the diagram is projected from the architecture graph when it is drawn, which is the case for class and entity relationship diagrams: freezing their text here would keep an old name after a node is renamed.",
+          "title": "Source"
+        },
+        "title": {
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "traces": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Traces",
+          "type": "array"
+        },
+        "useCaseId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The use case this diagram draws, for sequence diagrams.",
+          "title": "Usecaseid"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "title",
+        "description",
+        "source",
+        "useCaseId",
+        "traces"
+      ],
+      "title": "UmlDiagram",
+      "type": "object"
+    },
+    "UseCase": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "steps": {
+          "items": {
+            "$ref": "#/$defs/SequenceStep"
+          },
+          "minItems": 1,
+          "title": "Steps",
+          "type": "array"
+        },
+        "storyId": {
+          "anyOf": [
+            {
+              "pattern": "^US-\\d+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Storyid"
+        },
+        "traces": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Traces",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "traces",
+        "storyId",
+        "steps"
+      ],
+      "title": "UseCase",
+      "type": "object"
+    },
+    "UserStory": {
+      "additionalProperties": false,
+      "properties": {
+        "acceptance": {
+          "items": {
+            "$ref": "#/$defs/AcceptanceCriterion"
+          },
+          "minItems": 1,
+          "title": "Acceptance",
+          "type": "array"
+        },
+        "epic": {
+          "minLength": 1,
+          "title": "Epic",
+          "type": "string"
+        },
+        "id": {
+          "pattern": "^US-\\d+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "points": {
+          "exclusiveMinimum": 0,
+          "title": "Points",
+          "type": "integer"
+        },
+        "priority": {
+          "enum": [
+            "must",
+            "should",
+            "could"
+          ],
+          "title": "Priority",
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "traces": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Traces",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "epic",
+        "points",
+        "priority",
+        "traces",
+        "acceptance"
+      ],
+      "title": "UserStory",
+      "type": "object"
+    },
+    "ValidationFinding": {
+      "additionalProperties": false,
+      "description": "A named rule check that could not confirm a node.\n\nCarried on the node itself rather than reported in a separate list, because a\nwarning the reader cannot trace to a cause is worse than no warning: the\ncanvas has to be able to say which rule fired, in plain words, and which\nrequirement the reader should go and look at.\n\n`rule_id` is the stable name of one of C1's rule checks, so the same finding\ncan be counted across runs for the evaluation. `reason` is written for the\nperson reading the design, and doubles as the repair hint the extraction loop\nfeeds back to the model.",
+      "properties": {
+        "reason": {
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        },
+        "ruleId": {
+          "minLength": 1,
+          "title": "Ruleid",
+          "type": "string"
+        },
+        "traces": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Traces",
+          "type": "array"
+        }
+      },
+      "required": [
+        "ruleId",
+        "reason",
+        "traces"
+      ],
+      "title": "ValidationFinding",
+      "type": "object"
+    },
+    "VelocityAssumption": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "minLength": 1,
+          "title": "Basis",
+          "type": "string"
+        },
+        "points": {
+          "exclusiveMinimum": 0,
+          "title": "Points",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "points",
+        "basis"
+      ],
+      "title": "VelocityAssumption",
+      "type": "object"
+    },
+    "WireframeCoverageRow": {
+      "additionalProperties": false,
+      "properties": {
+        "covered": {
+          "title": "Covered",
+          "type": "boolean"
+        },
+        "needsScreen": {
+          "default": true,
+          "title": "Needsscreen",
+          "type": "boolean"
+        },
+        "screenIds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Screenids",
+          "type": "array"
+        },
+        "storyId": {
+          "pattern": "^US-\\d+$",
+          "title": "Storyid",
+          "type": "string"
+        },
+        "storyTitle": {
+          "title": "Storytitle",
+          "type": "string"
+        }
+      },
+      "required": [
+        "storyId",
+        "storyTitle",
+        "screenIds",
+        "covered",
+        "needsScreen"
+      ],
+      "title": "WireframeCoverageRow",
+      "type": "object"
+    },
+    "WireframeFlow": {
+      "additionalProperties": false,
+      "properties": {
+        "coversStoryIds": {
+          "items": {
+            "pattern": "^US-\\d+$",
+            "type": "string"
+          },
+          "title": "Coversstoryids",
+          "type": "array"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "pendingRefinement": {
+          "default": false,
+          "title": "Pendingrefinement",
+          "type": "boolean"
+        },
+        "refinementNote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Refinementnote"
+        },
+        "screens": {
+          "description": "The screens of this flow. The first is the entry point: the player opens there and the card thumbnail shows it, so ordering is meaning rather than presentation. Every other screen has to be reachable from it by following links.",
+          "items": {
+            "$ref": "#/$defs/FlowScreen"
+          },
+          "minItems": 1,
+          "title": "Screens",
+          "type": "array"
+        },
+        "traces": {
+          "items": {
+            "pattern": "^R-\\d+$",
+            "type": "string"
+          },
+          "title": "Traces",
+          "type": "array"
+        },
+        "version": {
+          "minLength": 1,
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "version",
+        "screens",
+        "traces",
+        "coversStoryIds",
+        "pendingRefinement",
+        "refinementNote"
+      ],
+      "title": "WireframeFlow",
+      "type": "object"
+    },
+    "WireframesArtefact": {
+      "additionalProperties": false,
+      "properties": {
+        "coverage": {
+          "items": {
+            "$ref": "#/$defs/WireframeCoverageRow"
+          },
+          "title": "Coverage",
+          "type": "array"
+        },
+        "flows": {
+          "items": {
+            "$ref": "#/$defs/WireframeFlow"
+          },
+          "title": "Flows",
+          "type": "array"
+        }
+      },
+      "required": [
+        "flows",
+        "coverage"
+      ],
+      "title": "WireframesArtefact",
+      "type": "object"
+    }
+  },
+  "$id": "https://sdlc.local/contracts/design-snapshot.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "appName": {
+      "minLength": 1,
+      "title": "Appname",
+      "type": "string"
+    },
+    "architecture": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ArchitectureRecommendation"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "assumptions": {
+      "items": {
+        "$ref": "#/$defs/Assumption"
+      },
+      "title": "Assumptions",
+      "type": "array"
+    },
+    "consistency": {
+      "items": {
+        "$ref": "#/$defs/ConsistencyFinding"
+      },
+      "title": "Consistency",
+      "type": "array"
+    },
+    "gate": {
+      "$ref": "#/$defs/GateState"
+    },
+    "graph": {
+      "$ref": "#/$defs/ArchitectureGraph"
+    },
+    "projectId": {
+      "minLength": 1,
+      "title": "Projectid",
+      "type": "string"
+    },
+    "questions": {
+      "items": {
+        "$ref": "#/$defs/ClarifyingQuestion"
+      },
+      "title": "Questions",
+      "type": "array"
+    },
+    "questionsPending": {
+      "default": false,
+      "title": "Questionspending",
+      "type": "boolean"
+    },
+    "queuedChanges": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Queuedchanges",
+      "type": "array"
+    },
+    "requirements": {
+      "items": {
+        "$ref": "#/$defs/ParsedRequirement"
+      },
+      "title": "Requirements",
+      "type": "array"
+    },
+    "requirementsVersion": {
+      "minimum": 0,
+      "title": "Requirementsversion",
+      "type": "integer"
+    },
+    "run": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RunStatus"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "sprint": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SprintPlan"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "stages": {
+      "additionalProperties": {
+        "$ref": "#/$defs/StageState"
+      },
+      "propertyNames": {
+        "enum": [
+          "requirements",
+          "domain-model",
+          "architecture-graph",
+          "architecture-recommendation",
+          "uml-diagrams",
+          "wireframes",
+          "sprint-plan",
+          "design-review"
+        ]
+      },
+      "title": "Stages",
+      "type": "object"
+    },
+    "thread": {
+      "items": {
+        "$ref": "#/$defs/DesignThreadMessage"
+      },
+      "title": "Thread",
+      "type": "array"
+    },
+    "uml": {
+      "$ref": "#/$defs/UmlArtefact"
+    },
+    "wireframes": {
+      "$ref": "#/$defs/WireframesArtefact"
+    }
+  },
+  "required": [
+    "projectId",
+    "appName",
+    "requirementsVersion",
+    "stages",
+    "requirements",
+    "assumptions",
+    "questions",
+    "graph",
+    "architecture",
+    "uml",
+    "wireframes",
+    "sprint",
+    "gate",
+    "run",
+    "thread",
+    "queuedChanges",
+    "questionsPending",
+    "consistency"
+  ],
+  "title": "DesignSnapshot",
+  "type": "object"
+}
