@@ -43,3 +43,29 @@ describe("the test review and the audit log", () => {
     expect(screen.queryByRole("button", { name: /export csv/i })).toBeNull();
   });
 });
+
+/**
+ * Design Review ends with "Continue to Code Generation" and Code Review with
+ * "Continue to Testing & Security", each a button in the panel that records the
+ * approval. This review ended with an underlined "Open Deployment" link.
+ */
+describe("an approved test review", () => {
+  it("continues to Deployment with a button, as the other two reviews continue", () => {
+    const onOpenDeployment = vi.fn();
+    render(
+      <StepReport
+        view={buildView({ data: buildTestSnapshot("p1", "approved", 1), reviewer: "you" })}
+        run={null}
+        decisionChain={[]}
+        onGoTo={vi.fn()}
+        onOpenDeployment={onOpenDeployment}
+        onOpenActivity={vi.fn()}
+        onRollback={vi.fn()}
+      />,
+    );
+
+    expect(screen.getByText("Tests approved for test version 1")).toBeTruthy();
+    screen.getByRole("button", { name: "Continue to Deployment" }).click();
+    expect(onOpenDeployment).toHaveBeenCalledOnce();
+  });
+});

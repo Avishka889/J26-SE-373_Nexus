@@ -28,7 +28,12 @@ import { useTestingPage } from "./hooks";
 import { attentionShortcut, progressLabel } from "./model/rail";
 import { testChromeFor } from "./model/stages";
 import { reviewMovedPastLine } from "./model/view";
-import { ReconnectingNotice, RunStoppedNotice, workingStage } from "@/shared/ui/phase";
+import {
+  ReconnectingNotice,
+  RunStoppedNotice,
+  stageOpeningNext,
+  workingStage,
+} from "@/shared/ui/phase";
 
 /**
  * The testing phase, on the chrome every gated phase uses.
@@ -70,17 +75,20 @@ export function TestingSecurity() {
   if (page.effective === "empty" || page.effective === "error") {
     return (
       <div className="tp w-full px-6 pb-10 pt-6 md:px-8 md:pt-8">
-        {/* No run button: the empty phase offers its own start, and a failed
-            read has nothing to run again. */}
-        <TestingHeader progress={view.progress} isDark={page.isDark} running={page.running} />
+        {/* The first run starts from the header once the code review approved
+            a build, as Code Generation's does. A failed read has nothing to run. */}
+        <TestingHeader
+          progress={view.progress}
+          isDark={page.isDark}
+          running={page.running}
+          onStart={page.effective === "empty" && page.codeApproved ? page.startRerun : undefined}
+        />
         <div className="mt-8">
           {page.effective === "empty" ? (
             <PhaseNotStarted
               projectName={page.project?.name ?? "this project"}
               codeApproved={page.codeApproved}
-              running={page.running}
               onOpenCode={page.openCode}
-              onRun={page.startRerun}
             />
           ) : (
             <PhaseLoadError message={page.loadError} onRetry={page.retryLoad} />
@@ -233,6 +241,10 @@ export function TestingSecurity() {
               notReached={page.stopped !== null}
               waitingFor={
                 working && working.id !== activeStage ? chrome.meta[working.id].label : undefined
+              }
+              opening={
+                stageOpeningNext(chrome.ids, page.snapshot?.stages ?? {}, page.snapshot?.run) ===
+                activeStage
               }
               computedBefore={
                 page.snapshot

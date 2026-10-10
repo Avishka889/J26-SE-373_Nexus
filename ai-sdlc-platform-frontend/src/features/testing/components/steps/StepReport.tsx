@@ -1,8 +1,15 @@
 import { useState } from "react";
-import { ArrowUpRight, Check, GitBranch, History, MessageSquare, RotateCcw } from "lucide-react";
-import { cn } from "@/shared/utils/cn";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  CheckCircle2,
+  GitBranch,
+  History,
+  MessageSquare,
+  RotateCcw,
+} from "lucide-react";
 import { Button } from "@/shared/ui/primitives";
-import { Note, Panel } from "../bits/index";
+import { ActorMark, Note, Panel } from "../bits/index";
 import type { DecisionChainStep, TestingRun } from "../../fixtures/types";
 import type { StepId, TestingView } from "../../model/view";
 import { ReportDecisionChain } from "./report/ReportDecisionChain";
@@ -54,38 +61,44 @@ export function StepReport({
         </section>
       )}
 
-      {view.decision && (
-        <section
-          className={cn(
-            "overflow-hidden rounded-2xl border",
-            view.decision.kind === "approved"
-              ? "border-emerald-500/30 bg-emerald-500/5"
-              : "border-amber-500/30 bg-amber-500/5",
-          )}
-        >
+      {view.decision?.kind === "approved" && (
+        // Recorded as Design Review and Code Review record theirs: who and when,
+        // and the way on to the next phase as a button. It was one line here and
+        // an underlined "Open Deployment" link.
+        <Panel className="border-emerald-500/30 bg-emerald-500/[0.04]">
+          <div className="flex flex-wrap items-start gap-3">
+            <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-500" />
+            <div className="min-w-0 flex-1">
+              <p className="text-[15px] font-semibold text-[color:var(--tp-ink)]">
+                Tests approved for test version {view.decision.build}
+              </p>
+              <p className="tp-den mt-1 flex flex-wrap items-center gap-1.5">
+                <ActorMark actor={view.decision.by} kind="human" /> at{" "}
+                {formatWhen(view.decision.at)}
+              </p>
+              {view.decision.note && <Note className="mt-2">“{view.decision.note}”</Note>}
+              <Note className="mt-2">
+                If the tests run again, the approval covers the version it was given for and this
+                phase asks again.
+              </Note>
+              <Button variant="primary" className="mt-3" onClick={onOpenDeployment}>
+                Continue to Deployment
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Button>
+            </div>
+          </div>
+        </Panel>
+      )}
+
+      {view.decision && view.decision.kind !== "approved" && (
+        <section className="overflow-hidden rounded-2xl border border-amber-500/30 bg-amber-500/5">
           <div className="flex flex-wrap items-start gap-3 px-4 py-3.5">
-            {view.decision.kind === "approved" ? (
-              <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500 dark:text-emerald-400" />
-            ) : (
-              <MessageSquare className="mt-0.5 h-4 w-4 shrink-0 text-amber-500 dark:text-amber-400" />
-            )}
+            <MessageSquare className="mt-0.5 h-4 w-4 shrink-0 text-amber-500 dark:text-amber-400" />
             <div className="min-w-0 flex-1">
               <p className="text-[13px] font-semibold">
-                {view.decision.kind === "approved"
-                  ? `Approved for test version ${view.decision.build} by ${view.decision.by} at ${formatWhen(view.decision.at)} · Deployment can start`
-                  : `Changes requested by ${view.decision.by} at ${formatWhen(view.decision.at)}`}
+                {`Changes requested by ${view.decision.by} at ${formatWhen(view.decision.at)}`}
               </p>
               {view.decision.note && <Note className="mt-1">“{view.decision.note}”</Note>}
-              {view.decision.kind === "approved" && (
-                <button
-                  type="button"
-                  onClick={onOpenDeployment}
-                  className="mt-2 inline-flex items-center gap-1.5 text-[13px] text-blue-600 underline underline-offset-2 dark:text-blue-400"
-                >
-                  Open Deployment
-                  <ArrowUpRight className="h-3.5 w-3.5" />
-                </button>
-              )}
             </div>
           </div>
         </section>

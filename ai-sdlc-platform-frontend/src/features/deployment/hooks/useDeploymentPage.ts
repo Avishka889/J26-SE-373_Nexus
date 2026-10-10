@@ -20,12 +20,31 @@ import type {
 } from "../api";
 import { buildDeploymentConversation } from "../model/conversation";
 import { buildView, stageToOpen } from "../model/view";
-import { readState, stoppedRun } from "@/shared/ui/phase";
+import { readState, runIsWorking, stoppedRun } from "@/shared/ui/phase";
 
 /** How often the phase is read while something is being carried out. */
 const BUSY_POLL_MS = 1200;
 /** And while a monitoring window this page opened is still running. */
 const WINDOW_POLL_MS = 5000;
+
+/**
+ * How often to read the phase again: quickly while a stage is generating, the
+ * run is still going or a release is being carried out, every few seconds while
+ * a monitoring window runs, so its report shows when it closes, and not
+ * otherwise. The run counts as well as the stages because Deployment Review
+ * generates nothing of its own: between Rollback Planning finishing and the
+ * review opening nothing was generating, so the page stopped asking just before
+ * the review it was waiting for opened.
+ */
+export function deploymentPollMs(data: DeploySnapshot | undefined): number | false {
+  if (!data) return false;
+  const busy =
+    Object.values(data.stages).some((one) => one.status === "generating") ||
+    runIsWorking(data.run) ||
+    data.deployments.some((one) => one.state === "pending" || one.state === "running");
+  if (busy) return BUSY_POLL_MS;
+  return data.watching ? WINDOW_POLL_MS : false;
+}
 /** A window's length as the page asked for it: rounds times the interval. */
 const WINDOW = { rounds: 10, interval: 30 };
 
@@ -66,15 +85,7 @@ export function useDeploymentPage() {
     queryKey: deploymentKeys.snapshot(id),
     queryFn: () => deploymentApi.getDeployment(id),
     enabled: Boolean(id),
-    refetchInterval: (query) => {
-      const data = query.state.data;
-      const busy =
-        Object.values(data?.stages ?? {}).some((one) => one.status === "generating") ||
-        (data?.deployments ?? []).some((one) => one.state === "pending" || one.state === "running");
-      if (busy) return BUSY_POLL_MS;
-      // Polled while a window runs, so its report shows when it closes.
-      return data?.watching ? WINDOW_POLL_MS : false;
-    },
+    refetchInterval: (query) => deploymentPollMs(query.state.data),
   });
 
   const [pending, setPending] = useState(false);

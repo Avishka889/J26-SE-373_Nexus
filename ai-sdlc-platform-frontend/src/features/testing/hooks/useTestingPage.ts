@@ -31,11 +31,27 @@ import {
   type StepId,
 } from "../model/view";
 import { testingApi } from "../api";
+import type { TestSnapshot } from "../api/types";
 import { getTestingSnapshot } from "../fixtures/legacyDemo";
-import { readState, stoppedRun } from "@/shared/ui/phase";
+import { readState, runIsWorking, stoppedRun } from "@/shared/ui/phase";
 
 const DEFAULT_FILE =
   "backend/src/test/java/com/payflow/payments/PaymentControllerTest.java";
+
+/**
+ * How often to read the phase again: at the cadence the other phases use while
+ * a stage is generating or the run is still going, and not otherwise.
+ *
+ * The run counts as well as the stages because Test Review generates nothing of
+ * its own: once Remediation finished nothing was generating, the poll that saw
+ * that was the last, and the review the run opened a moment later appeared only
+ * when something else made the page read.
+ */
+export function testingPollMs(snapshot: TestSnapshot | undefined): number | false {
+  if (!snapshot) return false;
+  const generating = Object.values(snapshot.stages).some((one) => one.status === "generating");
+  return generating || runIsWorking(snapshot.run) ? 1200 : false;
+}
 
 /**
  * The Testing and Security workspace's state.
@@ -86,12 +102,7 @@ export function useTestingPage() {
     enabled: Boolean(id),
     // While a stage is working the stepper is the thing a reader watches, so
     // the phase is polled at the cadence the other two use.
-    refetchInterval: (query) =>
-      Object.values(query.state.data?.stages ?? {}).some(
-        (one) => one.status === "generating",
-      )
-        ? 1200
-        : false,
+    refetchInterval: (query) => testingPollMs(query.state.data),
   });
 
   /** Write a mutation's answer straight into the cache: it is the whole phase. */
@@ -215,11 +226,18 @@ export function useTestingPage() {
    * tested really does have an empty phase and a run in flight really is
    * running.
    */
+  // Not started means no run has begun. The server counts a test version only
+  // once Test Generation writes its report, so a first run sits at version 0
+  // while it works, four and a half minutes on a live run, and one that stopped
+  // before writing anything stays there with its reason. Each is a run, not an
+  // empty phase, and the page offered Run tests over the first; Deployment
+  // already reads its version 0 this way.
+  const notStarted = snapshot.data?.testVersion === 0 && !snapshot.data.run;
   const effective: "live" | "running" | "empty" | "error" = !snapshot.data
     ? snapshot.isError
       ? "error"
       : "empty"
-    : snapshot.data.testVersion === 0
+    : notStarted
       ? "empty"
       : view?.streaming
         ? "running"

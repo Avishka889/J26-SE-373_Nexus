@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { refreshProject } from "@/entities/project";
 import type { DesignStageId } from "@/types/project";
 import { codeKeys, requirementsKeys } from "@/lib/query";
+import { runIsWorking } from "@/shared/ui/phase";
 import { requirementsApi } from "../api";
 import type { DesignSnapshot, GateDecisionInput, RequirementPriority } from "../api/types";
 import { regeneratingStageIds } from "../model/outdated";
@@ -18,26 +19,33 @@ import { regeneratingStageIds } from "../model/outdated";
 /** Poll while work is in flight, and not one request after it finishes. */
 const POLL_WHILE_GENERATING_MS = 1200;
 
+/**
+ * How often to read the design again, decided by the snapshot itself.
+ *
+ * This replaces a ladder of fixed timeouts fired after each mutation, which
+ * had to guess how long generation would take and stopped asking whether or not
+ * it had finished. Six artifact families through a language model is a minute
+ * or more, so no fixed ladder could be right. Polling while a stage says it is
+ * generating, or while the run is still going, is both correct and quiet: it
+ * stops on its own. The run matters as well as the stages because the review
+ * generates nothing of its own: after Sprint Planning finished nothing was
+ * generating, the poll that saw that was the last, and the review the run
+ * opened a moment later appeared only when something else made the page read.
+ */
+export function designPollMs(snapshot: DesignSnapshot | undefined): number | false {
+  if (!snapshot) return false;
+  return regeneratingStageIds(snapshot).length > 0 || runIsWorking(snapshot.run)
+    ? POLL_WHILE_GENERATING_MS
+    : false;
+}
+
 export function useDesignSnapshot(projectId: string | null | undefined) {
   const id = projectId ?? "";
   return useQuery({
     queryKey: requirementsKeys.design(id),
     queryFn: () => requirementsApi.getDesign(id),
     enabled: Boolean(projectId),
-    /**
-     * The snapshot itself decides whether to keep asking.
-     *
-     * This replaces a ladder of fixed timeouts fired after each mutation, which
-     * had to guess how long generation would take and stopped asking whether or
-     * not it had finished. Six artifact families through a language model is a
-     * minute or more, so no fixed ladder could be right. Polling only while a
-     * stage says it is generating is both correct and quiet: it stops on its own.
-     */
-    refetchInterval: (query) => {
-      const snapshot = query.state.data;
-      if (!snapshot) return false;
-      return regeneratingStageIds(snapshot).length > 0 ? POLL_WHILE_GENERATING_MS : false;
-    },
+    refetchInterval: (query) => designPollMs(query.state.data),
   });
 }
 

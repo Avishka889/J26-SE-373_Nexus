@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import type { UseCase } from "../api/types";
 import { seedGraph } from "@/entities/design-seed/projects/nexuspay/graph";
 import { seedUseCases } from "@/entities/design-seed/projects/nexuspay/uml";
 import { projectDomain } from "./domain";
@@ -66,6 +67,31 @@ describe("generated diagrams", () => {
     // An unknown token is left alone rather than silently blanked.
     expect(resolveNames("{nope}", domain)).toBe("{nope}");
   });
+
+  // A live design's model wrote "The task was stored; here is its identifier",
+  // and the `;` ended the statement, so mermaid refused the whole diagram.
+  it("writes the characters mermaid reads as syntax as codes it draws as themselves", async () => {
+    // Typed, so the steps keep the contract's "at least one" shape.
+    const useCase: UseCase = {
+      ...seedUseCases[0],
+      steps: [
+        ...seedUseCases[0].steps,
+        {
+          fromId: "m2",
+          toId: "a1",
+          message: "the {e2} was stored; receipt #4 is its number",
+          kind: "return" as const,
+        },
+      ],
+    };
+
+    const source = buildSequenceDiagram(useCase, domain);
+
+    expect(source).toContain("the Payment was stored#59; receipt #35;4 is its number");
+    const { default: mermaid } = await import("mermaid");
+    await expect(mermaid.parse(source)).resolves.toMatchObject({ diagramType: "sequence" });
+    // Loading mermaid is seconds on a busy machine, past the default five.
+  }, 20_000);
 });
 
 describe("renaming an entity in the graph", () => {

@@ -20,6 +20,19 @@ function safeId(name: string): string {
   return cleaned.length > 0 ? cleaned : "Node";
 }
 
+/**
+ * Text in a sequence diagram, with the two characters Mermaid reads as syntax
+ * written as its entity codes, which it draws as the characters themselves.
+ *
+ * A `;` ends a statement, so a model's "The task was stored; here is its
+ * identifier" left the rest of the sentence as a statement Mermaid could not
+ * read, and the whole diagram failed. A `#` opens an entity code. One pass, so
+ * the `;` of an inserted `#35;` is not escaped again.
+ */
+function sequenceText(text: string): string {
+  return text.replace(/[#;]/g, (character) => (character === "#" ? "#35;" : "#59;"));
+}
+
 /** Resolve `{nodeId}` tokens in authored text against the current graph. */
 export function resolveNames(text: string, domain: DomainModel): string {
   return text.replace(/\{([A-Za-z0-9_-]+)\}/g, (whole, id: string) => domain.byId[id]?.label ?? whole);
@@ -98,13 +111,13 @@ export function buildSequenceDiagram(useCase: UseCase, domain: DomainModel): str
   lines.push("  autonumber");
   for (const id of participantIds) {
     const label = domain.byId[id]?.label ?? id;
-    lines.push(`  participant ${safeId(label)} as ${label}`);
+    lines.push(`  participant ${safeId(label)} as ${sequenceText(label)}`);
   }
 
   for (const step of useCase.steps) {
     const from = safeId(domain.byId[step.fromId]?.label ?? step.fromId);
     const to = safeId(domain.byId[step.toId]?.label ?? step.toId);
-    const message = resolveNames(step.message, domain);
+    const message = sequenceText(resolveNames(step.message, domain));
     if (step.kind === "note") {
       lines.push(`  Note over ${from},${to}: ${message}`);
     } else if (step.kind === "return") {
