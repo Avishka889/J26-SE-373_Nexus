@@ -8,6 +8,7 @@ are the pages' own (each phase's `model/stages.ts`), and `tests/test_wording.py`
 holds the two to the same words.
 """
 
+import re
 from typing import Any
 
 STAGE_LABELS: dict[str, str] = {
@@ -56,6 +57,16 @@ PHASE_NAMES: dict[str, str] = {
     "c2": "Code Generation",
     "c3": "Testing and Security",
     "c4": "Deployment",
+}
+
+#: The audit category each component's entries go under, as its spec says
+#: (`ComponentSpec.audit_category`, which a test holds this to). Here too because
+#: the store files a queued run, and the store cannot import the specs.
+PHASE_CATEGORIES: dict[str, str] = {
+    "c1": "design",
+    "c2": "code",
+    "c3": "testing",
+    "c4": "deployment",
 }
 
 #: Each stored credential's provider as its owner knows it.
@@ -111,13 +122,34 @@ def phase_name(component: str) -> str:
     return PHASE_NAMES.get(component, component)
 
 
+def phase_category(component: str) -> str:
+    return PHASE_CATEGORIES.get(component, "design")
+
+
 def provider_name(provider: str) -> str:
     return PROVIDER_NAMES.get(provider, provider)
 
 
 def readable_notes(notes: dict[str, Any]) -> str:
     """A stage's notes as one line of words: a list as its items, nothing as "none"."""
-    return ", ".join(f"{name.replace('_', ' ')}: {_value(value)}" for name, value in notes.items())
+    return ", ".join(f"{_words(name)}: {_value(value)}" for name, value in notes.items())
+
+
+#: Where a camelCase key breaks into words: a capital after a small letter or a digit.
+_CAMEL = re.compile(r"(?<=[a-z0-9])(?=[A-Z])")
+
+
+def _words(name: str) -> str:
+    """A note's key as words, whichever way it was spelled.
+
+    Testing's notes carry the keys its reports are written in, and the audit
+    log read "lineCoverage: 70.98, declaredAndUnwritten: 0, filesLookedAt: 44".
+    A key with no such break is left as it is, so an abbreviation stays one.
+    """
+    spaced = name.replace("_", " ")
+    if not _CAMEL.search(spaced):
+        return spaced
+    return _CAMEL.sub(" ", spaced).lower()
 
 
 def _value(value: Any) -> str:
@@ -128,9 +160,7 @@ def _value(value: Any) -> str:
     if isinstance(value, dict):
         if not value:
             return "none"
-        return "; ".join(
-            f"{str(key).replace('_', ' ')} {_value(item)}" for key, item in value.items()
-        )
+        return "; ".join(f"{_words(str(key))} {_value(item)}" for key, item in value.items())
     if isinstance(value, list | tuple | set | frozenset):
         return ", ".join(_value(item) for item in value) if value else "none"
     if isinstance(value, float):

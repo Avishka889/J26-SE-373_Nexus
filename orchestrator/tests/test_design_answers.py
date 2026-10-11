@@ -221,6 +221,56 @@ class TestADesignCodeGenerationCannotBuildFrom:
         assert "Wireframes is still generating" in refused.json()["error"]
 
 
+async def _approve_at_the_gate(
+    client: httpx.AsyncClient, project_id: str, note: str | None = None
+) -> httpx.Response:
+    """The same decision through `POST /gates/{id}/approve`, which the page never calls."""
+    [gate] = (await client.get("/gates", params={"project": project_id})).json()
+    return await client.post(f"/gates/{gate['id']}/approve", json={"note": note})
+
+
+class TestEveryApprovalAsksTheSame:
+    """`POST /gates/{id}/approve` resolved the design review with no checks: a
+    design with no sprint plan, or one still generating, was approved through
+    it, and an unapplied answer or a failed stage needed no note. The design
+    route asked; the gate route is a second door to the same decision."""
+
+    async def test_no_sprint_plan_is_refused_there_too(self, client) -> None:
+        client.app.state.c1.fails.add("sprint-plan")  # type: ignore[attr-defined]
+        project_id, _ = await _at_the_review(client)
+        client.app.state.c1.fails.clear()  # type: ignore[attr-defined]
+
+        refused = await _approve_at_the_gate(client, project_id, note="we will plan later")
+
+        assert refused.status_code == 409
+        assert (
+            "has no Sprint Planning, which Code Generation builds from" in refused.json()["error"]
+        )
+
+    async def test_a_stage_still_generating_is_refused_there_too(self, client) -> None:
+        project_id, _ = await _at_the_review(client)
+        async with client.app.state.pool.connection() as conn:  # type: ignore[attr-defined]
+            await store.set_stage(conn, project_id, "wireframes", status="generating")
+
+        refused = await _approve_at_the_gate(client, project_id, note="go")
+
+        assert refused.status_code == 409
+        assert "Wireframes is still generating" in refused.json()["error"]
+
+    async def test_an_unapplied_answer_needs_a_note_there_too(self, client) -> None:
+        project_id, _ = await _at_the_review(client)
+        await _answer(client, project_id, "Q-1", "Only me.")
+
+        refused = await _approve_at_the_gate(client, project_id)
+
+        assert refused.status_code == 409
+        assert "1 answer given and not applied to the design" in refused.json()["error"]
+        approved = await _approve_at_the_gate(
+            client, project_id, note="The answer only confirms what the brief says."
+        )
+        assert approved.status_code == 200, approved.text
+
+
 class TestAnAnswerBelongsToItsVersion:
     async def test_a_new_versions_questions_arrive_unanswered(self, client) -> None:
         """Answers were matched by question id across versions, so a regenerated

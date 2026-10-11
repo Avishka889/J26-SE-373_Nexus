@@ -28,6 +28,8 @@ from sdlc_contracts import (
     CODE_GENERATING_STAGE_IDS,
     TEST_GENERATING_STAGE_IDS,
     TEST_STAGE_IDS,
+    ClassificationEvidence,
+    HealAttempt,
     HealReport,
     TestGap,
     TestReport,
@@ -159,6 +161,25 @@ async def _start_testing_run(client: httpx.AsyncClient, project_id: str, code_ve
             source_version=code_version,
         )
     return run, test_version
+
+
+async def _request_test_changes(client: httpx.AsyncClient, project_id: str) -> int:
+    """Changes at the test review, as the route asks for them: a new test
+    version at the same code version, on the run that was waiting."""
+    async with client.app.state.pool.connection() as conn:  # type: ignore[attr-defined]
+        gate = await store.pending_gate(conn, project_id=project_id, kind="c3-test-review")
+        assert gate is not None, "the testing run should be waiting at its gate"
+        await store.resolve_gate(conn, gate["id"], decision="changes", by="you", note="again")
+        version = await store.next_test_version(conn, project_id)
+        await store.set_run_version(conn, gate["run_id"], version)
+        await store.set_run_state(
+            conn,
+            gate["run_id"],
+            "queued",
+            resume_payload={"kind": "changes", "note": "again", "version": version},
+        )
+    await _advance(client, gate["run_id"])
+    return version
 
 
 async def _stages(client: httpx.AsyncClient, project_id: str) -> dict[str, dict]:
@@ -576,6 +597,64 @@ class TestTheHealingLoopNeedsTwoVersions:
         handed = client.app.state.c3.healed_with_changes
         assert [(one.path, one.start, one.end) for one in handed] == [(route, 3, 3)]
 
+    async def test_the_classifier_is_told_the_compared_code_s_last_test_version(
+        self, client
+    ) -> None:
+        """A case first run after it was written from the change (E-25)."""
+        project_id, first_code_version = await _generated_code(client)
+        first_run, first_test_version = await _start_testing_run(
+            client, project_id, first_code_version
+        )
+        await _advance(client, first_run["id"])
+        await _approve_test_review(client, project_id)
+        second_code_version = await _regenerated_code(client, project_id)
+
+        second_run, _ = await _start_testing_run(client, project_id, second_code_version)
+        await _advance(client, second_run["id"])
+
+        assert client.app.state.c3.healed_from_test_version == first_test_version
+
+    async def test_tests_run_again_at_the_same_code_still_compare_with_the_earlier_code(
+        self, client
+    ) -> None:
+        """Changes at the review regenerate at a new test version on the same
+        code. The cases this code's first run wrote stay written after the
+        change, so the version handed over is still the earlier code's, not
+        the first run's own."""
+        project_id, first_code_version = await _generated_code(client)
+        first_run, first_test_version = await _start_testing_run(
+            client, project_id, first_code_version
+        )
+        await _advance(client, first_run["id"])
+        await _approve_test_review(client, project_id)
+        second_code_version = await _regenerated_code(client, project_id)
+        second_run, second_test_version = await _start_testing_run(
+            client, project_id, second_code_version
+        )
+        await _advance(client, second_run["id"])
+
+        again = await _request_test_changes(client, project_id)
+
+        assert again > second_test_version
+        assert client.app.state.c3.healed_from_test_version == first_test_version
+
+    async def test_the_compared_code_s_last_tests_count_not_its_first(self, client) -> None:
+        """Tests written by a second run on the earlier code were still written
+        before the change, so the version handed over is that run's."""
+        project_id, first_code_version = await _generated_code(client)
+        first_run, _ = await _start_testing_run(client, project_id, first_code_version)
+        await _advance(client, first_run["id"])
+        await _approve_test_review(client, project_id)
+        rerun, rerun_version = await _start_testing_run(client, project_id, first_code_version)
+        await _advance(client, rerun["id"])
+        await _approve_test_review(client, project_id)
+        second_code_version = await _regenerated_code(client, project_id)
+
+        second_run, _ = await _start_testing_run(client, project_id, second_code_version)
+        await _advance(client, second_run["id"])
+
+        assert client.app.state.c3.healed_from_test_version == rerun_version
+
     async def test_with_an_earlier_tested_version_the_loop_runs(self, client) -> None:
         project_id, first_code_version = await _generated_code(client)
         first_run, _ = await _start_testing_run(client, project_id, first_code_version)
@@ -691,3 +770,50 @@ class TestEachCaseSaysWhereItStands:
 
         [case] = (await self._report(client, project_id, test_version)).cases
         assert case.obsolete == "AC-1-9 is no longer one of US-1's acceptance criteria"
+
+
+class TestTheAuditSaysWhyARegressionIsOne:
+    """The flagged regression's audit row said its traces had not changed, which
+    is false for a test written after the change: it traces to what changed
+    because it was written from it (E-25)."""
+
+    @staticmethod
+    def _flagged(classified_by: str, changed: list[str]) -> HealReport:
+        from datetime import UTC, datetime
+
+        return HealReport(
+            version=3,
+            generated_at=datetime.now(UTC),
+            target="the generated app at code version 3",
+            from_code_version=2,
+            to_code_version=3,
+            attempts=[
+                HealAttempt(
+                    test_id="apps/api/src/__tests__/US-7.criteria.test.ts::no name",
+                    test_name="US-7 AC-7-2: no name, no to-do",
+                    suite_path="apps/api/src/__tests__/US-7.criteria.test.ts",
+                    failure_message="expected 201 to be greater than or equal to 400",
+                    classification="regression",
+                    classified_by=classified_by,  # type: ignore[arg-type]
+                    evidence=ClassificationEvidence(
+                        traced_to=["US-7", "R-1"], changed_artefacts=changed
+                    ),
+                )
+            ],
+        )
+
+    def test_a_test_written_after_the_change_says_so(self) -> None:
+        from orchestrator.graph.testing_nodes import _healing_entries
+
+        [(action, _, detail)] = _healing_entries(self._flagged("written-after-change", ["R-1"]))
+
+        assert action == "Flagged a regression"
+        assert "none of which changed" not in detail
+        assert "written from the changed requirements" in detail
+
+    def test_one_whose_traces_did_not_move_still_says_that(self) -> None:
+        from orchestrator.graph.testing_nodes import _healing_entries
+
+        [(_, _, detail)] = _healing_entries(self._flagged("trace-unchanged", []))
+
+        assert "none of which changed between the two versions" in detail

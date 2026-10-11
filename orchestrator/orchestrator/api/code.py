@@ -38,6 +38,7 @@ from sdlc_contracts import (
 )
 from sdlc_contracts.openapi import to_openapi
 
+from ..code_changes import changes_between
 from ..components import spec_for
 from ..db import store
 from ..errors import Conflict, NotFound, readable_failure
@@ -284,11 +285,30 @@ async def get_code_file(
     return {"path": path, "version": at, "content": content}
 
 
-async def _generated_files(conn: Any, project_id: str, version: int) -> dict[str, str]:
-    """What Code Generation wrote at a version, without the tests Testing wrote beside it."""
-    files = await store.code_files(conn, project_id, version=version)
-    tests = await store.code_files(conn, project_id, version=version, stage_id="test-generation")
-    return {path: content for path, content in files.items() if path not in tests}
+@router.get("/projects/{project_id}/code/changes")
+async def get_code_changes(
+    project_id: str, conn: Db, owner: Owner, version: int | None = None
+) -> dict[str, Any]:
+    """What a code version changed since the version before it, file by file.
+
+    The review showed a version's files and nothing of what had changed (review
+    item C2-8). Its own route, as a file is: the snapshot is polled, and two
+    versions' files do not belong on every poll. `againstVersion` is null for
+    the first version, which has nothing before it to be compared with.
+    """
+    await require_project(conn, project_id, owner)
+    at = version or await store.current_code_version(conn, project_id)
+    against = await store.code_version_before(conn, project_id, at)
+    if against is None:
+        return {"version": at, "againstVersion": None, "files": []}
+    return {
+        "version": at,
+        "againstVersion": against,
+        "files": changes_between(
+            await store.code_files(conn, project_id, version=against),
+            await store.code_files(conn, project_id, version=at),
+        ),
+    }
 
 
 @router.get("/projects/{project_id}/code/archive")
@@ -303,7 +323,7 @@ async def get_code_archive(
     """
     project = await require_project(conn, project_id, owner)
     at = version or await store.current_code_version(conn, project_id)
-    files = await _generated_files(conn, project_id, at) if at else {}
+    files = await store.generated_code_files(conn, project_id, at) if at else {}
     if not files:
         raise NotFound("generated code", f"{project_id} at version {at}")
     buffer = io.BytesIO()
@@ -403,7 +423,7 @@ async def push_stored_version(
             token = None
     if token is None:
         return None, "there is no working GitHub connection: connect GitHub in Settings first"
-    files = await _generated_files(conn, project_id, version)
+    files = await store.generated_code_files(conn, project_id, version)
     pushed = await store.pushed_repository(conn, project_id)
     name = pushed["name"] if pushed else _repository_name(project["name"], project_id)
     try:
@@ -893,7 +913,50 @@ def _approval_concerns(snapshot: CodeSnapshot) -> list[str]:
         concerns.append("a build that did not pass")
     if errors:
         concerns.append(f"{errors} agreement {'error' if errors == 1 else 'errors'}")
+    contract = contract_concern(snapshot.contract)
+    if contract is not None:
+        concerns.append(contract)
     return concerns
+
+
+def contract_concern(artefact: ApiContractArtefact | None) -> str | None:
+    """The errors in the API contract the code was built from, as the review says them.
+
+    The clinic project (2026-10-13) was approved over a contract with no way to
+    create a doctor or a patient. The rule arm's own check had said "'Book
+    Appointment' is a form with 5 fields and no write endpoint traces to it",
+    the model's arm had thirteen endpoints and no error, and nothing at the
+    review asked about either. So an error in the arm the code was built from
+    is something approving over needs a note for, like a build that failed, and
+    the review says when the other arm has none.
+
+    The arm is not switched for the reader: which contract to build from is a
+    person's choice at the API Contract stage, and stays one. A merged contract
+    is a person's pick from both, and neither arm's count is about it.
+    """
+    if artefact is None or artefact.chosen == "merged":
+        return None
+    rule_errors = [one for one in artefact.rule_findings if one.severity == "error"]
+    comparison = artefact.comparison
+    if artefact.chosen == "rule":
+        count = len(rule_errors)
+        first = rule_errors[0].reason if rule_errors else ""
+        # Known only when the model's arm answered and the two were compared.
+        other = comparison.llm.errors if artefact.llm_arm is not None and comparison else None
+        other_name = "the AI model's contract"
+    else:
+        count = comparison.llm.errors if comparison is not None else 0
+        first = ""
+        other = len(rule_errors)
+        other_name = "the rule-based contract"
+    if count == 0:
+        return None
+    said = f"{count} {'error' if count == 1 else 'errors'} in the API contract it was built from"
+    if first:
+        said += f" ({first})"
+    if other == 0:
+        said += f"; {other_name} has none"
+    return said
 
 
 async def _keep_the_build(conn: Any, project_id: str, *, version: int, by: str) -> None:

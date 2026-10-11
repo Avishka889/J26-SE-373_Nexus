@@ -229,6 +229,7 @@ class TestTheCheapProjectDerivation:
             "progress": 0,
             "phaseProgress": {"design": 0, "code": 0, "testing": 0, "deployment": 0},
             "status": "draft",
+            "sprint": 1,
             "runStopped": False,
         }
 

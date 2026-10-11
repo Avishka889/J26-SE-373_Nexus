@@ -1,4 +1,4 @@
-"""The six checks that compare artefacts against each other.
+"""The eight checks that compare artefacts against each other.
 
 These live in the orchestrator, and where they live is the design decision worth
 explaining. Every rule catalogue inside Component 1 reads one artefact and asks
@@ -169,6 +169,75 @@ def must_is_in_the_sprint(design: Design) -> Check:
     return Check(findings=tuple(findings), subjects=len(musts))
 
 
+_RANK = {"must": 0, "should": 1, "could": 2}
+
+
+def story_priority_is_current(design: Design) -> Check:
+    """7. A story is ranked on the priorities its requirements have now.
+
+    A story inherits the highest priority among the requirements it realises,
+    when it is planned. A person can correct a requirement's priority afterwards,
+    and the plan on the page is then ranked, and divided into sprint and
+    backlog, on a priority nobody holds any more. Planning the sprint again
+    clears it (review item C1-2).
+    """
+    priority_of = {requirement.id: requirement.priority for requirement in design.requirements}
+    stories = stories_of(design.sprint)
+
+    findings: list[ConsistencyFinding] = []
+    for story in stories:
+        held = [priority_of[trace] for trace in story.traces if trace in priority_of]
+        if not held:
+            # Its traces name nothing current, which is the sixth check's finding.
+            continue
+        now = min(held, key=lambda priority: _RANK[priority])
+        if now == story.priority:
+            continue
+        findings.append(
+            ConsistencyFinding(
+                ruleId="story-priority-is-current",
+                severity="warning",
+                reason=(
+                    f"{story.id} was planned as a {story.priority}-have, and the requirements "
+                    f"it realises ({', '.join(story.traces)}) now make it a {now}-have. Plan "
+                    f"the sprint again to rank it there: {story.title}"
+                ),
+                traces=list(story.traces),
+                stageId="sprint-plan",
+            )
+        )
+    return Check(findings=tuple(findings), subjects=len(stories))
+
+
+def sprint_does_not_need_its_backlog(design: Design) -> Check:
+    """8. No story in the sprint needs one left in the backlog.
+
+    The plan says which do, read off the design when it was divided. It is
+    repeated here because the review is where the sprint is approved, and a
+    sprint that cannot be finished as proposed is worth knowing there
+    (review item C1-5).
+    """
+    if design.sprint is None:
+        return Check()
+    titles = {story.id: story for story in stories_of(design.sprint)}
+    return Check(
+        findings=tuple(
+            ConsistencyFinding(
+                ruleId="sprint-does-not-need-its-backlog",
+                severity="warning",
+                reason=(
+                    f"{one.story_id} is in the sprint and needs {one.needs}, which is in the "
+                    f"backlog: {one.because}."
+                ),
+                traces=list(titles[one.story_id].traces) if one.story_id in titles else [],
+                stageId="sprint-plan",
+            )
+            for one in design.sprint.backlog_dependencies
+        ),
+        subjects=len(design.sprint.proposed),
+    )
+
+
 def use_case_names_a_real_story(design: Design) -> Check:
     """3. A use case claiming to realise a story names one that exists.
 
@@ -326,7 +395,7 @@ def traces_name_current_requirements(design: Design) -> Check:
     return Check(findings=tuple(findings), subjects=len(things))
 
 
-#: All six, in the order they are reported. Coverage first, because it is the one
+#: All eight, in the order they are reported. Coverage first, because it is the one
 #: a reader at the gate is most likely to act on.
 ALL_RULES: tuple[Rule, ...] = (
     story_has_a_screen,
@@ -335,6 +404,8 @@ ALL_RULES: tuple[Rule, ...] = (
     diagram_participants_exist,
     diagram_tokens_resolve,
     traces_name_current_requirements,
+    story_priority_is_current,
+    sprint_does_not_need_its_backlog,
 )
 
 #: The names, for the evaluation and for the test that pins the catalogue.
@@ -345,4 +416,6 @@ RULE_IDS = (
     "diagram-participants-exist",
     "diagram-tokens-resolve",
     "traces-name-current-requirements",
+    "story-priority-is-current",
+    "sprint-does-not-need-its-backlog",
 )

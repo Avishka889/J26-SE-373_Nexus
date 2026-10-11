@@ -25,7 +25,7 @@ from orchestrator.main import create_app, lifespan_for_tests
 from .conftest import needs_db
 from .test_checkpoint3 import _with_proposal
 from .test_code_routes import _advance_all, _generated
-from .test_deployment_routes import _approved_tests
+from .test_deployment_routes import _approved_tests, _deploy_run, _finished
 from .test_spine import _advance, _start
 from .test_testing_routes import _advance as _advance_test
 
@@ -140,3 +140,40 @@ class TestARunThatStopped:
         client.created_projects.append(project_id)
 
         assert await _status(client, project_id) == "draft"
+
+
+class TestTheBuildGrowsAnIncrementAtATime:
+    """X-8: after the first release the project read Complete at 100%, though
+    its backlog was still to build, and the next sprint started near 90%,
+    because the later phases still counted the stages they had run for the
+    increment before. Each phase now counts only for the increment it is on."""
+
+    @staticmethod
+    async def _released_with_a_backlog(client) -> str:
+        client.app.state.c1.backlog = 2  # US-2 and US-3 wait in the backlog
+        project_id = await _approved_tests(client)
+        await _deploy_run(client, project_id)
+        await _finished(client, project_id, state="succeeded", verified=True)
+        return project_id
+
+    async def test_a_release_with_a_backlog_left_reads_released_in_its_sprint(self, client) -> None:
+        project_id = await self._released_with_a_backlog(client)
+
+        listed, alone = await _both(client, project_id)
+        assert (listed["status"], alone["status"]) == ("released", "released")
+        assert (listed["sprint"], alone["sprint"]) == (1, 1)
+        assert alone["progress"] == 100
+
+    async def test_the_next_sprint_starts_from_its_own_increment(self, client) -> None:
+        project_id = await self._released_with_a_backlog(client)
+        planned = await client.post(
+            f"/projects/{project_id}/code/sprints/next", json={"supersede": True}
+        )
+        assert planned.status_code == 200, planned.text
+        await _advance_all(client, project_id)
+
+        listed, alone = await _both(client, project_id)
+        assert (alone["status"], alone["sprint"]) == ("code", 2)
+        assert alone["phaseProgress"] == {"design": 100, "code": 80, "testing": 0, "deployment": 0}
+        assert alone["progress"] == 45
+        assert listed["phaseProgress"] == alone["phaseProgress"]

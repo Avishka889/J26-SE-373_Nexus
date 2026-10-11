@@ -65,6 +65,31 @@ class TestNotes:
             "files: a.ts, b.ts, attempts: 2, rate: 0.5"
         )
 
+    # Testing's notes arrive with the keys its reports are written in, and the
+    # audit log read "lineCoverage: 70.98, declaredAndUnwritten: 0, byOrigin:
+    # none, filesLookedAt: 44" (the live clinic project, 2026-10-13).
+    def test_a_camel_case_key_is_written_as_words(self) -> None:
+        notes = {
+            "lineCoverage": 70.98,
+            "declaredAndUnwritten": 0,
+            "byOrigin": {},
+            "filesLookedAt": 44,
+        }
+
+        assert readable_notes(notes) == (
+            "line coverage: 70.98, declared and unwritten: 0, by origin: none, files looked at: 44"
+        )
+
+    def test_a_key_inside_a_value_is_written_as_words_too(self) -> None:
+        notes = {"gaps": [{"endpointId": "get-doctors", "kind": "no-way-to-create"}]}
+
+        assert readable_notes(notes) == "gaps: endpoint id get-doctors; kind no-way-to-create"
+
+    def test_a_key_that_is_already_words_or_an_abbreviation_is_left_alone(self) -> None:
+        assert readable_notes({"llm_attempts": 2, "CWE": "CWE-79", "model use": "none"}) == (
+            "llm attempts: 2, CWE: CWE-79, model use: none"
+        )
+
 
 class TestStageFailures:
     def test_a_failure_with_no_message_is_a_sentence_not_a_class_name(self) -> None:

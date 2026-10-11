@@ -1039,11 +1039,14 @@ class CannedC3:
         requirement_diff=None,
         changed_code=(),
         version,
+        from_test_version=None,
     ) -> StageOutcome[HealReport]:
         """One accepted repair and one refusal, which is the real shape."""
         self._called("self-healing")
         #: The production code that changed, as the healing stage was handed it.
         self.healed_with_changes = list(changed_code)
+        #: The last test version of the code compared against, as handed over.
+        self.healed_from_test_version = from_test_version
         passing = [
             GuardCheck(name="test-code-only", passed=True, detail="only the test file changed"),
             GuardCheck(
