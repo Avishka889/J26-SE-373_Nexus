@@ -20,10 +20,10 @@ from pydantic import Field, model_validator
 from .architecture import ArchitectureRecommendation
 from .ids import DESIGN_STAGE_IDS, DesignStageId, QuestionId, Traces
 from .model_use import StageModelUse
-from .requirements import Assumption, ClarifyingQuestion, ParsedRequirement
+from .requirements import Assumption, ClarifyingQuestion, ParsedRequirement, RequirementDiff
 from .run_status import RunStatus
 from .sag import ArchitectureGraph
-from .sprint import SprintPlan
+from .sprint import SprintPlan, StoryDiff
 from .uml import UmlArtefact
 from .wire import WireDatetime, WireModel
 from .wireframes import WireframesArtefact
@@ -135,6 +135,18 @@ class DesignThreadMessage(WireModel):
     question: AskedQuestion | None = None
 
 
+class DesignChanges(WireModel):
+    """What this design version changed since the one before it.
+
+    A change note regenerates the design, and the review showed the new version
+    with nothing saying what had moved (review item C1-6).
+    """
+
+    from_version: int = Field(ge=1)
+    requirements: RequirementDiff
+    stories: StoryDiff
+
+
 class DesignSnapshot(WireModel):
     project_id: str = Field(min_length=1)
     #: The product being designed, which the wireframe player uses as the first
@@ -150,6 +162,8 @@ class DesignSnapshot(WireModel):
     uml: UmlArtefact
     wireframes: WireframesArtefact
     sprint: SprintPlan | None = None
+    #: Against the version before; null for the first, or where that one is gone.
+    changes: DesignChanges | None = None
     gate: GateState
     #: The phase's newest full run, so a run that stopped short of the review
     #: says so here rather than only in the audit log. None before any ran.

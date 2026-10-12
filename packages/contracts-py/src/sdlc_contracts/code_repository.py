@@ -104,6 +104,11 @@ class RepositoryPointer(WireModel):
     #: a version pushed to the default branch itself, as every version was
     #: before 2026-10-04, unreviewed or failing ones included.
     branch: str = ""
+    #: The pull request that proposes this version's branch into the default
+    #: branch, for the review to open. Empty where none was opened: a version on
+    #: the default branch itself, or GitHub refusing one (review item C2-8).
+    pull_request_url: str = ""
+    pull_request_number: int | None = Field(default=None, ge=1)
 
 
 class CodeRepository(WireModel):

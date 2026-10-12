@@ -34,8 +34,13 @@ Classification = Literal["brittle", "regression", "undecided"]
 
 #: How the classification was reached. The trace based signals are the novel
 #: ones and are named separately from the model's judgement so the evaluation
-#: can report how often the rules alone sufficed.
-ClassifiedBy = Literal["trace-changed", "trace-unchanged", "model-referee", "unclassified"]
+#: can report how often the rules alone sufficed. `written-after-change` is a
+#: test first run after the version it is compared against was last tested,
+#: so written from the changed requirements: it cannot hold what the change
+#: replaced, and its failure is the code's.
+ClassifiedBy = Literal[
+    "trace-changed", "trace-unchanged", "written-after-change", "model-referee", "unclassified"
+]
 
 #: Why a repair was refused. Every one of these is a way an LLM has been
 #: observed to make a failing test pass without fixing anything, except the

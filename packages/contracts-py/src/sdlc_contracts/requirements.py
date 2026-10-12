@@ -36,6 +36,13 @@ class ParsedRequirement(WireModel):
     low_confidence: bool = False
     #: A human corrected the text after generation.
     adjusted: bool = False
+    #: A human set the priority, over what the rule read. The rule reads a modal
+    #: verb, and a brief that states none gets a default nobody chose.
+    priority_corrected: bool = False
+    #: A correction a person made to an earlier wording of this requirement, and
+    #: not laid over this one: the requirement was changed since, and the
+    #: correction would have hidden the change. Kept to be shown, not applied.
+    set_aside_correction: str | None = None
     #: The sentence this was read from, verified against the input by slicing it
     #: at the reported offsets. Null means inferred rather than read.
     source_quote: str | None = None
