@@ -119,6 +119,24 @@ class TestTheModelOnlyReports:
 
 
 class TestTheRulesDecideNotTheModel:
+    async def test_priority_comes_from_the_brief_s_sentence_not_the_rewording(self) -> None:
+        # The rewording has no modal, as the prompt asks, so nearly every
+        # requirement fell back to "should" (review item C1-2).
+        agent = agent_returning(
+            {
+                "text": "Every transaction is audited.",
+                "source_start": 0,
+                "source_end": 0,
+                "source_quote": "All transactions must be audited.",
+                "rationale_kind": "read",
+            }
+        )
+        extraction, _ = await extract_with_model(PAYMENTS, agent=agent)
+        classification = extraction.requirements[0].classification
+
+        assert classification.priority == "must"
+        assert classification.priority_is_default is False
+
     async def test_the_model_cannot_report_a_type_or_a_priority(self) -> None:
         # The output schema has no field for either, so this is enforced by the
         # type rather than by hoping the prompt is obeyed.

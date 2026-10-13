@@ -63,11 +63,35 @@ def _matches(haystack: str, words: frozenset[str]) -> list[str]:
     return sorted(word for word in words if word in haystack)
 
 
-def classify(text: str) -> Classification:
-    """Read a requirement sentence and label it from the lexicons."""
+def _whole_words(haystack: str, words: frozenset[str]) -> list[str]:
+    """Which of these appear as words of their own, not inside another word.
+
+    By substring, "can" was found in "cancel" and "scan", and "will" in
+    "willing", so a sentence with no modal read as optional or as mandatory
+    (review item C1-2).
+    """
+    return sorted(
+        word
+        for word in words
+        if re.search(rf"(?<![a-z0-9'-]){re.escape(word)}(?![a-z0-9'-])", haystack)
+    )
+
+
+def classify(text: str, *, said: str | None = None) -> Classification:
+    """Read a requirement sentence and label it from the lexicons.
+
+    `said` is the brief's own sentence, when the requirement was read from one.
+    How strongly something is asked for is read from it rather than from the
+    requirement's wording: the model is asked for a sentence without modal
+    verbs, so the modal is in what the brief said and nearly every rewording
+    fell back to the default (review item C1-2). An inferred requirement has no
+    sentence behind it, and is read from its own wording.
+    """
     haystack = f" {text.lower().strip()} "
 
-    priority, priority_words, priority_defaulted = _priority(haystack)
+    priority, priority_words, priority_defaulted = _priority(
+        f" {said.lower().strip()} " if said else haystack
+    )
     requirement_type, type_words, type_defaulted = _type(haystack)
 
     attribute: QualityAttribute | None = None
@@ -102,11 +126,11 @@ def _priority(haystack: str) -> tuple[RequirementPriority, list[str], bool]:
         (SHOULD_WORDS, "should"),
         (COULD_WORDS, "could"),
     ):
-        found = _matches(haystack, words)
+        found = _whole_words(haystack, words)
         if found:
             return priority, found, False  # type: ignore[return-value]
 
-    assert not _matches(haystack, ALL_MODALS)
+    assert not _whole_words(haystack, ALL_MODALS)
     return DEFAULT_PRIORITY, [], True
 
 

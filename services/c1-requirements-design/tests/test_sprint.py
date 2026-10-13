@@ -147,8 +147,8 @@ class TestACleanPlanIsClean:
 # --- one mutation per rule ----------------------------------------------------
 
 
-def _no_goal(plan: dict) -> dict:
-    plan["goal"] = ""
+def _no_epic(plan: dict) -> dict:
+    plan["stories"][0]["epic"] = ""
     return plan
 
 
@@ -199,7 +199,7 @@ def _role_then_system(plan: dict) -> dict:
 
 
 MUTATIONS = [
-    ("names-are-present", "error", _no_goal),
+    ("names-are-present", "error", _no_epic),
     ("no-duplicate-story", "error", _duplicate_story),
     ("story-is-traced", "error", _untraced_story),
     ("traces-resolve", "error", _invented_trace),
@@ -560,3 +560,123 @@ class TestAStoryBelongsToSomeone:
             "As a Delivery Driver, I can capture a signature at each stop."
         )
         assert "story-has-a-real-role" not in check(plan).rule_ids()
+
+
+class TestTheGoalIsTheSprints:
+    """The goal was written by the model before the stories were divided, so it
+    described the whole product: a sprint that took on one story of three said
+    it delivered all three (review item C1-5)."""
+
+    def test_it_names_what_the_sprint_takes_on_and_not_the_backlog(self) -> None:
+        plan = promote(good_plan(), velocity=5)
+        assert [story.title for story in plan.proposed] == [
+            "As a customer, I can pay with a saved card"
+        ]
+
+        assert plan.goal == "Deliver Payments: As a customer, I can pay with a saved card."
+        assert "refund" not in plan.goal.lower()
+
+    def test_a_sprint_of_several_stories_names_their_areas_and_the_first(self) -> None:
+        plan = promote(good_plan())
+        assert len(plan.proposed) == 3
+
+        assert plan.goal == (
+            "Deliver Payments and Refunds, 3 stories, starting with: "
+            "As a customer, I can pay with a saved card."
+        )
+
+    def test_the_model_is_not_asked_for_one(self) -> None:
+        assert "goal" not in DraftPlan.model_fields
+
+    def test_a_plan_is_not_refused_for_having_none(self) -> None:
+        plan = good_plan()
+        del plan["goal"]
+        assert check(plan).ok
+
+
+def _graph_where_paying_calls_the_ledger(traces: list[str]) -> ArchitectureGraph:
+    """The payments design, with the payment service calling a ledger that only
+    the refund requirement (R-3) asked for."""
+    base = payments_graph()
+    return ArchitectureGraph(
+        nodes=[*base.nodes, node("m2", "service", "Ledger Service", ["R-3"])],
+        edges=[
+            *base.edges,
+            GraphEdge(
+                id="x2", source="m1", target="m2", kind="dependency", verb="calls", traces=traces
+            ),
+        ],
+    )
+
+
+def _planned(graph: ArchitectureGraph, velocity: int) -> SprintPlan:
+    return to_contract(
+        DraftPlan.model_validate(good_plan()),
+        requirements=REQUIREMENTS,
+        graph=graph,
+        velocity=velocity,
+    )
+
+
+class TestASprintThatNeedsItsBacklog:
+    """The sprint is divided by priority and size alone, so it could take on a
+    story the design connects to something only a backlog story builds, and
+    nothing said so (review item C1-5)."""
+
+    def test_the_story_and_the_one_it_needs_are_named_with_the_reason(self) -> None:
+        plan = _planned(_graph_where_paying_calls_the_ledger(["R-1"]), velocity=5)
+        refund = next(story for story in plan.backlog if story.traces == ["R-3"])
+
+        [needed] = plan.backlog_dependencies
+        assert needed.story_id == plan.proposed[0].id
+        assert needed.needs == refund.id
+        assert needed.because == (
+            "Payment Service calls Ledger Service, and nothing in this sprint builds Ledger Service"
+        )
+
+    def test_nothing_is_flagged_when_the_sprint_takes_on_both(self) -> None:
+        plan = _planned(_graph_where_paying_calls_the_ledger(["R-1"]), velocity=20)
+        assert plan.backlog == []
+        assert plan.backlog_dependencies == []
+
+    def test_a_connection_another_requirement_drew_is_not_this_story_s(self) -> None:
+        # The call belongs to R-4, which the sprint's one story does not realise.
+        plan = _planned(_graph_where_paying_calls_the_ledger(["R-4"]), velocity=5)
+        assert plan.backlog_dependencies == []
+
+    def test_a_rule_binding_a_node_is_not_a_dependency(self) -> None:
+        base = _graph_where_paying_calls_the_ledger(["R-1"])
+        graph = ArchitectureGraph(
+            nodes=base.nodes,
+            edges=[
+                edge.model_copy(update={"kind": "constraint"}) if edge.id == "x2" else edge
+                for edge in base.edges
+            ],
+        )
+        assert _planned(graph, velocity=5).backlog_dependencies == []
+
+    def test_something_the_sprint_builds_is_not_needed_from_the_backlog(self) -> None:
+        # The ledger also traces to R-2, which the sprint's story realises, so
+        # the sprint builds it, whatever a backlog story adds to it later.
+        base = _graph_where_paying_calls_the_ledger(["R-1"])
+        graph = ArchitectureGraph(
+            nodes=[
+                one.model_copy(update={"traces": ["R-2", "R-3"]}) if one.id == "m2" else one
+                for one in base.nodes
+            ],
+            edges=base.edges,
+        )
+        assert _planned(graph, velocity=5).backlog_dependencies == []
+
+    def test_the_same_pair_is_named_once(self) -> None:
+        base = _graph_where_paying_calls_the_ledger(["R-1"])
+        graph = ArchitectureGraph(
+            nodes=base.nodes,
+            edges=[
+                *base.edges,
+                GraphEdge(
+                    id="x3", source="m1", target="m2", kind="data", verb="reads", traces=["R-2"]
+                ),
+            ],
+        )
+        assert len(_planned(graph, velocity=5).backlog_dependencies) == 1

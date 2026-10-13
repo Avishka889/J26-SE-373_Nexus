@@ -19,6 +19,7 @@ nobody can fit is to plan it and let the "too big to plan" warning say so.
 from sdlc_contracts import (
     AcceptanceCriterion,
     ArchitectureGraph,
+    BacklogDependency,
     ParsedRequirement,
     SprintPlan,
     UserStory,
@@ -67,6 +68,95 @@ def _story(
     )
 
 
+#: How many areas of work a goal names before it counts the rest.
+_AREAS_NAMED = 3
+
+
+def _listed(names: list[str]) -> str:
+    """Up to three names as a phrase, and a count of the rest."""
+    shown, rest = names[:_AREAS_NAMED], len(names) - _AREAS_NAMED
+    if rest > 0:
+        return f"{', '.join(shown)} and {rest} more area{'s' if rest > 1 else ''}"
+    if len(shown) == 1:
+        return shown[0]
+    return f"{', '.join(shown[:-1])} and {shown[-1]}"
+
+
+def sprint_goal(proposed: list[UserStory]) -> str:
+    """What this sprint delivers, said from the stories it took on.
+
+    Written here, after the split, rather than by the model before it: the
+    model's sentence described every story it had written, so a sprint that took
+    on one of three said it delivered all three (review item C1-5). The areas
+    are the stories' epics, in the order the sprint takes them, and the first
+    story is the highest priority one, which is what the sprint is for.
+    """
+    areas: dict[str, str] = {}
+    for story in proposed:
+        areas.setdefault(story.epic.strip().lower(), story.epic.strip())
+    first = proposed[0].title.strip().rstrip(".")
+    if len(proposed) == 1:
+        return f"Deliver {_listed(list(areas.values()))}: {first}."
+    return (
+        f"Deliver {_listed(list(areas.values()))}, {len(proposed)} stories, starting with: {first}."
+    )
+
+
+#: The connections a story needs both ends of. A constraint edge says which rule
+#: binds a node, which is not something to build first.
+_NEEDED_EDGES = frozenset({"action", "data", "dependency"})
+#: What a story builds. An actor is a person or somebody else's system.
+_BUILT_KINDS = frozenset({"entity", "service"})
+
+
+def backlog_dependencies(
+    proposed: list[UserStory], backlog: list[UserStory], graph: ArchitectureGraph
+) -> list[BacklogDependency]:
+    """The sprint's stories that need something only a backlog story builds.
+
+    The sprint is divided by priority and size, and neither knows what a story
+    stands on (review item C1-5). The design does: a connection carries the
+    requirements that drew it, so a story realising one of them needs both of
+    its ends. An end is built by the sprint when a story in the sprint realises
+    a requirement the node traces to. When none does, and a backlog story does,
+    the sprint cannot be finished as proposed without that story.
+
+    Reported rather than repaired. Moving the backlog story in would put a lower
+    priority ahead of what the velocity left out, which is a decision for the
+    person reading the plan.
+    """
+    delivered = {trace for story in proposed for trace in story.traces}
+    nodes = {node.id: node for node in graph.nodes}
+
+    found: dict[tuple[str, str], BacklogDependency] = {}
+    for story in proposed:
+        mine = set(story.traces)
+        for edge in graph.edges:
+            if edge.kind not in _NEEDED_EDGES or not mine & set(edge.traces):
+                continue
+            source, target = nodes.get(edge.source), nodes.get(edge.target)
+            if source is None or target is None:
+                # An edge to nothing is the graph rules' finding, not this one.
+                continue
+            for end in (source, target):
+                if end.kind not in _BUILT_KINDS or delivered & set(end.traces):
+                    continue
+                for waiting in backlog:
+                    if set(waiting.traces) & set(end.traces):
+                        found.setdefault(
+                            (story.id, waiting.id),
+                            BacklogDependency(
+                                storyId=story.id,
+                                needs=waiting.id,
+                                because=(
+                                    f"{source.label} {edge.verb} {target.label}, and nothing "
+                                    f"in this sprint builds {end.label}"
+                                ),
+                            ),
+                        )
+    return list(found.values())
+
+
 def to_contract(
     draft: DraftPlan,
     *,
@@ -111,9 +201,10 @@ def to_contract(
 
     return SprintPlan(
         sprintName=sprint_name,
-        goal=draft.goal,
+        goal=sprint_goal(proposed),
         velocityAssumption=VelocityAssumption(points=velocity, basis=VELOCITY_BASIS),
         estimatedPoints=spent,
         proposed=proposed,
         backlog=backlog,
+        backlogDependencies=backlog_dependencies(proposed, backlog, graph),
     )
