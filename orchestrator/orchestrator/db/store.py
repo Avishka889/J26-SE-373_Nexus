@@ -49,7 +49,7 @@ from sdlc_contracts import (
     TestStageId,
 )
 
-from ..wording import phase_name, stage_label
+from ..wording import phase_category, phase_name, stage_label
 
 Row = dict[str, Any]
 
@@ -653,6 +653,8 @@ def project_progress_queries(owner_id: str, project_id: str | None = None) -> tu
         "code": list(CODE_ARTEFACT_KINDS),
         "test": list(TEST_ARTEFACT_KINDS),
         "deploy": list(DEPLOY_ARTEFACT_KINDS),
+        # An approved run on a sample is not the app's tests approved (C3-3).
+        "generated": GENERATED_APP_REPORT + "%",
     }
     scope = "p.owner_id = %(owner)s AND (%(project)s::text IS NULL OR p.id = %(project)s)"
     return (
@@ -673,6 +675,12 @@ def project_progress_queries(owner_id: str, project_id: str | None = None) -> tu
                    WHERE g.project_id = p.id AND g.kind = 'c3-test-review'
                      AND g.state = 'resolved' AND g.decision = 'approved'
                      AND g.requirements_version = v.test_version
+                     AND EXISTS (
+                         SELECT 1 FROM app.artefacts a
+                         WHERE a.project_id = p.id AND a.kind = 'test-report'
+                           AND a.version = v.test_version
+                           AND a.body->>'target' LIKE %(generated)s
+                     )
                ) AS tests_approved_here,
                (
                    SELECT r.source_version FROM app.runs r
@@ -685,6 +693,23 @@ def project_progress_queries(owner_id: str, project_id: str | None = None) -> tu
                    WHERE d.project_id = p.id AND d.deploy_version = v.deploy_version
                      AND d.kind = 'release' AND d.verified AND d.state = 'succeeded'
                ) AS released_here,
+               (
+                   SELECT r.source_version FROM app.runs r
+                   WHERE r.project_id = p.id AND r.component = 'c4'
+                     AND r.only_stage IS NULL AND r.requirements_version = v.deploy_version
+                   ORDER BY r.started_at DESC LIMIT 1
+               ) AS deploy_measured,
+               (
+                   SELECT max(greatest(coalesce((story->>'sprint')::int, 1), 1))
+                   FROM app.artefacts a, jsonb_array_elements(a.body->'stories') story
+                   WHERE a.project_id = p.id AND a.kind = 'sprint-scope'
+                     AND a.version = v.code_version AND (story->>'inScope')::boolean
+               ) AS sprint,
+               EXISTS (
+                   SELECT 1 FROM app.artefacts a, jsonb_array_elements(a.body->'stories') story
+                   WHERE a.project_id = p.id AND a.kind = 'sprint-scope'
+                     AND a.version = v.code_version AND NOT (story->>'inScope')::boolean
+               ) AS backlog_left,
                coalesce((
                    SELECT array_agg(newest.component) FROM (
                        SELECT DISTINCT ON (r.component) r.component, r.state
@@ -752,6 +777,23 @@ def project_progress_queries(owner_id: str, project_id: str | None = None) -> tu
     )
 
 
+def current_phases(*, code: bool, testing: bool, deployment: bool) -> dict[str, bool]:
+    """Which phases' stages are about the increment the project is on.
+
+    Each read the current version of the phase before it, and so did that phase:
+    a deployment run that read the current test version is still the increment
+    before's when those tests measured code the project has since replaced.
+    """
+    code_current = code
+    testing_current = code_current and testing
+    return {
+        "design": True,
+        "code": code_current,
+        "testing": testing_current,
+        "deployment": testing_current and deployment,
+    }
+
+
 async def project_progress(
     conn: AsyncConnection, *, owner_id: str, project_id: str | None = None
 ) -> dict[str, dict[str, Any]]:
@@ -812,6 +854,18 @@ async def project_progress(
             "test_approved": tests_ok,
             "released": tests_ok and bool(row["released_here"]),
             "stopped": set(row["stopped"] or ()),
+            # Which phases' stages are about the increment the project is on: a
+            # phase's newest run read the current version of the phase before it.
+            # The stages a later phase ran for the increment before stay in the
+            # table until it runs again, and counting them started the next
+            # sprint near 90% (review item X-8).
+            "current": current_phases(
+                code=came_from == int(row["design_version"]),
+                testing=row["tests_measured"] == code_version,
+                deployment=row["deploy_measured"] == int(row["test_version"]),
+            ),
+            "sprint": int(row["sprint"] or 1),
+            "backlog_left": bool(row["backlog_left"]),
         }
     return facts
 
@@ -1123,6 +1177,7 @@ async def create_run(
         ),
         project_id=project_id,
         run_id=run_id,
+        category=phase_category(component),
     )
     return run
 
@@ -1760,8 +1815,9 @@ async def record_late_push(
 async def pushed_repository(conn: AsyncConnection, project_id: str) -> Row | None:
     """The GitHub repository this project's code went to, if it is this project's.
 
-    The newest pointer the project recorded, unless another project recorded the
-    same repository first. Repositories were named after the project alone, so
+    The newest pointer the project recorded (the record's `repository`, which
+    this read as `pointer`, a field the record never has, so every name was
+    derived again), unless another project recorded the same repository first. Repositories were named after the project alone, so
     projects with one name shared one, each push replacing the last; the first
     project to push keeps it, and a later one must not go on writing over it.
     """
@@ -1769,18 +1825,19 @@ async def pushed_repository(conn: AsyncConnection, project_id: str) -> Row | Non
         await cur.execute(
             """
             WITH mine AS (
-                SELECT body->'pointer'->>'owner' AS owner, body->'pointer'->>'name' AS name
+                SELECT body->'repository'->>'owner' AS owner,
+                       body->'repository'->>'name' AS name
                 FROM app.artefacts
                 WHERE project_id = %(project)s AND kind = 'code-repository'
-                  AND jsonb_typeof(body->'pointer') = 'object'
+                  AND jsonb_typeof(body->'repository') = 'object'
                 ORDER BY version DESC
                 LIMIT 1
             )
             SELECT mine.owner, mine.name, (
                 SELECT a.project_id FROM app.artefacts a
                 WHERE a.kind = 'code-repository'
-                  AND a.body->'pointer'->>'owner' = mine.owner
-                  AND a.body->'pointer'->>'name' = mine.name
+                  AND a.body->'repository'->>'owner' = mine.owner
+                  AND a.body->'repository'->>'name' = mine.name
                 ORDER BY a.created_at, a.id
                 LIMIT 1
             ) AS first_project
@@ -2752,6 +2809,106 @@ async def run_for_version(
     return await run(conn, run_for_version_query(project_id, component, version))
 
 
+#: How a test report names the generated app it measured (C3's `_target_name`,
+#: "the generated app at code version N"); a sample's report names the sample.
+GENERATED_APP_REPORT = "the generated app"
+
+
+def approved_test_version_query(project_id: str) -> Query:
+    return Query(
+        """
+        SELECT coalesce(max(g.requirements_version), 0) AS version
+        FROM app.gates g
+        WHERE g.project_id = %s AND g.kind = 'c3-test-review'
+          AND g.state = 'resolved' AND g.decision = 'approved'
+          AND EXISTS (
+              SELECT 1 FROM app.artefacts a
+              WHERE a.project_id = g.project_id AND a.kind = 'test-report'
+                AND a.version = g.requirements_version AND a.body->>'target' LIKE %s
+          )
+        """,
+        (project_id, GENERATED_APP_REPORT + "%"),
+        _version_of,
+    )
+
+
+async def approved_test_version(conn: AsyncConnection, project_id: str) -> int:
+    """The newest test version the test review approved on the generated app, or zero.
+
+    An approved run on a sample says nothing about the app, and Deployment took
+    the newest approval whatever it measured (review item C3-3).
+    """
+    return await run(conn, approved_test_version_query(project_id))
+
+
+def test_files_digest_query(project_id: str, test_version: int) -> Query:
+    """The tests at the code version a test version measured, as one sha256.
+
+    Recorded on the approval and asked again before a release: the files could
+    change after the approval, and Deployment's staging build reads them
+    (review item X-2).
+    """
+    return Query(
+        """
+        SELECT encode(sha256(convert_to(coalesce(
+                   string_agg(f.path || chr(10) || f.content, chr(10) ORDER BY f.path), ''
+               ), 'UTF8')), 'hex') AS digest
+        FROM app.code_files f
+        WHERE f.project_id = %s AND f.stage_id = %s AND f.version = (
+            SELECT r.source_version FROM app.runs r
+            WHERE r.project_id = %s AND r.component = 'c3' AND r.requirements_version = %s
+            ORDER BY r.started_at DESC LIMIT 1
+        )
+        """,
+        (project_id, TEST_FILE_STAGE, project_id, test_version),
+        _digest_of,
+    )
+
+
+def _digest_of(rows: list[Row]) -> str:
+    return str(rows[0]["digest"]) if rows else ""
+
+
+async def test_files_digest(conn: AsyncConnection, project_id: str, test_version: int) -> str:
+    return await run(conn, test_files_digest_query(project_id, test_version))
+
+
+async def note_on_gate(conn: AsyncConnection, gate_id: uuid.UUID, facts: dict[str, Any]) -> None:
+    """Keep facts about a decision beside it, in the gate's payload."""
+    await conn.execute(
+        "UPDATE app.gates SET payload = payload || %s WHERE id = %s", (Jsonb(facts), gate_id)
+    )
+
+
+async def releasable_code_version(conn: AsyncConnection, project_id: str) -> int:
+    """The code version the newest approved tests measured, or zero: what may ship.
+
+    Newer code waits for its own tests and holds no release back (review item
+    C4-6); a fix applied over it ships with it (C4-13).
+    """
+    approved = await approved_test_version(conn, project_id)
+    if not approved:
+        return 0
+    tested = await run_for_version(conn, project_id, component="c3", version=approved)
+    return int((tested or {}).get("source_version") or 0)
+
+
+async def sprint_of_code(conn: AsyncConnection, project_id: str, code_version: int) -> int:
+    """The newest sprint any story in a code version's build was planned in.
+
+    As the project's own view counts it: a build with no scope, or nothing in
+    it, is sprint 1. A version a fix wrote builds what the version it patched
+    built (`scope_for_code`).
+    """
+    scope = await scope_for_code(conn, project_id, code_version) or {}
+    sprints = [
+        int(story.get("sprint") or 1)
+        for story in scope.get("stories") or []
+        if story.get("inScope")
+    ]
+    return max([1, *sprints])
+
+
 async def previous_tested_code_version(
     conn: AsyncConnection, project_id: str, *, before: int
 ) -> int | None:
@@ -3021,6 +3178,26 @@ class DeploymentInFlight(RuntimeError):
     """A project already has a deployment pending or running; one at a time."""
 
 
+async def rollback_attempts(conn: AsyncConnection, release_id: uuid.UUID) -> int:
+    """How many rollbacks of this release ended without restoring it.
+
+    One still to run, running, or that restored is not counted: asking again
+    then finds it. One that ended any other way is an attempt that is over, and
+    the next approval is a new one (review item C4-3).
+    """
+    async with conn.cursor() as cur:
+        await cur.execute(
+            """
+            SELECT count(*) FROM app.deployments
+            WHERE kind = 'rollback' AND authorised->>'deploymentId' = %s
+              AND state NOT IN ('pending', 'running', 'succeeded')
+            """,
+            (str(release_id),),
+        )
+        row = await cur.fetchone()
+    return int(row[0]) if row else 0
+
+
 async def create_deployment(
     conn: AsyncConnection,
     *,
@@ -3171,27 +3348,67 @@ async def finish_deployment(
     url: str | None = None,
     fault_injected: str | None = None,
 ) -> None:
-    """Where a deployment ended, and why, in the provider's words where it gave any (FR16)."""
-    await conn.execute(
-        """
-        UPDATE app.deployments
-        SET state = %s, cause = %s, verified = %s,
-            verified_at = CASE WHEN %s THEN now() ELSE verified_at END,
-            fingerprint = COALESCE(%s, fingerprint), url = COALESCE(%s, url),
-            fault_injected = COALESCE(%s, fault_injected), finished_at = now()
-        WHERE id = %s
-        """,
-        (
-            state,
-            cause,
-            verified,
-            verified,
-            Jsonb(fingerprint) if fingerprint is not None else None,
-            url,
-            fault_injected,
-            deployment_id,
-        ),
+    """Where a deployment ended, and why, in the provider's words where it gave any (FR16).
+
+    Said in the audit log too, so Activity tells a release that went live from
+    one that failed, was undone or rolled back: no end state wrote an entry
+    (review item X-7).
+    """
+    async with conn.cursor(row_factory=dict_row) as cur:
+        await cur.execute(
+            """
+            UPDATE app.deployments
+            SET state = %s, cause = %s, verified = %s,
+                verified_at = CASE WHEN %s THEN now() ELSE verified_at END,
+                fingerprint = COALESCE(%s, fingerprint), url = COALESCE(%s, url),
+                fault_injected = COALESCE(%s, fault_injected), finished_at = now()
+            WHERE id = %s
+            RETURNING project_id, kind, deploy_version, target, url
+            """,
+            (
+                state,
+                cause,
+                verified,
+                verified,
+                Jsonb(fingerprint) if fingerprint is not None else None,
+                url,
+                fault_injected,
+                deployment_id,
+            ),
+        )
+        ended = await cur.fetchone()
+    if ended is None:
+        return
+    await record(
+        conn,
+        actor="system",
+        action=_ended_action(ended["kind"], state, ended["deploy_version"], verified),
+        target=f"deploy version {ended['deploy_version']}, {ended['target']}",
+        detail=cause or (f"Serving {ended['url']}." if ended["url"] else ""),
+        project_id=ended["project_id"],
+        category="deployment",
     )
+
+
+#: How a release or a rollback that did not finish reads in Activity, by the
+#: state it ended in. `api/process.py` marks each of these failed.
+_ENDED_WITHOUT_FINISHING = {
+    "failed": "{kind} failed",
+    "compensated": "{kind} undone before traffic moved",
+    "awaiting-rollback-approval": "{kind} failed after traffic moved",
+    "kept-unverified": "{kind} kept after a declined rollback, unverified",
+}
+
+
+def _ended_action(kind: str, state: str, deploy_version: int, verified: bool) -> str:
+    """What a deployment's end is called in the audit log."""
+    name = kind.capitalize()
+    if state == "succeeded":
+        if not verified:
+            return f"{name} finished without verification"
+        verb = "Released" if kind == "release" else "Restored"
+        return f"{verb} deploy version {deploy_version}"
+    return _ENDED_WITHOUT_FINISHING.get(state, "{kind} ended " + state).format(kind=name)
 
 
 async def mark_rolled_back(conn: AsyncConnection, deployment_id: uuid.UUID) -> None:
@@ -3276,35 +3493,70 @@ async def serving_release(conn: AsyncConnection, project_id: str, target: str) -
     return row
 
 
-def unwatched_releases_query(recent_seconds: int) -> Query:
+def unwatched_releases_query(
+    recent_seconds: int, every_seconds: int = 0, for_seconds: int = 0, cloud: bool = False
+) -> Query:
     return Query(
         """
-        SELECT d.* FROM app.deployments d
+        SELECT d.*, EXISTS (
+                   SELECT 1 FROM app.health_samples h
+                   WHERE h.deployment_id = d.id AND h.at >= d.finished_at
+               ) AS watched_before
+        FROM app.deployments d
         WHERE d.state = 'succeeded' AND d.verified AND d.url IS NOT NULL
-          AND d.finished_at > now() - make_interval(secs => %s)
           AND NOT EXISTS (
               SELECT 1 FROM app.deployments n
               WHERE n.project_id = d.project_id AND n.target = d.target
                 AND n.created_at > d.created_at AND n.state <> 'failed'
           )
-          AND NOT EXISTS (
-              SELECT 1 FROM app.health_samples h
-              WHERE h.deployment_id = d.id AND h.at >= d.finished_at
+          AND (
+              (
+                  d.finished_at > now() - make_interval(secs => %s)
+                  AND NOT EXISTS (
+                      SELECT 1 FROM app.health_samples h
+                      WHERE h.deployment_id = d.id AND h.at >= d.finished_at
+                  )
+              )
+              OR (
+                  %s > 0
+                  AND d.finished_at > now() - make_interval(secs => %s)
+                  AND d.finished_at <= now() - make_interval(secs => %s)
+                  AND (d.target = 'local' OR %s)
+                  AND NOT EXISTS (
+                      SELECT 1 FROM app.health_samples h
+                      WHERE h.deployment_id = d.id
+                        AND h.at > now() - make_interval(secs => %s)
+                  )
+              )
           )
         ORDER BY d.finished_at
         """,
-        (recent_seconds,),
+        (recent_seconds, every_seconds, for_seconds, every_seconds, cloud, every_seconds),
         _rows,
     )
 
 
-async def unwatched_releases(conn: AsyncConnection, *, recent_seconds: int) -> list[Row]:
-    """Verified releases serving now, finished within `recent_seconds`, never probed since.
+async def unwatched_releases(
+    conn: AsyncConnection,
+    *,
+    recent_seconds: int,
+    every_seconds: int = 0,
+    for_seconds: int = 0,
+    cloud: bool = False,
+) -> list[Row]:
+    """Verified releases serving now that are due a monitoring window.
 
-    What the monitor supervisor opens a window on: each at most once, because the
-    window's first probe is a sample after the release finished.
+    Two ways to be due. Finished within `recent_seconds` and never probed since:
+    the first window, as before. Or, with `every_seconds`, still serving, no
+    probe on record within that long, and finished within `for_seconds`: a
+    window again, because one window in a release's first hour never saw it go
+    down the next day (review item C4-10). Bounded on purpose, since a free host
+    probed for ever never sleeps: a local release always, a cloud one only with
+    `cloud`. `watched_before` says which kind of window a row is due.
     """
-    return await run(conn, unwatched_releases_query(recent_seconds))
+    return await run(
+        conn, unwatched_releases_query(recent_seconds, every_seconds, for_seconds, cloud)
+    )
 
 
 async def last_health_sample_at(conn: AsyncConnection, deployment_id: uuid.UUID) -> datetime | None:
@@ -3346,14 +3598,17 @@ async def close_declined_rollback(conn: AsyncConnection, deployment_id: uuid.UUI
     """A person declined rolling a release back, so it no longer waits on anyone.
 
     A verified release that monitoring flagged serves on, as it did before the
-    flag. One that failed after traffic moved was never verified, so it failed.
+    flag. One that failed after traffic moved was never verified, and it still
+    serves: it is kept, unverified. It was marked `failed`, which everywhere
+    else means the traffic never moved, so the platform took the release before
+    it as the one serving (review item C4-5).
     Returns the state it moved to, or None when it was not waiting.
     """
     async with conn.cursor() as cur:
         await cur.execute(
             """
             UPDATE app.deployments
-            SET state = CASE WHEN verified THEN 'succeeded' ELSE 'failed' END
+            SET state = CASE WHEN verified THEN 'succeeded' ELSE 'kept-unverified' END
             WHERE id = %s AND state = 'awaiting-rollback-approval'
             RETURNING state
             """,
@@ -3440,6 +3695,26 @@ async def update_step(
             deployment_id,
             seq,
         ),
+    )
+
+
+def standing_release_ids_query(project_id: str) -> Query:
+    return Query(
+        "SELECT id FROM app.deployments WHERE project_id = %s AND verified AND state = 'succeeded'",
+        (project_id,),
+        _rows,
+    )
+
+
+async def standing_release_ids(conn: AsyncConnection, project_id: str) -> frozenset[str]:
+    """The verified deployments that still stand: succeeded, and not rolled back since.
+
+    What a rollback may restore. One that was itself rolled back keeps its
+    verification, which is a fact about when it ran, so `verified` alone does
+    not say it is somewhere to return to (review item C4-9).
+    """
+    return frozenset(
+        str(row["id"]) for row in await run(conn, standing_release_ids_query(project_id))
     )
 
 

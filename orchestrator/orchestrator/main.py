@@ -179,7 +179,14 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 
     # One bounded window after every verified release, and one when a person
     # asks; never a probe that runs forever.
-    monitor = MonitorSupervisor(pool=app_pool, c4=clients["c4"], **_monitor_window(settings))
+    monitor = MonitorSupervisor(
+        pool=app_pool,
+        c4=clients["c4"],
+        every_seconds=settings.c4_monitor_every_seconds,
+        for_seconds=settings.c4_monitor_for_seconds,
+        cloud=settings.c4_monitor_cloud_again,
+        **_monitor_window(settings),
+    )
     await monitor.start()
     app.state.monitor = monitor
 

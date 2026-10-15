@@ -1,0 +1,1474 @@
+{
+  "name": "ShopFlow",
+  "graph": {
+    "nodes": [
+      {
+        "id": "a1",
+        "kind": "actor",
+        "label": "Shopper",
+        "description": "Browses a storefront and places orders.",
+        "position": {
+          "x": 0.0,
+          "y": 140.0
+        },
+        "traces": [
+          "R-1",
+          "R-2",
+          "R-3"
+        ],
+        "attributes": [],
+        "actorKind": "primary",
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "a2",
+        "kind": "actor",
+        "label": "Merchant",
+        "description": "Runs a storefront and manages its orders.",
+        "position": {
+          "x": 0.0,
+          "y": 320.0
+        },
+        "traces": [
+          "R-5",
+          "R-6"
+        ],
+        "attributes": [],
+        "actorKind": "primary",
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "a3",
+        "kind": "actor",
+        "label": "Inventory System",
+        "description": "The external system of record for stock levels.",
+        "position": {
+          "x": 0.0,
+          "y": 480.0
+        },
+        "traces": [
+          "R-4"
+        ],
+        "attributes": [],
+        "actorKind": "external_system",
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "a4",
+        "kind": "actor",
+        "label": "Payment Provider",
+        "description": "Takes the money for an order.",
+        "position": {
+          "x": 0.0,
+          "y": 620.0
+        },
+        "traces": [
+          "R-12"
+        ],
+        "attributes": [],
+        "actorKind": "external_system",
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "m1",
+        "kind": "service",
+        "label": "Catalog Service",
+        "description": "Serves products and their categories over the API.",
+        "position": {
+          "x": 330.0,
+          "y": 60.0
+        },
+        "traces": [
+          "R-1",
+          "R-10"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "m2",
+        "kind": "service",
+        "label": "Cart Service",
+        "description": "Holds a shopper's cart and its line items until checkout.",
+        "position": {
+          "x": 330.0,
+          "y": 210.0
+        },
+        "traces": [
+          "R-2",
+          "R-7"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "m3",
+        "kind": "service",
+        "label": "Order Service",
+        "description": "Turns a cart into an order and tracks its status.",
+        "position": {
+          "x": 330.0,
+          "y": 360.0
+        },
+        "traces": [
+          "R-3",
+          "R-5"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "m4",
+        "kind": "service",
+        "label": "Inventory Service",
+        "description": "Keeps stock levels in step with the external system.",
+        "position": {
+          "x": 330.0,
+          "y": 510.0
+        },
+        "traces": [
+          "R-4",
+          "R-7"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": {
+          "ruleId": "sync-direction-is-stated",
+          "reason": "R-4 asks for stock to stay in step but never says which side wins when they disagree, so this service has no stated behaviour for a conflict.",
+          "traces": [
+            "R-4"
+          ]
+        },
+        "changedInVersion": null
+      },
+      {
+        "id": "m5",
+        "kind": "service",
+        "label": "Storefront API",
+        "description": "The single entry point every front end calls.",
+        "position": {
+          "x": 330.0,
+          "y": 660.0
+        },
+        "traces": [
+          "R-6",
+          "R-10"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "e1",
+        "kind": "entity",
+        "label": "Product",
+        "description": "Something a storefront sells.",
+        "position": {
+          "x": 720.0,
+          "y": 40.0
+        },
+        "traces": [
+          "R-1"
+        ],
+        "attributes": [
+          {
+            "name": "id",
+            "type": "UUID"
+          },
+          {
+            "name": "storefrontId",
+            "type": "UUID"
+          },
+          {
+            "name": "name",
+            "type": "String"
+          },
+          {
+            "name": "price",
+            "type": "Money"
+          },
+          {
+            "name": "category",
+            "type": "String"
+          }
+        ],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "e2",
+        "kind": "entity",
+        "label": "Cart",
+        "description": "What a shopper intends to buy, before they commit to it.",
+        "position": {
+          "x": 720.0,
+          "y": 200.0
+        },
+        "traces": [
+          "R-2"
+        ],
+        "attributes": [
+          {
+            "name": "id",
+            "type": "UUID"
+          },
+          {
+            "name": "storefrontId",
+            "type": "UUID"
+          },
+          {
+            "name": "lineItems",
+            "type": "LineItem[]"
+          },
+          {
+            "name": "updatedAt",
+            "type": "Timestamp"
+          }
+        ],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "e3",
+        "kind": "entity",
+        "label": "Order",
+        "description": "A committed purchase and the state it has reached.",
+        "position": {
+          "x": 720.0,
+          "y": 360.0
+        },
+        "traces": [
+          "R-3",
+          "R-5"
+        ],
+        "attributes": [
+          {
+            "name": "id",
+            "type": "UUID"
+          },
+          {
+            "name": "storefrontId",
+            "type": "UUID"
+          },
+          {
+            "name": "status",
+            "type": "OrderStatus"
+          },
+          {
+            "name": "total",
+            "type": "Money"
+          },
+          {
+            "name": "placedAt",
+            "type": "Timestamp"
+          }
+        ],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "e4",
+        "kind": "entity",
+        "label": "Stock Level",
+        "description": "How many of a product a storefront can still sell.",
+        "position": {
+          "x": 720.0,
+          "y": 520.0
+        },
+        "traces": [
+          "R-4",
+          "R-7"
+        ],
+        "attributes": [
+          {
+            "name": "productId",
+            "type": "UUID"
+          },
+          {
+            "name": "available",
+            "type": "Integer"
+          },
+          {
+            "name": "syncedAt",
+            "type": "Timestamp"
+          }
+        ],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "e5",
+        "kind": "entity",
+        "label": "Storefront",
+        "description": "One merchant's shop: its catalog, branding and orders.",
+        "position": {
+          "x": 720.0,
+          "y": 670.0
+        },
+        "traces": [
+          "R-6",
+          "R-9"
+        ],
+        "attributes": [
+          {
+            "name": "id",
+            "type": "UUID"
+          },
+          {
+            "name": "name",
+            "type": "String"
+          },
+          {
+            "name": "currency",
+            "type": "Currency"
+          }
+        ],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "c1",
+        "kind": "constraint",
+        "label": "Tenant isolation",
+        "description": "Every read and write carries a storefront id, so one shop can never see another's data.",
+        "position": {
+          "x": 1080.0,
+          "y": 280.0
+        },
+        "traces": [
+          "R-9"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": "Tenant scoped access",
+        "appliesTo": [
+          "e1",
+          "e2",
+          "e3",
+          "e5",
+          "m5"
+        ],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "c2",
+        "kind": "constraint",
+        "label": "No overselling",
+        "description": "Checkout refuses a line item whose quantity exceeds the recorded stock level.",
+        "position": {
+          "x": 1080.0,
+          "y": 470.0
+        },
+        "traces": [
+          "R-7"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": "Stock check at checkout",
+        "appliesTo": [
+          "m2",
+          "m3",
+          "e4"
+        ],
+        "unconfirmed": null,
+        "changedInVersion": null
+      }
+    ],
+    "edges": [
+      {
+        "id": "x1",
+        "source": "a1",
+        "target": "e1",
+        "kind": "action",
+        "verb": "browses",
+        "traces": [
+          "R-1"
+        ]
+      },
+      {
+        "id": "x2",
+        "source": "a1",
+        "target": "e2",
+        "kind": "action",
+        "verb": "fills",
+        "traces": [
+          "R-2"
+        ]
+      },
+      {
+        "id": "x3",
+        "source": "a1",
+        "target": "e3",
+        "kind": "action",
+        "verb": "places",
+        "traces": [
+          "R-3"
+        ]
+      },
+      {
+        "id": "x4",
+        "source": "a2",
+        "target": "e3",
+        "kind": "action",
+        "verb": "updates",
+        "traces": [
+          "R-5"
+        ]
+      },
+      {
+        "id": "x5",
+        "source": "a2",
+        "target": "e5",
+        "kind": "action",
+        "verb": "runs",
+        "traces": [
+          "R-6"
+        ]
+      },
+      {
+        "id": "x6",
+        "source": "a3",
+        "target": "e4",
+        "kind": "action",
+        "verb": "reports",
+        "traces": [
+          "R-4"
+        ]
+      },
+      {
+        "id": "x7",
+        "source": "a4",
+        "target": "e3",
+        "kind": "action",
+        "verb": "settles",
+        "traces": [
+          "R-12"
+        ]
+      },
+      {
+        "id": "d1",
+        "source": "m1",
+        "target": "e1",
+        "kind": "data",
+        "verb": "owns",
+        "traces": [
+          "R-1"
+        ]
+      },
+      {
+        "id": "d2",
+        "source": "m2",
+        "target": "e2",
+        "kind": "data",
+        "verb": "owns",
+        "traces": [
+          "R-2"
+        ]
+      },
+      {
+        "id": "d3",
+        "source": "m3",
+        "target": "e3",
+        "kind": "data",
+        "verb": "owns",
+        "traces": [
+          "R-3"
+        ]
+      },
+      {
+        "id": "d4",
+        "source": "m4",
+        "target": "e4",
+        "kind": "data",
+        "verb": "owns",
+        "traces": [
+          "R-4"
+        ]
+      },
+      {
+        "id": "d5",
+        "source": "m5",
+        "target": "e5",
+        "kind": "data",
+        "verb": "owns",
+        "traces": [
+          "R-6"
+        ]
+      },
+      {
+        "id": "p1",
+        "source": "m5",
+        "target": "m1",
+        "kind": "dependency",
+        "verb": "calls",
+        "traces": [
+          "R-10"
+        ]
+      },
+      {
+        "id": "p2",
+        "source": "m5",
+        "target": "m2",
+        "kind": "dependency",
+        "verb": "calls",
+        "traces": [
+          "R-10"
+        ]
+      },
+      {
+        "id": "p3",
+        "source": "m5",
+        "target": "m3",
+        "kind": "dependency",
+        "verb": "calls",
+        "traces": [
+          "R-10"
+        ]
+      },
+      {
+        "id": "p4",
+        "source": "m3",
+        "target": "m4",
+        "kind": "dependency",
+        "verb": "checks stock with",
+        "traces": [
+          "R-7"
+        ]
+      },
+      {
+        "id": "p5",
+        "source": "m3",
+        "target": "a4",
+        "kind": "dependency",
+        "verb": "takes payment through",
+        "traces": [
+          "R-12"
+        ]
+      },
+      {
+        "id": "p6",
+        "source": "m4",
+        "target": "a3",
+        "kind": "dependency",
+        "verb": "syncs from",
+        "traces": [
+          "R-4"
+        ]
+      },
+      {
+        "id": "k1",
+        "source": "c1",
+        "target": "e1",
+        "kind": "constraint",
+        "verb": "scopes",
+        "traces": [
+          "R-9"
+        ]
+      },
+      {
+        "id": "k2",
+        "source": "c1",
+        "target": "e3",
+        "kind": "constraint",
+        "verb": "scopes",
+        "traces": [
+          "R-9"
+        ]
+      },
+      {
+        "id": "k3",
+        "source": "c1",
+        "target": "m5",
+        "kind": "constraint",
+        "verb": "scopes",
+        "traces": [
+          "R-9"
+        ]
+      },
+      {
+        "id": "k4",
+        "source": "c2",
+        "target": "m3",
+        "kind": "constraint",
+        "verb": "binds",
+        "traces": [
+          "R-7"
+        ]
+      },
+      {
+        "id": "k5",
+        "source": "c2",
+        "target": "e4",
+        "kind": "constraint",
+        "verb": "binds",
+        "traces": [
+          "R-7"
+        ]
+      }
+    ],
+    "changedNodeIds": []
+  },
+  "wireframes": {
+    "flows": [
+      {
+        "id": "flow-catalog",
+        "name": "Browse the catalog",
+        "version": "v1",
+        "screens": [
+          {
+            "id": "catalog",
+            "name": "Catalog",
+            "crumbs": [
+              "Shop"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "text",
+                "label": "42 products",
+                "value": null,
+                "tone": "muted",
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "row",
+                "label": "Category",
+                "value": "All",
+                "tone": "neutral",
+                "linkId": "l2"
+              },
+              {
+                "id": "b3",
+                "kind": "row",
+                "label": "Price",
+                "value": "Any",
+                "tone": "neutral",
+                "linkId": "l2"
+              },
+              {
+                "id": "b4",
+                "kind": "list",
+                "label": "Trail Runner 40L",
+                "value": "128.00",
+                "tone": "neutral",
+                "linkId": "l1"
+              },
+              {
+                "id": "b5",
+                "kind": "list",
+                "label": "Merino Base Layer",
+                "value": "74.00",
+                "tone": "neutral",
+                "linkId": "l1"
+              },
+              {
+                "id": "b6",
+                "kind": "list",
+                "label": "Alpine Shell",
+                "value": "310.00",
+                "tone": "neutral",
+                "linkId": "l1"
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Open a product",
+                "targetId": "product",
+                "variant": "row"
+              },
+              {
+                "id": "l2",
+                "label": "Filter",
+                "targetId": "catalog",
+                "variant": "secondary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "product",
+            "name": "Product",
+            "crumbs": [
+              "Shop",
+              "Trail Runner 40L"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "summary",
+                "label": "Trail Runner 40L",
+                "value": "128.00",
+                "tone": "neutral",
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "text",
+                "label": "In stock",
+                "value": "7 available",
+                "tone": "positive",
+                "linkId": null
+              },
+              {
+                "id": "b3",
+                "kind": "field",
+                "label": "Quantity",
+                "value": "1",
+                "tone": "muted",
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Add to cart",
+                "targetId": "catalog",
+                "variant": "primary"
+              },
+              {
+                "id": "l2",
+                "label": "Back to the catalog",
+                "targetId": "catalog",
+                "variant": "text"
+              }
+            ],
+            "terminal": false
+          }
+        ],
+        "traces": [
+          "R-1",
+          "R-10"
+        ],
+        "coversStoryIds": [
+          "US-201"
+        ],
+        "pendingRefinement": false,
+        "refinementNote": null
+      },
+      {
+        "id": "flow-cart",
+        "name": "Cart",
+        "version": "v1",
+        "screens": [
+          {
+            "id": "cart",
+            "name": "Cart",
+            "crumbs": [
+              "Cart"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "list",
+                "label": "Trail Runner 40L",
+                "value": "2 x 128.00",
+                "tone": "neutral",
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "list",
+                "label": "Merino Base Layer",
+                "value": "1 x 74.00",
+                "tone": "neutral",
+                "linkId": null
+              },
+              {
+                "id": "b3",
+                "kind": "summary",
+                "label": "Total",
+                "value": "330.00",
+                "tone": "neutral",
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Check out",
+                "targetId": "cart",
+                "variant": "primary"
+              },
+              {
+                "id": "l2",
+                "label": "Keep shopping",
+                "targetId": "cart",
+                "variant": "text"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "cart-empty",
+            "name": "Empty cart",
+            "crumbs": [
+              "Cart"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "text",
+                "label": "Your cart is empty",
+                "value": null,
+                "tone": "muted",
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Browse the catalog",
+                "targetId": "cart",
+                "variant": "primary"
+              }
+            ],
+            "terminal": false
+          }
+        ],
+        "traces": [
+          "R-2"
+        ],
+        "coversStoryIds": [
+          "US-202"
+        ],
+        "pendingRefinement": false,
+        "refinementNote": null
+      },
+      {
+        "id": "flow-checkout",
+        "name": "Checkout",
+        "version": "v1",
+        "screens": [
+          {
+            "id": "delivery",
+            "name": "Delivery",
+            "crumbs": [
+              "Checkout",
+              "Delivery"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "field",
+                "label": "Email",
+                "value": "you@example.com",
+                "tone": "muted",
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "field",
+                "label": "Address",
+                "value": "12 Bridge Street",
+                "tone": "muted",
+                "linkId": null
+              },
+              {
+                "id": "b3",
+                "kind": "field",
+                "label": "Postcode",
+                "value": "________",
+                "tone": "muted",
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Continue to payment",
+                "targetId": "payment",
+                "variant": "primary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "payment",
+            "name": "Payment",
+            "crumbs": [
+              "Checkout",
+              "Payment"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "summary",
+                "label": "To pay",
+                "value": "330.00",
+                "tone": "neutral",
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "text",
+                "label": "Taken by the payment provider",
+                "value": null,
+                "tone": "muted",
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Pay now",
+                "targetId": "confirmed",
+                "variant": "primary"
+              },
+              {
+                "id": "l2",
+                "label": "Back to delivery",
+                "targetId": "delivery",
+                "variant": "text"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "out-of-stock",
+            "name": "Line out of stock",
+            "crumbs": [
+              "Checkout",
+              "Payment"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "banner",
+                "label": "Trail Runner 40L: only 1 available",
+                "value": null,
+                "tone": "muted",
+                "linkId": "l1"
+              },
+              {
+                "id": "b2",
+                "kind": "text",
+                "label": "Reduce the quantity to continue",
+                "value": null,
+                "tone": "muted",
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Back to the cart",
+                "targetId": "delivery",
+                "variant": "primary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "confirmed",
+            "name": "Order confirmed",
+            "crumbs": [
+              "Checkout",
+              "Confirmed"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "summary",
+                "label": "Order",
+                "value": "SF-10482",
+                "tone": "positive",
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "text",
+                "label": "A confirmation is on its way by email",
+                "value": null,
+                "tone": "muted",
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Keep shopping",
+                "targetId": "confirmed",
+                "variant": "secondary"
+              }
+            ],
+            "terminal": true
+          }
+        ],
+        "traces": [
+          "R-3",
+          "R-7",
+          "R-12"
+        ],
+        "coversStoryIds": [
+          "US-203"
+        ],
+        "pendingRefinement": true,
+        "refinementNote": "Waiting on Q-1: whether an out of stock line blocks checkout or warns."
+      },
+      {
+        "id": "flow-orders",
+        "name": "Manage orders",
+        "version": "v1",
+        "screens": [
+          {
+            "id": "orders",
+            "name": "Orders",
+            "crumbs": [
+              "Orders"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "list",
+                "label": "SF-10482",
+                "value": "Paid",
+                "tone": "neutral",
+                "linkId": "l1"
+              },
+              {
+                "id": "b2",
+                "kind": "list",
+                "label": "SF-10481",
+                "value": "Shipped",
+                "tone": "positive",
+                "linkId": "l1"
+              },
+              {
+                "id": "b3",
+                "kind": "list",
+                "label": "SF-10480",
+                "value": "Refunded",
+                "tone": "muted",
+                "linkId": "l1"
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Open an order",
+                "targetId": "order",
+                "variant": "row"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "order",
+            "name": "Order",
+            "crumbs": [
+              "Orders",
+              "SF-10482"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "summary",
+                "label": "Total",
+                "value": "330.00",
+                "tone": "neutral",
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "row",
+                "label": "Status",
+                "value": "Paid",
+                "tone": "neutral",
+                "linkId": null
+              },
+              {
+                "id": "b3",
+                "kind": "list",
+                "label": "Trail Runner 40L",
+                "value": "2",
+                "tone": "neutral",
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Mark as shipped",
+                "targetId": "orders",
+                "variant": "primary"
+              },
+              {
+                "id": "l2",
+                "label": "Back to orders",
+                "targetId": "orders",
+                "variant": "text"
+              }
+            ],
+            "terminal": false
+          }
+        ],
+        "traces": [
+          "R-5"
+        ],
+        "coversStoryIds": [
+          "US-204"
+        ],
+        "pendingRefinement": false,
+        "refinementNote": null
+      },
+      {
+        "id": "flow-lookup",
+        "name": "Look up an order",
+        "version": "v1",
+        "screens": [
+          {
+            "id": "lookup",
+            "name": "Find an order",
+            "crumbs": [
+              "Order lookup"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "field",
+                "label": "Order number",
+                "value": "SF-10482",
+                "tone": "muted",
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "field",
+                "label": "Email",
+                "value": "you@example.com",
+                "tone": "muted",
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Find it",
+                "targetId": "status",
+                "variant": "primary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "status",
+            "name": "Order status",
+            "crumbs": [
+              "Order lookup",
+              "SF-10482"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "summary",
+                "label": "Shipped",
+                "value": "2 items",
+                "tone": "positive",
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Look up another",
+                "targetId": "lookup",
+                "variant": "text"
+              }
+            ],
+            "terminal": false
+          }
+        ],
+        "traces": [
+          "R-11"
+        ],
+        "coversStoryIds": [
+          "US-207"
+        ],
+        "pendingRefinement": false,
+        "refinementNote": null
+      }
+    ],
+    "coverage": [
+      {
+        "storyId": "US-201",
+        "storyTitle": "As a shopper, I can browse and filter the catalog",
+        "screenIds": [
+          "flow-catalog/catalog",
+          "flow-catalog/product"
+        ],
+        "covered": true,
+        "needsScreen": true
+      },
+      {
+        "storyId": "US-202",
+        "storyTitle": "As a shopper, I can put items in a cart and change quantities",
+        "screenIds": [
+          "flow-cart/cart",
+          "flow-cart/cart-empty"
+        ],
+        "covered": true,
+        "needsScreen": true
+      },
+      {
+        "storyId": "US-203",
+        "storyTitle": "As a shopper, I can check out and get a confirmed order",
+        "screenIds": [
+          "flow-checkout/delivery",
+          "flow-checkout/payment",
+          "flow-checkout/out-of-stock",
+          "flow-checkout/confirmed"
+        ],
+        "covered": true,
+        "needsScreen": true
+      },
+      {
+        "storyId": "US-204",
+        "storyTitle": "As a merchant, I can see and update order status",
+        "screenIds": [
+          "flow-orders/orders",
+          "flow-orders/order"
+        ],
+        "covered": true,
+        "needsScreen": true
+      },
+      {
+        "storyId": "US-205",
+        "storyTitle": "As a merchant, my storefront's data is isolated from every other",
+        "screenIds": [],
+        "covered": false,
+        "needsScreen": false
+      },
+      {
+        "storyId": "US-206",
+        "storyTitle": "As a merchant, stock levels follow the inventory system",
+        "screenIds": [],
+        "covered": false,
+        "needsScreen": false
+      },
+      {
+        "storyId": "US-207",
+        "storyTitle": "As a shopper, I can look up a past order without an account",
+        "screenIds": [
+          "flow-lookup/lookup",
+          "flow-lookup/status"
+        ],
+        "covered": true,
+        "needsScreen": true
+      }
+    ]
+  },
+  "sprint": {
+    "sprintName": "Sprint 1",
+    "goal": "A shopper can find a product, put it in a cart and buy it.",
+    "velocityAssumption": {
+      "points": 26,
+      "basis": "Assumed from a team of three over a two week sprint. No history exists yet, so this is an assumption and not a measurement."
+    },
+    "estimatedPoints": 26,
+    "proposed": [
+      {
+        "id": "US-201",
+        "title": "As a shopper, I can browse and filter the catalog",
+        "epic": "Catalog",
+        "points": 8,
+        "priority": "must",
+        "traces": [
+          "R-1",
+          "R-10"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-201-1",
+            "given": "a storefront with products in two categories",
+            "when": "the shopper filters by one category",
+            "then": "only that category's products are listed, with the count shown"
+          },
+          {
+            "id": "AC-201-2",
+            "given": "a storefront with no products yet",
+            "when": "the shopper opens the catalog",
+            "then": "an empty state explains there is nothing listed, rather than showing a spinner"
+          }
+        ]
+      },
+      {
+        "id": "US-202",
+        "title": "As a shopper, I can put items in a cart and change quantities",
+        "epic": "Cart",
+        "points": 5,
+        "priority": "must",
+        "traces": [
+          "R-2"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-202-1",
+            "given": "a cart holding two of an item",
+            "when": "the shopper sets the quantity to five",
+            "then": "the cart total updates to five of that item without reloading the page"
+          },
+          {
+            "id": "AC-202-2",
+            "given": "a cart holding one item",
+            "when": "the shopper sets its quantity to zero",
+            "then": "the line is removed and the cart reports being empty"
+          }
+        ]
+      },
+      {
+        "id": "US-203",
+        "title": "As a shopper, I can check out and get a confirmed order",
+        "epic": "Checkout",
+        "points": 13,
+        "priority": "must",
+        "traces": [
+          "R-3",
+          "R-7",
+          "R-12"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-203-1",
+            "given": "a cart whose items are all in stock",
+            "when": "the shopper completes checkout and the provider settles",
+            "then": "an order is recorded and its number is shown on screen"
+          },
+          {
+            "id": "AC-203-2",
+            "given": "a cart holding more of an item than the recorded stock level",
+            "when": "the shopper tries to check out",
+            "then": "checkout is refused, naming the item and the quantity available"
+          },
+          {
+            "id": "AC-203-3",
+            "given": "the payment provider declines",
+            "when": "the shopper completes checkout",
+            "then": "no order is recorded and the cart is left as it was"
+          }
+        ]
+      }
+    ],
+    "backlog": [
+      {
+        "id": "US-204",
+        "title": "As a merchant, I can see and update order status",
+        "epic": "Orders",
+        "points": 8,
+        "priority": "must",
+        "traces": [
+          "R-5"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-204-1",
+            "given": "an order that has been paid for",
+            "when": "the merchant marks it as shipped",
+            "then": "the status shows as shipped with the time it changed"
+          }
+        ]
+      },
+      {
+        "id": "US-205",
+        "title": "As a merchant, my storefront's data is isolated from every other",
+        "epic": "Multi-tenancy",
+        "points": 8,
+        "priority": "must",
+        "traces": [
+          "R-6",
+          "R-9"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-205-1",
+            "given": "two storefronts each with their own orders",
+            "when": "one merchant requests an order id belonging to the other",
+            "then": "the request is refused as not found, revealing nothing about the other storefront"
+          }
+        ]
+      },
+      {
+        "id": "US-206",
+        "title": "As a merchant, stock levels follow the inventory system",
+        "epic": "Inventory",
+        "points": 5,
+        "priority": "should",
+        "traces": [
+          "R-4"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-206-1",
+            "given": "the inventory system reports a new stock level",
+            "when": "the sync runs",
+            "then": "the recorded stock level matches it and the sync time is updated"
+          }
+        ]
+      },
+      {
+        "id": "US-207",
+        "title": "As a shopper, I can look up a past order without an account",
+        "epic": "Orders",
+        "points": 3,
+        "priority": "could",
+        "traces": [
+          "R-11"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-207-1",
+            "given": "an order number and the email it was placed with",
+            "when": "the shopper looks it up",
+            "then": "the order status is shown without a sign in"
+          }
+        ]
+      }
+    ]
+  }
+}

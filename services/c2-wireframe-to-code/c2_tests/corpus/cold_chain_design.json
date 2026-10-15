@@ -1,0 +1,3336 @@
+{
+  "name": "Cold Chain Distribution Platform",
+  "graph": {
+    "nodes": [
+      {
+        "id": "a1",
+        "kind": "actor",
+        "label": "Warehouse Operator",
+        "description": "",
+        "position": {
+          "x": 0.0,
+          "y": 240.0
+        },
+        "traces": [
+          "R-1",
+          "R-2",
+          "R-17",
+          "R-18"
+        ],
+        "attributes": [],
+        "actorKind": "primary",
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "a2",
+        "kind": "actor",
+        "label": "Delivery Driver",
+        "description": "",
+        "position": {
+          "x": 0.0,
+          "y": 400.0
+        },
+        "traces": [
+          "R-3",
+          "R-4",
+          "R-5",
+          "R-12",
+          "R-16"
+        ],
+        "attributes": [],
+        "actorKind": "primary",
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "a3",
+        "kind": "actor",
+        "label": "Pharmacist",
+        "description": "",
+        "position": {
+          "x": 0.0,
+          "y": 560.0
+        },
+        "traces": [
+          "R-5",
+          "R-29"
+        ],
+        "attributes": [],
+        "actorKind": "primary",
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "a4",
+        "kind": "actor",
+        "label": "Compliance Officer",
+        "description": "",
+        "position": {
+          "x": 0.0,
+          "y": 720.0
+        },
+        "traces": [
+          "R-6",
+          "R-13",
+          "R-20"
+        ],
+        "attributes": [],
+        "actorKind": "primary",
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "a5",
+        "kind": "actor",
+        "label": "Regional Manager",
+        "description": "",
+        "position": {
+          "x": 0.0,
+          "y": 880.0
+        },
+        "traces": [
+          "R-7"
+        ],
+        "attributes": [],
+        "actorKind": "primary",
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "a6",
+        "kind": "actor",
+        "label": "ERP System",
+        "description": "",
+        "position": {
+          "x": 0.0,
+          "y": 1040.0
+        },
+        "traces": [
+          "R-21"
+        ],
+        "attributes": [],
+        "actorKind": "external_system",
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "a7",
+        "kind": "actor",
+        "label": "Mapping Provider",
+        "description": "",
+        "position": {
+          "x": 0.0,
+          "y": 1200.0
+        },
+        "traces": [
+          "R-22"
+        ],
+        "attributes": [],
+        "actorKind": "external_system",
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "a8",
+        "kind": "actor",
+        "label": "SMS Gateway",
+        "description": "",
+        "position": {
+          "x": 0.0,
+          "y": 1360.0
+        },
+        "traces": [
+          "R-23"
+        ],
+        "attributes": [],
+        "actorKind": "external_system",
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "a9",
+        "kind": "actor",
+        "label": "National Drug Registry",
+        "description": "",
+        "position": {
+          "x": 0.0,
+          "y": 1520.0
+        },
+        "traces": [
+          "R-24"
+        ],
+        "attributes": [],
+        "actorKind": "external_system",
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "e1",
+        "kind": "entity",
+        "label": "Consignment",
+        "description": "",
+        "position": {
+          "x": 720.0,
+          "y": 320.0
+        },
+        "traces": [
+          "R-1",
+          "R-3",
+          "R-14",
+          "R-15",
+          "R-24",
+          "R-28",
+          "R-29"
+        ],
+        "attributes": [
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "batch_number",
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "type": "string"
+          },
+          {
+            "name": "pharmacy_id",
+            "type": "string"
+          }
+        ],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "e2",
+        "kind": "entity",
+        "label": "Container",
+        "description": "",
+        "position": {
+          "x": 720.0,
+          "y": 480.0
+        },
+        "traces": [
+          "R-1",
+          "R-2",
+          "R-8",
+          "R-9",
+          "R-10"
+        ],
+        "attributes": [
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "sensor_id",
+            "type": "string"
+          },
+          {
+            "name": "permitted_range_min",
+            "type": "number"
+          },
+          {
+            "name": "permitted_range_max",
+            "type": "number"
+          }
+        ],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "e3",
+        "kind": "entity",
+        "label": "Vehicle",
+        "description": "",
+        "position": {
+          "x": 720.0,
+          "y": 640.0
+        },
+        "traces": [
+          "R-2"
+        ],
+        "attributes": [
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "registration",
+            "type": "string"
+          }
+        ],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "e4",
+        "kind": "entity",
+        "label": "Route",
+        "description": "",
+        "position": {
+          "x": 720.0,
+          "y": 800.0
+        },
+        "traces": [
+          "R-4",
+          "R-17",
+          "R-18"
+        ],
+        "attributes": [
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "stops",
+            "type": "array"
+          }
+        ],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "e5",
+        "kind": "entity",
+        "label": "TemperatureReading",
+        "description": "",
+        "position": {
+          "x": 720.0,
+          "y": 1120.0
+        },
+        "traces": [
+          "R-8",
+          "R-9",
+          "R-19",
+          "R-25"
+        ],
+        "attributes": [
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "container_id",
+            "type": "string"
+          },
+          {
+            "name": "value",
+            "type": "number"
+          },
+          {
+            "name": "timestamp",
+            "type": "datetime"
+          }
+        ],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": {
+          "ruleId": "label-is-grounded",
+          "reason": "Nothing in your input uses the words in TemperatureReading.",
+          "traces": [
+            "R-8",
+            "R-9",
+            "R-19",
+            "R-25"
+          ]
+        },
+        "changedInVersion": null
+      },
+      {
+        "id": "e6",
+        "kind": "entity",
+        "label": "Alert",
+        "description": "",
+        "position": {
+          "x": 720.0,
+          "y": 1280.0
+        },
+        "traces": [
+          "R-11",
+          "R-12",
+          "R-13"
+        ],
+        "attributes": [
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "container_id",
+            "type": "string"
+          },
+          {
+            "name": "raised_at",
+            "type": "datetime"
+          }
+        ],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "e7",
+        "kind": "entity",
+        "label": "AuditRecord",
+        "description": "",
+        "position": {
+          "x": 720.0,
+          "y": 1440.0
+        },
+        "traces": [
+          "R-15",
+          "R-28"
+        ],
+        "attributes": [
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "consignment_id",
+            "type": "string"
+          },
+          {
+            "name": "user_id",
+            "type": "string"
+          },
+          {
+            "name": "change",
+            "type": "string"
+          },
+          {
+            "name": "timestamp",
+            "type": "datetime"
+          }
+        ],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": {
+          "ruleId": "label-is-grounded",
+          "reason": "Nothing in your input uses the words in AuditRecord.",
+          "traces": [
+            "R-15",
+            "R-28"
+          ]
+        },
+        "changedInVersion": null
+      },
+      {
+        "id": "e8",
+        "kind": "entity",
+        "label": "Signature",
+        "description": "",
+        "position": {
+          "x": 720.0,
+          "y": 960.0
+        },
+        "traces": [
+          "R-5"
+        ],
+        "attributes": [
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "consignment_id",
+            "type": "string"
+          },
+          {
+            "name": "pharmacist_id",
+            "type": "string"
+          }
+        ],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "m1",
+        "kind": "service",
+        "label": "Dispatch Service",
+        "description": "",
+        "position": {
+          "x": 340.0,
+          "y": 0.0
+        },
+        "traces": [
+          "R-2",
+          "R-17",
+          "R-18"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "m2",
+        "kind": "service",
+        "label": "Route Service",
+        "description": "",
+        "position": {
+          "x": 340.0,
+          "y": 160.0
+        },
+        "traces": [
+          "R-4",
+          "R-22"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "m3",
+        "kind": "service",
+        "label": "Temperature Monitoring Service",
+        "description": "",
+        "position": {
+          "x": 340.0,
+          "y": 480.0
+        },
+        "traces": [
+          "R-8",
+          "R-9",
+          "R-10",
+          "R-11",
+          "R-19",
+          "R-25"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "m4",
+        "kind": "service",
+        "label": "Alerting Service",
+        "description": "",
+        "position": {
+          "x": 340.0,
+          "y": 640.0
+        },
+        "traces": [
+          "R-11",
+          "R-12",
+          "R-13",
+          "R-23"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": {
+          "ruleId": "label-is-grounded",
+          "reason": "Nothing in your input uses the words in Alerting Service.",
+          "traces": [
+            "R-11",
+            "R-12",
+            "R-13",
+            "R-23"
+          ]
+        },
+        "changedInVersion": null
+      },
+      {
+        "id": "m5",
+        "kind": "service",
+        "label": "Quarantine Service",
+        "description": "",
+        "position": {
+          "x": 340.0,
+          "y": 800.0
+        },
+        "traces": [
+          "R-14",
+          "R-15"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "m6",
+        "kind": "service",
+        "label": "Audit Service",
+        "description": "",
+        "position": {
+          "x": 340.0,
+          "y": 320.0
+        },
+        "traces": [
+          "R-6",
+          "R-15",
+          "R-20",
+          "R-28"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "m7",
+        "kind": "service",
+        "label": "Dispatch Board",
+        "description": "",
+        "position": {
+          "x": 340.0,
+          "y": 1120.0
+        },
+        "traces": [
+          "R-17",
+          "R-18"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "m8",
+        "kind": "service",
+        "label": "Temperature Dashboard",
+        "description": "",
+        "position": {
+          "x": 340.0,
+          "y": 1280.0
+        },
+        "traces": [
+          "R-19",
+          "R-25",
+          "R-26"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "m9",
+        "kind": "service",
+        "label": "Audit Console",
+        "description": "",
+        "position": {
+          "x": 340.0,
+          "y": 1440.0
+        },
+        "traces": [
+          "R-20"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "m10",
+        "kind": "service",
+        "label": "Mobile Application",
+        "description": "",
+        "position": {
+          "x": 340.0,
+          "y": 960.0
+        },
+        "traces": [
+          "R-16"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "m11",
+        "kind": "service",
+        "label": "Stock Integration Service",
+        "description": "",
+        "position": {
+          "x": 340.0,
+          "y": 1600.0
+        },
+        "traces": [
+          "R-21"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "m12",
+        "kind": "service",
+        "label": "Drug Registry Validation Service",
+        "description": "",
+        "position": {
+          "x": 340.0,
+          "y": 1760.0
+        },
+        "traces": [
+          "R-24"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": null,
+        "appliesTo": [],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "c1",
+        "kind": "constraint",
+        "label": "Non-attribution retention of state changes",
+        "description": "",
+        "position": {
+          "x": 1080.0,
+          "y": 1120.0
+        },
+        "traces": [
+          "R-28"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": "Audit/Regulatory Retention",
+        "appliesTo": [
+          "e1",
+          "e7"
+        ],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "c2",
+        "kind": "constraint",
+        "label": "Pharmacy data isolation",
+        "description": "",
+        "position": {
+          "x": 1080.0,
+          "y": 1280.0
+        },
+        "traces": [
+          "R-29"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": "Data Segregation Policy",
+        "appliesTo": [
+          "a3",
+          "e1"
+        ],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "c3",
+        "kind": "constraint",
+        "label": "Dashboard freshness (30s)",
+        "description": "",
+        "position": {
+          "x": 1080.0,
+          "y": 640.0
+        },
+        "traces": [
+          "R-25"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": "Performance SLA",
+        "appliesTo": [
+          "m8"
+        ],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "c4",
+        "kind": "constraint",
+        "label": "Dashboard load time (2s)",
+        "description": "",
+        "position": {
+          "x": 1080.0,
+          "y": 800.0
+        },
+        "traces": [
+          "R-26"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": "Performance SLA",
+        "appliesTo": [
+          "m8"
+        ],
+        "unconfirmed": null,
+        "changedInVersion": null
+      },
+      {
+        "id": "c5",
+        "kind": "constraint",
+        "label": "Platform availability 99.5%",
+        "description": "",
+        "position": {
+          "x": 1080.0,
+          "y": 960.0
+        },
+        "traces": [
+          "R-27"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": "Availability SLA",
+        "appliesTo": [
+          "m3",
+          "m4",
+          "m5",
+          "m1",
+          "m2"
+        ],
+        "unconfirmed": {
+          "ruleId": "label-is-grounded",
+          "reason": "Nothing in your input uses the words in Platform availability 99.5%.",
+          "traces": [
+            "R-27"
+          ]
+        },
+        "changedInVersion": null
+      },
+      {
+        "id": "c6",
+        "kind": "constraint",
+        "label": "Batch validation before dispatch",
+        "description": "",
+        "position": {
+          "x": 1080.0,
+          "y": 480.0
+        },
+        "traces": [
+          "R-24"
+        ],
+        "attributes": [],
+        "actorKind": null,
+        "standard": "National Drug Registry Regulation",
+        "appliesTo": [
+          "e1",
+          "m12"
+        ],
+        "unconfirmed": null,
+        "changedInVersion": null
+      }
+    ],
+    "edges": [
+      {
+        "id": "x1",
+        "source": "a1",
+        "target": "e1",
+        "kind": "action",
+        "verb": "packs",
+        "traces": [
+          "R-1"
+        ]
+      },
+      {
+        "id": "x2",
+        "source": "a1",
+        "target": "e2",
+        "kind": "action",
+        "verb": "packs into",
+        "traces": [
+          "R-1"
+        ]
+      },
+      {
+        "id": "x3",
+        "source": "a1",
+        "target": "e3",
+        "kind": "action",
+        "verb": "assigns container to",
+        "traces": [
+          "R-2"
+        ]
+      },
+      {
+        "id": "x4",
+        "source": "a2",
+        "target": "e1",
+        "kind": "action",
+        "verb": "collects",
+        "traces": [
+          "R-3"
+        ]
+      },
+      {
+        "id": "x5",
+        "source": "a2",
+        "target": "e4",
+        "kind": "action",
+        "verb": "follows",
+        "traces": [
+          "R-4"
+        ]
+      },
+      {
+        "id": "x6",
+        "source": "a2",
+        "target": "e8",
+        "kind": "action",
+        "verb": "captures",
+        "traces": [
+          "R-5"
+        ]
+      },
+      {
+        "id": "x7",
+        "source": "a3",
+        "target": "e8",
+        "kind": "action",
+        "verb": "provides",
+        "traces": [
+          "R-5"
+        ]
+      },
+      {
+        "id": "x8",
+        "source": "a4",
+        "target": "e7",
+        "kind": "action",
+        "verb": "reconstructs history from",
+        "traces": [
+          "R-6"
+        ]
+      },
+      {
+        "id": "x9",
+        "source": "a4",
+        "target": "e7",
+        "kind": "action",
+        "verb": "exports",
+        "traces": [
+          "R-20"
+        ]
+      },
+      {
+        "id": "x10",
+        "source": "a5",
+        "target": "e4",
+        "kind": "action",
+        "verb": "reviews performance across",
+        "traces": [
+          "R-7"
+        ]
+      },
+      {
+        "id": "x11",
+        "source": "a1",
+        "target": "e4",
+        "kind": "action",
+        "verb": "views",
+        "traces": [
+          "R-17"
+        ]
+      },
+      {
+        "id": "x12",
+        "source": "a1",
+        "target": "e4",
+        "kind": "action",
+        "verb": "reassigns stop on",
+        "traces": [
+          "R-18"
+        ]
+      },
+      {
+        "id": "x13",
+        "source": "m1",
+        "target": "e3",
+        "kind": "data",
+        "verb": "owns",
+        "traces": [
+          "R-2"
+        ]
+      },
+      {
+        "id": "x14",
+        "source": "m1",
+        "target": "e2",
+        "kind": "data",
+        "verb": "owns",
+        "traces": [
+          "R-2"
+        ]
+      },
+      {
+        "id": "x15",
+        "source": "m2",
+        "target": "e4",
+        "kind": "data",
+        "verb": "owns",
+        "traces": [
+          "R-4"
+        ]
+      },
+      {
+        "id": "x16",
+        "source": "m3",
+        "target": "e2",
+        "kind": "data",
+        "verb": "owns",
+        "traces": [
+          "R-8",
+          "R-9",
+          "R-10"
+        ]
+      },
+      {
+        "id": "x17",
+        "source": "m3",
+        "target": "e5",
+        "kind": "data",
+        "verb": "owns",
+        "traces": [
+          "R-9"
+        ]
+      },
+      {
+        "id": "x18",
+        "source": "m4",
+        "target": "e6",
+        "kind": "data",
+        "verb": "owns",
+        "traces": [
+          "R-11"
+        ]
+      },
+      {
+        "id": "x19",
+        "source": "m5",
+        "target": "e1",
+        "kind": "data",
+        "verb": "owns",
+        "traces": [
+          "R-14"
+        ]
+      },
+      {
+        "id": "x20",
+        "source": "m6",
+        "target": "e7",
+        "kind": "data",
+        "verb": "owns",
+        "traces": [
+          "R-15",
+          "R-28"
+        ]
+      },
+      {
+        "id": "x21",
+        "source": "m10",
+        "target": "e4",
+        "kind": "data",
+        "verb": "reads",
+        "traces": [
+          "R-16"
+        ]
+      },
+      {
+        "id": "x22",
+        "source": "m3",
+        "target": "m4",
+        "kind": "dependency",
+        "verb": "triggers",
+        "traces": [
+          "R-10",
+          "R-11"
+        ]
+      },
+      {
+        "id": "x23",
+        "source": "m4",
+        "target": "m5",
+        "kind": "dependency",
+        "verb": "invokes",
+        "traces": [
+          "R-14"
+        ]
+      },
+      {
+        "id": "x24",
+        "source": "m4",
+        "target": "a2",
+        "kind": "dependency",
+        "verb": "notifies",
+        "traces": [
+          "R-12"
+        ]
+      },
+      {
+        "id": "x25",
+        "source": "m4",
+        "target": "a4",
+        "kind": "dependency",
+        "verb": "notifies",
+        "traces": [
+          "R-13"
+        ]
+      },
+      {
+        "id": "x26",
+        "source": "m4",
+        "target": "m8",
+        "kind": "dependency",
+        "verb": "pushes alert to",
+        "traces": [
+          "R-11",
+          "R-19"
+        ]
+      },
+      {
+        "id": "x27",
+        "source": "m5",
+        "target": "m6",
+        "kind": "dependency",
+        "verb": "records via",
+        "traces": [
+          "R-15"
+        ]
+      },
+      {
+        "id": "x28",
+        "source": "m7",
+        "target": "m1",
+        "kind": "dependency",
+        "verb": "calls",
+        "traces": [
+          "R-17",
+          "R-18"
+        ]
+      },
+      {
+        "id": "x29",
+        "source": "m8",
+        "target": "m3",
+        "kind": "dependency",
+        "verb": "calls",
+        "traces": [
+          "R-19",
+          "R-25"
+        ]
+      },
+      {
+        "id": "x30",
+        "source": "m9",
+        "target": "m6",
+        "kind": "dependency",
+        "verb": "calls",
+        "traces": [
+          "R-20"
+        ]
+      },
+      {
+        "id": "x31",
+        "source": "m2",
+        "target": "a7",
+        "kind": "dependency",
+        "verb": "calls",
+        "traces": [
+          "R-22"
+        ]
+      },
+      {
+        "id": "x32",
+        "source": "m4",
+        "target": "a8",
+        "kind": "dependency",
+        "verb": "calls",
+        "traces": [
+          "R-23"
+        ]
+      },
+      {
+        "id": "x33",
+        "source": "m11",
+        "target": "a6",
+        "kind": "dependency",
+        "verb": "calls",
+        "traces": [
+          "R-21"
+        ]
+      },
+      {
+        "id": "x34",
+        "source": "m12",
+        "target": "a9",
+        "kind": "dependency",
+        "verb": "calls",
+        "traces": [
+          "R-24"
+        ]
+      },
+      {
+        "id": "x35",
+        "source": "m5",
+        "target": "m12",
+        "kind": "dependency",
+        "verb": "validates via",
+        "traces": [
+          "R-24"
+        ]
+      },
+      {
+        "id": "x36",
+        "source": "c1",
+        "target": "e1",
+        "kind": "constraint",
+        "verb": "binds",
+        "traces": [
+          "R-28"
+        ]
+      },
+      {
+        "id": "x37",
+        "source": "c1",
+        "target": "e7",
+        "kind": "constraint",
+        "verb": "binds",
+        "traces": [
+          "R-28"
+        ]
+      },
+      {
+        "id": "x38",
+        "source": "c2",
+        "target": "a3",
+        "kind": "constraint",
+        "verb": "binds",
+        "traces": [
+          "R-29"
+        ]
+      },
+      {
+        "id": "x39",
+        "source": "c2",
+        "target": "e1",
+        "kind": "constraint",
+        "verb": "binds",
+        "traces": [
+          "R-29"
+        ]
+      },
+      {
+        "id": "x40",
+        "source": "c3",
+        "target": "m8",
+        "kind": "constraint",
+        "verb": "binds",
+        "traces": [
+          "R-25"
+        ]
+      },
+      {
+        "id": "x41",
+        "source": "c4",
+        "target": "m8",
+        "kind": "constraint",
+        "verb": "binds",
+        "traces": [
+          "R-26"
+        ]
+      },
+      {
+        "id": "x42",
+        "source": "c5",
+        "target": "m3",
+        "kind": "constraint",
+        "verb": "binds",
+        "traces": [
+          "R-27"
+        ]
+      },
+      {
+        "id": "x43",
+        "source": "c5",
+        "target": "m4",
+        "kind": "constraint",
+        "verb": "binds",
+        "traces": [
+          "R-27"
+        ]
+      },
+      {
+        "id": "x44",
+        "source": "c5",
+        "target": "m5",
+        "kind": "constraint",
+        "verb": "binds",
+        "traces": [
+          "R-27"
+        ]
+      },
+      {
+        "id": "x45",
+        "source": "c5",
+        "target": "m1",
+        "kind": "constraint",
+        "verb": "binds",
+        "traces": [
+          "R-27"
+        ]
+      },
+      {
+        "id": "x46",
+        "source": "c5",
+        "target": "m2",
+        "kind": "constraint",
+        "verb": "binds",
+        "traces": [
+          "R-27"
+        ]
+      },
+      {
+        "id": "x47",
+        "source": "c6",
+        "target": "e1",
+        "kind": "constraint",
+        "verb": "binds",
+        "traces": [
+          "R-24"
+        ]
+      },
+      {
+        "id": "x48",
+        "source": "c6",
+        "target": "m12",
+        "kind": "constraint",
+        "verb": "binds",
+        "traces": [
+          "R-24"
+        ]
+      }
+    ],
+    "changedNodeIds": []
+  },
+  "wireframes": {
+    "flows": [
+      {
+        "id": "flow-a1",
+        "name": "Warehouse Operator Journey",
+        "version": "v1",
+        "screens": [
+          {
+            "id": "s1",
+            "name": "Consignments to Pack",
+            "crumbs": [
+              "Warehouse",
+              "Consignments"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "list",
+                "label": "Pending Consignments",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "row",
+                "label": "Consignment C-1042",
+                "value": "Batch B-889 \u00b7 Pharmacy PH-12 \u00b7 Status: pending",
+                "tone": null,
+                "linkId": "l1"
+              },
+              {
+                "id": "b3",
+                "kind": "row",
+                "label": "Consignment C-1043",
+                "value": "Batch B-890 \u00b7 Pharmacy PH-07 \u00b7 Status: pending",
+                "tone": null,
+                "linkId": "l2"
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Open C-1042",
+                "targetId": "s2",
+                "variant": "row"
+              },
+              {
+                "id": "l2",
+                "label": "Open C-1043",
+                "targetId": "s2",
+                "variant": "row"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "s2",
+            "name": "Pack Consignment into Container",
+            "crumbs": [
+              "Warehouse",
+              "Consignments",
+              "Pack"
+            ],
+            "blocks": [
+              {
+                "id": "b4",
+                "kind": "field",
+                "label": "Consignment ID",
+                "value": "C-1042",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b5",
+                "kind": "field",
+                "label": "Batch Number",
+                "value": "B-889",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b6",
+                "kind": "field",
+                "label": "Select Container",
+                "value": "CT-204 (sensor S-88, range 2\u20138\u00b0C)",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b7",
+                "kind": "text",
+                "label": "Confirm this consignment fits within the container's permitted temperature range before packing.",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l3",
+                "label": "Confirm Pack",
+                "targetId": "s3",
+                "variant": "primary"
+              },
+              {
+                "id": "l4",
+                "label": "Cancel",
+                "targetId": "s1",
+                "variant": "secondary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "s3",
+            "name": "Consignment Packed",
+            "crumbs": [
+              "Warehouse",
+              "Consignments",
+              "Packed"
+            ],
+            "blocks": [
+              {
+                "id": "b8",
+                "kind": "banner",
+                "label": "Consignment C-1042 packed into Container CT-204",
+                "value": null,
+                "tone": "positive",
+                "linkId": null
+              },
+              {
+                "id": "b9",
+                "kind": "summary",
+                "label": "Status",
+                "value": "packed",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b10",
+                "kind": "summary",
+                "label": "Sensor",
+                "value": "S-88",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b11",
+                "kind": "summary",
+                "label": "Permitted Range",
+                "value": "2\u20138\u00b0C",
+                "tone": null,
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l5",
+                "label": "Assign Container to Vehicle",
+                "targetId": "s4",
+                "variant": "primary"
+              },
+              {
+                "id": "l6",
+                "label": "Back to Consignments",
+                "targetId": "s1",
+                "variant": "secondary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "s4",
+            "name": "Assign Container to Vehicle",
+            "crumbs": [
+              "Warehouse",
+              "Containers",
+              "Assign"
+            ],
+            "blocks": [
+              {
+                "id": "b12",
+                "kind": "field",
+                "label": "Container",
+                "value": "CT-204",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b13",
+                "kind": "field",
+                "label": "Select Vehicle",
+                "value": "VH-55 (Reg: XY12 ABC)",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b14",
+                "kind": "text",
+                "label": "This container will be loaded onto the selected vehicle for delivery.",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l7",
+                "label": "Confirm Assignment",
+                "targetId": "s5",
+                "variant": "primary"
+              },
+              {
+                "id": "l8",
+                "label": "Cancel",
+                "targetId": "s3",
+                "variant": "secondary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "s5",
+            "name": "Container Assigned to Vehicle",
+            "crumbs": [
+              "Warehouse",
+              "Containers",
+              "Assigned"
+            ],
+            "blocks": [
+              {
+                "id": "b15",
+                "kind": "banner",
+                "label": "Container CT-204 assigned to Vehicle VH-55",
+                "value": null,
+                "tone": "positive",
+                "linkId": null
+              },
+              {
+                "id": "b16",
+                "kind": "summary",
+                "label": "Registration",
+                "value": "XY12 ABC",
+                "tone": null,
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l9",
+                "label": "View Route",
+                "targetId": "s6",
+                "variant": "primary"
+              },
+              {
+                "id": "l10",
+                "label": "Back to Consignments",
+                "targetId": "s1",
+                "variant": "secondary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "s6",
+            "name": "Route Overview",
+            "crumbs": [
+              "Warehouse",
+              "Routes"
+            ],
+            "blocks": [
+              {
+                "id": "b17",
+                "kind": "list",
+                "label": "Route RT-9 Stops",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b18",
+                "kind": "row",
+                "label": "Stop 1: Pharmacy PH-12",
+                "value": "Scheduled 09:00",
+                "tone": null,
+                "linkId": "l11"
+              },
+              {
+                "id": "b19",
+                "kind": "row",
+                "label": "Stop 2: Pharmacy PH-07",
+                "value": "Scheduled 10:30",
+                "tone": null,
+                "linkId": "l12"
+              },
+              {
+                "id": "b20",
+                "kind": "row",
+                "label": "Stop 3: Pharmacy PH-15",
+                "value": "Scheduled 11:45",
+                "tone": null,
+                "linkId": "l13"
+              }
+            ],
+            "links": [
+              {
+                "id": "l11",
+                "label": "Reassign Stop 1",
+                "targetId": "s7",
+                "variant": "row"
+              },
+              {
+                "id": "l12",
+                "label": "Reassign Stop 2",
+                "targetId": "s7",
+                "variant": "row"
+              },
+              {
+                "id": "l13",
+                "label": "Reassign Stop 3",
+                "targetId": "s7",
+                "variant": "row"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "s7",
+            "name": "Reassign Stop on Route",
+            "crumbs": [
+              "Warehouse",
+              "Routes",
+              "Reassign"
+            ],
+            "blocks": [
+              {
+                "id": "b21",
+                "kind": "field",
+                "label": "Current Stop Order",
+                "value": "2",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b22",
+                "kind": "field",
+                "label": "New Stop Order",
+                "value": "1",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b23",
+                "kind": "text",
+                "label": "Moving this stop will shift the order of the remaining stops on the route.",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l14",
+                "label": "Confirm Reassignment",
+                "targetId": "s8",
+                "variant": "primary"
+              },
+              {
+                "id": "l15",
+                "label": "Cancel",
+                "targetId": "s6",
+                "variant": "secondary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "s8",
+            "name": "Stop Reassigned",
+            "crumbs": [
+              "Warehouse",
+              "Routes",
+              "Reassigned"
+            ],
+            "blocks": [
+              {
+                "id": "b24",
+                "kind": "banner",
+                "label": "Stop reassigned on Route RT-9",
+                "value": null,
+                "tone": "positive",
+                "linkId": null
+              },
+              {
+                "id": "b25",
+                "kind": "summary",
+                "label": "Stop",
+                "value": "Pharmacy PH-07",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b26",
+                "kind": "summary",
+                "label": "New Order Position",
+                "value": "1",
+                "tone": null,
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l16",
+                "label": "Back to Route",
+                "targetId": "s6",
+                "variant": "secondary"
+              }
+            ],
+            "terminal": false
+          }
+        ],
+        "traces": [
+          "R-1",
+          "R-2",
+          "R-17",
+          "R-18"
+        ],
+        "coversStoryIds": [
+          "US-1",
+          "US-2",
+          "US-12",
+          "US-13"
+        ],
+        "pendingRefinement": false,
+        "refinementNote": null
+      },
+      {
+        "id": "flow-a2",
+        "name": "Delivery Driver Route",
+        "version": "v1",
+        "screens": [
+          {
+            "id": "s1",
+            "name": "Today's Route",
+            "crumbs": [
+              "Route"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "banner",
+                "label": "Route #4521 assigned",
+                "value": null,
+                "tone": "neutral",
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "summary",
+                "label": "Stops",
+                "value": "6",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b3",
+                "kind": "summary",
+                "label": "Status",
+                "value": "Not started",
+                "tone": null,
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Start Route",
+                "targetId": "s2",
+                "variant": "primary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "s2",
+            "name": "Collect Consignment",
+            "crumbs": [
+              "Route",
+              "Depot"
+            ],
+            "blocks": [
+              {
+                "id": "b4",
+                "kind": "text",
+                "label": "Scan consignment to confirm pickup",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b5",
+                "kind": "field",
+                "label": "Batch Number",
+                "value": "BN-88213",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b6",
+                "kind": "summary",
+                "label": "Pharmacy",
+                "value": "Riverside Pharmacy",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b7",
+                "kind": "summary",
+                "label": "Status",
+                "value": "Ready for collection",
+                "tone": null,
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l2",
+                "label": "Confirm Collection",
+                "targetId": "s3",
+                "variant": "primary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "s3",
+            "name": "Route Stops",
+            "crumbs": [
+              "Route",
+              "Stops"
+            ],
+            "blocks": [
+              {
+                "id": "b8",
+                "kind": "list",
+                "label": "Upcoming Stops",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b9",
+                "kind": "row",
+                "label": "Stop 1: Riverside Pharmacy",
+                "value": null,
+                "tone": "neutral",
+                "linkId": "l3"
+              },
+              {
+                "id": "b10",
+                "kind": "row",
+                "label": "Stop 2: Oakfield Pharmacy",
+                "value": null,
+                "tone": "muted",
+                "linkId": null
+              },
+              {
+                "id": "b11",
+                "kind": "row",
+                "label": "Stop 3: High Street Pharmacy",
+                "value": null,
+                "tone": "muted",
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l3",
+                "label": "Arrive at Stop 1",
+                "targetId": "s4",
+                "variant": "row"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "s4",
+            "name": "Deliver Consignment",
+            "crumbs": [
+              "Route",
+              "Stops",
+              "Stop 1"
+            ],
+            "blocks": [
+              {
+                "id": "b12",
+                "kind": "text",
+                "label": "Confirm delivery to pharmacist",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b13",
+                "kind": "summary",
+                "label": "Consignment",
+                "value": "BN-88213",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b14",
+                "kind": "summary",
+                "label": "Pharmacy",
+                "value": "Riverside Pharmacy",
+                "tone": null,
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l4",
+                "label": "Capture Signature",
+                "targetId": "s5",
+                "variant": "primary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "s5",
+            "name": "Capture Signature",
+            "crumbs": [
+              "Route",
+              "Stops",
+              "Stop 1",
+              "Signature"
+            ],
+            "blocks": [
+              {
+                "id": "b15",
+                "kind": "field",
+                "label": "Pharmacist Signature",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b16",
+                "kind": "summary",
+                "label": "Pharmacist ID",
+                "value": "PH-2291",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b17",
+                "kind": "summary",
+                "label": "Consignment ID",
+                "value": "C-88213",
+                "tone": null,
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l5",
+                "label": "Submit Signature",
+                "targetId": "s6",
+                "variant": "primary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "s6",
+            "name": "Delivery Confirmed",
+            "crumbs": [
+              "Route",
+              "Stops",
+              "Stop 1",
+              "Confirmed"
+            ],
+            "blocks": [
+              {
+                "id": "b18",
+                "kind": "banner",
+                "label": "Delivery confirmed",
+                "value": null,
+                "tone": "positive",
+                "linkId": null
+              },
+              {
+                "id": "b19",
+                "kind": "summary",
+                "label": "Consignment",
+                "value": "BN-88213",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b20",
+                "kind": "summary",
+                "label": "Signed by",
+                "value": "PH-2291",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b21",
+                "kind": "summary",
+                "label": "Status",
+                "value": "Delivered",
+                "tone": null,
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l6",
+                "label": "Next Stop",
+                "targetId": "s3",
+                "variant": "secondary"
+              }
+            ],
+            "terminal": true
+          }
+        ],
+        "traces": [
+          "R-3",
+          "R-4",
+          "R-5",
+          "R-12",
+          "R-16"
+        ],
+        "coversStoryIds": [
+          "US-3",
+          "US-4",
+          "US-9",
+          "US-11"
+        ],
+        "pendingRefinement": false,
+        "refinementNote": null
+      },
+      {
+        "id": "flow-a4",
+        "name": "Compliance Officer: Audit Record Review & Export",
+        "version": "v1",
+        "screens": [
+          {
+            "id": "s1",
+            "name": "Audit Search",
+            "crumbs": [
+              "Compliance"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "text",
+                "label": "Search audit records by consignment, user, or date range to reconstruct history.",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "field",
+                "label": "Consignment ID",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b3",
+                "kind": "field",
+                "label": "User ID",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b4",
+                "kind": "field",
+                "label": "Date range",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Search",
+                "targetId": "s2",
+                "variant": "primary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "s2",
+            "name": "Audit Record Results",
+            "crumbs": [
+              "Compliance",
+              "Search"
+            ],
+            "blocks": [
+              {
+                "id": "b5",
+                "kind": "list",
+                "label": "Matching Audit Records",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b6",
+                "kind": "row",
+                "label": "Consignment C-1042 \u00b7 user U-88 \u00b7 changed status \u00b7 2024-03-11 09:14",
+                "value": null,
+                "tone": null,
+                "linkId": "l2"
+              },
+              {
+                "id": "b7",
+                "kind": "row",
+                "label": "Consignment C-1042 \u00b7 user U-12 \u00b7 updated weight \u00b7 2024-03-10 17:02",
+                "value": null,
+                "tone": null,
+                "linkId": "l3"
+              },
+              {
+                "id": "b8",
+                "kind": "row",
+                "label": "Consignment C-2091 \u00b7 user U-88 \u00b7 created record \u00b7 2024-03-09 08:45",
+                "value": null,
+                "tone": null,
+                "linkId": "l4"
+              }
+            ],
+            "links": [
+              {
+                "id": "l2",
+                "label": "View record",
+                "targetId": "s3",
+                "variant": "row"
+              },
+              {
+                "id": "l3",
+                "label": "View record",
+                "targetId": "s3",
+                "variant": "row"
+              },
+              {
+                "id": "l4",
+                "label": "View record",
+                "targetId": "s3",
+                "variant": "row"
+              },
+              {
+                "id": "l5",
+                "label": "Export all matching records",
+                "targetId": "s4",
+                "variant": "secondary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "s3",
+            "name": "Audit Record Detail",
+            "crumbs": [
+              "Compliance",
+              "Search",
+              "Record"
+            ],
+            "blocks": [
+              {
+                "id": "b9",
+                "kind": "summary",
+                "label": "Record ID",
+                "value": "AR-55021",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b10",
+                "kind": "summary",
+                "label": "Consignment ID",
+                "value": "C-1042",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b11",
+                "kind": "summary",
+                "label": "User ID",
+                "value": "U-88",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b12",
+                "kind": "summary",
+                "label": "Change",
+                "value": "Status updated: In Transit \u2192 Delivered",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b13",
+                "kind": "summary",
+                "label": "Timestamp",
+                "value": "2024-03-11 09:14:03",
+                "tone": null,
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l6",
+                "label": "Back to results",
+                "targetId": "s2",
+                "variant": "text"
+              },
+              {
+                "id": "l7",
+                "label": "Export this record",
+                "targetId": "s4",
+                "variant": "secondary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "s4",
+            "name": "Export Options",
+            "crumbs": [
+              "Compliance",
+              "Export"
+            ],
+            "blocks": [
+              {
+                "id": "b14",
+                "kind": "text",
+                "label": "Choose a format for the exported audit history.",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b15",
+                "kind": "field",
+                "label": "Format",
+                "value": "CSV",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b16",
+                "kind": "field",
+                "label": "Include fields",
+                "value": "id, consignment_id, user_id, change, timestamp",
+                "tone": null,
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l8",
+                "label": "Cancel",
+                "targetId": "s2",
+                "variant": "text"
+              },
+              {
+                "id": "l9",
+                "label": "Export",
+                "targetId": "s5",
+                "variant": "primary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "s5",
+            "name": "Export Complete",
+            "crumbs": [
+              "Compliance",
+              "Export",
+              "Complete"
+            ],
+            "blocks": [
+              {
+                "id": "b17",
+                "kind": "banner",
+                "label": "Audit history exported successfully.",
+                "value": null,
+                "tone": "positive",
+                "linkId": null
+              },
+              {
+                "id": "b18",
+                "kind": "summary",
+                "label": "Records exported",
+                "value": "3",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b19",
+                "kind": "summary",
+                "label": "Format",
+                "value": "CSV",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b20",
+                "kind": "summary",
+                "label": "File name",
+                "value": "audit_export_2024-03-12.csv",
+                "tone": null,
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l10",
+                "label": "Return to search",
+                "targetId": "s1",
+                "variant": "secondary"
+              }
+            ],
+            "terminal": true
+          }
+        ],
+        "traces": [
+          "R-6",
+          "R-13",
+          "R-20"
+        ],
+        "coversStoryIds": [
+          "US-5",
+          "US-9",
+          "US-15"
+        ],
+        "pendingRefinement": false,
+        "refinementNote": null
+      },
+      {
+        "id": "flow-a3",
+        "name": "Pharmacist Signature Confirmation",
+        "version": "v1",
+        "screens": [
+          {
+            "id": "s1",
+            "name": "Pending Consignments",
+            "crumbs": [
+              "Consignments"
+            ],
+            "blocks": [
+              {
+                "id": "b1",
+                "kind": "banner",
+                "label": "Consignments awaiting your signature",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b2",
+                "kind": "list",
+                "label": "Pending",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b3",
+                "kind": "row",
+                "label": "Consignment #4471 - 3 items",
+                "value": null,
+                "tone": null,
+                "linkId": "l1"
+              },
+              {
+                "id": "b4",
+                "kind": "row",
+                "label": "Consignment #4472 - 1 item",
+                "value": null,
+                "tone": null,
+                "linkId": "l2"
+              }
+            ],
+            "links": [
+              {
+                "id": "l1",
+                "label": "Open",
+                "targetId": "s2",
+                "variant": "row"
+              },
+              {
+                "id": "l2",
+                "label": "Open",
+                "targetId": "s2",
+                "variant": "row"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "s2",
+            "name": "Consignment Detail",
+            "crumbs": [
+              "Consignments",
+              "Detail"
+            ],
+            "blocks": [
+              {
+                "id": "b5",
+                "kind": "banner",
+                "label": "Consignment #4471",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b6",
+                "kind": "summary",
+                "label": "Consignment ID",
+                "value": "4471",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b7",
+                "kind": "summary",
+                "label": "Pharmacist",
+                "value": "You (ID: P-2091)",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b8",
+                "kind": "text",
+                "label": "Review the items before signing to confirm receipt.",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b9",
+                "kind": "row",
+                "label": "Item: Amoxicillin 500mg x2",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b10",
+                "kind": "row",
+                "label": "Item: Paracetamol 500mg x1",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l3",
+                "label": "Proceed to sign",
+                "targetId": "s3",
+                "variant": "primary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "s3",
+            "name": "Provide Signature",
+            "crumbs": [
+              "Consignments",
+              "Detail",
+              "Sign"
+            ],
+            "blocks": [
+              {
+                "id": "b11",
+                "kind": "banner",
+                "label": "Sign to confirm receipt of consignment #4471",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b12",
+                "kind": "field",
+                "label": "Signature",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b13",
+                "kind": "text",
+                "label": "By signing, you confirm you are pharmacist ID P-2091 accepting this consignment.",
+                "value": null,
+                "tone": null,
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l4",
+                "label": "Submit signature",
+                "targetId": "s4",
+                "variant": "primary"
+              },
+              {
+                "id": "l5",
+                "label": "Cancel",
+                "targetId": "s1",
+                "variant": "secondary"
+              }
+            ],
+            "terminal": false
+          },
+          {
+            "id": "s4",
+            "name": "Signature Confirmed",
+            "crumbs": [
+              "Consignments",
+              "Detail",
+              "Confirmed"
+            ],
+            "blocks": [
+              {
+                "id": "b14",
+                "kind": "banner",
+                "label": "Signature recorded",
+                "value": null,
+                "tone": "positive",
+                "linkId": null
+              },
+              {
+                "id": "b15",
+                "kind": "summary",
+                "label": "Signature ID",
+                "value": "SIG-88213",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b16",
+                "kind": "summary",
+                "label": "Consignment ID",
+                "value": "4471",
+                "tone": null,
+                "linkId": null
+              },
+              {
+                "id": "b17",
+                "kind": "summary",
+                "label": "Pharmacist ID",
+                "value": "P-2091",
+                "tone": null,
+                "linkId": null
+              }
+            ],
+            "links": [
+              {
+                "id": "l6",
+                "label": "Back to pending consignments",
+                "targetId": "s1",
+                "variant": "text"
+              }
+            ],
+            "terminal": true
+          }
+        ],
+        "traces": [
+          "R-5",
+          "R-29"
+        ],
+        "coversStoryIds": [
+          "US-4",
+          "US-20"
+        ],
+        "pendingRefinement": false,
+        "refinementNote": null
+      }
+    ],
+    "coverage": [
+      {
+        "storyId": "US-1",
+        "storyTitle": "As a Warehouse Operator, I can pack consignments into insulated containers",
+        "screenIds": [
+          "flow-a1/s1",
+          "flow-a1/s2",
+          "flow-a1/s3",
+          "flow-a1/s4",
+          "flow-a1/s5",
+          "flow-a1/s6",
+          "flow-a1/s7",
+          "flow-a1/s8"
+        ],
+        "covered": true,
+        "needsScreen": true
+      },
+      {
+        "storyId": "US-2",
+        "storyTitle": "As a Warehouse Operator, I can assign a container to a vehicle",
+        "screenIds": [
+          "flow-a1/s1",
+          "flow-a1/s2",
+          "flow-a1/s3",
+          "flow-a1/s4",
+          "flow-a1/s5",
+          "flow-a1/s6",
+          "flow-a1/s7",
+          "flow-a1/s8"
+        ],
+        "covered": true,
+        "needsScreen": true
+      },
+      {
+        "storyId": "US-3",
+        "storyTitle": "As a Delivery Driver, I can collect consignments and follow my assigned route",
+        "screenIds": [
+          "flow-a2/s1",
+          "flow-a2/s2",
+          "flow-a2/s3",
+          "flow-a2/s4",
+          "flow-a2/s5",
+          "flow-a2/s6"
+        ],
+        "covered": true,
+        "needsScreen": true
+      },
+      {
+        "storyId": "US-4",
+        "storyTitle": "As a Delivery Driver, I can capture a signature from the receiving Pharmacist at each stop",
+        "screenIds": [
+          "flow-a2/s1",
+          "flow-a2/s2",
+          "flow-a2/s3",
+          "flow-a2/s4",
+          "flow-a2/s5",
+          "flow-a2/s6",
+          "flow-a3/s1",
+          "flow-a3/s2",
+          "flow-a3/s3",
+          "flow-a3/s4"
+        ],
+        "covered": true,
+        "needsScreen": true
+      },
+      {
+        "storyId": "US-5",
+        "storyTitle": "As a Compliance Officer, I can reconstruct the full temperature history of any batch after the fact",
+        "screenIds": [
+          "flow-a4/s1",
+          "flow-a4/s2",
+          "flow-a4/s3",
+          "flow-a4/s4",
+          "flow-a4/s5"
+        ],
+        "covered": true,
+        "needsScreen": true
+      },
+      {
+        "storyId": "US-6",
+        "storyTitle": "As a Regional Manager, I can review performance across facilities each month",
+        "screenIds": [],
+        "covered": false,
+        "needsScreen": true
+      },
+      {
+        "storyId": "US-7",
+        "storyTitle": "As a system, I continuously receive and ingest container temperature readings",
+        "screenIds": [],
+        "covered": false,
+        "needsScreen": false
+      },
+      {
+        "storyId": "US-8",
+        "storyTitle": "As a system, I detect and alert when a container goes outside its permitted range",
+        "screenIds": [],
+        "covered": false,
+        "needsScreen": false
+      },
+      {
+        "storyId": "US-9",
+        "storyTitle": "As a Delivery Driver and duty Compliance Officer, I am notified immediately when a container alert is raised",
+        "screenIds": [
+          "flow-a2/s1",
+          "flow-a2/s2",
+          "flow-a2/s3",
+          "flow-a2/s4",
+          "flow-a2/s5",
+          "flow-a2/s6",
+          "flow-a4/s1",
+          "flow-a4/s2",
+          "flow-a4/s3",
+          "flow-a4/s4",
+          "flow-a4/s5"
+        ],
+        "covered": true,
+        "needsScreen": true
+      },
+      {
+        "storyId": "US-10",
+        "storyTitle": "As a system, I quarantine an affected consignment when an alert is raised and record it in the audit trail",
+        "screenIds": [],
+        "covered": false,
+        "needsScreen": false
+      },
+      {
+        "storyId": "US-11",
+        "storyTitle": "As a Delivery Driver, I can use the mobile application in areas with unreliable coverage",
+        "screenIds": [
+          "flow-a2/s1",
+          "flow-a2/s2",
+          "flow-a2/s3",
+          "flow-a2/s4",
+          "flow-a2/s5",
+          "flow-a2/s6"
+        ],
+        "covered": true,
+        "needsScreen": true
+      },
+      {
+        "storyId": "US-12",
+        "storyTitle": "As an operator, I can view all active routes on the Dispatch Board",
+        "screenIds": [
+          "flow-a1/s1",
+          "flow-a1/s2",
+          "flow-a1/s3",
+          "flow-a1/s4",
+          "flow-a1/s5",
+          "flow-a1/s6",
+          "flow-a1/s7",
+          "flow-a1/s8"
+        ],
+        "covered": true,
+        "needsScreen": true
+      },
+      {
+        "storyId": "US-13",
+        "storyTitle": "As an operator, I can reassign a stop on the Dispatch Board",
+        "screenIds": [
+          "flow-a1/s1",
+          "flow-a1/s2",
+          "flow-a1/s3",
+          "flow-a1/s4",
+          "flow-a1/s5",
+          "flow-a1/s6",
+          "flow-a1/s7",
+          "flow-a1/s8"
+        ],
+        "covered": true,
+        "needsScreen": true
+      },
+      {
+        "storyId": "US-14",
+        "storyTitle": "As a user, I can view live container readings by facility on the Temperature Dashboard",
+        "screenIds": [],
+        "covered": false,
+        "needsScreen": true
+      },
+      {
+        "storyId": "US-15",
+        "storyTitle": "As a Compliance Officer, I can export a batch's history using the Audit Console",
+        "screenIds": [
+          "flow-a4/s1",
+          "flow-a4/s2",
+          "flow-a4/s3",
+          "flow-a4/s4",
+          "flow-a4/s5"
+        ],
+        "covered": true,
+        "needsScreen": true
+      },
+      {
+        "storyId": "US-16",
+        "storyTitle": "As the platform, I integrate with the ERP, mapping provider, SMS gateway, and drug registry to support dispatch and delivery",
+        "screenIds": [],
+        "covered": false,
+        "needsScreen": false
+      },
+      {
+        "storyId": "US-17",
+        "storyTitle": "As a user, I can rely on the Temperature Dashboard to show near-real-time data quickly",
+        "screenIds": [],
+        "covered": false,
+        "needsScreen": true
+      },
+      {
+        "storyId": "US-18",
+        "storyTitle": "As a platform operator, I can depend on the system remaining available during delivery hours",
+        "screenIds": [],
+        "covered": false,
+        "needsScreen": true
+      },
+      {
+        "storyId": "US-19",
+        "storyTitle": "As a Compliance Officer, I can trace every consignment state change to the named user who made it",
+        "screenIds": [],
+        "covered": false,
+        "needsScreen": true
+      },
+      {
+        "storyId": "US-20",
+        "storyTitle": "As a Pharmacist, I only see data belonging to my own pharmacy",
+        "screenIds": [
+          "flow-a3/s1",
+          "flow-a3/s2",
+          "flow-a3/s3",
+          "flow-a3/s4"
+        ],
+        "covered": true,
+        "needsScreen": true
+      }
+    ]
+  },
+  "sprint": {
+    "sprintName": "Sprint 1 (proposed)",
+    "goal": "Pharmaceutical deliveries are packed, tracked, temperature-monitored, and audited end to end, with drivers, operators, managers, and compliance officers each able to act on live and historical data.",
+    "velocityAssumption": {
+      "points": 20,
+      "basis": "assumed, not measured: this project has delivered no sprint yet, so this is a planning placeholder to divide the work against rather than a team's observed rate"
+    },
+    "estimatedPoints": 17,
+    "proposed": [
+      {
+        "id": "US-1",
+        "title": "As a Warehouse Operator, I can pack consignments into insulated containers",
+        "epic": "Warehouse Operations",
+        "points": 3,
+        "priority": "should",
+        "traces": [
+          "R-1"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-1-1",
+            "given": "a consignment ready for dispatch",
+            "when": "a Warehouse Operator packs it into an insulated container",
+            "then": "the consignment is recorded as contained within that container"
+          }
+        ]
+      },
+      {
+        "id": "US-2",
+        "title": "As a Warehouse Operator, I can assign a container to a vehicle",
+        "epic": "Warehouse Operations",
+        "points": 5,
+        "priority": "should",
+        "traces": [
+          "R-2"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-2-1",
+            "given": "a packed container awaiting transport",
+            "when": "a Warehouse Operator assigns it to a vehicle",
+            "then": "the container shows that vehicle as its assigned carrier"
+          }
+        ]
+      },
+      {
+        "id": "US-3",
+        "title": "As a Delivery Driver, I can collect consignments and follow my assigned route",
+        "epic": "Delivery Execution",
+        "points": 5,
+        "priority": "should",
+        "traces": [
+          "R-3",
+          "R-4"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-3-1",
+            "given": "a driver arriving at the warehouse with an assigned route",
+            "when": "they collect the consignments for that route",
+            "then": "each consignment is marked collected and linked to the driver's route"
+          },
+          {
+            "id": "AC-3-2",
+            "given": "a driver underway with an assigned route",
+            "when": "they proceed through the planned stops",
+            "then": "the route's stop sequence is available to the driver in order"
+          }
+        ]
+      },
+      {
+        "id": "US-4",
+        "title": "As a Delivery Driver, I can capture a signature from the receiving Pharmacist at each stop",
+        "epic": "Delivery Execution",
+        "points": 2,
+        "priority": "should",
+        "traces": [
+          "R-5"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-4-1",
+            "given": "a driver has arrived at a stop with a consignment for that pharmacy",
+            "when": "the receiving Pharmacist signs for the delivery",
+            "then": "a signature record is stored against that consignment and stop"
+          }
+        ]
+      },
+      {
+        "id": "US-5",
+        "title": "As a Compliance Officer, I can reconstruct the full temperature history of any batch after the fact",
+        "epic": "Compliance & Audit",
+        "points": 2,
+        "priority": "should",
+        "traces": [
+          "R-6"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-5-1",
+            "given": "a batch that has completed its delivery journey",
+            "when": "a Compliance Officer requests its temperature history",
+            "then": "every recorded reading for that batch's container across the journey is returned in chronological order"
+          }
+        ]
+      }
+    ],
+    "backlog": [
+      {
+        "id": "US-6",
+        "title": "As a Regional Manager, I can review performance across facilities each month",
+        "epic": "Management Reporting",
+        "points": 5,
+        "priority": "should",
+        "traces": [
+          "R-7"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-6-1",
+            "given": "a completed calendar month of deliveries across facilities",
+            "when": "a Regional Manager opens the monthly performance review",
+            "then": "performance figures are shown broken down by facility for that month"
+          }
+        ]
+      },
+      {
+        "id": "US-7",
+        "title": "As a system, I continuously receive and ingest container temperature readings",
+        "epic": "Temperature Monitoring",
+        "points": 5,
+        "priority": "should",
+        "traces": [
+          "R-8",
+          "R-9"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-7-1",
+            "given": "a container sensor operating in transit",
+            "when": "the sensor reports a temperature reading",
+            "then": "the reading is stored as a TemperatureReading linked to that container"
+          },
+          {
+            "id": "AC-7-2",
+            "given": "a stream of readings arriving from multiple containers",
+            "when": "the Temperature Monitoring Service ingests them",
+            "then": "each reading is persisted with its container id and timestamp"
+          }
+        ]
+      },
+      {
+        "id": "US-8",
+        "title": "As a system, I detect and alert when a container goes outside its permitted range",
+        "epic": "Temperature Monitoring",
+        "points": 5,
+        "priority": "should",
+        "traces": [
+          "R-10",
+          "R-11"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-8-1",
+            "given": "a container with a defined permitted temperature range",
+            "when": "an ingested reading falls outside that range",
+            "then": "the container is flagged as out of range"
+          },
+          {
+            "id": "AC-8-2",
+            "given": "a container flagged as out of range",
+            "when": "the out-of-range condition is detected",
+            "then": "an Alert is created and linked to that container's consignment"
+          }
+        ]
+      },
+      {
+        "id": "US-9",
+        "title": "As a Delivery Driver and duty Compliance Officer, I am notified immediately when a container alert is raised",
+        "epic": "Temperature Monitoring",
+        "points": 5,
+        "priority": "should",
+        "traces": [
+          "R-12",
+          "R-13"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-9-1",
+            "given": "an alert raised for a container assigned to a driver's vehicle",
+            "when": "the alert is created",
+            "then": "the assigned driver receives a notification without manual polling"
+          },
+          {
+            "id": "AC-9-2",
+            "given": "an alert raised for any monitored container",
+            "when": "the alert is created",
+            "then": "the duty Compliance Officer receives a notification without manual polling"
+          }
+        ]
+      },
+      {
+        "id": "US-10",
+        "title": "As a system, I quarantine an affected consignment when an alert is raised and record it in the audit trail",
+        "epic": "Temperature Monitoring",
+        "points": 5,
+        "priority": "should",
+        "traces": [
+          "R-14",
+          "R-15"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-10-1",
+            "given": "an alert raised against a consignment's container",
+            "when": "the Quarantine Service processes the alert",
+            "then": "the consignment is marked quarantined and blocked from delivery"
+          },
+          {
+            "id": "AC-10-2",
+            "given": "a consignment that has been quarantined",
+            "when": "the quarantine action completes",
+            "then": "an AuditRecord exists showing the quarantine event, its reason, and timestamp"
+          }
+        ]
+      },
+      {
+        "id": "US-11",
+        "title": "As a Delivery Driver, I can use the mobile application in areas with unreliable coverage",
+        "epic": "Delivery Execution",
+        "points": 5,
+        "priority": "should",
+        "traces": [
+          "R-16"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-11-1",
+            "given": "a driver on a route with intermittent network coverage",
+            "when": "they use the mobile application to view route or delivery details",
+            "then": "the application continues to function using locally available data and syncs once connectivity returns"
+          }
+        ]
+      },
+      {
+        "id": "US-12",
+        "title": "As an operator, I can view all active routes on the Dispatch Board",
+        "epic": "Dispatch Management",
+        "points": 5,
+        "priority": "should",
+        "traces": [
+          "R-17"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-12-1",
+            "given": "multiple routes currently in progress",
+            "when": "an operator opens the Dispatch Board",
+            "then": "all active routes and their current status are displayed"
+          }
+        ]
+      },
+      {
+        "id": "US-13",
+        "title": "As an operator, I can reassign a stop on the Dispatch Board",
+        "epic": "Dispatch Management",
+        "points": 5,
+        "priority": "should",
+        "traces": [
+          "R-18"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-13-1",
+            "given": "an active route with an unfulfilled stop",
+            "when": "an operator reassigns that stop to a different route or driver",
+            "then": "the stop appears on the new route and no longer on the original one"
+          }
+        ]
+      },
+      {
+        "id": "US-14",
+        "title": "As a user, I can view live container readings by facility on the Temperature Dashboard",
+        "epic": "Temperature Monitoring",
+        "points": 5,
+        "priority": "should",
+        "traces": [
+          "R-19"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-14-1",
+            "given": "containers reporting readings at a given facility",
+            "when": "a user opens the Temperature Dashboard for that facility",
+            "then": "the current readings for that facility's containers are displayed"
+          }
+        ]
+      },
+      {
+        "id": "US-15",
+        "title": "As a Compliance Officer, I can export a batch's history using the Audit Console",
+        "epic": "Compliance & Audit",
+        "points": 3,
+        "priority": "should",
+        "traces": [
+          "R-20"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-15-1",
+            "given": "a batch with recorded history",
+            "when": "a Compliance Officer requests an export from the Audit Console",
+            "then": "a downloadable file containing that batch's full history is produced"
+          }
+        ]
+      },
+      {
+        "id": "US-16",
+        "title": "As the platform, I integrate with the ERP, mapping provider, SMS gateway, and drug registry to support dispatch and delivery",
+        "epic": "External Integrations",
+        "points": 21,
+        "priority": "should",
+        "traces": [
+          "R-21",
+          "R-22",
+          "R-23",
+          "R-24"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-16-1",
+            "given": "a consignment being prepared for dispatch",
+            "when": "the Stock Integration Service queries the ERP",
+            "then": "current stock levels for that consignment's items are returned"
+          },
+          {
+            "id": "AC-16-2",
+            "given": "a route awaiting optimisation",
+            "when": "the Route Service calls the mapping provider",
+            "then": "an optimised stop sequence is returned for that route"
+          },
+          {
+            "id": "AC-16-3",
+            "given": "a driver notification that needs to be sent",
+            "when": "the Alerting Service dispatches it via the SMS gateway",
+            "then": "the driver receives the notification as an SMS message"
+          },
+          {
+            "id": "AC-16-4",
+            "given": "a batch number entered before dispatch",
+            "when": "the Drug Registry Validation Service checks it against the national registry",
+            "then": "dispatch is allowed only if the batch number is confirmed valid"
+          }
+        ]
+      },
+      {
+        "id": "US-17",
+        "title": "As a user, I can rely on the Temperature Dashboard to show near-real-time data quickly",
+        "epic": "Temperature Monitoring",
+        "points": 8,
+        "priority": "should",
+        "traces": [
+          "R-25",
+          "R-26"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-17-1",
+            "given": "a new temperature reading has been received by the system",
+            "when": "30 seconds elapse",
+            "then": "the reading is visible on the Temperature Dashboard"
+          },
+          {
+            "id": "AC-17-2",
+            "given": "a user navigating to the Temperature Dashboard",
+            "when": "the dashboard is requested",
+            "then": "it finishes loading in under 2 seconds"
+          }
+        ]
+      },
+      {
+        "id": "US-18",
+        "title": "As a platform operator, I can depend on the system remaining available during delivery hours",
+        "epic": "Platform Reliability",
+        "points": 5,
+        "priority": "should",
+        "traces": [
+          "R-27"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-18-1",
+            "given": "a month of operation during declared delivery hours",
+            "when": "uptime is measured across that period",
+            "then": "the platform was available at least 99.5 percent of that time"
+          }
+        ]
+      },
+      {
+        "id": "US-19",
+        "title": "As a Compliance Officer, I can trace every consignment state change to the named user who made it",
+        "epic": "Compliance & Audit",
+        "points": 5,
+        "priority": "should",
+        "traces": [
+          "R-28"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-19-1",
+            "given": "a consignment undergoing a state change",
+            "when": "the change is applied",
+            "then": "an AuditRecord is created naming the user responsible and is retained for inspection"
+          }
+        ]
+      },
+      {
+        "id": "US-20",
+        "title": "As a Pharmacist, I only see data belonging to my own pharmacy",
+        "epic": "Access Control",
+        "points": 3,
+        "priority": "should",
+        "traces": [
+          "R-29"
+        ],
+        "acceptance": [
+          {
+            "id": "AC-20-1",
+            "given": "a Pharmacist signed in to view deliveries or consignments",
+            "when": "they browse consignment or delivery data",
+            "then": "only records belonging to their own pharmacy are returned"
+          }
+        ]
+      }
+    ]
+  }
+}

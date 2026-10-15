@@ -352,7 +352,16 @@ async def audit(
 
 #: What an action's words say it was. Read from the words because the audit log
 #: records actions as sentences, and the categories say which phase, not how it went.
-_FAILED = re.compile(r"\b(failed|abandoned|retired|stopped)\b", re.IGNORECASE)
+#: A failure is one of the sentences a run, a stage, a release or a rollback ends
+#: on without doing its work, or monitoring finding a release down, matched
+#: whole: "stopped" anywhere marked "Continued a stopped run" and "Stopped the
+#: preview", a person's own acts, as failures.
+_FAILED = re.compile(
+    r"^(run (failed|abandoned|retired|stopped by a restart)|failed to generate .+"
+    r"|(release|rollback) (failed|failed after traffic moved|undone before traffic moved)"
+    r"|monitoring found the release down)$",
+    re.IGNORECASE,
+)
 _CHANGES = re.compile(r"\brequested\b.*\bchanges?\b|\bqueued the change\b", re.IGNORECASE)
 _DONE = re.compile(
     r"^(approved|re-verified|released|restored|applied)\b|\bverified\b", re.IGNORECASE
