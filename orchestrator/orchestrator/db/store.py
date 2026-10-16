@@ -204,6 +204,7 @@ ThreadKind = Literal["user_note", "answer", "stage_summary", "system"]
 StageStatus = Literal["pending", "generating", "complete", "failed", "skipped"]
 OverlayKind = Literal[
     "requirement_text",
+    "requirement_priority",
     "assumption_text",
     "assumption_dismissed",
     "question_answer",
@@ -2405,6 +2406,29 @@ async def artefacts_at(
     return await run(conn, artefacts_at_query(project_id, version, kinds))
 
 
+def artefacts_upto_query(project_id: str, kinds: tuple[str, ...], upto: int) -> Query:
+    return Query(
+        """
+        SELECT kind, version, body FROM app.artefacts
+        WHERE project_id = %s AND kind = ANY(%s) AND version <= %s
+        ORDER BY version
+        """,
+        (project_id, list(kinds), upto),
+        _rows,
+    )
+
+
+async def artefacts_upto(
+    conn: AsyncConnection, project_id: str, *, kinds: tuple[str, ...], upto: int
+) -> list[Row]:
+    """Every version of the named kinds up to one, oldest first.
+
+    For reading an edit against the artefact it was made to: an edit is kept
+    against an id, and what that id named is in the version it was made at.
+    """
+    return await run(conn, artefacts_upto_query(project_id, kinds, upto))
+
+
 TEST_FILE_STAGE = "test-generation"
 
 
@@ -2496,6 +2520,17 @@ async def put_code_files(
         )
 
 
+async def code_version_before(conn: AsyncConnection, project_id: str, version: int) -> int | None:
+    """The newest earlier code version that has files, or None for the first."""
+    async with conn.cursor() as cur:
+        await cur.execute(
+            "SELECT max(version) FROM app.code_files WHERE project_id = %s AND version < %s",
+            (project_id, version),
+        )
+        row = await cur.fetchone()
+    return int(row[0]) if row and row[0] is not None else None
+
+
 async def code_files(
     conn: AsyncConnection, project_id: str, *, version: int, stage_id: str | None = None
 ) -> dict[str, str]:
@@ -2519,6 +2554,20 @@ async def code_files(
                 (project_id, version, stage_id),
             )
         return {path: content for path, content in await cur.fetchall()}
+
+
+async def generated_code_files(
+    conn: AsyncConnection, project_id: str, version: int
+) -> dict[str, str]:
+    """What Code Generation wrote at a version, without the tests Testing wrote beside it.
+
+    Testing's tests are stored with the code and come forward to a regenerated
+    version. They are Testing's to run and to hand on: the build, a push and a
+    download are of the generated code.
+    """
+    files = await code_files(conn, project_id, version=version)
+    tests = await code_files(conn, project_id, version=version, stage_id=TEST_FILE_STAGE)
+    return {path: content for path, content in files.items() if path not in tests}
 
 
 async def code_file(

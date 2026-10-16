@@ -14,6 +14,7 @@ number starts disagreeing with the thing it describes:
 """
 
 from collections.abc import Collection, Mapping
+from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any
 
@@ -29,6 +30,7 @@ from sdlc_contracts import (
     AskedQuestion,
     Assumption,
     ClarifyingQuestion,
+    DesignChanges,
     DesignSnapshot,
     DesignStageId,
     DesignThreadMessage,
@@ -40,6 +42,8 @@ from sdlc_contracts import (
     StageState,
     UmlArtefact,
     WireframesArtefact,
+    diff_requirements,
+    diff_stories,
 )
 
 from ..checks.consistency import Design, check_design
@@ -111,8 +115,6 @@ def _apply_requirement_overlays(
     the correction rate stays measurable.
     """
     edits = {row["target_id"]: row["value"] for row in rows if row["kind"] in _REQUIREMENT_OVERLAYS}
-    if not edits:
-        return requirements
     out: list[ParsedRequirement] = []
     for requirement in requirements:
         edit = edits.get(requirement.id)
@@ -120,7 +122,29 @@ def _apply_requirement_overlays(
             out.append(requirement)
         else:
             out.append(requirement.model_copy(update={"text": edit, "adjusted": True}))
-    return out
+    return with_corrected_priorities(out, rows)
+
+
+def with_corrected_priorities(
+    requirements: list[ParsedRequirement], rows: list[store.Row]
+) -> list[ParsedRequirement]:
+    """The priorities a person set, over what the rule read (review item C1-2).
+
+    Kept against the requirement's id, which later versions carry, so a
+    correction follows its requirement as a corrected text does. The newest wins:
+    the rows come oldest first.
+    """
+    set_by_a_person = {
+        row["target_id"]: row["value"] for row in rows if row["kind"] == "requirement_priority"
+    }
+    return [
+        requirement.model_copy(
+            update={"priority": set_by_a_person[requirement.id], "priority_corrected": True}
+        )
+        if requirement.id in set_by_a_person
+        else requirement
+        for requirement in requirements
+    ]
 
 
 def _apply_assumption_overlays(
@@ -147,20 +171,160 @@ def _edits_to(rows: list[store.Row], artefact: store.Row | None) -> list[store.R
     return [row for row in rows if row["version"] == artefact["version"]]
 
 
-def apply_design_edits(
-    graph: ArchitectureGraph,
-    requirements: list[ParsedRequirement],
-    rows: list[store.Row],
+#: The edits that are read against the artefact they were made to, and the
+#: artefact each is made to. A requirement keeps its id when it is reworded, and
+#: a node's id and an assumption's are their places in a list, so none of these
+#: can be laid over a later version by the id alone. A requirement's priority is
+#: not here: it is a judgement of the requirement, whose id is carried, and not
+#: of its wording.
+_FOLLOWED: dict[str, str] = {
+    "requirement_text": "requirements",
+    "assumption_text": "requirements",
+    "assumption_dismissed": "requirements",
+    "node_label": "architecture-graph",
+}
+
+#: What `_FOLLOWED` reads, for the one query that fetches it.
+FOLLOWED_KINDS = ("requirements", "architecture-graph")
+
+
+@dataclass(frozen=True)
+class HeldEdits:
+    """A person's edits as they stand at one design version."""
+
+    #: The edits that hold, oldest first, each naming its target by the id this
+    #: version gives it.
+    rows: list[store.Row]
+    #: Corrections not laid over a requirement because it was changed since they
+    #: were made, by the requirement's id. Kept so the page can say so.
+    set_aside: dict[str, str] = field(default_factory=dict)
+
+
+def _same(left: str, right: str) -> bool:
+    return " ".join(left.casefold().split()) == " ".join(right.casefold().split())
+
+
+def _now_called(row: store.Row, made_to: dict[str, Any], now: dict[str, Any]) -> str | None:
+    """The id, in the artefact as it is now, of what this edit was made to.
+
+    None when it is no longer there as it was: reworded, removed, or become
+    something else. The artefacts are as generated, so the comparison is of the
+    machine's words on both sides and a person's edit never moves it.
+    """
+    target = row["target_id"]
+    if row["kind"] == "requirement_text":
+        was = _text_of(made_to.get("requirements", []), target)
+        return target if was is not None and _is(now.get("requirements", []), target, was) else None
+    if row["kind"] == "node_label":
+        was_node = next((one for one in made_to.get("nodes", []) if one["id"] == target), None)
+        if was_node is None:
+            return None
+        same = [
+            one["id"]
+            for one in now.get("nodes", [])
+            if one["kind"] == was_node["kind"] and _same(one["label"], was_node["label"])
+        ]
+        return same[0] if len(same) == 1 else None
+    was = _text_of(made_to.get("assumptions", []), target)
+    if was is None:
+        return None
+    same = [one["id"] for one in now.get("assumptions", []) if _same(one["text"], was)]
+    return same[0] if len(same) == 1 else None
+
+
+def _text_of(items: list[dict[str, Any]], item_id: str) -> str | None:
+    return next((one["text"] for one in items if one["id"] == item_id), None)
+
+
+def _is(items: list[dict[str, Any]], item_id: str, text: str) -> bool:
+    found = _text_of(items, item_id)
+    return found is not None and _same(found, text)
+
+
+def edits_holding(rows: list[store.Row], history: list[store.Row], version: int) -> HeldEdits:
+    """The edits made up to one design version that still hold at it.
+
+    An edit made to this version's artefact goes by its id. One made to an
+    earlier version's is read against that version: it holds when what it was
+    made to is still there as the machine wrote it, and it is laid on the id
+    that thing has now. Otherwise it is left off, because laid over by the id
+    alone it covered a requirement a change had reworded, and renamed or
+    dismissed whatever stood in the same place of a new list (review items C1-8
+    and C1-9).
+    """
+
+    def newest(kind: str, upto: int) -> store.Row | None:
+        found = [one for one in history if one["kind"] == kind and one["version"] <= upto]
+        return max(found, key=lambda one: one["version"], default=None)
+
+    held: list[store.Row] = []
+    set_aside: dict[str, str] = {}
+    for row in rows:
+        if row["version"] > version:
+            continue
+        kind = _FOLLOWED.get(row["kind"])
+        made_to = newest(kind, row["version"]) if kind else None
+        now = newest(kind, version) if kind else None
+        if made_to is None or now is None or made_to["version"] == now["version"]:
+            held.append(row)
+            if row["kind"] == "requirement_text":
+                set_aside.pop(row["target_id"], None)
+            continue
+        called = _now_called(row, made_to["body"], now["body"])
+        if called is not None:
+            held.append({**row, "target_id": called})
+        elif row["kind"] == "requirement_text" and _text_of(
+            now["body"].get("requirements", []), row["target_id"]
+        ):
+            set_aside[row["target_id"]] = row["value"]
+    return HeldEdits(rows=held, set_aside=set_aside)
+
+
+async def held_edits(
+    conn: AsyncConnection,
+    project_id: str,
+    *,
     version: int,
+    rows: list[store.Row] | None = None,
+) -> HeldEdits:
+    """`edits_holding`, reading what it needs. One more read only when an edit
+    was made to an earlier version than the one asked for."""
+    if rows is None:
+        rows = await store.overlays(conn, project_id)
+    earlier = any(row["kind"] in _FOLLOWED and row["version"] < version for row in rows)
+    history = (
+        await store.artefacts_upto(conn, project_id, kinds=FOLLOWED_KINDS, upto=version)
+        if earlier
+        else []
+    )
+    return edits_holding(rows, history, version)
+
+
+def apply_design_edits(
+    graph: ArchitectureGraph, requirements: list[ParsedRequirement], held: HeldEdits
 ) -> tuple[ArchitectureGraph, list[ParsedRequirement]]:
-    """The renames and corrections made up to one design version, laid over its artefacts.
+    """The renames and corrections that hold at one design version, laid over its artefacts.
 
     For Code Generation, which read the artefacts as generated: a renamed node
-    or a corrected requirement changed the page and nothing that was built. Up to
-    the version, as the design page lays them: the ids carry across versions.
+    or a corrected requirement changed the page and nothing that was built. And
+    for the comparison healing reads, which has to compare what was built.
     """
-    at = [row for row in rows if row["version"] <= version]
-    return _apply_node_label_overlays(graph, at), _apply_requirement_overlays(requirements, at)
+    return (
+        _apply_node_label_overlays(graph, held.rows),
+        _apply_requirement_overlays(requirements, held.rows),
+    )
+
+
+def with_set_aside(
+    requirements: list[ParsedRequirement], held: HeldEdits
+) -> list[ParsedRequirement]:
+    """Each requirement with the correction that was not laid over it, if any."""
+    return [
+        one.model_copy(update={"set_aside_correction": held.set_aside[one.id]})
+        if one.id in held.set_aside
+        else one
+        for one in requirements
+    ]
 
 
 def _apply_question_overlays(
@@ -249,6 +413,10 @@ def selected_architecture(
     return None
 
 
+#: What a version is compared with the one before it on.
+COMPARED_KINDS = ("requirements", "sprint-plan", "architecture-graph")
+
+
 async def prefetch_design(conn: AsyncConnection, project_id: str, owner: str) -> None:
     """Ask, in one round trip, what composing this snapshot asks one by one.
 
@@ -269,6 +437,12 @@ async def prefetch_design(conn: AsyncConnection, project_id: str, owner: str) ->
         store.queued_notes_query(project_id),
         store.latest_full_run_query(project_id, "c1"),
     )
+    if store.remembering(conn):
+        version = await store.current_version(conn, project_id)
+        if version > 1:
+            await store.prefetch(
+                conn, store.artefacts_at_query(project_id, version - 1, COMPARED_KINDS)
+            )
 
 
 async def compose(conn: AsyncConnection, project: store.Row) -> DesignSnapshot:
@@ -317,18 +491,21 @@ async def compose(conn: AsyncConnection, project: store.Row) -> DesignSnapshot:
     sprint_body = body("sprint-plan")
     sprint = SprintPlan.model_validate(sprint_body) if sprint_body else None
 
-    # Human edits sit on top; the artefacts underneath stay as generated. A
-    # requirement's id is carried across versions (the identity tests), so a
-    # correction follows its requirement into later versions, and so do renames.
-    # A question's id is its place in the list, so an answer belongs only to the
-    # version of the questions it answered: matched by id across versions, a
-    # regenerated design's new questions arrived answered with the old answers.
-    requirements = _apply_requirement_overlays(parsed.requirements, overlay_rows)
-    assumptions = _apply_assumption_overlays(parsed.assumptions, overlay_rows)
+    # Human edits sit on top; the artefacts underneath stay as generated. An
+    # edit made to an earlier version holds here only on the thing it was made
+    # to (`edits_holding`): a requirement's id is carried across versions, but
+    # the requirement under it can be reworded, and a node's id and an
+    # assumption's are places in a list.
+    # A question's id is its place in the list too, and an answer belongs only
+    # to the version of the questions it answered: matched by id across versions,
+    # a regenerated design's new questions arrived answered with the old answers.
+    held = await held_edits(conn, project_id, version=version, rows=overlay_rows)
+    requirements = with_set_aside(_apply_requirement_overlays(parsed.requirements, held.rows), held)
+    assumptions = _apply_assumption_overlays(parsed.assumptions, held.rows)
     questions = _apply_question_overlays(
         parsed.questions, _edits_to(overlay_rows, artefacts.get("requirements"))
     )
-    graph = _apply_node_label_overlays(graph, overlay_rows)
+    graph = _apply_node_label_overlays(graph, held.rows)
 
     selection = selected_architecture(overlay_rows, version, architecture)
     if architecture is not None and selection is not None:
@@ -362,10 +539,48 @@ async def compose(conn: AsyncConnection, project: store.Row) -> DesignSnapshot:
     # depends on whether an actor performs it, and the graph is where the actors
     # are named.
     wireframes = with_coverage(wireframes, sprint, graph)
+    # What this version changed since the one before, from the two stored sets.
+    # The graph's changed nodes were read from `changedInVersion`, which nothing
+    # ever set, so the list was always empty (review item C1-6).
+    before = (
+        await store.artefacts_at(conn, project_id, version=version - 1, kinds=COMPARED_KINDS)
+        if version > 1
+        else {}
+    )
+    changes = None
+    if "requirements" in before and requirements_body:
+        earlier_plan = before.get("sprint-plan")
+        changes = DesignChanges(
+            from_version=version - 1,
+            requirements=diff_requirements(
+                RequirementsArtefact.model_validate(before["requirements"]["body"]),
+                parsed,
+                from_version=version - 1,
+                to_version=version,
+            ),
+            stories=diff_stories(
+                SprintPlan.model_validate(earlier_plan["body"]) if earlier_plan else None, sprint
+            ),
+        )
+    earlier_graph = before.get("architecture-graph")
+    earlier_nodes = (
+        {
+            node.id: (node.kind, node.label, node.description)
+            for node in ArchitectureGraph.model_validate(earlier_graph["body"]).nodes
+        }
+        if earlier_graph
+        else None
+    )
     graph = graph.model_copy(
         update={
             "changed_node_ids": [
-                node.id for node in graph.nodes if node.changed_in_version == version
+                node.id
+                for node in graph.nodes
+                if node.changed_in_version == version
+                or (
+                    earlier_nodes is not None
+                    and earlier_nodes.get(node.id) != (node.kind, node.label, node.description)
+                )
             ]
         }
     )
@@ -411,6 +626,7 @@ async def compose(conn: AsyncConnection, project: store.Row) -> DesignSnapshot:
         uml=uml,
         wireframes=wireframes,
         sprint=sprint,
+        changes=changes,
         gate=_gate_state(history_rows, version),
         run=await run_status(conn, project_id, component="c1"),
         consistency=list(consistency.findings),

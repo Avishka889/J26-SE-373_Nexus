@@ -1,0 +1,531 @@
+{
+  "config": {
+    "allowConsoleColors": true,
+    "allowEmpty": false,
+    "appendPlugins": [],
+    "checkerNodeArgs": [],
+    "checkers": [],
+    "cleanTempDir": true,
+    "clearTextReporter": {
+      "allowColor": true,
+      "allowEmojis": false,
+      "logTests": true,
+      "maxTestsToLog": 3,
+      "reportMutants": true,
+      "reportScoreTable": true,
+      "reportTests": true,
+      "skipFull": false
+    },
+    "commandRunner": {
+      "command": "npm test"
+    },
+    "concurrency": 1,
+    "coverageAnalysis": "perTest",
+    "dashboard": {
+      "baseUrl": "https://dashboard.stryker-mutator.io/api/reports",
+      "reportType": "full"
+    },
+    "disableBail": true,
+    "disableTypeChecks": true,
+    "dryRunOnly": false,
+    "dryRunTimeoutMinutes": 5,
+    "eventReporter": {
+      "baseDir": "reports/mutation/events"
+    },
+    "fileLogLevel": "off",
+    "force": false,
+    "htmlReporter": {
+      "fileName": "reports/mutation/mutation.html"
+    },
+    "ignorePatterns": [],
+    "ignoreStatic": false,
+    "ignorers": [],
+    "inPlace": false,
+    "incremental": false,
+    "incrementalFile": "reports/stryker-incremental.json",
+    "jsonReporter": {
+      "fileName": "reports/mutation/mutation.json"
+    },
+    "logLevel": "info",
+    "maxConcurrentTestRunners": 9007199254740991,
+    "maxTestRunnerReuse": 0,
+    "mutate": [
+      "src/total.ts"
+    ],
+    "mutator": {
+      "excludedMutations": [],
+      "plugins": null
+    },
+    "plugins": [
+      "@stryker-mutator/*"
+    ],
+    "reporters": [
+      "json"
+    ],
+    "symlinkNodeModules": true,
+    "tempDirName": ".stryker-tmp",
+    "testFiles": [],
+    "testRunner": "vitest",
+    "testRunnerNodeArgs": [],
+    "thresholds": {
+      "break": null,
+      "high": 80,
+      "low": 60
+    },
+    "timeoutFactor": 1.5,
+    "timeoutMS": 5000,
+    "tsconfigFile": "tsconfig.json",
+    "vitest": {
+      "related": true
+    },
+    "warnings": true
+  },
+  "files": {
+    "src/total.ts": {
+      "language": "typescript",
+      "mutants": [
+        {
+          "coveredBy": [],
+          "id": "4",
+          "location": {
+            "end": {
+              "column": 2,
+              "line": 17
+            },
+            "start": {
+              "column": 67,
+              "line": 12
+            }
+          },
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "static": false,
+          "status": "NoCoverage"
+        },
+        {
+          "coveredBy": [],
+          "id": "5",
+          "location": {
+            "end": {
+              "column": 35,
+              "line": 13
+            },
+            "start": {
+              "column": 7,
+              "line": 13
+            }
+          },
+          "mutatorName": "ConditionalExpression",
+          "replacement": "true",
+          "static": false,
+          "status": "NoCoverage"
+        },
+        {
+          "coveredBy": [],
+          "id": "6",
+          "location": {
+            "end": {
+              "column": 35,
+              "line": 13
+            },
+            "start": {
+              "column": 7,
+              "line": 13
+            }
+          },
+          "mutatorName": "ConditionalExpression",
+          "replacement": "false",
+          "static": false,
+          "status": "NoCoverage"
+        },
+        {
+          "coveredBy": [],
+          "id": "7",
+          "location": {
+            "end": {
+              "column": 35,
+              "line": 13
+            },
+            "start": {
+              "column": 7,
+              "line": 13
+            }
+          },
+          "mutatorName": "LogicalOperator",
+          "replacement": "percent < 0 && percent > 100",
+          "static": false,
+          "status": "NoCoverage"
+        },
+        {
+          "coveredBy": [],
+          "id": "8",
+          "location": {
+            "end": {
+              "column": 18,
+              "line": 13
+            },
+            "start": {
+              "column": 7,
+              "line": 13
+            }
+          },
+          "mutatorName": "ConditionalExpression",
+          "replacement": "false",
+          "static": false,
+          "status": "NoCoverage"
+        },
+        {
+          "coveredBy": [],
+          "id": "9",
+          "location": {
+            "end": {
+              "column": 18,
+              "line": 13
+            },
+            "start": {
+              "column": 7,
+              "line": 13
+            }
+          },
+          "mutatorName": "EqualityOperator",
+          "replacement": "percent <= 0",
+          "static": false,
+          "status": "NoCoverage"
+        },
+        {
+          "coveredBy": [],
+          "id": "10",
+          "location": {
+            "end": {
+              "column": 18,
+              "line": 13
+            },
+            "start": {
+              "column": 7,
+              "line": 13
+            }
+          },
+          "mutatorName": "EqualityOperator",
+          "replacement": "percent >= 0",
+          "static": false,
+          "status": "NoCoverage"
+        },
+        {
+          "coveredBy": [],
+          "id": "11",
+          "location": {
+            "end": {
+              "column": 35,
+              "line": 13
+            },
+            "start": {
+              "column": 22,
+              "line": 13
+            }
+          },
+          "mutatorName": "ConditionalExpression",
+          "replacement": "false",
+          "static": false,
+          "status": "NoCoverage"
+        },
+        {
+          "coveredBy": [],
+          "id": "12",
+          "location": {
+            "end": {
+              "column": 35,
+              "line": 13
+            },
+            "start": {
+              "column": 22,
+              "line": 13
+            }
+          },
+          "mutatorName": "EqualityOperator",
+          "replacement": "percent >= 100",
+          "static": false,
+          "status": "NoCoverage"
+        },
+        {
+          "coveredBy": [],
+          "id": "13",
+          "location": {
+            "end": {
+              "column": 35,
+              "line": 13
+            },
+            "start": {
+              "column": 22,
+              "line": 13
+            }
+          },
+          "mutatorName": "EqualityOperator",
+          "replacement": "percent <= 100",
+          "static": false,
+          "status": "NoCoverage"
+        },
+        {
+          "coveredBy": [],
+          "id": "14",
+          "location": {
+            "end": {
+              "column": 4,
+              "line": 15
+            },
+            "start": {
+              "column": 37,
+              "line": 13
+            }
+          },
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "static": false,
+          "status": "NoCoverage"
+        },
+        {
+          "coveredBy": [],
+          "id": "16",
+          "location": {
+            "end": {
+              "column": 61,
+              "line": 14
+            },
+            "start": {
+              "column": 26,
+              "line": 14
+            }
+          },
+          "mutatorName": "StringLiteral",
+          "replacement": "\"\"",
+          "static": false,
+          "status": "NoCoverage"
+        },
+        {
+          "coveredBy": [],
+          "id": "17",
+          "location": {
+            "end": {
+              "column": 62,
+              "line": 16
+            },
+            "start": {
+              "column": 10,
+              "line": 16
+            }
+          },
+          "mutatorName": "ArithmeticOperator",
+          "replacement": "Math.round(amount * (1 - percent / 100) * 100) * 100",
+          "static": false,
+          "status": "NoCoverage"
+        },
+        {
+          "coveredBy": [],
+          "id": "18",
+          "location": {
+            "end": {
+              "column": 55,
+              "line": 16
+            },
+            "start": {
+              "column": 21,
+              "line": 16
+            }
+          },
+          "mutatorName": "ArithmeticOperator",
+          "replacement": "amount * (1 - percent / 100) / 100",
+          "static": false,
+          "status": "NoCoverage"
+        },
+        {
+          "coveredBy": [],
+          "id": "19",
+          "location": {
+            "end": {
+              "column": 49,
+              "line": 16
+            },
+            "start": {
+              "column": 21,
+              "line": 16
+            }
+          },
+          "mutatorName": "ArithmeticOperator",
+          "replacement": "amount / (1 - percent / 100)",
+          "static": false,
+          "status": "NoCoverage"
+        },
+        {
+          "coveredBy": [],
+          "id": "20",
+          "location": {
+            "end": {
+              "column": 48,
+              "line": 16
+            },
+            "start": {
+              "column": 31,
+              "line": 16
+            }
+          },
+          "mutatorName": "ArithmeticOperator",
+          "replacement": "1 + percent / 100",
+          "static": false,
+          "status": "NoCoverage"
+        },
+        {
+          "coveredBy": [],
+          "id": "21",
+          "location": {
+            "end": {
+              "column": 48,
+              "line": 16
+            },
+            "start": {
+              "column": 35,
+              "line": 16
+            }
+          },
+          "mutatorName": "ArithmeticOperator",
+          "replacement": "percent * 100",
+          "static": false,
+          "status": "NoCoverage"
+        },
+        {
+          "coveredBy": [
+            "0",
+            "1"
+          ],
+          "id": "0",
+          "killedBy": [
+            "0",
+            "1"
+          ],
+          "location": {
+            "end": {
+              "column": 2,
+              "line": 8
+            },
+            "start": {
+              "column": 46,
+              "line": 6
+            }
+          },
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "static": false,
+          "status": "Killed",
+          "statusReason": "expected undefined to be 7 // Object.is equality",
+          "testsCompleted": 2
+        },
+        {
+          "coveredBy": [
+            "0",
+            "1"
+          ],
+          "id": "1",
+          "killedBy": [
+            "0"
+          ],
+          "location": {
+            "end": {
+              "column": 70,
+              "line": 7
+            },
+            "start": {
+              "column": 23,
+              "line": 7
+            }
+          },
+          "mutatorName": "ArrowFunction",
+          "replacement": "() => undefined",
+          "static": false,
+          "status": "Killed",
+          "statusReason": "expected undefined to be 7 // Object.is equality",
+          "testsCompleted": 2
+        },
+        {
+          "coveredBy": [
+            "0"
+          ],
+          "id": "2",
+          "killedBy": [
+            "0"
+          ],
+          "location": {
+            "end": {
+              "column": 70,
+              "line": 7
+            },
+            "start": {
+              "column": 38,
+              "line": 7
+            }
+          },
+          "mutatorName": "ArithmeticOperator",
+          "replacement": "sum - item.price * item.quantity",
+          "static": false,
+          "status": "Killed",
+          "statusReason": "expected -7 to be 7 // Object.is equality",
+          "testsCompleted": 1
+        },
+        {
+          "coveredBy": [
+            "0"
+          ],
+          "id": "3",
+          "killedBy": [
+            "0"
+          ],
+          "location": {
+            "end": {
+              "column": 70,
+              "line": 7
+            },
+            "start": {
+              "column": 44,
+              "line": 7
+            }
+          },
+          "mutatorName": "ArithmeticOperator",
+          "replacement": "item.price / item.quantity",
+          "static": false,
+          "status": "Killed",
+          "statusReason": "expected 1.6666666666666665 to be 7 // Object.is equality",
+          "testsCompleted": 1
+        }
+      ],
+      "source": "export interface Item {\n  price: number;\n  quantity: number;\n}\n\nexport function total(items: Item[]): number {\n  return items.reduce((sum, item) => sum + item.price * item.quantity, 0);\n}\n\n// No test reaches this. That is on purpose: the fixture is here to prove the\n// harness reports a coverage number rather than the number 100.\nexport function discount(amount: number, percent: number): number {\n  if (percent < 0 || percent > 100) {\n    throw new RangeError(\"a percentage is between 0 and 100\");\n  }\n  return Math.round(amount * (1 - percent / 100) * 100) / 100;\n}\n"
+    }
+  },
+  "framework": {
+    "branding": {
+      "homepageUrl": "https://stryker-mutator.io",
+      "imageUrl": "data:image/svg+xml;utf8,%3Csvg viewBox='0 0 1458 1458' xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' clip-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2'%3E%3Cpath fill='none' d='M0 0h1458v1458H0z'/%3E%3CclipPath id='a'%3E%3Cpath d='M0 0h1458v1458H0z'/%3E%3C/clipPath%3E%3Cg clip-path='url(%23a)'%3E%3Cpath d='M1458 729c0 402.655-326.345 729-729 729S0 1131.655 0 729C0 326.445 326.345 0 729 0s729 326.345 729 729' fill='%23e74c3c' fill-rule='nonzero'/%3E%3Cpath d='M778.349 1456.15L576.6 1254.401l233-105 85-78.668v-64.332l-257-257-44-187-50-208 251.806-82.793L1076.6 389.401l380.14 379.15c-19.681 367.728-311.914 663.049-678.391 687.599z' fill-opacity='.3'/%3E%3Cpath d='M753.4 329.503c41.79 0 74.579 7.83 97.925 25.444 23.571 18.015 41.69 43.956 55.167 77.097l11.662 28.679 165.733-58.183-14.137-32.13c-26.688-60.655-64.896-108.61-114.191-144.011-49.329-35.423-117.458-54.302-204.859-54.302-50.78 0-95.646 7.376-134.767 21.542-40.093 14.671-74.09 34.79-102.239 60.259-28.84 26.207-50.646 57.06-65.496 92.701-14.718 35.052-22.101 72.538-22.101 112.401 0 72.536 20.667 133.294 61.165 182.704 38.624 47.255 98.346 88.037 179.861 121.291 42.257 17.475 78.715 33.125 109.227 46.994 27.193 12.361 49.294 26.124 66.157 41.751 15.309 14.186 26.497 30.584 33.63 49.258 7.721 20.214 11.16 45.69 11.16 76.402 0 28.021-4.251 51.787-13.591 71.219-8.832 18.374-20.171 33.178-34.523 44.219-14.787 11.374-31.193 19.591-49.393 24.466-19.68 5.359-39.14 7.993-58.69 7.993-29.359 0-54.387-3.407-75.182-10.747-20.112-7.013-37.144-16.144-51.259-27.486-13.618-11.009-24.971-23.766-33.744-38.279-9.64-15.8-17.272-31.924-23.032-48.408l-10.965-31.376-161.669 60.585 10.734 30.124c10.191 28.601 24.197 56.228 42.059 82.748 18.208 27.144 41.322 51.369 69.525 72.745 27.695 21.075 60.904 38.218 99.481 51.041 37.777 12.664 82.004 19.159 132.552 19.159 49.998 0 95.818-8.321 137.611-24.622 42.228-16.471 78.436-38.992 108.835-67.291 30.719-28.597 54.631-62.103 71.834-100.642 17.263-38.56 25.923-79.392 25.923-122.248 0-54.339-8.368-100.37-24.208-138.32-16.29-38.759-38.252-71.661-65.948-98.797-26.965-26.418-58.269-48.835-93.858-67.175-33.655-17.241-69.196-33.11-106.593-47.533-35.934-13.429-65.822-26.601-89.948-39.525-22.153-11.868-40.009-24.21-53.547-37.309-11.429-11.13-19.83-23.678-24.718-37.664-5.413-15.49-7.98-33.423-7.98-53.577 0-40.883 11.293-71.522 37.086-90.539 28.443-20.825 64.985-30.658 109.311-30.658z' fill='%23f1c40f' fill-rule='nonzero'/%3E%3Cpath d='M720 0h18v113h-18zM1458 738v-18h-113v18h113zM720 1345h18v113h-18zM113 738v-18H0v18h113z'/%3E%3C/g%3E%3C/svg%3E"
+    },
+    "dependencies": {},
+    "name": "StrykerJS",
+    "version": "10.0.0"
+  },
+  "projectRoot": "/workspace/apps/web",
+  "schemaVersion": "1.0",
+  "testFiles": {
+    "src/__tests__/total.test.ts": {
+      "source": "import { describe, expect, it } from \"vitest\";\nimport { total } from \"../total\";\n\ndescribe(\"total\", () => {\n  it(\"adds price times quantity across the items\", () => {\n    expect(total([{ price: 2, quantity: 3 }, { price: 1, quantity: 1 }])).toBe(7);\n  });\n\n  it(\"is zero for an empty basket\", () => {\n    expect(total([])).toBe(0);\n  });\n\n  it.skip(\"handles a currency other than the default\", () => {\n    // Skipped on purpose: the fixture needs one case the framework declined to\n    // run, so `skipped` and `not-run` can be told apart in a real report.\n    expect(true).toBe(true);\n  });\n});\n",
+      "tests": [
+        {
+          "id": "0",
+          "name": "total adds price times quantity across the items"
+        },
+        {
+          "id": "1",
+          "name": "total is zero for an empty basket"
+        }
+      ]
+    }
+  },
+  "thresholds": {
+    "break": null,
+    "high": 80,
+    "low": 60
+  }
+}

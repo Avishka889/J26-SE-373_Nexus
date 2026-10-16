@@ -1,0 +1,37 @@
+{
+  "epoch": "epoch-5 checkpoint 2",
+  "commit": "6e60830",
+  "model": "",
+  "reports": 1,
+  "attempts": 3,
+  "regressionsFlagged": 1,
+  "convergence": {
+    "brittle": 2,
+    "repairsProduced": 2,
+    "repairsAccepted": 1,
+    "naiveConvergence": 100.0,
+    "strictConvergence": 50.0,
+    "guardEffect": 50.0
+  },
+  "classification": {
+    "labelled": 3,
+    "correct": 3,
+    "accuracy": 100.0,
+    "decided": 3,
+    "accuracyWhenDecided": 100.0,
+    "undecided": 0,
+    "regressionsCalledBrittle": 0,
+    "brittleCalledRegression": 0
+  },
+  "refusals": {
+    "kills-no-mutant": 1
+  },
+  "caughtCheats": 1,
+  "nonAnswers": 0,
+  "classifiedBy": {
+    "trace-changed": 1,
+    "model-referee": 1,
+    "trace-unchanged": 1
+  },
+  "ruleDecidedPercent": 66.67
+}

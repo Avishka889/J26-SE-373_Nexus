@@ -1,0 +1,128 @@
+{
+  "version": 1,
+  "generatedAt": "2026-09-21 16:38",
+  "target": "apps/web",
+  "fromCodeVersion": 1,
+  "toCodeVersion": 2,
+  "attempts": [
+    {
+      "testId": "basket::adds up the lines",
+      "testName": "adds up the lines",
+      "suitePath": "apps/web/src/__tests__/basket.test.ts",
+      "failureMessage": "expected 3.01 to be 3.005",
+      "classification": "brittle",
+      "classifiedBy": "trace-changed",
+      "evidence": {
+        "tracedTo": [
+          "R-4"
+        ],
+        "changedArtefacts": [
+          "R-4"
+        ],
+        "citedDiffSpan": "",
+        "refereeReasoning": ""
+      },
+      "attempts": 1,
+      "rejectedDrafts": [],
+      "diff": {
+        "path": "apps/web/src/__tests__/basket.test.ts",
+        "diff": "@@\n-    expect(total([1.005, 2])).toBe(3.005);\n+    expect(total([1.005, 2])).toBe(3.01);"
+      },
+      "checks": [
+        {
+          "name": "test-code-only",
+          "passed": true,
+          "detail": "one test file changed"
+        },
+        {
+          "name": "passes-unchanged-code",
+          "passed": true,
+          "detail": "the suite is green"
+        },
+        {
+          "name": "kills-a-mutant",
+          "passed": true,
+          "detail": "killed 2 of 3 injected mutants"
+        }
+      ],
+      "refusalReason": null,
+      "passedOnUnchangedRunId": "run-unchanged-1",
+      "killedMutantIds": [],
+      "accepted": true
+    },
+    {
+      "testId": "basket::applies the member discount",
+      "testName": "applies the member discount",
+      "suitePath": "apps/web/src/__tests__/basket.test.ts",
+      "failureMessage": "expected 3.01 to be 3.005",
+      "classification": "brittle",
+      "classifiedBy": "model-referee",
+      "evidence": {
+        "tracedTo": [
+          "R-4"
+        ],
+        "changedArtefacts": [
+          "R-4"
+        ],
+        "citedDiffSpan": "[R2] requirement R-7 changed its threshold from 50 to 40",
+        "refereeReasoning": "the rounding moved on purpose"
+      },
+      "attempts": 1,
+      "rejectedDrafts": [],
+      "diff": {
+        "path": "apps/web/src/__tests__/basket.test.ts",
+        "diff": "@@\n-    expect(discounted(5000, 10)).toBe(4500);\n+    expect(discounted(5000, 10)).toBeDefined();"
+      },
+      "checks": [
+        {
+          "name": "test-code-only",
+          "passed": true,
+          "detail": "one test file changed"
+        },
+        {
+          "name": "passes-unchanged-code",
+          "passed": true,
+          "detail": "the suite is green"
+        },
+        {
+          "name": "kills-a-mutant",
+          "passed": false,
+          "detail": "killed 0 of 3: the assertion cannot fail"
+        }
+      ],
+      "refusalReason": "kills-no-mutant",
+      "passedOnUnchangedRunId": "",
+      "killedMutantIds": [],
+      "accepted": false
+    },
+    {
+      "testId": "basket::rejects a negative quantity",
+      "testName": "rejects a negative quantity",
+      "suitePath": "apps/web/src/__tests__/basket.test.ts",
+      "failureMessage": "expected 3.01 to be 3.005",
+      "classification": "regression",
+      "classifiedBy": "trace-unchanged",
+      "evidence": {
+        "tracedTo": [
+          "R-4"
+        ],
+        "changedArtefacts": [],
+        "citedDiffSpan": "",
+        "refereeReasoning": ""
+      },
+      "attempts": 0,
+      "rejectedDrafts": [],
+      "diff": null,
+      "checks": [],
+      "refusalReason": null,
+      "passedOnUnchangedRunId": "",
+      "killedMutantIds": [],
+      "accepted": false
+    }
+  ],
+  "healed": 1,
+  "refused": 1,
+  "flaggedRegressions": 1,
+  "naiveConvergence": 100.0,
+  "strictConvergence": 50.0
+}

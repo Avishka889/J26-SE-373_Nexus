@@ -1,0 +1,345 @@
+{
+  "modelDir": "services/c3-testing-security/model/extracted",
+  "run": {
+    "baseModel": "microsoft/graphcodebert-base",
+    "epochs": 3,
+    "batch": 16,
+    "learningRate": 2e-05,
+    "seed": 13,
+    "maxTokens": 512,
+    "splitRule": {
+      "by": "family",
+      "seed": "c3",
+      "stratified": "within each weakness class",
+      "minFamiliesToScore": 6,
+      "why": "Juliet pairs a bad method with a near identical good one in the same file and re-emits each functional variant under seventy control flow wrappers. Splitting by family keeps every variant of one source and sink pair on one side, so a score cannot be earned by memorising a template. Splitting by file is the naive rule and is kept so the leakage can be measured rather than asserted."
+    },
+    "counts": {
+      "train": 119372,
+      "validation": 14109,
+      "test": 14094
+    },
+    "validationAccuracy": 0.995,
+    "testAccuracy": 0.995
+  },
+  "detection": {
+    "examples": 14094,
+    "accuracy": 0.995,
+    "precision": 0.9908,
+    "recall": 0.9932,
+    "f1": 0.992,
+    "truePositives": 4413,
+    "falsePositives": 41,
+    "falseNegatives": 30
+  },
+  "classification": {
+    "perClass": [
+      {
+        "cwe": "CWE-190",
+        "support": 682,
+        "truePositives": 484,
+        "falsePositives": 110,
+        "falseNegatives": 198,
+        "precision": 0.8148,
+        "recall": 0.7097,
+        "f1": 0.7586
+      },
+      {
+        "cwe": "CWE-191",
+        "support": 558,
+        "truePositives": 360,
+        "falsePositives": 128,
+        "falseNegatives": 198,
+        "precision": 0.7377,
+        "recall": 0.6452,
+        "f1": 0.6883
+      },
+      {
+        "cwe": "CWE-129",
+        "support": 434,
+        "truePositives": 204,
+        "falsePositives": 11,
+        "falseNegatives": 230,
+        "precision": 0.9488,
+        "recall": 0.47,
+        "f1": 0.6287
+      },
+      {
+        "cwe": "CWE-89",
+        "support": 372,
+        "truePositives": 371,
+        "falsePositives": 255,
+        "falseNegatives": 1,
+        "precision": 0.5927,
+        "recall": 0.9973,
+        "f1": 0.7435
+      },
+      {
+        "cwe": "CWE-369",
+        "support": 310,
+        "truePositives": 236,
+        "falsePositives": 5,
+        "falseNegatives": 74,
+        "precision": 0.9793,
+        "recall": 0.7613,
+        "f1": 0.8566
+      },
+      {
+        "cwe": "CWE-113",
+        "support": 248,
+        "truePositives": 228,
+        "falsePositives": 181,
+        "falseNegatives": 20,
+        "precision": 0.5575,
+        "recall": 0.9194,
+        "f1": 0.6941
+      },
+      {
+        "cwe": "CWE-789",
+        "support": 248,
+        "truePositives": 204,
+        "falsePositives": 493,
+        "falseNegatives": 44,
+        "precision": 0.2927,
+        "recall": 0.8226,
+        "f1": 0.4317
+      },
+      {
+        "cwe": "CWE-400",
+        "support": 248,
+        "truePositives": 248,
+        "falsePositives": 4,
+        "falseNegatives": 0,
+        "precision": 0.9841,
+        "recall": 1.0,
+        "f1": 0.992
+      },
+      {
+        "cwe": "CWE-79",
+        "support": 248,
+        "truePositives": 108,
+        "falsePositives": 5,
+        "falseNegatives": 140,
+        "precision": 0.9558,
+        "recall": 0.4355,
+        "f1": 0.5983
+      },
+      {
+        "cwe": "CWE-197",
+        "support": 186,
+        "truePositives": 160,
+        "falsePositives": 3,
+        "falseNegatives": 26,
+        "precision": 0.9816,
+        "recall": 0.8602,
+        "f1": 0.9169
+      },
+      {
+        "cwe": "CWE-134",
+        "support": 124,
+        "truePositives": 82,
+        "falsePositives": 2,
+        "falseNegatives": 42,
+        "precision": 0.9762,
+        "recall": 0.6613,
+        "f1": 0.7885
+      },
+      {
+        "cwe": "CWE-22",
+        "support": 124,
+        "truePositives": 99,
+        "falsePositives": 3,
+        "falseNegatives": 25,
+        "precision": 0.9706,
+        "recall": 0.7984,
+        "f1": 0.8761
+      },
+      {
+        "cwe": "CWE-601",
+        "support": 62,
+        "truePositives": 26,
+        "falsePositives": 21,
+        "falseNegatives": 36,
+        "precision": 0.5532,
+        "recall": 0.4194,
+        "f1": 0.4771
+      },
+      {
+        "cwe": "CWE-15",
+        "support": 62,
+        "truePositives": 26,
+        "falsePositives": 4,
+        "falseNegatives": 36,
+        "precision": 0.8667,
+        "recall": 0.4194,
+        "f1": 0.5652
+      },
+      {
+        "cwe": "CWE-319",
+        "support": 62,
+        "truePositives": 62,
+        "falsePositives": 1,
+        "falseNegatives": 0,
+        "precision": 0.9841,
+        "recall": 1.0,
+        "f1": 0.992
+      },
+      {
+        "cwe": "CWE-470",
+        "support": 62,
+        "truePositives": 26,
+        "falsePositives": 1,
+        "falseNegatives": 36,
+        "precision": 0.963,
+        "recall": 0.4194,
+        "f1": 0.5843
+      },
+      {
+        "cwe": "CWE-476",
+        "support": 62,
+        "truePositives": 61,
+        "falsePositives": 0,
+        "falseNegatives": 1,
+        "precision": 1.0,
+        "recall": 0.9839,
+        "f1": 0.9919
+      },
+      {
+        "cwe": "CWE-606",
+        "support": 62,
+        "truePositives": 24,
+        "falsePositives": 0,
+        "falseNegatives": 38,
+        "precision": 1.0,
+        "recall": 0.3871,
+        "f1": 0.5581
+      },
+      {
+        "cwe": "CWE-643",
+        "support": 62,
+        "truePositives": 25,
+        "falsePositives": 1,
+        "falseNegatives": 37,
+        "precision": 0.9615,
+        "recall": 0.4032,
+        "f1": 0.5682
+      },
+      {
+        "cwe": "CWE-690",
+        "support": 62,
+        "truePositives": 61,
+        "falsePositives": 0,
+        "falseNegatives": 1,
+        "precision": 1.0,
+        "recall": 0.9839,
+        "f1": 0.9919
+      },
+      {
+        "cwe": "CWE-78",
+        "support": 62,
+        "truePositives": 57,
+        "falsePositives": 1,
+        "falseNegatives": 5,
+        "precision": 0.9828,
+        "recall": 0.9194,
+        "f1": 0.95
+      },
+      {
+        "cwe": "CWE-90",
+        "support": 62,
+        "truePositives": 26,
+        "falsePositives": 1,
+        "falseNegatives": 36,
+        "precision": 0.963,
+        "recall": 0.4194,
+        "f1": 0.5843
+      },
+      {
+        "cwe": "CWE-563",
+        "support": 17,
+        "truePositives": 17,
+        "falsePositives": 0,
+        "falseNegatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      {
+        "cwe": "CWE-506",
+        "support": 17,
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 17,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "cwe": "CWE-570",
+        "support": 2,
+        "truePositives": 2,
+        "falsePositives": 2,
+        "falseNegatives": 0,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6667
+      },
+      {
+        "cwe": "CWE-571",
+        "support": 2,
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 2,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "cwe": "CWE-835",
+        "support": 1,
+        "truePositives": 1,
+        "falsePositives": 0,
+        "falseNegatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      {
+        "cwe": "CWE-398",
+        "support": 1,
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 1,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "cwe": "CWE-833",
+        "support": 1,
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 1,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "cwe": "other",
+        "support": 0,
+        "truePositives": 0,
+        "falsePositives": 24,
+        "falseNegatives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    ],
+    "macroF1": 0.6518,
+    "microPrecision": 0.718,
+    "microRecall": 0.7198,
+    "microF1": 0.7189,
+    "unlabelledClasses": {}
+  },
+  "families": 80
+}

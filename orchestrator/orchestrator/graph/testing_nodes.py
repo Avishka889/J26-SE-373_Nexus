@@ -42,10 +42,12 @@ from typing import Any, Literal
 
 from langgraph.graph import END
 from langgraph.types import Command, interrupt
+from psycopg import AsyncConnection
 from psycopg_pool import AsyncConnectionPool
 from sdlc_contracts import (
     ApiContract,
     ApiContractArtefact,
+    ArchitectureGraph,
     ChangedCode,
     ContractDiff,
     RemediationProposals,
@@ -56,6 +58,7 @@ from sdlc_contracts import (
     TestReport,
     diff_contracts,
     diff_requirements,
+    with_standing,
 )
 from sdlc_contracts.openapi import to_openapi
 
@@ -64,6 +67,7 @@ from ..clients.c3 import C3Client, StageNotApplicable, TargetRef
 from ..db import store
 from ..errors import readable_failure
 from ..model_use import stage_model_use
+from ..readmodel.assemble import apply_design_edits, held_edits
 from ..wording import readable_notes, stage_label
 from .state import C3RunState
 
@@ -291,6 +295,12 @@ async def _requirement_diff(
     version it was generated from, so comparing requirements means comparing
     the design versions behind the two code versions rather than the newest
     one, which may have moved on since either.
+
+    Each side as it was built from: with the reviewer's corrections that held at
+    that design version laid over it, as Code Generation reads it. Compared as
+    generated, a requirement a person corrected between two builds read as
+    unchanged, so a test that failed because of the correction traced to
+    nothing that moved and was called a regression (review item C1-10).
     """
     project_id = state["project_id"]
     before_version = await _design_version_for(pool, project_id, previous)
@@ -298,20 +308,24 @@ async def _requirement_diff(
     if not before_version or not after_version or before_version == after_version:
         return None
     async with pool.connection() as conn:
-        before_rows = await store.artefacts_at(
-            conn, project_id, version=before_version, kinds=("requirements",)
-        )
-        after_rows = await store.artefacts_at(
-            conn, project_id, version=after_version, kinds=("requirements",)
-        )
-    if "requirements" not in before_rows or "requirements" not in after_rows:
+        before = await _requirements_as_built(conn, project_id, before_version)
+        after = await _requirements_as_built(conn, project_id, after_version)
+    if before is None or after is None:
         return None
-    return diff_requirements(
-        RequirementsArtefact.model_validate(before_rows["requirements"]["body"]),
-        RequirementsArtefact.model_validate(after_rows["requirements"]["body"]),
-        from_version=before_version,
-        to_version=after_version,
-    )
+    return diff_requirements(before, after, from_version=before_version, to_version=after_version)
+
+
+async def _requirements_as_built(
+    conn: AsyncConnection, project_id: str, version: int
+) -> RequirementsArtefact | None:
+    """One design version's requirements, with the corrections that held at it."""
+    rows = await store.artefacts_at(conn, project_id, version=version, kinds=("requirements",))
+    if "requirements" not in rows:
+        return None
+    generated = RequirementsArtefact.model_validate(rows["requirements"]["body"])
+    held = await held_edits(conn, project_id, version=version)
+    _, corrected = apply_design_edits(ArchitectureGraph(), generated.requirements, held)
+    return generated.model_copy(update={"requirements": corrected})
 
 
 # ------------------------------------------------------------------- writing
@@ -343,6 +357,18 @@ async def _complete(
         version=state["test_version"],
         summary=summary,
         model_use=model_use,
+    )
+    # In the conversation too, as Design's and Code's stages are. This phase
+    # wrote its summaries to the stage row and the audit log alone, so its
+    # conversation was empty after a whole run, and what each stage did could
+    # be read only as the audit's notes.
+    await store.post_thread_message(
+        conn,
+        state["project_id"],
+        kind="stage_summary",
+        author=AUTHOR,
+        content=summary,
+        stage_id=stage_id,  # type: ignore[arg-type]
     )
 
 
@@ -415,6 +441,16 @@ async def _skip(pool: AsyncConnectionPool, state: C3RunState, stage_id: str, rea
             stage_id,  # type: ignore[arg-type]
             status="skipped",
             summary=reason,
+        )
+        # A stage that did not apply says so where the others say what they
+        # did: a gap in the conversation reads as a stage that was forgotten.
+        await store.post_thread_message(
+            conn,
+            state["project_id"],
+            kind="stage_summary",
+            author=AUTHOR,
+            content=reason,
+            stage_id=stage_id,  # type: ignore[arg-type]
         )
         await store.record(
             conn,
@@ -541,13 +577,54 @@ def make_test_generation(pool: AsyncConnectionPool, c3: C3Client):
                 state,
                 stage_id="test-generation",
                 kind="test-report",
-                body=outcome.notes.get("report", {}),
+                body=await _with_standing(pool, state, outcome.notes.get("report", {}), sprint),
                 summary=outcome.summary,
-                notes={k: v for k, v in outcome.notes.items() if k != "report"},
+                notes=_generation_notes(outcome.notes),
             )
         return state
 
     return test_generation
+
+
+def _generation_notes(notes: dict[str, Any]) -> dict[str, Any]:
+    """The generation stage's notes as the audit log keeps them.
+
+    Without the report, which is the artefact. And with what no test can assert
+    counted by kind: each one is on the report with its reason, where the page
+    reads it, and written out here they made one audit line of every reason
+    end to end.
+    """
+    kept = {name: value for name, value in notes.items() if name != "report"}
+    gaps = kept.get("gaps")
+    if isinstance(gaps, list):
+        counts: dict[str, int] = {}
+        for gap in gaps:
+            kind = str(gap.get("kind", "")) if isinstance(gap, dict) else ""
+            counts[kind] = counts.get(kind, 0) + 1
+        kept["gaps"] = counts
+    return kept
+
+
+async def _with_standing(
+    pool: AsyncConnectionPool, state: C3RunState, body: dict[str, Any], sprint: SprintPlan
+) -> dict[str, Any]:
+    """The generated report with each case's standing (`with_standing`).
+
+    Against the report of the test version before this one, so a case it ran is
+    carried from the version that first ran it, and against the build's stories
+    and their criteria, so a case written for one the build no longer has says so.
+    The run and quality stages keep both (`with_traces_from`).
+    """
+    if not body:
+        return body
+    async with pool.connection() as conn:
+        earlier = await store.artefact_history(
+            conn, state["project_id"], "test-report", before=state["test_version"]
+        )
+    previous = TestReport.model_validate(earlier[-1]["body"]) if earlier else None
+    criteria = {story.id: {one.id for one in story.acceptance} for story in sprint.proposed}
+    stood = with_standing(TestReport.model_validate(body), previous=previous, criteria=criteria)
+    return stood.model_dump(by_alias=True, mode="json")
 
 
 def make_test_run(pool: AsyncConnectionPool, c3: C3Client):
@@ -703,7 +780,16 @@ def make_remediation(pool: AsyncConnectionPool, c3: C3Client):
 
         report = ValidationReport.model_validate(body)
         target = await _target(pool, state)
-        outcome = await c3.propose_remediation(target, report)
+        # What each fix's risk is counted from: the tests that cover its lines
+        # and the endpoints whose contract it moves. Not handed over, every live
+        # statement said no test covers it and no contract moves (C3-11).
+        tests = await _test_body(pool, state, "test-report")
+        outcome = await c3.propose_remediation(
+            target,
+            report,
+            tests=TestReport.model_validate(tests) if tests is not None else None,
+            contract=await _contract(pool, state),
+        )
         plan = RemediationProposals(
             version=state["test_version"],
             generated_at=store.now(),

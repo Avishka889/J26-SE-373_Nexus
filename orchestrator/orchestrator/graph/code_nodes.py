@@ -60,7 +60,7 @@ from ..clients.c2 import C2Client, FilesOutcome, LandOutcome, PushOutcome, Stage
 from ..db import store
 from ..errors import readable_failure
 from ..model_use import stage_model_use
-from ..readmodel.assemble import apply_design_edits, selected_architecture
+from ..readmodel.assemble import apply_design_edits, held_edits, selected_architecture
 from ..sprints import choice_of, scope_name
 from ..wording import phase_name, readable_notes, stage_label
 from .state import C2RunState
@@ -143,9 +143,12 @@ async def _design(pool: AsyncConnectionPool, state: C2RunState):
     )
     async with pool.connection() as conn:
         rows = await store.overlays(conn, state["project_id"])
+        held = await held_edits(
+            conn, state["project_id"], version=state["design_version"], rows=rows
+        )
     # The nodes as the reviewer renamed them at this design version: renaming
     # changed the page and nothing that was built.
-    graph, _ = apply_design_edits(graph, [], rows, state["design_version"])
+    graph, _ = apply_design_edits(graph, [], held)
     # The reviewer's choice, made at the design version this run reads. The
     # stored recommendation carries none (the choice is an overlay beside it),
     # so the stack proposal always fell back to the machine's own pick.
@@ -165,8 +168,8 @@ async def _requirements(pool: AsyncConnectionPool, state: C2RunState) -> list[An
         return []
     generated = RequirementsArtefact.model_validate(bodies["requirements"]).requirements
     async with pool.connection() as conn:
-        rows = await store.overlays(conn, state["project_id"])
-    _, corrected = apply_design_edits(ArchitectureGraph(), generated, rows, state["design_version"])
+        held = await held_edits(conn, state["project_id"], version=state["design_version"])
+    _, corrected = apply_design_edits(ArchitectureGraph(), generated, held)
     return corrected
 
 
@@ -765,8 +768,12 @@ def make_build(pool: AsyncConnectionPool, c2: C2Client):
 
     async def call(state: C2RunState) -> None:
         async with pool.connection() as conn:
-            sources = await store.code_files(
-                conn, state["project_id"], version=state["code_version"]
+            # Without the tests Testing wrote, which come forward to a
+            # regenerated version: the build ran them against code they were
+            # not written for and pushed them with it, though Push and
+            # Download leave them out (review item C2-11).
+            sources = await store.generated_code_files(
+                conn, state["project_id"], state["code_version"]
             )
             project = await store.project_without_owner_check(conn, state["project_id"])
 

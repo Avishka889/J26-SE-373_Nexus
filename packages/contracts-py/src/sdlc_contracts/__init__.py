@@ -310,6 +310,7 @@ from .settings import (
 from .snapshot import (
     AskedQuestion,
     ConsistencyFinding,
+    DesignChanges,
     DesignSnapshot,
     DesignThreadMessage,
     GateDecision,
@@ -319,7 +320,15 @@ from .snapshot import (
     StageStatus,
     ThreadMessageKind,
 )
-from .sprint import AcceptanceCriterion, SprintPlan, UserStory, VelocityAssumption
+from .sprint import (
+    AcceptanceCriterion,
+    BacklogDependency,
+    SprintPlan,
+    StoryDiff,
+    UserStory,
+    VelocityAssumption,
+    diff_stories,
+)
 from .sprint_scope import ScopeStory, ScopeStoryTraces, SprintScope
 from .tech_stack import (
     CountedFact,
@@ -334,6 +343,7 @@ from .test_report import (
     QualityFinding,
     QualityRule,
     TestCase,
+    TestGap,
     TestKind,
     TestOrigin,
     TestOutcome,
@@ -444,6 +454,7 @@ __all__ = [
     "Assumption",
     "AssumptionId",
     "AtlasDatabase",
+    "BacklogDependency",
     "BaselinePin",
     "Blocker",
     "BuildReport",
@@ -504,6 +515,7 @@ __all__ = [
     "DeploymentState",
     "DeploymentStepView",
     "DeploymentView",
+    "DesignChanges",
     "DesignSnapshot",
     "DesignStageId",
     "DesignThreadMessage",
@@ -637,6 +649,7 @@ __all__ = [
     "StageStatus",
     "StateInterval",
     "StepState",
+    "StoryDiff",
     "StoryId",
     "Strategy",
     "SymbolSource",
@@ -645,6 +658,7 @@ __all__ = [
     "TestArtefactKind",
     "TestAuditEntry",
     "TestCase",
+    "TestGap",
     "TestKind",
     "TestOrigin",
     "TestOutcome",
@@ -707,6 +721,7 @@ __all__ = [
     "cvss_base_score",
     "diff_contracts",
     "diff_requirements",
+    "diff_stories",
     "most_cautious",
     "safety_first",
     "semver_level",

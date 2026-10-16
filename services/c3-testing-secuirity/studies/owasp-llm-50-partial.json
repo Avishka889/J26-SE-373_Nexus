@@ -1,0 +1,128 @@
+{
+  "epoch": {
+    "label": "probe-quota",
+    "commit": "e57da5e",
+    "dataset": "OWASP Benchmark 1.2 at 20cbf3d11123347e47ed89541e6942836def53f7, 1415 real weaknesses and 1325 decoys over 2740 files, GPL-2.0, checked out and never vendored",
+    "split_seed": "",
+    "note": "50 files of 2740",
+    "at": "2026-09-26T02:02:04.225329+00:00"
+  },
+  "target": "OWASP Benchmark 1.2",
+  "groundTruthCount": 45,
+  "arms": [
+    {
+      "arm": "llm",
+      "modelId": "google:gemini-3.5-flash-lite",
+      "durationSeconds": 28.727,
+      "promptTokens": 51759,
+      "completionTokens": 3444,
+      "costUsd": 0.0241377,
+      "offline": false,
+      "filesScanned": 38,
+      "found": 22,
+      "refused": 3,
+      "unitsExamined": 0,
+      "flaggedFraction": null,
+      "degenerate": false,
+      "detection": {
+        "precision": 1.0,
+        "recall": 0.4889,
+        "f1": 0.6567
+      },
+      "failures": [
+        "chunk 17 of 21: ModelHTTPError: status_code: 429, model_name: gemini-3.5-flash-lite, body: {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.5-flash-lite\\nPlease retry in 25.961740906s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.5-flash-lite'}, 'quotaValue': '15'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '25s'}]}}",
+        "stopped after chunk 17 of 21: the provider refused with a rate limit and this run does not retry. 4 chunks were never attempted"
+      ],
+      "perClass": [
+        {
+          "cwe": "CWE-89",
+          "support": 13,
+          "truePositives": 9,
+          "falsePositives": 0,
+          "falseNegatives": 4,
+          "precision": 1.0,
+          "recall": 0.6923,
+          "f1": 0.8182
+        },
+        {
+          "cwe": "CWE-327",
+          "support": 8,
+          "truePositives": 2,
+          "falsePositives": 0,
+          "falseNegatives": 6,
+          "precision": 1.0,
+          "recall": 0.25,
+          "f1": 0.4
+        },
+        {
+          "cwe": "CWE-79",
+          "support": 8,
+          "truePositives": 2,
+          "falsePositives": 0,
+          "falseNegatives": 6,
+          "precision": 1.0,
+          "recall": 0.25,
+          "f1": 0.4
+        },
+        {
+          "cwe": "CWE-22",
+          "support": 6,
+          "truePositives": 3,
+          "falsePositives": 0,
+          "falseNegatives": 3,
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6667
+        },
+        {
+          "cwe": "CWE-78",
+          "support": 4,
+          "truePositives": 3,
+          "falsePositives": 0,
+          "falseNegatives": 1,
+          "precision": 1.0,
+          "recall": 0.75,
+          "f1": 0.8571
+        },
+        {
+          "cwe": "CWE-90",
+          "support": 3,
+          "truePositives": 1,
+          "falsePositives": 0,
+          "falseNegatives": 2,
+          "precision": 1.0,
+          "recall": 0.3333,
+          "f1": 0.5
+        },
+        {
+          "cwe": "CWE-501",
+          "support": 2,
+          "truePositives": 0,
+          "falsePositives": 0,
+          "falseNegatives": 2,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        {
+          "cwe": "CWE-330",
+          "support": 1,
+          "truePositives": 0,
+          "falsePositives": 0,
+          "falseNegatives": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      ],
+      "macroF1": 0.4552,
+      "microPrecision": 1.0,
+      "microRecall": 0.4444,
+      "microF1": 0.6154,
+      "unlabelledClasses": {
+        "CWE-134": 1,
+        "CWE-326": 1
+      }
+    }
+  ]
+}
