@@ -25,128 +25,43 @@ See `PROJECT_STRUCTURE.md` for the full folder layout and `docs/` for the plan, 
 
 ## Running it locally
 
-Two processes: the orchestrator (FastAPI, port 8000) and the web console (Vite,
-port 5173). Start them in two terminals and stop them with Ctrl-C.
+Two processes: the orchestrator (FastAPI, port 8000, with all four components inside it) and the
+web console (Vite, port 5173), plus a PostgreSQL database. The full setup from a new laptop, with
+the prerequisites to check and install and a troubleshooting section, is in
+[`docs/Setup_Guide.md`](docs/Setup_Guide.md); this is the short form.
 
 ### Once, before the first run
 
 ```bash
-# Python: one uv workspace, one lock, one virtualenv for all three members.
-uv sync --all-extras
+# Python: one uv workspace, one lock, one virtualenv for every member.
+uv sync --frozen
 
-# Configuration. Fill in the database URLs and ANTHROPIC_API_KEY.
+# Configuration. Fill in the database URLs, SECRET_KEY and DEEPSEEK_API_KEY.
 cp .env.example .env
+
+# A local database, unless .env points at your Neon branch.
+docker compose up -d --wait db      # postgres:16 on localhost:5433
 
 # Database schema. Reads DATABASE_URL from .env.
 cd orchestrator && uv run alembic upgrade head && cd ..
 
-# Frontend packages.
-cd ai-sdlc-platform-frontend && npm install && cd ..
+# Frontend packages, exactly as locked.
+cd ai-sdlc-platform-frontend && npm ci && cd ..
 ```
 
-### Running the tests
-
-The backend suite writes to its own database and refuses to start without one.
-
-```bash
-docker compose up -d db      # postgres:16 on localhost:5433
-uv run pytest -q             # creates sdlc_test and migrates it on the first run
-docker compose down -v       # reset: throws the data away
-```
-
-`TEST_DATABASE_URL` is required and must not address the same database as
-`DATABASE_URL`. Both refusals are loud, because the suite deletes projects,
-settings rows and stored credentials as it cleans up: it once deleted a real
-GitHub token by sharing a database with the development server. A Neon test
-branch works here too, and is what the pre-milestone run uses, because a local
-Postgres has no pooler and the restart tests were written against Neon's pooled
-versus direct split.
-
-`.env` lives at the repository root, is gitignored, and is read directly by the
-orchestrator. Nothing needs exporting: `uv run uvicorn ...` picks it up, including
-the provider key. A missing key stops the server at startup with a message rather
-than failing every stage once a run is under way.
-
-#### `C1_MODE`: where Component 1 runs
-
-`C1_MODE` decides how the orchestrator reaches Component 1, not which model it
-uses. `inprocess` imports C1 and runs it inside the orchestrator process, which is
-the development default and what pytest uses. `http` calls the separately running
-service at `C1_BASE_URL`, which is the compose and production path. The service
-boundary is real either way, so this changes deployment rather than architecture.
-
-Only `inprocess` needs a provider key in this `.env`, because under `http` the key
-belongs to the C1 service instead.
-
-#### `C1_MODEL`: which provider answers
-
-The prefix of `C1_MODEL` is the only thing that chooses a provider. Having both
-keys set is the normal state rather than an ambiguity: the prefix names one
-provider, the orchestrator reads that provider's key, and the other key is never
-consulted.
-
-    C1_MODEL=anthropic:claude-sonnet-5      reads ANTHROPIC_API_KEY
-    C1_MODEL=anthropic:claude-haiku-4-5     reads ANTHROPIC_API_KEY
-    C1_MODEL=google:<a gemini model>        reads GOOGLE_API_KEY
-    C1_MODEL=openrouter:<vendor>/<model>    reads OPENROUTER_API_KEY
-    C1_MODEL=groq:<a model>                 reads GROQ_API_KEY
-
-Anthropic runs production. Google and OpenRouter carry the development loop on
-their free tiers, and OpenRouter's one key reaches many vendors, so trying a
-different model there costs nothing but the line.
-
-Presence never decides. A filled in `GROQ_API_KEY` cannot answer for a missing
-`ANTHROPIC_API_KEY`: the server refuses to start and names the variable it wanted.
-That refusal is the point, because the alternative is a comparison run that
-quietly produced its design on the other provider.
-
-Changing that line takes a restart: the C1 client is built once while the process
-starts, so editing `.env` reaches nothing until uvicorn is stopped and started
-again.
-
-Groq stays installed and selectable, but as of 2026-08-17 it serves nothing this
-component can use. `llama-3.3-70b-versatile` was decommissioned and returns 404;
-the `gpt-oss` models cap the free tier at 8000 tokens a minute while one C1
-request needs about 11600, so no amount of pacing helps; `groq/compound` answers
-`tool calling is not supported with this model`; and qwen cannot hold the
-requirements schema. Use `claude-haiku-4-5` for the cheap lane instead: a third
-of Sonnet's price on a provider whose tool calling this component already
-depends on.
-
-### Adding a fifth provider
-
-Three one-line additions and nothing else: the extra in
-`services/c1-requirements-design/pyproject.toml`, a `<name>_api_key` field on
-`Settings`, and an entry in `PROVIDER_KEYS`. The field name has to be the
-lowercase of the variable, because that is how `resolve_provider_key` finds it,
-and a test asserts every wired provider has one. Miss the `PROVIDER_KEYS` entry
-and the orchestrator refuses to start, naming the providers that do work.
-
-A provider outside pydantic-ai's own list (NVIDIA NIM, for instance) cannot be
-named by a model string at all and needs real code: a factory turning a prefix
-into a model constructed with a custom base URL.
-
-### Before wiring a new provider, ask it in one call
-
-```bash
-cd services/c1-requirements-design
-uv run python -m c1.probe anthropic:claude-haiku-4-5
-```
-
-One request, using C1's real graph agent and its real rule catalogue, answering
-the only question that matters: can this provider fill a nested schema under a
-forced tool call. It reports SUITABLE, WORKABLE or UNUSABLE, and for a failure it
-says which of the four mechanisms it was, because they are indistinguishable at a
-glance and each one otherwise costs a whole run to identify.
+`.env` lives at the repository root, is gitignored, and is read by the orchestrator at startup
+from whatever directory it runs in. It is read once, so a change to it takes a restart.
 
 ### Terminal 1: the orchestrator
 
 ```bash
 cd orchestrator
-uv run uvicorn orchestrator.main:app --port 8000 --reload
+uv run --env-file ../.env uvicorn orchestrator.main:app --port 8000
 ```
 
-Check it with `curl localhost:8000/health`.
+Check it with `curl localhost:8000/health`. While changing backend code, add
+`--reload --reload-dir . --reload-dir ../services --reload-dir ../packages`: on its own,
+`--reload` watches only `orchestrator/`.
 
 ### Terminal 2: the web console
 
@@ -163,20 +78,13 @@ it rather than accepting 5174: see "Stopping them" below.
 
 ### Which data the console reads
 
-`VITE_LIVE_FEATURES` in `ai-sdlc-platform-frontend/.env.development` decides,
-one feature at a time. It is committed, and the diff on that line is the record
-of how much of the product is real.
+Every feature reads the orchestrator. Since 2026-10-03 the running console never reads the demo
+fixtures, whatever `VITE_LIVE_FEATURES` says (`liveFeaturesFor` in `src/lib/liveFeatures.ts`); the
+fixtures are kept for the tests. The list in `ai-sdlc-platform-frontend/.env.development`
+(committed) still has to name real features, because a typo fails the build, and it records the
+order the components went live in.
 
-```
-VITE_LIVE_FEATURES=projects,requirements,activity
-```
-
-Live now: projects, requirements and activity, from the orchestrator. Still
-fixtures: settings, testing, code-generation. An unknown name stops the dev
-server and fails the build, on purpose, because a typo here would otherwise give
-a demo that looks right and is not.
-
-To run the whole product on demo fixtures, with no orchestrator at all:
+To run the whole console on the demo fixtures, with no orchestrator at all:
 
 ```bash
 npm run dev -- --mode fixtures      # reads .env.fixtures, everything mocked
@@ -204,27 +112,113 @@ pkill -f "vite"
 ### Tests
 
 ```bash
-uv run pytest                       # every Python test, offline, no model calls
+docker compose up -d --wait db                  # the tests' database lives here
+uv run --env-file .env pytest -q                # every Python test, no model calls
+uv run pytest services/c3-testing-security -q   # one component's suite needs no .env
+
 cd ai-sdlc-platform-frontend
-npm test                            # frontend unit tests
-npx playwright test                 # browser checks, on fixtures, offline
+npm test                                        # frontend unit tests
+npx playwright test                             # browser checks, on fixtures, offline
 ```
 
-Nothing above reaches a provider: `ALLOW_MODEL_REQUESTS` is off by default in
-both Python suites, so a forgotten override fails loudly instead of spending
-money. The tests that do use a real model are marked and skipped unless asked
-for:
+The orchestrator's tests write to their own database and refuse to start without one.
+`TEST_DATABASE_URL` is required and must not address the same database as `DATABASE_URL`. Both
+refusals are loud, because the suite deletes projects, settings rows and stored credentials as it
+cleans up: it once deleted a real GitHub token by sharing a database with the development server.
+pytest reads the variable from the environment rather than from `.env`, which is what
+`--env-file .env` is for; the suite creates `sdlc_test` and migrates it on the first run. A Neon
+test branch works here too, and is what the pre-milestone run uses, because a local Postgres has
+no pooler and the restart tests were written against Neon's pooled versus direct split. The
+component suites under `services/` use no database: run them without `--env-file`, so no provider
+key is in their environment. `docker compose down -v` resets the local database by throwing its
+data away.
+
+Nothing above reaches a provider. The orchestrator, C1, C2 and C4 suites block model requests
+(`ALLOW_MODEL_REQUESTS` off), and the C3 tests that send one send it to a mock transport. The
+tests that do use a real model are marked and skipped unless asked for:
 
 ```bash
-uv run pytest -m live               # needs the provider key, spends tokens
+uv run --env-file .env pytest -m live     # needs the provider key, spends tokens
 ```
 
-The end-to-end walk through of the design phase against a real model needs both
-servers running and is opt-in:
+The end-to-end walk through of the design phase against a real model needs both servers running
+and is opt-in:
 
 ```bash
 LIVE_DESIGN=1 npx playwright test --config playwright.live.config.ts
 ```
+
+### Models and providers
+
+#### `C1_MODE` to `C4_MODE`: where each component runs
+
+Each `Cn_MODE` decides how the orchestrator reaches that component, not which model it uses.
+`inprocess` imports the component and runs it inside the orchestrator process, which is the
+development default and what pytest uses. `http` calls the separately running service at
+`Cn_BASE_URL`, which is the compose and production path. The service boundary is real either
+way, so this changes deployment rather than architecture.
+
+Only `inprocess` needs the provider key in this `.env`, because under `http` the key belongs to
+the component's service instead.
+
+#### `C1_MODEL` to `C4_MODEL`: which provider answers
+
+Each phase has its own line, and the prefix of that line is the only thing that chooses its
+provider. The template sets all four to `deepseek:deepseek-flash`, which is also what the code
+runs for a phase whose line is missing: metered and cheap, with no daily request cap. Having
+several keys set is the normal state rather than an ambiguity: each prefix names one provider,
+the orchestrator reads that provider's key, and the others are never consulted.
+
+    C1_MODEL=deepseek:deepseek-flash        reads DEEPSEEK_API_KEY
+    C1_MODEL=anthropic:claude-sonnet-5      reads ANTHROPIC_API_KEY
+    C1_MODEL=anthropic:claude-haiku-4-5     reads ANTHROPIC_API_KEY
+    C1_MODEL=google:<a gemini model>        reads GOOGLE_API_KEY
+    C1_MODEL=openrouter:<vendor>/<model>    reads OPENROUTER_API_KEY
+    C1_MODEL=groq:<a model>                 reads GROQ_API_KEY
+
+Presence never decides. A filled in `GROQ_API_KEY` cannot answer for a missing
+`DEEPSEEK_API_KEY`. For C1 the server refuses to start and names the variable it wanted. For C2
+to C4 it starts, shows that phase as `not configured: ...` in Settings → AI Model, and fails its
+stages with `this orchestrator cannot run c2: ...` (or `c3`, `c4`). That refusal is the point,
+because the alternative is a comparison run that quietly produced its design on the other
+provider.
+
+Changing a line takes a restart: each component's client is built once while the process
+starts, so editing `.env` reaches nothing until uvicorn is stopped and started again.
+
+Groq stays installed and selectable, but as of 2026-08-17 it serves nothing C1
+can use. `llama-3.3-70b-versatile` was decommissioned and returns 404;
+the `gpt-oss` models cap the free tier at 8000 tokens a minute while one C1
+request needs about 11600, so no amount of pacing helps; `groq/compound` answers
+`tool calling is not supported with this model`; and qwen cannot hold the
+requirements schema.
+
+#### Adding a provider
+
+Three additions and nothing else: the provider's pydantic-ai extra in the `pyproject.toml` of
+each component that will use it, a `<name>_api_key` field on `Settings`, and an entry in
+`PROVIDER_KEYS` (`orchestrator/orchestrator/main.py`). The field name has to be the lowercase of
+the variable, because that is how `resolve_provider_key` finds it, and a test asserts every
+wired provider has one. Miss the `PROVIDER_KEYS` entry and a model string with that prefix is
+refused (C1's at startup) with a message naming the providers that do work.
+
+A provider outside pydantic-ai's own list (NVIDIA NIM, for instance) cannot be named by a model
+string at all and needs real code: a factory turning a prefix into a model constructed with a
+custom base URL.
+
+#### Before wiring a new provider, ask it in one call
+
+```bash
+cd services/c1-requirements-design
+uv run python -m c1.probe anthropic:claude-haiku-4-5
+```
+
+One request, using C1's real graph agent and its real rule catalogue, answering the only question
+that matters: can this provider fill a nested schema under a forced tool call. It reports
+SUITABLE, WORKABLE or UNUSABLE, and for a failure it says which of the four mechanisms it was,
+because they are indistinguishable at a glance and each one otherwise costs a whole run to
+identify. It is a real request, so it spends that request's tokens. The other components have
+their own: `c2.probe`, `c3.probe` and `c4.probe` take a model string the same way.
 
 ## Datasets
 Public benchmarks only. Facts verified from official sources; full detail and caveats in `docs/Datasets_and_LLM_Plan`. Large data is gitignored; use download scripts under `datasets/`.
