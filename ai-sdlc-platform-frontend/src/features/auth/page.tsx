@@ -107,7 +107,7 @@ export function Register() {
         <>
           Already have an account?{" "}
           <Link to="/login" className="font-medium text-blue-700 hover:underline">
-            Log in
+            Sign in
           </Link>
         </>
       }

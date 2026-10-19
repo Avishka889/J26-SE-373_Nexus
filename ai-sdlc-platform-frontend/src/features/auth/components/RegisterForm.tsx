@@ -1,12 +1,13 @@
 import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { Lock, Mail, User, UserPlus } from "lucide-react";
+import { Mail, User, UserPlus } from "lucide-react";
 import { register } from "@/entities/account";
 import { messageOf } from "@/lib/http";
 import { Button, Field, useFieldClasses } from "@/shared/ui";
 import { cn } from "@/shared/utils/cn";
 import { useUiStore } from "@/store/ui";
 import { registrationProblem } from "../model/registration";
+import { PasswordInput } from "./PasswordInput";
 
 /** Create an account, signed in at once. */
 export function RegisterForm() {
@@ -84,19 +85,13 @@ export function RegisterForm() {
 
       <Field label="Password" hint="At least 8 characters. A passphrase of a few words is easy to remember and hard to guess.">
         {(control) => (
-          <div className="relative">
-            <Lock className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-            <input
-              {...control}
-              type="password"
-              required
-              minLength={8}
-              autoComplete="new-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className={cn(fieldClass, "pl-10 pr-3.5")}
-            />
-          </div>
+          <PasswordInput
+            control={control}
+            autoComplete="new-password"
+            minLength={8}
+            value={password}
+            onChange={setPassword}
+          />
         )}
       </Field>
 

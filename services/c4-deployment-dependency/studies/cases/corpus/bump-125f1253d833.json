@@ -1,0 +1,56 @@
+{
+  "caseId": "bump-125f1253d833",
+  "client": {
+    "commit": "125f1253d8331f14752a4a8d49559445301ab02d",
+    "image": "ghcr.io/chains-project/breaking-updates:125f1253d8331f14752a4a8d49559445301ab02d-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/leonardehrenfried/jspc-maven-plugin",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:125f1253d8331f14752a4a8d49559445301ab02d-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:125f1253d8331f14752a4a8d49559445301ab02d-breaking",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "TEST_FAILURE",
+    "failureLocations": [],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/125f1253d8331f14752a4a8d49559445301ab02d.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb",
+  "source": "bump",
+  "sourceChange": "major",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "3.5.1",
+    "manifestPaths": [],
+    "package": "org.codehaus.plexus:plexus-utils",
+    "scope": "compile",
+    "toVersion": "4.0.0"
+  }
+}

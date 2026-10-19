@@ -1,0 +1,457 @@
+{
+  "caseId": "bump-fe15d2a6e52b",
+  "client": {
+    "commit": "fe15d2a6e52b049f6c9e7cc123a5402047a1f01a",
+    "image": "ghcr.io/chains-project/breaking-updates:fe15d2a6e52b049f6c9e7cc123a5402047a1f01a-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/premium-minds/billy",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:fe15d2a6e52b049f6c9e7cc123a5402047a1f01a-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:fe15d2a6e52b049f6c9e7cc123a5402047a1f01a-breaking",
+        "exitCode": null,
+        "logSha256": "9739f3e62edb5c79770c0b4aa591da0fb2d3f3392f48097b04aa6cbb8c1dcb06",
+        "name": "compile",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": "    private void exportSAFTFile(AuditFile auditFile, OutputStream targetStream) {\n                                ^\n  symbol:   class AuditFile\n  location: class PTSAFTFileGenerator\n/billy/billy-portugal/src/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/PTSAFTFileGenerator.java:391: error: cannot find symbol\n    private Header generateHeader(PTBusinessEntity businessEntity, PTApplicationEntity application,\n            ^\n  symbol:   class Header\n  location: class PTSAFTFileGenerator\n/billy/billy-portugal/src/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/PTSAFTFileGenerator.java:447: error: cannot find symbol\n    private Customer generateCustomer(PTCustomerEntity customerEntity)\n            ^\n  symbol:   class Customer\n  location: class PTSAFTFileGenerator\n/billy/billy-portugal/src/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/PTSAFTFileGenerator.java:522: error: cannot find symbol\n    private Supplier generateSupplier(PTSupplierEntity supplierEntity)\n            ^\n  symbol:   class Supplier\n  location: class PTSAFTFileGenerator\n100 errors"
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "COMPILATION_FAILURE",
+    "failureLocations": [
+      {
+        "line": 385,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_04_01/schema/Supplier.java"
+      },
+      {
+        "line": 244,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_04_01/schema/SupplierAddressStructure.java"
+      },
+      {
+        "line": 658,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/Header.java"
+      },
+      {
+        "line": 244,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/AddressStructurePT.java"
+      },
+      {
+        "line": 178,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/AuditFile.java"
+      },
+      {
+        "line": 405,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/AuditFile.java"
+      },
+      {
+        "line": 658,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/Header.java"
+      },
+      {
+        "line": 226,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/GeneralLedgerEntries.java"
+      },
+      {
+        "line": 422,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/GeneralLedgerEntries.java"
+      },
+      {
+        "line": 812,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/GeneralLedgerEntries.java"
+      },
+      {
+        "line": 1113,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/GeneralLedgerEntries.java"
+      },
+      {
+        "line": 552,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 792,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 1504,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 1798,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 1984,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 2425,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 2753,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 3326,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 3590,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 3814,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 3914,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 4186,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 4353,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 4625,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 5321,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 5610,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 5862,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 6375,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 6695,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 7185,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 7439,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 7625,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 8095,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 136,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/PaymentMethod.java"
+      },
+      {
+        "line": 133,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/WithholdingTax.java"
+      },
+      {
+        "line": 133,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/Currency.java"
+      },
+      {
+        "line": 191,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/PaymentTax.java"
+      },
+      {
+        "line": 107,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/OrderReferences.java"
+      },
+      {
+        "line": 191,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/Tax.java"
+      },
+      {
+        "line": 185,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/ShippingPointStructure.java"
+      },
+      {
+        "line": 163,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/MovementTax.java"
+      },
+      {
+        "line": 244,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/AddressStructure.java"
+      },
+      {
+        "line": 108,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SpecialRegimes.java"
+      },
+      {
+        "line": 164,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/Settlement.java"
+      },
+      {
+        "line": 104,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/References.java"
+      },
+      {
+        "line": 275,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/GeneralLedger.java"
+      },
+      {
+        "line": 385,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/Customer.java"
+      },
+      {
+        "line": 385,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/Supplier.java"
+      },
+      {
+        "line": 190,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/Product.java"
+      },
+      {
+        "line": 85,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/TaxTable.java"
+      },
+      {
+        "line": 252,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/TaxTableEntry.java"
+      },
+      {
+        "line": 244,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/SupplierAddressStructure.java"
+      },
+      {
+        "line": 244,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/AddressStructurePT.java"
+      },
+      {
+        "line": 218,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_04_01/schema/Product.java"
+      },
+      {
+        "line": 116,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_04_01/schema/CustomsDetails.java"
+      },
+      {
+        "line": 418,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 653,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 1365,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 1658,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 1844,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 2285,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 2605,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 3293,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 3581,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 3833,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 4346,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 4665,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 5154,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 5379,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 5560,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 6030,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 133,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/Currency.java"
+      },
+      {
+        "line": 107,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/OrderReferences.java"
+      },
+      {
+        "line": 191,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/Tax.java"
+      },
+      {
+        "line": 185,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/ShippingPointStructure.java"
+      },
+      {
+        "line": 163,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/MovementTax.java"
+      },
+      {
+        "line": 244,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/AddressStructure.java"
+      },
+      {
+        "line": 133,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/WithholdingTax.java"
+      },
+      {
+        "line": 164,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/Settlement.java"
+      },
+      {
+        "line": 136,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/Payment.java"
+      },
+      {
+        "line": 104,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/References.java"
+      },
+      {
+        "line": 178,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/AuditFile.java"
+      },
+      {
+        "line": 405,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_02_01/schema/AuditFile.java"
+      },
+      {
+        "line": 178,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_04_01/schema/AuditFile.java"
+      },
+      {
+        "line": 400,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_04_01/schema/AuditFile.java"
+      },
+      {
+        "line": 570,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_04_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 814,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_04_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 1557,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_04_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 1856,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_04_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 2042,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_04_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 2567,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_04_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 2912,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_04_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 3514,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_04_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 3783,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_04_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 4007,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_04_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 4107,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_04_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 4407,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_04_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 4579,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_04_01/schema/SourceDocuments.java"
+      },
+      {
+        "line": 4856,
+        "path": "billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_04_01/schema/SourceDocuments.java"
+      }
+    ],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/fe15d2a6e52b049f6c9e7cc123a5402047a1f01a.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb; failure locations read from running ghcr.io/chains-project/breaking-updates:fe15d2a6e52b049f6c9e7cc123a5402047a1f01a-breaking on 2026-09-28",
+  "source": "bump",
+  "sourceChange": "major",
+  "split": "held-out",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "0.13.1",
+    "manifestPaths": [],
+    "package": "org.jvnet.jaxb2_commons:jaxb2-basics-runtime",
+    "scope": "compile",
+    "toVersion": "1.11.1"
+  }
+}

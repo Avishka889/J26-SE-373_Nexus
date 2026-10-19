@@ -23,15 +23,16 @@ import {
   useProjectsLoad,
 } from "@/entities/project";
 import { ServerUnavailable } from "@/shared/ui/ServerUnavailable";
-import { PageLoader } from "@/shared/ui/Spinner";
 import { useSettings } from "@/entities/settings";
 import { cn } from "@/shared/utils/cn";
 import { Badge, Button, Card, CardContent } from "@/shared/ui/primitives";
 import { RunStoppedChip } from "@/shared/ui/RunStoppedChip";
 import { ProjectCreatePrompt } from "../components/ProjectCreatePrompt";
+import { ProjectCardsSkeleton } from "../components/ProjectCardsSkeleton";
+import { phaseStrip, phaseStripWords, type PhaseMark } from "../model/phaseStrip";
 import { SpinnerIcon } from "@/shared/ui/Spinner";
 
-function statusMeta(status: Project["status"]) {
+function statusMeta({ status, sprint }: Pick<Project, "status" | "sprint">) {
   switch (status) {
     case "draft":
       return { label: "Draft", variant: "default" as const, icon: Pencil };
@@ -45,6 +46,8 @@ function statusMeta(status: Project["status"]) {
       return { label: "Testing", variant: "c3" as const, icon: FlaskConical };
     case "deploy":
       return { label: "Deploy", variant: "c4" as const, icon: Rocket };
+    case "released":
+      return { label: `Released, sprint ${sprint ?? 1}`, variant: "success" as const, icon: Rocket };
     case "complete":
       return { label: "Complete", variant: "success" as const, icon: CheckCircle2 };
     default:
@@ -62,14 +65,11 @@ function formatRelative(iso: string) {
   return `${Math.floor(hours / 24)}d ago`;
 }
 
-function stageColors(progress: number) {
-  const filled = Math.max(1, Math.min(4, Math.ceil(progress / 25)));
-  return Array.from({ length: 4 }, (_, i) => {
-    if (i < filled - 1) return "#22c55e";
-    if (i === filled - 1) return progress >= 100 ? "#22c55e" : "#2563eb";
-    return undefined;
-  });
-}
+const MARK_COLOR: Record<PhaseMark, string | undefined> = {
+  done: "#22c55e",
+  active: "#2563eb",
+  none: undefined,
+};
 
 export function Home() {
   useDocumentTitle("Home");
@@ -122,7 +122,7 @@ export function Home() {
               onRetry={hydrateProjects}
             />
           ) : featured.length === 0 && load.status === "loading" ? (
-            <PageLoader label="Loading your projects" className="py-14" />
+            <ProjectCardsSkeleton count={3} className="md:grid-cols-3" />
           ) : featured.length === 0 ? (
             <Card>
               <CardContent className="flex flex-col items-center py-14 text-center">
@@ -140,8 +140,8 @@ export function Home() {
           ) : (
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               {featured.map((p) => {
-                const st = statusMeta(p.status);
-                const stages = stageColors(p.progress);
+                const st = statusMeta(p);
+                const strip = phaseStrip(p);
                 return (
                   <Card
                     key={p.id}
@@ -178,12 +178,15 @@ export function Home() {
                         </span>
                       </div>
 
-                      <div className="flex gap-1">
-                        {stages.map((color, i) => (
+                      <div className="flex gap-1" role="img" aria-label={phaseStripWords(strip)}>
+                        {strip.map((mark, i) => (
                           <div
                             key={i}
-                            className={cn("h-1.5 flex-1 rounded-full", !color && (isDark ? "bg-white/10" : "bg-slate-100"))}
-                            style={color ? { backgroundColor: color } : undefined}
+                            className={cn(
+                              "h-1.5 flex-1 rounded-full",
+                              mark === "none" && (isDark ? "bg-white/10" : "bg-slate-100"),
+                            )}
+                            style={MARK_COLOR[mark] ? { backgroundColor: MARK_COLOR[mark] } : undefined}
                           />
                         ))}
                       </div>

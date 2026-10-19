@@ -1,0 +1,12 @@
+[
+  {
+    "breakingCommit": "18ab6d7afbd1663c940167f15ab7aa39011041e1",
+    "project": "jenkinsci/config-file-provider-plugin",
+    "reason": "the control run fails here, at test"
+  },
+  {
+    "breakingCommit": "45374ceb3ac564c6fddf08f1e71ad0e1c7e95941",
+    "project": "googleapis/google-cloud-java",
+    "reason": "dropped by the owner on 2026-09-28: its BUMP image did not pull within the 30 minute limit, and every retry would cost another 30 minutes"
+  }
+]

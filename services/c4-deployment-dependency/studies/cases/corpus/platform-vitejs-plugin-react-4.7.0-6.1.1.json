@@ -1,0 +1,132 @@
+{
+  "caseId": "platform-vitejs-plugin-react-4.7.0-6.1.1",
+  "client": {
+    "commit": "",
+    "image": "",
+    "kind": "platform",
+    "packageSpec": "",
+    "repoUrl": "",
+    "snapshot": "studies/clients/task-tracker",
+    "snapshotSha256": "23f7e0aa4defd523aa2b2c9127549bd695d0bf710e5273decdf362e6526be4a2"
+  },
+  "frozenInputs": {
+    "studies/pins/task-tracker-2026-06-01.package-lock.json": "64844fc92c8f0e16cb49ea6dbb3592c215b8addc777a3a2eade087364c6ec903"
+  },
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "npm install @vitejs/plugin-react@4.7.0 --save-exact --package-lock-only --ignore-scripts --no-audit --no-fund -w apps/web && npm ci --ignore-scripts --no-audit --no-fund && node .c4/installed.mjs @vitejs/plugin-react 4.7.0 apps/web",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "resolution",
+        "outcome": "passed",
+        "seconds": 15.67,
+        "tail": "up to date in 6s\n\nadded 274 packages in 9s\napps/web resolves @vitejs/plugin-react@4.7.0\nnpm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation"
+      },
+      {
+        "command": "npm run typecheck",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "typecheck",
+        "outcome": "passed",
+        "seconds": 7.37,
+        "tail": "> typecheck\n> npm run typecheck --workspaces --if-present\n\n\n> @app/api@0.1.0 typecheck\n> tsc --noEmit\n\n\n> @app/web@0.1.0 typecheck\n> tsc --noEmit"
+      },
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 5.93,
+        "tail": "> test\n> npm run test --workspaces --if-present\n\n\n> @app/api@0.1.0 test\n> vitest run\n\n\n RUN  v2.1.9 /work/apps/api\n\n \u2713 src/__tests__/task-lists.contract.test.ts (1 test) 62ms\n \u2713 src/__tests__/task-lists.oracle.test.ts (1 test) 56ms\n \u2713 src/__tests__/tasks.contract.test.ts (4 tests) 111ms\n \u2713 src/__tests__/tasks.oracle.test.ts (7 tests) 185ms\n\n Test Files  4 passed (4)\n      Tests  13 passed (13)\n   Start at  01:54:09\n   Duration  1.65s (transform 435ms, setup 0ms, collect 2.27s, tests 414ms, environment 2ms, prepare 973ms)\n\n\n> @app/web@0.1.0 test\n> vitest run\n\n\n RUN  v2.1.9 /work/apps/web\n\n \u2713 src/__tests__/routes.test.tsx (5 tests) 288ms\n\n Test Files  1 passed (1)\n      Tests  5 passed (5)\n   Start at  01:54:12\n   Duration  2.23s (transform 237ms, setup 0ms, collect 485ms, tests 288ms, environment 762ms, prepare 176ms)"
+      },
+      {
+        "command": "npm run build",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "build",
+        "outcome": "passed",
+        "seconds": 5.74,
+        "tail": "> build\n> npm run build --workspace @app/web\n\n\n> @app/web@0.1.0 build\n> vite build\n\nvite v6.4.2 building for production...\ntransforming...\n\u2713 51 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.40 kB \u2502 gzip:  0.27 kB\ndist/assets/index-CchNAXoK.css    9.98 kB \u2502 gzip:  2.88 kB\ndist/assets/index-RTrafKXj.js   244.94 kB \u2502 gzip: 75.74 kB\n\u2713 built in 3.81s"
+      },
+      {
+        "command": "node .c4/smoke.mjs 3001 / /tasks -- node --experimental-strip-types apps/api/src/server.ts",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "smoke",
+        "outcome": "passed",
+        "seconds": 0.67,
+        "tail": "GET / 200\nGET /tasks 200\n--- the app printed ---\nlistening on http://127.0.0.1:3001"
+      }
+    ],
+    "candidate": [
+      {
+        "command": "npm install @vitejs/plugin-react@6.1.1 --save-exact --package-lock-only --ignore-scripts --no-audit --no-fund -w apps/web && npm ci --ignore-scripts --no-audit --no-fund && node .c4/installed.mjs @vitejs/plugin-react 6.1.1 apps/web",
+        "exitCode": 1,
+        "logSha256": "",
+        "name": "resolution",
+        "outcome": "failed",
+        "seconds": 12.98,
+        "tail": "npm error code ERESOLVE\nnpm error ERESOLVE unable to resolve dependency tree\nnpm error\nnpm error While resolving: @app/web@0.1.0\nnpm error Found: vite@6.4.3\nnpm error node_modules/vite\nnpm error   dev vite@\"^6.0.0\" from @app/web@0.1.0\nnpm error   apps/web\nnpm error     @app/web@0.1.0\nnpm error     node_modules/@app/web\nnpm error       workspace apps/web from the root project\nnpm error\nnpm error Could not resolve dependency:\nnpm error peer vite@\"^8.0.0\" from @vitejs/plugin-react@6.1.1\nnpm error node_modules/@vitejs/plugin-react\nnpm error   dev @vitejs/plugin-react@\"6.1.1\" from @app/web@0.1.0\nnpm error   apps/web\nnpm error     @app/web@0.1.0\nnpm error     node_modules/@app/web\nnpm error       workspace apps/web from the root project\nnpm error\nnpm error Fix the upstream dependency conflict, or retry\nnpm error this command with --force or --legacy-peer-deps\nnpm error to accept an incorrect (and potentially broken) dependency resolution.\nnpm error\nnpm error\nnpm error For a full report see:\nnpm error /root/.npm/_logs/2026-09-28T01_54_23_371Z-eresolve-report.txt\nnpm error A complete log of this run can be found in: /root/.npm/_logs/2026-09-28T01_54_23_371Z-debug-0.log"
+      },
+      {
+        "command": "npm run typecheck",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "typecheck",
+        "outcome": "not-run",
+        "seconds": null,
+        "tail": ""
+      },
+      {
+        "command": "npm test",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "not-run",
+        "seconds": null,
+        "tail": ""
+      },
+      {
+        "command": "npm run build",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "build",
+        "outcome": "not-run",
+        "seconds": null,
+        "tail": ""
+      },
+      {
+        "command": "node .c4/smoke.mjs 3001 / /tasks -- node --experimental-strip-types apps/api/src/server.ts",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "smoke",
+        "outcome": "not-run",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "capturedAt": "2026-09-28",
+    "failureCategory": "",
+    "failureLocations": [],
+    "method": "container-reproduction",
+    "toolchain": "node:22-bookworm-slim@sha256:43ac6c60b8f89723f746e8a92ce91abd5017e627ce1ddfe4238355d3a30b772c (v22.23.3 10.9.9)",
+    "warnings": []
+  },
+  "provenance": "npm_platform loader: the generated client task-tracker, its tree reconstructed as installed on 2026-06-01 (npm 10.9.2 install --package-lock-only --ignore-scripts --before=2026-06-01), crossed with the major update the registry listed at capture",
+  "source": "npm-platform",
+  "sourceChange": "major",
+  "split": "held-out",
+  "update": {
+    "ecosystem": "npm",
+    "fromVersion": "4.7.0",
+    "manifestPaths": [
+      "apps/web/package.json"
+    ],
+    "package": "@vitejs/plugin-react",
+    "scope": "dev",
+    "toVersion": "6.1.1"
+  }
+}

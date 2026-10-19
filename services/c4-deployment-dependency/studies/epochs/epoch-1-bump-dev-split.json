@@ -1,0 +1,4306 @@
+{
+  "arms": {
+    "always-high": {
+      "abstained": 0,
+      "accuracy": 1.0,
+      "cases": 463,
+      "confusion": {
+        "high": {
+          "high": 463,
+          "low": 0,
+          "medium": 0
+        },
+        "low": {
+          "high": 0,
+          "low": 0,
+          "medium": 0
+        },
+        "medium": {
+          "high": 0,
+          "low": 0,
+          "medium": 0
+        }
+      },
+      "degenerate": true,
+      "high_recall": 1.0,
+      "macro_f1": 1.0,
+      "macro_precision": 1.0,
+      "macro_recall": 1.0,
+      "missed_high": 0
+    },
+    "semver": {
+      "abstained": 19,
+      "accuracy": 0.5874730021598272,
+      "cases": 463,
+      "confusion": {
+        "high": {
+          "high": 272,
+          "low": 42,
+          "medium": 149
+        },
+        "low": {
+          "high": 0,
+          "low": 0,
+          "medium": 0
+        },
+        "medium": {
+          "high": 0,
+          "low": 0,
+          "medium": 0
+        }
+      },
+      "degenerate": false,
+      "high_recall": 0.5874730021598272,
+      "macro_f1": 0.2467120181405896,
+      "macro_precision": 0.3333333333333333,
+      "macro_recall": 0.19582433405327573,
+      "missed_high": 191
+    }
+  },
+  "byEcosystem": {
+    "maven": {
+      "always-high": {
+        "abstained": 0,
+        "accuracy": 1.0,
+        "cases": 463,
+        "confusion": {
+          "high": {
+            "high": 463,
+            "low": 0,
+            "medium": 0
+          },
+          "low": {
+            "high": 0,
+            "low": 0,
+            "medium": 0
+          },
+          "medium": {
+            "high": 0,
+            "low": 0,
+            "medium": 0
+          }
+        },
+        "high_recall": 1.0,
+        "macro_f1": 1.0,
+        "macro_precision": 1.0,
+        "macro_recall": 1.0,
+        "missed_high": 0
+      },
+      "semver": {
+        "abstained": 19,
+        "accuracy": 0.5874730021598272,
+        "cases": 463,
+        "confusion": {
+          "high": {
+            "high": 272,
+            "low": 42,
+            "medium": 149
+          },
+          "low": {
+            "high": 0,
+            "low": 0,
+            "medium": 0
+          },
+          "medium": {
+            "high": 0,
+            "low": 0,
+            "medium": 0
+          }
+        },
+        "high_recall": 0.5874730021598272,
+        "macro_f1": 0.2467120181405896,
+        "macro_precision": 0.3333333333333333,
+        "macro_recall": 0.19582433405327573,
+        "missed_high": 191
+      }
+    }
+  },
+  "cases": [
+    {
+      "caseId": "bump-00c78c1273ef",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-01609f962f32",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-01737a781506",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-02363207c365",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-02eedffd33cc",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-0305beafdecb",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-04c07b066b60",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-04f776fa9bed",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-0671a30e3673",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-067f5d2c81ff",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-072528ee5e67",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-0771fe8d060a",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-07e4b2894bc6",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-07fad972bb88",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-07ff1a34661d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-08e33c7bbc45",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-0968864d08e0",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-09a8774fc7d3",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-0a11c04038ea",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-0abf7148300f",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-0c088ff43522",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-0c60d0b08c99",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-0c748afce24c",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-0c9a9c80287e",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-0cdcc1f13193",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-0ddd0efa2963",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-0e8625f49285",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-0ec1ab7e205e",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-0ed34fa61c9e",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-0ee8b9376b96",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-1053033eef68",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-115827c6675f",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-11be71ab8713",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-125f1253d833",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-1266a8c84cd0",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-12684ee6cfd2",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-1280336ece95",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-12e237710199",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-14270a2ff9e0",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-1506282e31f5",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-1629113f0395",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-16ae40b1e17e",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-17778ff224c3",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-17cc92fc964c",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-17f2bcaaba48",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-18102f7a87e7",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-1820a966ae02",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-18ab6d7afbd1",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-18e92e4eb94d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-18eff0121ded",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-19249139eb66",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-19e20b0d69cb",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-1a2fb9f65e12",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-1a771d2096b0",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-1c0972fc3d90",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-1c3529eaf282",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-1ca02168f00f",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-1cc707137195",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-1cd22b76f9ea",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-1cf2cb24c353",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-1d0c5406203e",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-1d2946ff87df",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-1e17e176460a",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-1e1de78344a8",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-1eb6d9d5b2a0",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-1ef97ea6c5b6",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-1fc5281e0688",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-20b272092eaf",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-20e787c7e1e6",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-2241358955f2",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-22ce3b0e5c6c",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-22e31ea86228",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-22eec990412b",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-24d59062ad4e",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-250cafc7d6ae",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-25926ea2f0e0",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-26064aa33405",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-26fd1cd7639b",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-27226f9df7c2",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-27ea953051c0",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-283c6ddc77ec",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-28745a38581c",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-28be199c825d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-2a91a25b4eb1",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-2ad5b0e1f351",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-2b3054325e9e",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-2b60dcd83ece",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-2bc88ebc6046",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-2c04b9834112",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-2c957083a17e",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-2d733a58045b",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-2dfaa41bfb97",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-2ea4f3a642ab",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-2f01c46b96a8",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-2f9d75d4b01c",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-30caf72b737b",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-315060cd2c7a",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-31a177fb212d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-34e00b73f0a3",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-3572a1ecc015",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-359f45ab2b6e",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-36fd224b3010",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-37cf0a49373d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-38c9915f0cfd",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-38eb09ebe87b",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-3a4a2b114836",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-3b26e04706e2",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-3b47c247b867",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-3b4a91979f0d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-3b7f524a09d7",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-3c0bc059c4b1",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-3c68e04f6a8a",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-3d0cc7db9d9c",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-3d205ddac1e3",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-3d29f9a6823f",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-3d2b38ee1c83",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-3df0868d7dc5",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-3dfb94445951",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-3eb708f53f5f",
+      "predictions": {
+        "always-high": "high",
+        "semver": null
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-3ff575ae202c",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-402649cb3ebf",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-404e4edc99c0",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-41164ec5392b",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-414c42fd20fe",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-41ec14e7e0cc",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-4259baebb426",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-426453d4be2f",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-42a220bd546d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-433fbc0ee119",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-43b3a858b77e",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-43c824a24b09",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-441f7f07d926",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-448ff013455d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-44a15fa526c1",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-44b14e90e4ba",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-44e6ae1bd9fe",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-4501f2d688da",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-4507371bb061",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-4607926d691c",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-4631885da3cf",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-46698497759b",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-471b0bd83c66",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-471d07e01cd0",
+      "predictions": {
+        "always-high": "high",
+        "semver": null
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-4861e40d7047",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-489aad606045",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-4a3efad6e008",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-4aab28696392",
+      "predictions": {
+        "always-high": "high",
+        "semver": null
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-4b4c08d502d9",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-4bba3fb6147e",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-4bbf6c2f38c5",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-4c7b193ce573",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-4d3c6dbc0bd9",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-4d4a773e3498",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-4dd50c6cb5a3",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-4ea77102208e",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-4ef12d5388d4",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-4ef9928eee8a",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-4fa4c3a11670",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-500d9c021d34",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-51d44eae1e61",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-51e103fc80ae",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-5275fc9ef87a",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-5287fc631fa7",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-52ba94ad488d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-52c069901110",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-5320d2638b01",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-532ba2101316",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-53f3dbca3fda",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-54857351e0b0",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-548f2efd47b3",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-55931d4c3a2e",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-55ce27e3d1db",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-56b1cde573f7",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-57062474434f",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-5743793a5d54",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-5769bdad7692",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-5836280b1a73",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-58d2448fa2d6",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-59849004763f",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-5a0d2c907276",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-5aa75fa04b54",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-5af571586428",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-5b7634ef016e",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-5b90c67ef2d2",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-5c0e38ca9f22",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-5cf5a482bd43",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-5d2262cc6f0c",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-5e61a76ca214",
+      "predictions": {
+        "always-high": "high",
+        "semver": null
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-5eb6dbe8e9c3",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-5f09581fe834",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-5f8a3fa396d4",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-5fca04bd287b",
+      "predictions": {
+        "always-high": "high",
+        "semver": null
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-5fcd0c3ad772",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-60d8c1a25e2d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-61e96bfe3a32",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-626631e83325",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-64b8a013098f",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-65200df71d5f",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-65b5a7541998",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-65d7e266291e",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-6661429a5a0e",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-67cb9570f6b1",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-686ea4e18114",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-6a96a3c8ab65",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-6ac25d3a60ea",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-6ad104c4fb92",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-6b2f30ebeacb",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-6c53cd904bd6",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-6cb50e747a31",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-6d3f6d5a9dbc",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-6d68d927b01c",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-6e9e6cdda5c5",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-6ee4bf66c141",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-700fd2428406",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-70e13f6bdb7d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-71f0631e9cee",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-72bb17e6e5f3",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-72ff6be0c470",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-732226b0d9e5",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-735c2ce3d22b",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-741f3b5e20a9",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-763d17f9291f",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-770174eb3091",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-7731ee05ffba",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-78252d13ff35",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-78445745997d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-7c90c61e90e9",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-7cda77e3b998",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-7d1985cccaca",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-7d3fde0b944f",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-7f7de81d28b6",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-7fb959ccb8c9",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-806daaaaa907",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-81fdd1487720",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-82ce7330b4b2",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-836c7cc2fe19",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-83a25390887d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-8436e73fa0c9",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-8502e85f9ee2",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-863f64e40b3d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-867e69e208ff",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-874ed893a4e4",
+      "predictions": {
+        "always-high": "high",
+        "semver": null
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-875358af2da4",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-87fbea62fa68",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-88676d244722",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-88c1f903cede",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-8929dc34435f",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-89c600304294",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-8ab7a7214f9a",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-8b1bc48bc378",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-8b372dfe7962",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-8d55e2e45469",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-8e1f0f08eef8",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-8e1f764e628f",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-8ecc7850c97f",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-8ef89758401d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-8f16da085185",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-8f757321e48d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-8f91818349e8",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-8fbb6deb1121",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-9069046236a0",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-90cca141fc95",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-90df9018630b",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-90ffd2cd31ed",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-919c808279d2",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-923a6b2027e3",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-93ac5faf3790",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-94380c9eb5be",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-9461431622cf",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-94cea45b797e",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-9545eb3a2687",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-9564cba457bb",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-959774bbbc38",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-95b2c15de16f",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-95f718977b09",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-974c914726a0",
+      "predictions": {
+        "always-high": "high",
+        "semver": null
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-979780b29cf3",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-979d6237a508",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-9836e07e553e",
+      "predictions": {
+        "always-high": "high",
+        "semver": null
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-98ac85f955ab",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-98d9528e879a",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-99a43573c3ea",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-99d4dfc8ca5b",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-99ea58c42fe0",
+      "predictions": {
+        "always-high": "high",
+        "semver": null
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-99ec071a0ce4",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-9a8b6fc7847a",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-9ae83176a058",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-9b63e53888eb",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-9c0f1348f89d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-9d450e88e874",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-9d51a768dc63",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-9da8825fbdb2",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-9dbbd30590fa",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-9fd4403e49fe",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-a047d2d3f938",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-a0855ad50564",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-a0ec50cb297c",
+      "predictions": {
+        "always-high": "high",
+        "semver": null
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-a18e08bb3fe1",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-a2b0fc53611f",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-a3f4738330d2",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-a48e9cf77fba",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-a4c360001134",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-a61b52b3627b",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-a67f1530f941",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-a698299490d7",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-a784b326d082",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-a80dac86d1ca",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-a950450686c4",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-a978da4ecd0a",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-a9c9228182e2",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-a9df7b223522",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-aa14451c6f21",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-aa7bdc45bb47",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-aac5842369f1",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-aaee63ae5840",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-aaffc2677a7a",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-ab70529b2edf",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-ab81c2b264ca",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-ab85440ce732",
+      "predictions": {
+        "always-high": "high",
+        "semver": null
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-abe29340c60b",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-abfb7dd92cff",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-acc50dabec67",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-ad68349ac058",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-ad80bdff62b1",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-add76d270272",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-ae0c985ae9bd",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-ae16b526695f",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-ae17c8e47b93",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-aef811ea0044",
+      "predictions": {
+        "always-high": "high",
+        "semver": null
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-af6e5d1cc94f",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-b0b8acbc9d71",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-b1a941400d68",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-b209fe48162a",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-b2edf635da83",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-b349a544f5d0",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-b5b64613a1a6",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-b6a48a6e557f",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-b6c9b74915e6",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-b736ca80eab4",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-b7e4be7e46c5",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-b8f92ff37d1a",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-b92fdfdaeea7",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-b98f5deee00b",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-bab3a3c5b1aa",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-bad55510363b",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-bbb6f746d11a",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-bbd31a8cfb55",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-bbd396d04032",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-bc2dad1e82eb",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-bd3ce213e277",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-bd46a7fe95a3",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-bd93ad3b6113",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-bdbb81614557",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-bdbdd72d9988",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-bf192132622e",
+      "predictions": {
+        "always-high": "high",
+        "semver": null
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-bfe01b1632ae",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-c007e01d4bad",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-c09896887acf",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-c0f6ab75784d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-c131a3dbb567",
+      "predictions": {
+        "always-high": "high",
+        "semver": null
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-c1fc16b4fe9d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-c311ee0a84b7",
+      "predictions": {
+        "always-high": "high",
+        "semver": null
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-c32185c43be1",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-c3818c076f0c",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-c4071651dc72",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-c46623986f77",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-c4950c79dfe9",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-c5905f7220e1",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-c5c8dfee350e",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-c5db2b610e30",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-c5ddd70e8ce1",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-c5fd5187ce64",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-c7c9590a206d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-c8a572a7d8e6",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-c8da6c3c823d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-c90c8fd408f5",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-c923de11176e",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-c9cc7d936dda",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-ca09cbc2092a",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-cb541fd65c7b",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-ccc3057b9cbf",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-cd5bb39f43e4",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-d0eb69d8fbb6",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-d2fb00d2a9b8",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-d33aad491714",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-d38182a8a0fe",
+      "predictions": {
+        "always-high": "high",
+        "semver": null
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-d3c95ff17d26",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-d401e189fb64",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-d445acc2204a",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-d4aade950ffc",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-d4b00540f924",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-d54b56b91c11",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-d675fa18d22f",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-d6eda931038e",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-d6f2fa0c76f2",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-d70adda72af8",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-d7cc1744503d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-d8031ba94b60",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-d8e0311e6203",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-d9a0df6feee6",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-d9e80390c47f",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-da616b08bed8",
+      "predictions": {
+        "always-high": "high",
+        "semver": null
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-db02c6bcb989",
+      "predictions": {
+        "always-high": "high",
+        "semver": null
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-dbb2ae9a870a",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-dbdc7d2c4a28",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-dc7825479563",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-dc9a40fde9a9",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-dc9f7910968c",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-dcc95f410847",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-dd75e8070bab",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-dde0743630a5",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-dec73a7c6341",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-df8452d0d787",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-e074b52364dd",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-e0f2562e8490",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-e14a9e4a3007",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-e14e4c4fa024",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-e181647f2d24",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-e35a97cf177d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-e36118e15896",
+      "predictions": {
+        "always-high": "high",
+        "semver": null
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-e3b288f3a150",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-e40f76d1150d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-e4661d89a64f",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-e5801e745748",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-e59bf2313ed8",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-e70bd198fa1e",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-ea03f6488449",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-ea33b5101edf",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-eb82573b99b6",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-ed7fbdd75abc",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-ef3f7be3e275",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-ef830a40b026",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-efd982c815eb",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-f1dfdcd3774c",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-f218673d7754",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-f222a61aa0ca",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-f26cd85b97b2",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-f412c0f6f2bf",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-f557d31b4faf",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-f5a34301592b",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-f5bc873a4b68",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-f5dbb3021aa9",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-f5fe6b784898",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-f61b113c1493",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-f665330dbf47",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-f6659d758a43",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-f6aa80590030",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-f78d34b82926",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-f890f275db90",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-f951ead97d14",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-f9763c18c7e1",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-fb40f5e5fc20",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-fb71d68c62a6",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-fc7d1a841bfe",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-fc969c97c1b5",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-fcac4926cf5a",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-fd955874338e",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-fe31c5e11259",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-fe8646eae5d5",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-feb582661e77",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-ff77ec9ef379",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-ff854f423572",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "other",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-ff8b5b61548d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    }
+  ],
+  "epoch": {
+    "byEcosystem": {
+      "maven": 463
+    },
+    "bySource": {
+      "bump": 463
+    },
+    "cases": 463,
+    "commit": "9257c07",
+    "corpusSha256": "1f5165d8d3bb12e0a8289ef00c670ea6a9093da585a7d7ce3e793bdf6407e237",
+    "date": "2026-09-27",
+    "excluded": 0,
+    "final": false,
+    "label": "Epoch 1, BUMP dev split",
+    "labelled": 463,
+    "rubric": "outcome-rubric/1",
+    "split": "dev"
+  },
+  "excluded": []
+}

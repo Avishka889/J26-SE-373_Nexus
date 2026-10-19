@@ -1,0 +1,56 @@
+{
+  "caseId": "bump-a3f4738330d2",
+  "client": {
+    "commit": "a3f4738330d23b9136044ae86c2093fba2c292e4",
+    "image": "ghcr.io/chains-project/breaking-updates:a3f4738330d23b9136044ae86c2093fba2c292e4-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:a3f4738330d23b9136044ae86c2093fba2c292e4-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:a3f4738330d23b9136044ae86c2093fba2c292e4-breaking",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "TEST_FAILURE",
+    "failureLocations": [],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/a3f4738330d23b9136044ae86c2093fba2c292e4.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb",
+  "source": "bump",
+  "sourceChange": "minor",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "1.0.3",
+    "manifestPaths": [],
+    "package": "org.junit.platform:junit-platform-surefire-provider",
+    "scope": "compile",
+    "toVersion": "1.3.2"
+  }
+}

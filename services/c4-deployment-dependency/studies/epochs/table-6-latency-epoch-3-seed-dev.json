@@ -1,0 +1,200 @@
+{
+  "budgetSeconds": 30.0,
+  "cases": 20,
+  "max": 119.699,
+  "over": [
+    {
+      "assessmentSeconds": 33.667,
+      "caseId": "bump-44a15fa526c1",
+      "changelogSeconds": 0.0,
+      "usageSeconds": 33.667
+    },
+    {
+      "assessmentSeconds": 119.699,
+      "caseId": "bump-70e13f6bdb7d",
+      "changelogSeconds": 103.025,
+      "usageSeconds": 16.674
+    },
+    {
+      "assessmentSeconds": 78.549,
+      "caseId": "bump-78252d13ff35",
+      "changelogSeconds": 5.795,
+      "usageSeconds": 72.754
+    },
+    {
+      "assessmentSeconds": 115.734,
+      "caseId": "bump-c09896887acf",
+      "changelogSeconds": 88.512,
+      "usageSeconds": 27.222
+    },
+    {
+      "assessmentSeconds": 51.672,
+      "caseId": "bump-dc9a40fde9a9",
+      "changelogSeconds": 19.209,
+      "usageSeconds": 32.463
+    },
+    {
+      "assessmentSeconds": 55.142,
+      "caseId": "bump-feb582661e77",
+      "changelogSeconds": 13.689,
+      "usageSeconds": 41.453
+    },
+    {
+      "assessmentSeconds": 85.292,
+      "caseId": "platform-jsdom-25.0.1-30.1.1",
+      "changelogSeconds": 85.123,
+      "usageSeconds": 0.169
+    }
+  ],
+  "p50": 12.159,
+  "p95": 115.734,
+  "perCase": [
+    {
+      "assessmentSeconds": 14.635,
+      "caseId": "bump-19e20b0d69cb",
+      "changelogSeconds": 0.0,
+      "modelAsked": false,
+      "usageSeconds": 14.635
+    },
+    {
+      "assessmentSeconds": 33.667,
+      "caseId": "bump-44a15fa526c1",
+      "changelogSeconds": 0.0,
+      "modelAsked": false,
+      "usageSeconds": 33.667
+    },
+    {
+      "assessmentSeconds": 119.699,
+      "caseId": "bump-70e13f6bdb7d",
+      "changelogSeconds": 103.025,
+      "modelAsked": true,
+      "usageSeconds": 16.674
+    },
+    {
+      "assessmentSeconds": 78.549,
+      "caseId": "bump-78252d13ff35",
+      "changelogSeconds": 5.795,
+      "modelAsked": true,
+      "usageSeconds": 72.754
+    },
+    {
+      "assessmentSeconds": 115.734,
+      "caseId": "bump-c09896887acf",
+      "changelogSeconds": 88.512,
+      "modelAsked": true,
+      "usageSeconds": 27.222
+    },
+    {
+      "assessmentSeconds": 51.672,
+      "caseId": "bump-dc9a40fde9a9",
+      "changelogSeconds": 19.209,
+      "modelAsked": true,
+      "usageSeconds": 32.463
+    },
+    {
+      "assessmentSeconds": 16.415,
+      "caseId": "bump-ed7fbdd75abc",
+      "changelogSeconds": 0.0,
+      "modelAsked": false,
+      "usageSeconds": 16.415
+    },
+    {
+      "assessmentSeconds": 55.142,
+      "caseId": "bump-feb582661e77",
+      "changelogSeconds": 13.689,
+      "modelAsked": true,
+      "usageSeconds": 41.453
+    },
+    {
+      "assessmentSeconds": 4.604,
+      "caseId": "maven-records-junit-bom-5.12.2-5.14.4",
+      "changelogSeconds": 0.0,
+      "modelAsked": false,
+      "usageSeconds": 4.604
+    },
+    {
+      "assessmentSeconds": 4.164,
+      "caseId": "maven-records-junit-bom-5.12.2-6.1.3",
+      "changelogSeconds": 0.0,
+      "modelAsked": false,
+      "usageSeconds": 4.164
+    },
+    {
+      "assessmentSeconds": 85.292,
+      "caseId": "platform-jsdom-25.0.1-30.1.1",
+      "changelogSeconds": 85.123,
+      "modelAsked": true,
+      "usageSeconds": 0.169
+    },
+    {
+      "assessmentSeconds": 4.897,
+      "caseId": "platform-react-router-dom-7.16.0-7.18.4",
+      "changelogSeconds": 4.809,
+      "modelAsked": true,
+      "usageSeconds": 0.088
+    },
+    {
+      "assessmentSeconds": 1.96,
+      "caseId": "platform-supertest-7.2.2-7.3.0",
+      "changelogSeconds": 1.929,
+      "modelAsked": true,
+      "usageSeconds": 0.031
+    },
+    {
+      "assessmentSeconds": 12.159,
+      "caseId": "platform-tailwindcss-4.3.0-4.3.3",
+      "changelogSeconds": 11.655,
+      "modelAsked": true,
+      "usageSeconds": 0.504
+    },
+    {
+      "assessmentSeconds": 11.901,
+      "caseId": "platform-tailwindcss-vite-4.3.0-4.3.3",
+      "changelogSeconds": 11.776,
+      "modelAsked": true,
+      "usageSeconds": 0.125
+    },
+    {
+      "assessmentSeconds": 0.4,
+      "caseId": "platform-types-react-19.2.15-19.3.0",
+      "changelogSeconds": 0.0,
+      "modelAsked": false,
+      "usageSeconds": 0.4
+    },
+    {
+      "assessmentSeconds": 2.072,
+      "caseId": "platform-typescript-5.9.3-7.0.2",
+      "changelogSeconds": 0.532,
+      "modelAsked": true,
+      "usageSeconds": 1.54
+    },
+    {
+      "assessmentSeconds": 12.174,
+      "caseId": "platform-vite-6.4.2-8.3.1",
+      "changelogSeconds": 10.845,
+      "modelAsked": true,
+      "usageSeconds": 1.329
+    },
+    {
+      "assessmentSeconds": 7.98,
+      "caseId": "seeded-express-del",
+      "changelogSeconds": 7.954,
+      "modelAsked": true,
+      "usageSeconds": 0.026
+    },
+    {
+      "assessmentSeconds": 8.51,
+      "caseId": "seeded-uuid-v4",
+      "changelogSeconds": 8.499,
+      "modelAsked": true,
+      "usageSeconds": 0.011
+    }
+  ],
+  "study": {
+    "date": "2026-09-28",
+    "label": "Table 6, latency",
+    "votes": "epoch-3-seed-dev.json",
+    "votesRecordedOn": "2026-09-27"
+  },
+  "withinBudget": 13
+}

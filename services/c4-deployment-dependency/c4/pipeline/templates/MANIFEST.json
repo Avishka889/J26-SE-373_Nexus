@@ -1,0 +1,56 @@
+{
+  "mern/Dockerfile@2": {
+    "file": "mern/Dockerfile.tmpl",
+    "path": "Dockerfile",
+    "purpose": "container",
+    "sha256": "bc4be32cba90ecad2287346d52038beda2a5da27f7e48e3ea6a6bd09f764f24b"
+  },
+  "mern/deploy.yml@3": {
+    "file": "mern/deploy.yml.tmpl",
+    "path": ".github/workflows/deploy.yml",
+    "purpose": "workflow",
+    "sha256": "053cd1be21aa02266ad585464e7cad17107a56ed20c651a2d7097b0b3d50ec87"
+  },
+  "mern/dockerignore@1": {
+    "file": "mern/dockerignore.tmpl",
+    "path": ".dockerignore",
+    "purpose": "ignore",
+    "sha256": "b21daf713a810b4decd9e221d0d2fd8c6a7749bbed58bf50de03f9703b2d6039"
+  },
+  "mern/k8s-deployment.yaml@1": {
+    "file": "mern/k8s-deployment.yaml.tmpl",
+    "path": "k8s/deployment.yaml",
+    "purpose": "orchestration",
+    "sha256": "02ebb34f1db7a020772f8def60867213295e7b2c50c21edd8cd18f4c801a365f"
+  },
+  "mern/k8s-service.yaml@1": {
+    "file": "mern/k8s-service.yaml.tmpl",
+    "path": "k8s/service.yaml",
+    "purpose": "orchestration",
+    "sha256": "e8af592d148719df1a0501832dbe1d91345a3df919909e55e6330ccf9b0cfc1e"
+  },
+  "mern/release.json@1": {
+    "file": "mern/release.json.tmpl",
+    "path": "<<frontend_dir>>/public/release.json",
+    "purpose": "fingerprint",
+    "sha256": "52069d1a7a34e6e6e4df7fd9968469f3405a2fd6082c3bfc97c87bc075c5e65e"
+  },
+  "mern/render.yaml@1": {
+    "file": "mern/render.yaml.tmpl",
+    "path": "render.yaml",
+    "purpose": "hosting",
+    "sha256": "1d93856b4b0284809f310214740665a092d71ebd5c3e4513345bedebe1b164a3"
+  },
+  "mern/vercel.json@1": {
+    "file": "mern/vercel.json.tmpl",
+    "path": "vercel.json",
+    "purpose": "hosting",
+    "sha256": "b6bf2f8cd08b2431939c234322df00a02cb13b7d7e13f6df56527296c599c549"
+  },
+  "mern/verify-release.yml@2": {
+    "file": "mern/verify-release.yml.tmpl",
+    "path": ".github/workflows/verify-release.yml",
+    "purpose": "workflow",
+    "sha256": "802eca266c0437ae3cab6105f1073c88fb3167a04f8221637816a56f11700611"
+  }
+}

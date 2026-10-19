@@ -1,0 +1,61 @@
+{
+  "caseId": "bump-3ff575ae202c",
+  "client": {
+    "commit": "3ff575ae202cdf76ddfa8a4228a1711a6fa1e921",
+    "image": "ghcr.io/chains-project/breaking-updates:3ff575ae202cdf76ddfa8a4228a1711a6fa1e921-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/codehaus-plexus/plexus-archiver",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:3ff575ae202cdf76ddfa8a4228a1711a6fa1e921-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:3ff575ae202cdf76ddfa8a4228a1711a6fa1e921-breaking",
+        "exitCode": null,
+        "logSha256": "49b7aebf73d6def2964ef6b5fa916b5e4beacaa0e49d18e6a8e424e09ec4919e",
+        "name": "compile",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": "[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.8.1\n[WARNING]  * org.apache.maven.plugins:maven-clean-plugin:3.1.0\n[WARNING]  * org.apache.maven.plugins:maven-site-plugin:3.9.1\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:2.7\n[WARNING]  * org.codehaus.plexus:plexus-component-metadata:2.1.0\n[WARNING]  * org.apache.maven.plugins:maven-enforcer-plugin:3.0.0-M3\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING] \n[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.8.1:testCompile (default-testCompile) on project plexus-archiver: Compilation failure\n[ERROR] /plexus-archiver/src/test/java/org/codehaus/plexus/archiver/DuplicateFilesTest.java:[37,23] cannot find symbol\n[ERROR]   symbol:   method getLoggerManager()\n[ERROR]   location: interface org.codehaus.plexus.PlexusContainer\n[ERROR] -> [Help 1]\n[ERROR] \n[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.\n[ERROR] Re-run Maven using the -X switch to enable full debug logging.\n[ERROR] \n[ERROR] For more information about the errors and possible solutions, please read the following articles:\n[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException"
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "COMPILATION_FAILURE",
+    "failureLocations": [
+      {
+        "line": 37,
+        "path": "src/test/java/org/codehaus/plexus/archiver/DuplicateFilesTest.java"
+      }
+    ],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/3ff575ae202cdf76ddfa8a4228a1711a6fa1e921.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb; failure locations read from running ghcr.io/chains-project/breaking-updates:3ff575ae202cdf76ddfa8a4228a1711a6fa1e921-breaking on 2026-09-28",
+  "source": "bump",
+  "sourceChange": "other",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "1.0-alpha-30",
+    "manifestPaths": [],
+    "package": "org.codehaus.plexus:plexus-container-default",
+    "scope": "provided",
+    "toVersion": "2.1.1"
+  }
+}

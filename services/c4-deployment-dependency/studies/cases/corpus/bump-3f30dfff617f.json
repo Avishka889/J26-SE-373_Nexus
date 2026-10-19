@@ -1,0 +1,97 @@
+{
+  "caseId": "bump-3f30dfff617f",
+  "client": {
+    "commit": "3f30dfff617fd652412260ecf648a25769a27101",
+    "image": "ghcr.io/chains-project/breaking-updates:3f30dfff617fd652412260ecf648a25769a27101-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/guhilling/cdi-test",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:3f30dfff617fd652412260ecf648a25769a27101-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:3f30dfff617fd652412260ecf648a25769a27101-breaking",
+        "exitCode": null,
+        "logSha256": "45674f4b07b94f34cad1a938dc985bfb82458c8f9f5cde21fbcd10ac608522b2",
+        "name": "compile",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": "[ERROR]   location: class de.hilling.junit.cdi.scope.CallRedirectionInterceptor\n[ERROR] /cdi-test/cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/CallRedirectionInterceptor.java:[40,36] cannot find symbol\n[ERROR]   symbol:   class InvocationContext\n[ERROR]   location: class de.hilling.junit.cdi.scope.CallRedirectionInterceptor\n[ERROR] /cdi-test/cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/CallRedirectionInterceptor.java:[55,29] cannot find symbol\n[ERROR]   symbol:   class InvocationContext\n[ERROR]   location: class de.hilling.junit.cdi.scope.CallRedirectionInterceptor\n[ERROR] /cdi-test/cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/CallRedirectionInterceptor.java:[27,6] cannot find symbol\n[ERROR]   symbol:   class AroundInvoke\n[ERROR]   location: class de.hilling.junit.cdi.scope.CallRedirectionInterceptor\n[ERROR] -> [Help 1]\n[ERROR] \n[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.\n[ERROR] Re-run Maven using the -X switch to enable full debug logging.\n[ERROR] \n[ERROR] For more information about the errors and possible solutions, please read the following articles:\n[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException\n[ERROR] \n[ERROR] After correcting the problems, you can resume the build with the command\n[ERROR]   mvn <args> -rf :cdi-test-core"
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "COMPILATION_FAILURE",
+    "failureLocations": [
+      {
+        "line": 5,
+        "path": "cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/Replaceable.java"
+      },
+      {
+        "line": 13,
+        "path": "cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/Replaceable.java"
+      },
+      {
+        "line": 10,
+        "path": "cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/CallRedirectionInterceptor.java"
+      },
+      {
+        "line": 11,
+        "path": "cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/CallRedirectionInterceptor.java"
+      },
+      {
+        "line": 12,
+        "path": "cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/CallRedirectionInterceptor.java"
+      },
+      {
+        "line": 18,
+        "path": "cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/CallRedirectionInterceptor.java"
+      },
+      {
+        "line": 28,
+        "path": "cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/CallRedirectionInterceptor.java"
+      },
+      {
+        "line": 40,
+        "path": "cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/CallRedirectionInterceptor.java"
+      },
+      {
+        "line": 55,
+        "path": "cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/CallRedirectionInterceptor.java"
+      },
+      {
+        "line": 27,
+        "path": "cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/CallRedirectionInterceptor.java"
+      }
+    ],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/3f30dfff617fd652412260ecf648a25769a27101.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb; failure locations read from running ghcr.io/chains-project/breaking-updates:3f30dfff617fd652412260ecf648a25769a27101-breaking on 2026-09-28",
+  "source": "bump",
+  "sourceChange": "major",
+  "split": "held-out",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "1.2.5",
+    "manifestPaths": [],
+    "package": "jakarta.interceptor:jakarta.interceptor-api",
+    "scope": "provided",
+    "toVersion": "2.0.0"
+  }
+}

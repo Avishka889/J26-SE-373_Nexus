@@ -1,0 +1,89 @@
+{
+  "caseId": "bump-17778ff224c3",
+  "client": {
+    "commit": "17778ff224c38fe03999cac8caa1814b68fd0ef2",
+    "image": "ghcr.io/chains-project/breaking-updates:17778ff224c38fe03999cac8caa1814b68fd0ef2-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/camunda-community-hub/camunda-platform-7-mockito",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:17778ff224c38fe03999cac8caa1814b68fd0ef2-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:17778ff224c38fe03999cac8caa1814b68fd0ef2-breaking",
+        "exitCode": null,
+        "logSha256": "7cb2c34b08d637da5ed70b91a2d5e2e313a32a62a8f3f8aa18b762c98147b880",
+        "name": "compile",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": "[ERROR]   symbol:   class ApplicationContext\n[ERROR]   location: class org.camunda.community.mockito.process.CallActivityMockForSpringContext\n[ERROR] /camunda-platform-7-mockito/src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java:[52,65] cannot find symbol\n[ERROR]   symbol:   class ApplicationContext\n[ERROR]   location: class org.camunda.community.mockito.process.CallActivityMockForSpringContext\n[ERROR] /camunda-platform-7-mockito/src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java:[41,5] reference to CallActivityMockForSpringContext is ambiguous\n[ERROR]   both constructor CallActivityMockForSpringContext(java.lang.String,org.camunda.community.mockito.process.CallActivityMock.MockedModelConfigurer,org.springframework.beans.factory.config.SingletonBeanRegistry) in org.camunda.community.mockito.process.CallActivityMockForSpringContext and constructor CallActivityMockForSpringContext(java.lang.String,org.camunda.community.mockito.process.CallActivityMock.MockedModelConfigurer,ApplicationContext) in org.camunda.community.mockito.process.CallActivityMockForSpringContext match\n[ERROR] /camunda-platform-7-mockito/src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java:[53,41] cannot find symbol\n[ERROR]   symbol:   class ConfigurableApplicationContext\n[ERROR]   location: class org.camunda.community.mockito.process.CallActivityMockForSpringContext\n[ERROR] /camunda-platform-7-mockito/src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java:[56,14] cannot find symbol\n[ERROR]   symbol:   class ConfigurableApplicationContext\n[ERROR]   location: class org.camunda.community.mockito.process.CallActivityMockForSpringContext\n[ERROR] -> [Help 1]\n[ERROR] \n[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.\n[ERROR] Re-run Maven using the -X switch to enable full debug logging.\n[ERROR] \n[ERROR] For more information about the errors and possible solutions, please read the following articles:\n[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException"
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "COMPILATION_FAILURE",
+    "failureLocations": [
+      {
+        "line": 5,
+        "path": "src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java"
+      },
+      {
+        "line": 6,
+        "path": "src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java"
+      },
+      {
+        "line": 33,
+        "path": "src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java"
+      },
+      {
+        "line": 48,
+        "path": "src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java"
+      },
+      {
+        "line": 52,
+        "path": "src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java"
+      },
+      {
+        "line": 41,
+        "path": "src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java"
+      },
+      {
+        "line": 53,
+        "path": "src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java"
+      },
+      {
+        "line": 56,
+        "path": "src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java"
+      }
+    ],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/17778ff224c38fe03999cac8caa1814b68fd0ef2.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb; failure locations read from running ghcr.io/chains-project/breaking-updates:17778ff224c38fe03999cac8caa1814b68fd0ef2-breaking on 2026-09-28",
+  "source": "bump",
+  "sourceChange": "major",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "5.3.23",
+    "manifestPaths": [],
+    "package": "org.springframework:spring-context",
+    "scope": "provided",
+    "toVersion": "6.0.7"
+  }
+}

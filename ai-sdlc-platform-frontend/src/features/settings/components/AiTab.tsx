@@ -9,6 +9,7 @@ import {
 } from "@/entities/settings";
 import { messageOf } from "@/lib/http";
 import { Note } from "@/shared/ui/phase";
+import { Select } from "@/shared/ui/Select";
 import { thinkingWords } from "@/shared/utils/modelWords";
 import { formatWhen } from "@/shared/utils/time";
 import { useChooseThinking } from "../hooks";
@@ -21,6 +22,8 @@ const LEVEL_LABELS: Record<ThinkingLevel, string> = {
   high: "On, high effort",
   max: "On, max effort",
 };
+
+const LEVEL_OPTIONS = THINKING_LEVELS.map((level) => ({ value: level, label: LEVEL_LABELS[level] }));
 
 /**
  * The model each phase runs, shown as it is, and how hard each phase thinks,
@@ -116,21 +119,14 @@ function ThinkingChoice({ phase }: { phase: PhaseModel & { key: NonNullable<Phas
       <label htmlFor={id} className="text-[color:var(--tp-ink-2)]">
         Thinking<span className="sr-only"> for {phase.phase}</span>
       </label>
-      <select
+      <Select<ThinkingLevel>
         id={id}
-        className="min-w-0 rounded-md border border-border bg-background px-2 py-1 text-foreground"
+        size="sm"
         value={level}
+        options={LEVEL_OPTIONS}
         disabled={saving}
-        onChange={(event) =>
-          choose.mutate({ key: phase.key, level: event.target.value as ThinkingLevel })
-        }
-      >
-        {THINKING_LEVELS.map((one) => (
-          <option key={one} value={one}>
-            {LEVEL_LABELS[one]}
-          </option>
-        ))}
-      </select>
+        onChange={(next) => choose.mutate({ key: phase.key, level: next })}
+      />
       <span className="tp-den text-[12px]" role="status">
         {saving
           ? "Saving..."

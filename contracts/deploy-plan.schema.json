@@ -1,0 +1,336 @@
+{
+  "$defs": {
+    "DeployStep": {
+      "additionalProperties": false,
+      "properties": {
+        "compensation": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Compensation"
+        },
+        "dependsOn": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Dependson"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "movesTraffic": {
+          "default": false,
+          "title": "Movestraffic",
+          "type": "boolean"
+        },
+        "provider": {
+          "anyOf": [
+            {
+              "enum": [
+                "github",
+                "vercel",
+                "render",
+                "neon",
+                "atlas",
+                "local-docker"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Provider"
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "provider",
+        "dependsOn",
+        "compensation",
+        "movesTraffic"
+      ],
+      "title": "DeployStep",
+      "type": "object"
+    },
+    "DeployTarget": {
+      "additionalProperties": false,
+      "properties": {
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        },
+        "provider": {
+          "enum": [
+            "github",
+            "vercel",
+            "render",
+            "neon",
+            "atlas",
+            "local-docker"
+          ],
+          "title": "Provider",
+          "type": "string"
+        },
+        "resource": {
+          "minLength": 1,
+          "title": "Resource",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "frontend",
+            "backend",
+            "database",
+            "app"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "rootDir": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rootdir"
+        },
+        "runtime": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Runtime"
+        }
+      },
+      "required": [
+        "role",
+        "provider",
+        "resource",
+        "rootDir",
+        "runtime",
+        "note"
+      ],
+      "title": "DeployTarget",
+      "type": "object"
+    },
+    "EnvironmentProtection": {
+      "additionalProperties": false,
+      "description": "Which approval locks were in force for this plan.",
+      "properties": {
+        "github": {
+          "enum": [
+            "configured",
+            "unavailable-private-repo",
+            "unavailable-plan",
+            "not-applicable"
+          ],
+          "title": "Github",
+          "type": "string"
+        },
+        "mechanism": {
+          "const": "platform-gate",
+          "default": "platform-gate",
+          "title": "Mechanism",
+          "type": "string"
+        },
+        "reason": {
+          "default": "",
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "mechanism",
+        "github",
+        "reason"
+      ],
+      "title": "EnvironmentProtection",
+      "type": "object"
+    },
+    "RollbackPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "note": {
+          "minLength": 1,
+          "title": "Note",
+          "type": "string"
+        },
+        "strategy": {
+          "const": "application-only",
+          "default": "application-only",
+          "title": "Strategy",
+          "type": "string"
+        }
+      },
+      "required": [
+        "strategy",
+        "note"
+      ],
+      "title": "RollbackPolicy",
+      "type": "object"
+    },
+    "WiringRule": {
+      "additionalProperties": false,
+      "description": "How one part learns the address of another, in plain words.",
+      "properties": {
+        "from": {
+          "minLength": 1,
+          "title": "From",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "to": {
+          "minLength": 1,
+          "title": "To",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "from",
+        "to"
+      ],
+      "title": "WiringRule",
+      "type": "object"
+    }
+  },
+  "$id": "https://sdlc.local/contracts/deploy-plan.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "candidateHash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Candidatehash",
+      "type": "string"
+    },
+    "deployVersion": {
+      "minimum": 1,
+      "title": "Deployversion",
+      "type": "integer"
+    },
+    "environmentProtection": {
+      "$ref": "#/$defs/EnvironmentProtection"
+    },
+    "generatedAt": {
+      "title": "Generatedat",
+      "type": "string"
+    },
+    "generatedBy": {
+      "minLength": 1,
+      "title": "Generatedby",
+      "type": "string"
+    },
+    "planId": {
+      "minLength": 1,
+      "title": "Planid",
+      "type": "string"
+    },
+    "projectId": {
+      "minLength": 1,
+      "title": "Projectid",
+      "type": "string"
+    },
+    "rollback": {
+      "$ref": "#/$defs/RollbackPolicy"
+    },
+    "stack": {
+      "enum": [
+        "mern",
+        "react-spring-postgres"
+      ],
+      "title": "Stack",
+      "type": "string"
+    },
+    "steps": {
+      "items": {
+        "$ref": "#/$defs/DeployStep"
+      },
+      "minItems": 1,
+      "title": "Steps",
+      "type": "array"
+    },
+    "target": {
+      "enum": [
+        "local",
+        "cloud"
+      ],
+      "title": "Target",
+      "type": "string"
+    },
+    "targets": {
+      "items": {
+        "$ref": "#/$defs/DeployTarget"
+      },
+      "minItems": 1,
+      "title": "Targets",
+      "type": "array"
+    },
+    "wiring": {
+      "items": {
+        "$ref": "#/$defs/WiringRule"
+      },
+      "title": "Wiring",
+      "type": "array"
+    }
+  },
+  "required": [
+    "planId",
+    "projectId",
+    "generatedBy",
+    "generatedAt",
+    "deployVersion",
+    "stack",
+    "target",
+    "candidateHash",
+    "targets",
+    "steps",
+    "wiring",
+    "rollback",
+    "environmentProtection"
+  ],
+  "title": "DeployPlan",
+  "type": "object"
+}

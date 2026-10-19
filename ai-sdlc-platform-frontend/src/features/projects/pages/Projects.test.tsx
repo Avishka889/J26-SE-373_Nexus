@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { choose } from "@/shared/testing/choose";
 import { MemoryRouter } from "react-router-dom";
 
 const state = vi.hoisted(() => ({
@@ -80,6 +81,43 @@ describe("a project whose run stopped", () => {
     );
 
     expect(screen.getAllByText("Run stopped").length).toBeGreaterThan(0);
+  });
+});
+
+/**
+ * X-8: a project released with stories still in its backlog read "Complete",
+ * though the next sprint was still to build. It names the increment instead.
+ */
+describe("a project released with a backlog left", () => {
+  it("reads released, in the sprint it released", () => {
+    state.load = { status: "loaded", error: null };
+    state.list = [
+      {
+        id: "p1",
+        name: "Ledger",
+        description: "",
+        status: "released",
+        sprint: 2,
+        runStopped: false,
+        createdAt: "2026-10-03T09:00:00Z",
+        updatedAt: "2026-10-03T09:00:00Z",
+        requirementText: "Someone records a payment.",
+        requirementChat: [],
+        files: [],
+        reqPhase: "requirements",
+        progress: 100,
+        phaseProgress: { design: 100, code: 100, testing: 100, deployment: 100 },
+        techStack: [],
+        color: "#3b82f6",
+      },
+    ];
+    render(
+      <MemoryRouter>
+        <Projects />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getAllByText("Released, sprint 2").length).toBeGreaterThan(0);
   });
 });
 
@@ -174,13 +212,13 @@ describe("triaging the projects", () => {
       </MemoryRouter>,
     );
 
-  it("opens each project from a link, and shows only those asked for", () => {
+  it("opens each project from a link, and shows only those asked for", async () => {
     state.load = { status: "loaded", error: null };
     state.list = [listed("Ledger"), listed("Cargo", { runStopped: true })];
     page();
 
     expect(screen.getByRole("link", { name: "Ledger" }).getAttribute("href")).toBe("/projects/ledger/requirements");
-    fireEvent.change(screen.getByRole("combobox", { name: "Show" }), { target: { value: "stopped" } });
+    await choose(screen.getByRole("combobox", { name: "Show" }), "Stopped");
 
     expect(screen.queryByRole("link", { name: "Ledger" })).toBeNull();
     expect(screen.getByRole("link", { name: "Cargo" })).toBeTruthy();

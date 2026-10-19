@@ -60,6 +60,17 @@ export function useCodeFile(projectId: string, path: string | null, version: num
   });
 }
 
+/** What a version changed since the one before it, for the review (C2-8). */
+export function useCodeChanges(projectId: string, version: number) {
+  return useQuery({
+    queryKey: codeKeys.changes(projectId, version),
+    queryFn: () => codeApi.getChanges(projectId, version),
+    enabled: Boolean(projectId && version > 0),
+    // Two finished versions do not change.
+    staleTime: Infinity,
+  });
+}
+
 export function useCodeMutations(projectId: string) {
   const client = useQueryClient();
   const key = codeKeys.snapshot(projectId);

@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { ChevronDown, ListOrdered, Target } from "lucide-react";
+import { ChevronDown, ListOrdered, RefreshCw, Target } from "lucide-react";
+import { Button } from "@/shared/ui/primitives";
 import { cn } from "@/shared/utils/cn";
 import { StageSection, TraceChips } from "@/shared/ui/stage";
 import { Chip, Hairline, Metric, Note, Panel } from "@/shared/ui/phase";
-import type { SprintPlan, UserStory } from "../../api/types";
+import type { ConsistencyFinding, SprintPlan, UserStory } from "../../api/types";
 
 const priorityLabel = { must: "Must", should: "Should", could: "Could" } as const;
 const priorityTone = { must: "fail", should: "caution", could: "neutral" } as const;
@@ -16,11 +17,17 @@ const priorityTone = { must: "fail", should: "caution", could: "neutral" } as co
 export function StageSprintPlan({
   sprint,
   version,
+  behind,
+  onPlanAgain,
   onJump,
 }: {
   sprint: SprintPlan | null;
   /** The design version the plan belongs to, which its tiles name. */
   version: number;
+  /** The stories ranked on a priority a person has since corrected. */
+  behind: ConsistencyFinding[];
+  /** Plan the sprint again, which calls the model once. */
+  onPlanAgain: () => void;
   onJump: (requirementId: string) => void;
 }) {
   // The sprint plan is a leaf stage, so the phase can reach the gate without one.
@@ -44,6 +51,32 @@ export function StageSprintPlan({
 
   return (
     <div className="space-y-5">
+      {behind.length > 0 && (
+        // A corrected priority changed the requirement and nothing planned from
+        // it, and the plan said nothing (review item C1-2).
+        <Panel
+          label="Behind the requirements"
+          title="This plan was ranked before a priority was corrected"
+          className="border-amber-500/30"
+        >
+          <ul className="space-y-1">
+            {behind.map((finding) => (
+              <li key={finding.reason} className="tp-den">
+                {finding.reason}
+              </li>
+            ))}
+          </ul>
+          <Note className="mt-2">
+            Planning again writes the stories again with one model call, ranks them on the priorities
+            held now, and keeps the ids of the stories that carry over.
+          </Note>
+          <Button size="sm" variant="outline" className="mt-2" onClick={onPlanAgain}>
+            <RefreshCw className="h-3.5 w-3.5" />
+            Plan the sprint again
+          </Button>
+        </Panel>
+      )}
+
       <StageSection id="sprint-summary">
         <Panel
           icon={<Target className="h-4 w-4" />}
@@ -86,6 +119,7 @@ export function StageSprintPlan({
           title={sprint.sprintName}
           subtitle="Ordered by priority. These are the stories the first sprint would take on."
           stories={sprint.proposed}
+          needs={sprint.backlogDependencies}
           onJump={onJump}
         />
       </StageSection>
@@ -106,11 +140,14 @@ function StoryList({
   title,
   subtitle,
   stories,
+  needs = [],
   onJump,
 }: {
   title: string;
   subtitle: string;
   stories: UserStory[];
+  /** The stories here that need one left in the backlog, and why. */
+  needs?: SprintPlan["backlogDependencies"];
   onJump: (requirementId: string) => void;
 }) {
   return (
@@ -123,7 +160,13 @@ function StoryList({
     >
       <ul>
         {stories.map((story, i) => (
-          <StoryRow key={story.id} story={story} first={i === 0} onJump={onJump} />
+          <StoryRow
+            key={story.id}
+            story={story}
+            first={i === 0}
+            needs={needs.filter((one) => one.storyId === story.id)}
+            onJump={onJump}
+          />
         ))}
       </ul>
     </Panel>
@@ -133,10 +176,12 @@ function StoryList({
 function StoryRow({
   story,
   first,
+  needs,
   onJump,
 }: {
   story: UserStory;
   first: boolean;
+  needs: SprintPlan["backlogDependencies"];
   onJump: (requirementId: string) => void;
 }) {
   const [open, setOpen] = useState(false);
@@ -159,8 +204,21 @@ function StoryRow({
               </span>
               <Chip tone={priorityTone[story.priority]}>{priorityLabel[story.priority]}</Chip>
               <Chip>{story.epic}</Chip>
+              {needs.map((one) => (
+                <Chip key={one.needs} tone="caution">{`Needs ${one.needs}`}</Chip>
+              ))}
             </span>
             <span className="mt-1.5 block text-[13px] text-[color:var(--tp-ink)]">{story.title}</span>
+            {/* Outside the fold, because it is a reason to change the sprint and
+                a reader approving the plan should not have to open a row to
+                find it (review item C1-5). */}
+            {needs.map((one) => (
+              <span key={one.needs} className="tp-den mt-1 block">
+                Needs {one.needs}, which is in the backlog: {one.because}. Move it into the build
+                when you scope the sprint, or approve knowing this story cannot be finished without
+                it.
+              </span>
+            ))}
           </span>
           <span className="flex shrink-0 items-center gap-3">
             <span className="text-right">

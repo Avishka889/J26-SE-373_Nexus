@@ -38,4 +38,34 @@ describe("the profile", () => {
 
     expect(screen.queryByRole("button", { name: /save changes/i })).toBeNull();
   });
+
+  // The name saved without a word, and the page had no button: nothing said
+  // whether a change was kept.
+  it("says the name is being saved, and then that it is", async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    vi.spyOn(settingsApi, "updateProfile").mockResolvedValue(undefined as never);
+    render(<ProfileTab />);
+    expect(screen.queryByRole("status")).toBeNull();
+
+    fireEvent.change(screen.getByLabelText(/^Full name/), { target: { value: "Grace H" } });
+    expect(screen.getByRole("status").textContent).toBe("Saving...");
+    await act(async () => {
+      vi.advanceTimersByTime(700);
+    });
+
+    expect(screen.getByRole("status").textContent).toBe("Saved");
+  });
+
+  it("says a name was not saved when the server refuses it", async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    vi.spyOn(settingsApi, "updateProfile").mockRejectedValue(new Error("503 Service Unavailable"));
+    render(<ProfileTab />);
+
+    fireEvent.change(screen.getByLabelText(/^Full name/), { target: { value: "Edsger D" } });
+    await act(async () => {
+      vi.advanceTimersByTime(700);
+    });
+
+    expect(screen.getByRole("status").textContent).toBe("Not saved");
+  });
 });

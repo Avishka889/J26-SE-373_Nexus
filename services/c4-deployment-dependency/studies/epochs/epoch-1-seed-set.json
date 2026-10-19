@@ -1,0 +1,379 @@
+{
+  "arms": {
+    "always-high": {
+      "abstained": 0,
+      "accuracy": 0.45,
+      "cases": 20,
+      "confusion": {
+        "high": {
+          "high": 9,
+          "low": 0,
+          "medium": 0
+        },
+        "low": {
+          "high": 10,
+          "low": 0,
+          "medium": 0
+        },
+        "medium": {
+          "high": 1,
+          "low": 0,
+          "medium": 0
+        }
+      },
+      "degenerate": true,
+      "high_recall": 1.0,
+      "macro_f1": 0.20689655172413793,
+      "macro_precision": 0.15,
+      "macro_recall": 0.3333333333333333,
+      "missed_high": 0
+    },
+    "semver": {
+      "abstained": 0,
+      "accuracy": 0.3,
+      "cases": 20,
+      "confusion": {
+        "high": {
+          "high": 4,
+          "low": 3,
+          "medium": 2
+        },
+        "low": {
+          "high": 4,
+          "low": 2,
+          "medium": 4
+        },
+        "medium": {
+          "high": 1,
+          "low": 0,
+          "medium": 0
+        }
+      },
+      "degenerate": false,
+      "high_recall": 0.4444444444444444,
+      "macro_f1": 0.23703703703703702,
+      "macro_precision": 0.2814814814814815,
+      "macro_recall": 0.2148148148148148,
+      "missed_high": 5
+    }
+  },
+  "byEcosystem": {
+    "maven": {
+      "always-high": {
+        "abstained": 0,
+        "accuracy": 0.8,
+        "cases": 10,
+        "confusion": {
+          "high": {
+            "high": 8,
+            "low": 0,
+            "medium": 0
+          },
+          "low": {
+            "high": 2,
+            "low": 0,
+            "medium": 0
+          },
+          "medium": {
+            "high": 0,
+            "low": 0,
+            "medium": 0
+          }
+        },
+        "high_recall": 1.0,
+        "macro_f1": 0.4444444444444445,
+        "macro_precision": 0.4,
+        "macro_recall": 0.5,
+        "missed_high": 0
+      },
+      "semver": {
+        "abstained": 0,
+        "accuracy": 0.3,
+        "cases": 10,
+        "confusion": {
+          "high": {
+            "high": 3,
+            "low": 3,
+            "medium": 2
+          },
+          "low": {
+            "high": 1,
+            "low": 0,
+            "medium": 1
+          },
+          "medium": {
+            "high": 0,
+            "low": 0,
+            "medium": 0
+          }
+        },
+        "high_recall": 0.375,
+        "macro_f1": 0.16666666666666666,
+        "macro_precision": 0.25,
+        "macro_recall": 0.125,
+        "missed_high": 5
+      }
+    },
+    "npm": {
+      "always-high": {
+        "abstained": 0,
+        "accuracy": 0.1,
+        "cases": 10,
+        "confusion": {
+          "high": {
+            "high": 1,
+            "low": 0,
+            "medium": 0
+          },
+          "low": {
+            "high": 8,
+            "low": 0,
+            "medium": 0
+          },
+          "medium": {
+            "high": 1,
+            "low": 0,
+            "medium": 0
+          }
+        },
+        "high_recall": 1.0,
+        "macro_f1": 0.06060606060606061,
+        "macro_precision": 0.03333333333333333,
+        "macro_recall": 0.3333333333333333,
+        "missed_high": 0
+      },
+      "semver": {
+        "abstained": 0,
+        "accuracy": 0.3,
+        "cases": 10,
+        "confusion": {
+          "high": {
+            "high": 1,
+            "low": 0,
+            "medium": 0
+          },
+          "low": {
+            "high": 3,
+            "low": 2,
+            "medium": 3
+          },
+          "medium": {
+            "high": 1,
+            "low": 0,
+            "medium": 0
+          }
+        },
+        "high_recall": 1.0,
+        "macro_f1": 0.24444444444444446,
+        "macro_precision": 0.39999999999999997,
+        "macro_recall": 0.4166666666666667,
+        "missed_high": 0
+      }
+    }
+  },
+  "cases": [
+    {
+      "caseId": "bump-19e20b0d69cb",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-44a15fa526c1",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-70e13f6bdb7d",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-78252d13ff35",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-c09896887acf",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-dc9a40fde9a9",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-ed7fbdd75abc",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "high"
+    },
+    {
+      "caseId": "bump-feb582661e77",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "high"
+    },
+    {
+      "caseId": "maven-records-junit-bom-5.12.2-5.14.4",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "low"
+    },
+    {
+      "caseId": "maven-records-junit-bom-5.12.2-6.1.3",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "low"
+    },
+    {
+      "caseId": "platform-jsdom-25.0.1-30.1.1",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "low"
+    },
+    {
+      "caseId": "platform-react-router-dom-7.16.0-7.18.4",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "low"
+    },
+    {
+      "caseId": "platform-supertest-7.2.2-7.3.0",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "low"
+    },
+    {
+      "caseId": "platform-tailwindcss-4.3.0-4.3.3",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "low"
+    },
+    {
+      "caseId": "platform-tailwindcss-vite-4.3.0-4.3.3",
+      "predictions": {
+        "always-high": "high",
+        "semver": "low"
+      },
+      "sourceChange": "patch",
+      "truth": "low"
+    },
+    {
+      "caseId": "platform-types-react-19.2.15-19.3.0",
+      "predictions": {
+        "always-high": "high",
+        "semver": "medium"
+      },
+      "sourceChange": "minor",
+      "truth": "low"
+    },
+    {
+      "caseId": "platform-typescript-5.9.3-7.0.2",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "low"
+    },
+    {
+      "caseId": "platform-vite-6.4.2-8.3.1",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "major",
+      "truth": "medium"
+    },
+    {
+      "caseId": "seeded-express-del",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "",
+      "truth": "high"
+    },
+    {
+      "caseId": "seeded-uuid-v4",
+      "predictions": {
+        "always-high": "high",
+        "semver": "high"
+      },
+      "sourceChange": "",
+      "truth": "low"
+    }
+  ],
+  "epoch": {
+    "byEcosystem": {
+      "maven": 10,
+      "npm": 10
+    },
+    "bySource": {
+      "bump": 8,
+      "maven-negative": 2,
+      "npm-platform": 8,
+      "npm-seeded": 2
+    },
+    "cases": 20,
+    "commit": "9257c07",
+    "corpusSha256": "5cb92764e571dbe6d95128f9350efee0a514233ee8776b7a9824fefccc0b87f5",
+    "date": "2026-09-27",
+    "excluded": 0,
+    "final": false,
+    "label": "Epoch 1, seed set",
+    "labelled": 20,
+    "rubric": "outcome-rubric/1",
+    "split": "dev"
+  },
+  "excluded": []
+}

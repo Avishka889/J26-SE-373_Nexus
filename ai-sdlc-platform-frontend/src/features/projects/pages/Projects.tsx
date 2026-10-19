@@ -9,9 +9,10 @@ import { useProjectsList, useProjectMutations } from "../hooks";
 import { getProjectsLoad, hydrateProjects, projectHomePath, useProjectsLoad } from "@/entities/project";
 import { messageOf } from "@/lib/http";
 import { ServerUnavailable } from "@/shared/ui/ServerUnavailable";
-import { PageLoader } from "@/shared/ui/Spinner";
+import { ProjectCardsSkeleton } from "../components/ProjectCardsSkeleton";
 import { cn } from "@/shared/utils/cn";
 import { ConfirmDialog } from "@/shared/ui/ConfirmDialog";
+import { Select } from "@/shared/ui/Select";
 import { Badge, Button, Card, CardContent } from "@/shared/ui/primitives";
 import { RunStoppedChip } from "@/shared/ui/RunStoppedChip";
 import {
@@ -22,7 +23,7 @@ import {
   type StatusFilter,
 } from "../model/triage";
 
-function statusBadge(status: Project["status"]) {
+function statusBadge({ status, sprint }: Pick<Project, "status" | "sprint">) {
   switch (status) {
     case "draft":
       return { label: "Draft", variant: "default" as const };
@@ -36,6 +37,8 @@ function statusBadge(status: Project["status"]) {
       return { label: "Testing", variant: "c3" as const };
     case "deploy":
       return { label: "Deploy", variant: "c4" as const };
+    case "released":
+      return { label: `Released, sprint ${sprint ?? 1}`, variant: "success" as const };
     case "complete":
       return { label: "Complete", variant: "success" as const };
     default:
@@ -135,10 +138,6 @@ export function Projects() {
 
   const remember = (p: Project) => setActiveProjectId(p.id);
 
-  const field = cn(
-    "h-10 rounded-xl border px-3 text-sm outline-none",
-    isDark ? "border-white/10 bg-white/[0.03] text-slate-200" : "border-slate-200 bg-white text-slate-800",
-  );
   const quiet = isDark ? "text-slate-400" : "text-slate-500";
   const toggleClass = (on: boolean) =>
     cn(
@@ -188,30 +187,8 @@ export function Projects() {
             )}
           />
         </div>
-        <select
-          aria-label="Show"
-          value={status}
-          onChange={(e) => setStatus(e.target.value as StatusFilter)}
-          className={field}
-        >
-          {STATUS_FILTERS.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-        <select
-          aria-label="Sort by"
-          value={sort}
-          onChange={(e) => setSort(e.target.value as SortOrder)}
-          className={field}
-        >
-          {SORT_ORDERS.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
+        <Select<StatusFilter> aria-label="Show" value={status} options={STATUS_FILTERS} onChange={setStatus} />
+        <Select<SortOrder> aria-label="Sort by" value={sort} options={SORT_ORDERS} onChange={setSort} />
         <div
           className={cn(
             "flex rounded-xl border p-1",
@@ -280,7 +257,7 @@ export function Projects() {
           onRetry={hydrateProjects}
         />
       ) : projects.length === 0 && load.status === "loading" ? (
-        <PageLoader label="Loading your projects" />
+        <ProjectCardsSkeleton count={6} className="md:grid-cols-2 xl:grid-cols-3" />
       ) : filtered.length === 0 ? (
         <Card>
           <CardContent className="flex flex-col items-center justify-center px-6 py-20 text-center">
@@ -311,7 +288,7 @@ export function Projects() {
       ) : view === "grid" ? (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           {filtered.map((p) => {
-            const st = statusBadge(p.status);
+            const st = statusBadge(p);
             return (
               // The title is the link, stretched over the card, so the whole
               // card opens the project and it is reachable by keyboard; it was
@@ -428,7 +405,7 @@ export function Projects() {
         <Card>
           <CardContent className="space-y-1 p-2">
             {filtered.map((p) => {
-              const st = statusBadge(p.status);
+              const st = statusBadge(p);
               return (
                 <div
                   key={p.id}

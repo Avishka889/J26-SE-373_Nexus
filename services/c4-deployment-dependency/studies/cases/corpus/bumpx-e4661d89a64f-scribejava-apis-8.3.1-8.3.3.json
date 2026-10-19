@@ -1,0 +1,76 @@
+{
+  "caseId": "bumpx-e4661d89a64f-scribejava-apis-8.3.1-8.3.3",
+  "client": {
+    "commit": "72f9fd7cfc83fd151da0fc239f88431da0e5d797",
+    "image": "ghcr.io/chains-project/breaking-updates:e4661d89a64fad5e140c2ad78df2580afdec4d52-pre",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/elimu-ai/webapp",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "cd /webapp && cp -r /work/overlay/. . 2>/dev/null; mvn -B -ntp clean test-compile",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": 21.0,
+        "tail": "[checking ai.elimu.util.AnalyticsHelperTest]\n[loading /webapp/target/classes/ai/elimu/util/AnalyticsHelper.class]\n[wrote /webapp/target/test-classes/ai/elimu/util/AnalyticsHelperTest.class]\n[checking ai.elimu.dao.ApplicationVersionDaoTest]\n[wrote /webapp/target/test-classes/ai/elimu/dao/ApplicationVersionDaoTest.class]\n[checking ai.elimu.dao.BaseDaoTest]\n[wrote /webapp/target/test-classes/ai/elimu/dao/BaseDaoTest.class]\n[checking ai.elimu.util.audio.CrowdsourceHelperTest]\n[loading /modules/java.base/java/lang/Enum.class]\n[wrote /webapp/target/test-classes/ai/elimu/util/audio/CrowdsourceHelperTest.class]\n[checking ai.elimu.rest.v2.content.WordsRestControllerTest]\n[wrote /webapp/target/test-classes/ai/elimu/rest/v2/content/WordsRestControllerTest.class]\n[checking ai.elimu.util.WordExtractionHelperTest]\n[loading /webapp/target/classes/ai/elimu/util/WordExtractionHelper.class]\n[wrote /webapp/target/test-classes/ai/elimu/util/WordExtractionHelperTest.class]\n[checking selenium.ScreenshotOnFailureRule]\n[wrote /webapp/target/test-classes/selenium/ScreenshotOnFailureRule.class]\n[checking selenium.web.WelcomePage]\n[wrote /webapp/target/test-classes/selenium/web/WelcomePage.class]\n[checking selenium.DomainHelper]\n[loading /modules/java.base/java/lang/ClassLoader.class]\n[loading /modules/java.base/java/util/Hashtable.class]\n[loading /modules/java.base/java/util/Dictionary.class]\n[loading /modules/java.base/java/io/Reader.class]\n[wrote /webapp/target/test-classes/selenium/DomainHelper.class]\n[checking ai.elimu.rest.v2.content.LettersRestControllerTest]\n[wrote /webapp/target/test-classes/ai/elimu/rest/v2/content/LettersRestControllerTest.class]\n[checking selenium.error_pages.ErrorPage]\n[loading /root/.m2/repository/org/seleniumhq/selenium/selenium-api/3.141.59/selenium-api-3.141.59.jar(/org/openqa/selenium/NotFoundException.class)]\n[wrote /webapp/target/test-classes/selenium/error_pages/ErrorPage.class]\n[checking ai.elimu.dao.SoundDaoTest]\n[wrote /webapp/target/test-classes/ai/elimu/dao/SoundDaoTest.class]\n[checking ai.elimu.util.LetterExtractionHelperTest]\n[loading /webapp/target/classes/ai/elimu/util/LetterExtractionHelper.class]\n[wrote /webapp/target/test-classes/ai/elimu/util/LetterExtractionHelperTest.class]\n[checking ai.elimu.rest.v2.crowdsource.AudioContributionsRestControllerTest]\n[wrote /webapp/target/test-classes/ai/elimu/rest/v2/crowdsource/AudioContributionsRestControllerTest.class]\n[checking ai.elimu.dao.ContributorDaoTest]\n[wrote /webapp/target/test-classes/ai/elimu/dao/ContributorDaoTest.class]\n[total 2177ms]"
+      },
+      {
+        "command": "cd /webapp && mvn -B -ntp test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 19.71,
+        "tail": "[INFO] \n[INFO] Results:\n[INFO] \n[WARNING] Tests run: 67, Failures: 0, Errors: 0, Skipped: 2\n[INFO] \n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  16.511 s\n[INFO] Finished at: 2026-09-28T07:35:44Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 3 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.8.1\n[WARNING]  * org.apache.maven.plugins:maven-surefire-plugin:2.22.2\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING] \nSep 28, 2026 7:35:44 AM org.jaudiotagger.audio.wav.WavInfoReader readChunk\nINFO: /webapp/target/test-classes/ai/elimu/util/audio/fourteen.wav Reading Chunk:fmt :starting at:12 (0x0c):sizeIncHeader:26\nSep 28, 2026 7:35:44 AM org.jaudiotagger.audio.wav.WavInfoReader readChunk\nINFO: /webapp/target/test-classes/ai/elimu/util/audio/fourteen.wav Reading Chunk:data:starting at:38 (0x26):sizeIncHeader:92228\nSep 28, 2026 7:35:44 AM org.jaudiotagger.audio.wav.WavInfoReader readChunk\nINFO: /webapp/target/test-classes/ai/elimu/util/audio/fourteen.wav Reading Chunk:LIST:starting at:92266 (0x1686a):sizeIncHeader:84\nSep 28, 2026 7:35:44 AM org.jaudiotagger.audio.wav.WavInfoReader readChunk\nINFO: /webapp/target/test-classes/ai/elimu/util/audio/fourteen.wav Reading Chunk:_PMX:starting at:92350 (0x168be):sizeIncHeader:5531\nSep 28, 2026 7:35:44 AM org.jaudiotagger.audio.wav.WavInfoReader readChunk\nSEVERE: /webapp/target/test-classes/ai/elimu/util/audio/fourteen.wav Skipping chunk bytes:5523 for _PMX\nSep 28, 2026 7:35:44 AM org.jaudiotagger.audio.wav.WavTagReader readChunk\nINFO: /webapp/target/test-classes/ai/elimu/util/audio/fourteen.wav Reading Chunk:fmt :starting at:12 (0x0c):sizeIncHeader:26\nSep 28, 2026 7:35:44 AM org.jaudiotagger.audio.wav.WavTagReader readChunk\nINFO: /webapp/target/test-classes/ai/elimu/util/audio/fourteen.wav Reading Chunk:data:starting at:38 (0x26):sizeIncHeader:92228\nSep 28, 2026 7:35:44 AM org.jaudiotagger.audio.wav.WavTagReader readChunk\nINFO: /webapp/target/test-classes/ai/elimu/util/audio/fourteen.wav Reading Chunk:LIST:starting at:92266 (0x1686a):sizeIncHeader:84\nSep 28, 2026 7:35:44 AM org.jaudiotagger.audio.wav.WavTagReader readChunk\nINFO: /webapp/target/test-classes/ai/elimu/util/audio/fourteen.wav Reading Chunk:_PMX:starting at:92350 (0x168be):sizeIncHeader:5531\nSep 28, 2026 7:35:44 AM org.jaudiotagger.audio.wav.WavTagReader readChunk\nSEVERE: /webapp/target/test-classes/ai/elimu/util/audio/fourteen.wav Skipping chunk bytes:5523 for _PMX"
+      }
+    ],
+    "candidate": [
+      {
+        "command": "cd /webapp && cp -r /work/overlay/. . 2>/dev/null; mvn -B -ntp clean test-compile",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": 34.1,
+        "tail": "[checking ai.elimu.util.AnalyticsHelperTest]\n[loading /webapp/target/classes/ai/elimu/util/AnalyticsHelper.class]\n[wrote /webapp/target/test-classes/ai/elimu/util/AnalyticsHelperTest.class]\n[checking ai.elimu.dao.ApplicationVersionDaoTest]\n[wrote /webapp/target/test-classes/ai/elimu/dao/ApplicationVersionDaoTest.class]\n[checking ai.elimu.dao.BaseDaoTest]\n[wrote /webapp/target/test-classes/ai/elimu/dao/BaseDaoTest.class]\n[checking ai.elimu.util.audio.CrowdsourceHelperTest]\n[loading /modules/java.base/java/lang/Enum.class]\n[wrote /webapp/target/test-classes/ai/elimu/util/audio/CrowdsourceHelperTest.class]\n[checking ai.elimu.rest.v2.content.WordsRestControllerTest]\n[wrote /webapp/target/test-classes/ai/elimu/rest/v2/content/WordsRestControllerTest.class]\n[checking ai.elimu.util.WordExtractionHelperTest]\n[loading /webapp/target/classes/ai/elimu/util/WordExtractionHelper.class]\n[wrote /webapp/target/test-classes/ai/elimu/util/WordExtractionHelperTest.class]\n[checking selenium.ScreenshotOnFailureRule]\n[wrote /webapp/target/test-classes/selenium/ScreenshotOnFailureRule.class]\n[checking selenium.web.WelcomePage]\n[wrote /webapp/target/test-classes/selenium/web/WelcomePage.class]\n[checking selenium.DomainHelper]\n[loading /modules/java.base/java/lang/ClassLoader.class]\n[loading /modules/java.base/java/util/Hashtable.class]\n[loading /modules/java.base/java/util/Dictionary.class]\n[loading /modules/java.base/java/io/Reader.class]\n[wrote /webapp/target/test-classes/selenium/DomainHelper.class]\n[checking ai.elimu.rest.v2.content.LettersRestControllerTest]\n[wrote /webapp/target/test-classes/ai/elimu/rest/v2/content/LettersRestControllerTest.class]\n[checking selenium.error_pages.ErrorPage]\n[loading /root/.m2/repository/org/seleniumhq/selenium/selenium-api/3.141.59/selenium-api-3.141.59.jar(/org/openqa/selenium/NotFoundException.class)]\n[wrote /webapp/target/test-classes/selenium/error_pages/ErrorPage.class]\n[checking ai.elimu.dao.SoundDaoTest]\n[wrote /webapp/target/test-classes/ai/elimu/dao/SoundDaoTest.class]\n[checking ai.elimu.util.LetterExtractionHelperTest]\n[loading /webapp/target/classes/ai/elimu/util/LetterExtractionHelper.class]\n[wrote /webapp/target/test-classes/ai/elimu/util/LetterExtractionHelperTest.class]\n[checking ai.elimu.rest.v2.crowdsource.AudioContributionsRestControllerTest]\n[wrote /webapp/target/test-classes/ai/elimu/rest/v2/crowdsource/AudioContributionsRestControllerTest.class]\n[checking ai.elimu.dao.ContributorDaoTest]\n[wrote /webapp/target/test-classes/ai/elimu/dao/ContributorDaoTest.class]\n[total 2143ms]"
+      },
+      {
+        "command": "cd /webapp && mvn -B -ntp test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 19.15,
+        "tail": "[INFO] \n[INFO] Results:\n[INFO] \n[WARNING] Tests run: 67, Failures: 0, Errors: 0, Skipped: 2\n[INFO] \n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  15.808 s\n[INFO] Finished at: 2026-09-28T07:38:27Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 3 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.8.1\n[WARNING]  * org.apache.maven.plugins:maven-surefire-plugin:2.22.2\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING] \nSep 28, 2026 7:38:26 AM org.jaudiotagger.audio.wav.WavInfoReader readChunk\nINFO: /webapp/target/test-classes/ai/elimu/util/audio/fourteen.wav Reading Chunk:fmt :starting at:12 (0x0c):sizeIncHeader:26\nSep 28, 2026 7:38:26 AM org.jaudiotagger.audio.wav.WavInfoReader readChunk\nINFO: /webapp/target/test-classes/ai/elimu/util/audio/fourteen.wav Reading Chunk:data:starting at:38 (0x26):sizeIncHeader:92228\nSep 28, 2026 7:38:26 AM org.jaudiotagger.audio.wav.WavInfoReader readChunk\nINFO: /webapp/target/test-classes/ai/elimu/util/audio/fourteen.wav Reading Chunk:LIST:starting at:92266 (0x1686a):sizeIncHeader:84\nSep 28, 2026 7:38:26 AM org.jaudiotagger.audio.wav.WavInfoReader readChunk\nINFO: /webapp/target/test-classes/ai/elimu/util/audio/fourteen.wav Reading Chunk:_PMX:starting at:92350 (0x168be):sizeIncHeader:5531\nSep 28, 2026 7:38:26 AM org.jaudiotagger.audio.wav.WavInfoReader readChunk\nSEVERE: /webapp/target/test-classes/ai/elimu/util/audio/fourteen.wav Skipping chunk bytes:5523 for _PMX\nSep 28, 2026 7:38:26 AM org.jaudiotagger.audio.wav.WavTagReader readChunk\nINFO: /webapp/target/test-classes/ai/elimu/util/audio/fourteen.wav Reading Chunk:fmt :starting at:12 (0x0c):sizeIncHeader:26\nSep 28, 2026 7:38:26 AM org.jaudiotagger.audio.wav.WavTagReader readChunk\nINFO: /webapp/target/test-classes/ai/elimu/util/audio/fourteen.wav Reading Chunk:data:starting at:38 (0x26):sizeIncHeader:92228\nSep 28, 2026 7:38:26 AM org.jaudiotagger.audio.wav.WavTagReader readChunk\nINFO: /webapp/target/test-classes/ai/elimu/util/audio/fourteen.wav Reading Chunk:LIST:starting at:92266 (0x1686a):sizeIncHeader:84\nSep 28, 2026 7:38:26 AM org.jaudiotagger.audio.wav.WavTagReader readChunk\nINFO: /webapp/target/test-classes/ai/elimu/util/audio/fourteen.wav Reading Chunk:_PMX:starting at:92350 (0x168be):sizeIncHeader:5531\nSep 28, 2026 7:38:26 AM org.jaudiotagger.audio.wav.WavTagReader readChunk\nSEVERE: /webapp/target/test-classes/ai/elimu/util/audio/fourteen.wav Skipping chunk bytes:5523 for _PMX"
+      }
+    ],
+    "capturedAt": "2026-09-28",
+    "failureCategory": "",
+    "failureLocations": [],
+    "method": "container-reproduction",
+    "toolchain": "ghcr.io/chains-project/breaking-updates:e4661d89a64fad5e140c2ad78df2580afdec4d52-pre (Apache Maven 3.9.2 (c9616018c7a021c1c39be70fb2843d6f5f9b8a1c) Maven home: /usr/share/java/maven-3 Java version: 11.0.19, vendor: Alpine, runtime: /usr/lib/jvm/java-11-openjdk)",
+    "warnings": []
+  },
+  "provenance": "bump_crossings loader: https://github.com/elimu-ai/webapp at 72f9fd7cfc83, the commit before BUMP's break e4661d89a64f (BUMP, chains-project/bump, MIT, at 324d5513aa5c), its com.github.scribejava:scribejava-apis crossed with the patch update Maven Central listed at capture, built in ghcr.io/chains-project/breaking-updates:e4661d89a64fad5e140c2ad78df2580afdec4d52-pre",
+  "source": "bump-crossing",
+  "sourceChange": "patch",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "8.3.1",
+    "manifestPaths": [
+      "pom.xml"
+    ],
+    "package": "com.github.scribejava:scribejava-apis",
+    "scope": "compile",
+    "toVersion": "8.3.3"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "caseId": "seeded-express-redirect-back",
+  "client": {
+    "commit": "",
+    "image": "",
+    "kind": "seeded",
+    "repoUrl": "",
+    "snapshot": "studies/clients/seeded/express-redirect-back",
+    "snapshotSha256": "2cb3932deae3c35d8dd0518baa876f6be1b22c7bfc8b84fac4f1a35523eb00c8"
+  },
+  "frozenInputs": {
+    "studies/pins/seeded-express-redirect-back.package-lock.json": "5d39299e2cae3fe03b5c40a19da4337bea304e3f5069d8186ab615361aeee9d9"
+  },
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "npm install express@4.20.0 --save-exact --package-lock-only --ignore-scripts --no-audit --no-fund && npm ci --ignore-scripts --no-audit --no-fund && node .c4/installed.mjs express 4.20.0",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "resolution",
+        "outcome": "passed",
+        "seconds": 2.59,
+        "tail": "up to date in 650ms\n\nadded 74 packages in 1s\n. resolves express@4.20.0"
+      },
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 0.55,
+        "tail": "> seeded-express-redirect-back@0.1.0 test\n> node check.js\n\nredirected back to /signup"
+      }
+    ],
+    "candidate": [
+      {
+        "command": "npm install express@4.21.0 --save-exact --package-lock-only --ignore-scripts --no-audit --no-fund && npm ci --ignore-scripts --no-audit --no-fund && node .c4/installed.mjs express 4.21.0",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "resolution",
+        "outcome": "passed",
+        "seconds": 3.53,
+        "tail": "up to date in 1s\n\nadded 69 packages in 1s\n. resolves express@4.21.0"
+      },
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 0.83,
+        "tail": "> seeded-express-redirect-back@0.1.0 test\n> node check.js\n\nredirected back to /signup\nSun, 27 Sep 2026 09:10:51 GMT express deprecated res.location(\"back\"): use res.location(req.get(\"Referrer\") || \"/\") and refer to https://dub.sh/security-redirect for best practices at app.js:11:7"
+      }
+    ],
+    "capturedAt": "2026-09-27",
+    "failureCategory": "",
+    "failureLocations": [],
+    "method": "container-reproduction",
+    "toolchain": "node:22-bookworm-slim@sha256:43ac6c60b8f89723f746e8a92ce91abd5017e627ce1ddfe4238355d3a30b772c (v22.23.3 10.9.9)",
+    "warnings": [
+      "express deprecated res.location(\"back\"): use res.location(req.get(\"Referrer\") || \"/\") and refer to https://dub.sh/security-redirect for best practices at app.js:11:7"
+    ]
+  },
+  "provenance": "npm_seeded loader: the client seeded/express-redirect-back, written for the study to show res.redirect(\"back\"), which Express 4.21 deprecated without removing; its tree pinned by npm 10.9.2 install --package-lock-only --ignore-scripts",
+  "source": "npm-seeded",
+  "sourceChange": "",
+  "split": "held-out",
+  "update": {
+    "ecosystem": "npm",
+    "fromVersion": "4.20.0",
+    "manifestPaths": [
+      "package.json"
+    ],
+    "package": "express",
+    "scope": "prod",
+    "toVersion": "4.21.0"
+  }
+}

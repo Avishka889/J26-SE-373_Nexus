@@ -11,7 +11,9 @@ import { ActorMark, Metric, Note, Panel } from "@/shared/ui/phase";
 import { StageSection } from "@/shared/ui/stage";
 import type { CodeStageId } from "@/types/project";
 import type { CodeSnapshot } from "../../api/types";
-import { usePreview } from "../../hooks/useCode";
+import { useState } from "react";
+import type { CodeChanges } from "../../api/types";
+import { useCodeChanges, usePreview } from "../../hooks/useCode";
 import { CODE_STAGE_META } from "../../model/stages";
 import { inferredBy } from "../../model/arms";
 import { Spinner } from "@/shared/ui/Spinner";
@@ -197,6 +199,18 @@ export function StageCodeReview({
             the record will say what was known when it was made.
           </Note>
         </Panel>
+        <ChangedFiles
+          projectId={projectId}
+          codeVersion={snapshot.codeVersion}
+          pullRequest={
+            repository?.repository?.pullRequestNumber
+              ? {
+                  number: repository.repository.pullRequestNumber,
+                  url: repository.repository.pullRequestUrl,
+                }
+              : null
+          }
+        />
       </StageSection>
 
       <StageSection id="review-decision">
@@ -260,6 +274,96 @@ export function StageCodeReview({
  * rather than a second set of controls: two places to start the same process
  * is how you end up with two of them.
  */
+/**
+ * What this version changed since the one before it, and the pull request that
+ * proposes it. The review showed a version's files and nothing of what had
+ * changed, so a reviewer who asked for changes could not see them made (C2-8).
+ */
+function ChangedFiles({
+  projectId,
+  codeVersion,
+  pullRequest,
+}: {
+  projectId: string;
+  codeVersion: number;
+  pullRequest: { number: number; url: string } | null;
+}) {
+  const { data: changes } = useCodeChanges(projectId, codeVersion);
+  const [open, setOpen] = useState<string | null>(null);
+  if (!changes && !pullRequest) return null;
+  return (
+    <Panel label="What changed" className="mt-4">
+      {pullRequest && (
+        <a
+          href={pullRequest.url}
+          target="_blank"
+          rel="noreferrer"
+          className="text-[13px] text-blue-600 underline underline-offset-2 dark:text-blue-400"
+        >
+          {`Pull request #${pullRequest.number}`}
+        </a>
+      )}
+      {changes && <ChangeList changes={changes} open={open} onOpen={setOpen} />}
+    </Panel>
+  );
+}
+
+function ChangeList({
+  changes,
+  open,
+  onOpen,
+}: {
+  changes: CodeChanges;
+  open: string | null;
+  onOpen: (path: string | null) => void;
+}) {
+  if (changes.againstVersion === null) {
+    return <Note className="mt-2">This is the first code version, so there is nothing to compare it with.</Note>;
+  }
+  const count = changes.files.length;
+  return (
+    <div className="mt-2">
+      <p className="text-[13px] font-medium">
+        {count === 0
+          ? `Nothing changed since code version ${changes.againstVersion}`
+          : `${count} file${count === 1 ? "" : "s"} changed since code version ${changes.againstVersion}`}
+      </p>
+      <ul className="mt-2 divide-y divide-[color:var(--tp-line)]">
+        {changes.files.map((file) => (
+          <li key={file.path} className="py-1.5">
+            <button
+              type="button"
+              onClick={() => onOpen(open === file.path ? null : file.path)}
+              className="flex w-full flex-wrap items-center gap-x-3 text-left text-[12.5px] hover:text-blue-600"
+            >
+              <span className="tp-mono min-w-0 flex-1 break-all">{file.path}</span>
+              <span className="tp-den">{file.status}</span>
+              <span className="tp-mono tabular-nums">{`+${file.additions} -${file.deletions}`}</span>
+            </button>
+            {open === file.path && (
+              <div className="mt-1.5 overflow-x-auto rounded-lg border border-[color:var(--tp-line)] p-2">
+                {file.diff.split("\n").map((line, index) => (
+                  <pre
+                    key={index}
+                    className={cn(
+                      "tp-mono text-[11.5px] leading-5",
+                      line.startsWith("+") && "text-emerald-700 dark:text-emerald-400",
+                      line.startsWith("-") && "text-red-600 dark:text-red-400",
+                    )}
+                  >
+                    {line || " "}
+                  </pre>
+                ))}
+                {file.truncated && <p className="tp-den mt-1">The rest of this file's change is not shown.</p>}
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 function PreviewEvidence({
   projectId,
   buildPassed,

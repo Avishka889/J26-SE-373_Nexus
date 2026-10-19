@@ -70,3 +70,37 @@ describe("what the activity log says it shows", () => {
     expect(screen.queryByText(/total events/)).toBeNull();
   });
 });
+
+/**
+ * A phase's review links here for its own entries. The filter was the page's
+ * own state, so a link could only open the whole log.
+ */
+describe("the activity log, opened for one phase", () => {
+  async function showAt(search: string) {
+    const { ActivityLog } = await import("./page");
+    render(
+      <QueryClientProvider client={new QueryClient({ defaultOptions: { queries: { retry: false } } })}>
+        <MemoryRouter initialEntries={[`/projects/p1/traceability${search}`]}>
+          <Routes>
+            <Route path="/projects/:projectId/traceability" element={<ActivityLog />} />
+          </Routes>
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+  }
+
+  it("starts on the category its address names", async () => {
+    await showAt("?filter=deployment");
+
+    expect(await screen.findByText("Production deployment healthy")).toBeTruthy();
+    expect(screen.queryByText("Test repair applied")).toBeNull();
+    expect(screen.getByRole("button", { name: "Deployment" }).getAttribute("aria-pressed")).toBe("true");
+  });
+
+  it("shows everything for a category it does not have", async () => {
+    await showAt("?filter=nonsense");
+
+    expect(await screen.findByText("Test repair applied")).toBeTruthy();
+    expect(screen.getByRole("button", { name: "All" }).getAttribute("aria-pressed")).toBe("true");
+  });
+});

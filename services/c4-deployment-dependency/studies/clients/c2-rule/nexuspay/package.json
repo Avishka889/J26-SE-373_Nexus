@@ -1,0 +1,14 @@
+{
+  "name": "generated-app",
+  "private": true,
+  "type": "module",
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "build": "npm run build --workspace @app/web",
+    "start": "npm run start --workspace @app/api",
+    "dev:api": "npm run dev --workspace @app/api",
+    "dev:web": "npm run dev --workspace @app/web",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present"
+  }
+}

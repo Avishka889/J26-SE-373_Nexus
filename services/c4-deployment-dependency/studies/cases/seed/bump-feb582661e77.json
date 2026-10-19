@@ -1,0 +1,55 @@
+{
+  "caseId": "bump-feb582661e77",
+  "client": {
+    "commit": "feb582661e77de66eadaa7550720a8751b266ee4",
+    "image": "ghcr.io/chains-project/breaking-updates:feb582661e77de66eadaa7550720a8751b266ee4-breaking",
+    "kind": "github",
+    "repoUrl": "https://github.com/sabomichal/liquibase-mssql",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:feb582661e77de66eadaa7550720a8751b266ee4-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:feb582661e77de66eadaa7550720a8751b266ee4-breaking",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "COMPILATION_FAILURE",
+    "failureLocations": [],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/feb582661e77de66eadaa7550720a8751b266ee4.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb",
+  "source": "bump",
+  "sourceChange": "major",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "3.4.2",
+    "manifestPaths": [],
+    "package": "org.liquibase:liquibase-core",
+    "scope": "compile",
+    "toVersion": "4.8.0"
+  }
+}

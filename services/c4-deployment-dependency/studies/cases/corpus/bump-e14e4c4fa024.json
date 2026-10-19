@@ -1,0 +1,157 @@
+{
+  "caseId": "bump-e14e4c4fa024",
+  "client": {
+    "commit": "e14e4c4fa02468ad27d303785c26539a6b3b8eab",
+    "image": "ghcr.io/chains-project/breaking-updates:e14e4c4fa02468ad27d303785c26539a6b3b8eab-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:e14e4c4fa02468ad27d303785c26539a6b3b8eab-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:e14e4c4fa02468ad27d303785c26539a6b3b8eab-breaking",
+        "exitCode": null,
+        "logSha256": "fc1606dd2809d8c4b8f7c6b8bfe844f530a16c6419edfc8e8ea168addd24c4cf",
+        "name": "compile",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": "[ERROR]   location: class ids.messaging.handler.request.RequestMessageHandlerService\n[ERROR] /IDS-Messaging-Services/messaging/src/main/java/ids/messaging/handler/request/RequestMessageHandlerService.java:[52,47] cannot find symbol\n[ERROR]   symbol:   class ApplicationContext\n[ERROR]   location: class ids.messaging.handler.request.RequestMessageHandlerService\n[ERROR] /IDS-Messaging-Services/messaging/src/main/java/ids/messaging/dispatcher/MessageDispatcherProvider.java:[49,6] cannot find symbol\n[ERROR]   symbol:   class Bean\n[ERROR]   location: class ids.messaging.dispatcher.MessageDispatcherProvider\n[ERROR] /IDS-Messaging-Services/messaging/src/main/java/ids/messaging/util/SerializerProvider.java:[40,6] cannot find symbol\n[ERROR]   symbol:   class Bean\n[ERROR]   location: class ids.messaging.util.SerializerProvider\n[ERROR] -> [Help 1]\n[ERROR] \n[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.\n[ERROR] Re-run Maven using the -X switch to enable full debug logging.\n[ERROR] \n[ERROR] For more information about the errors and possible solutions, please read the following articles:\n[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException\n[ERROR] \n[ERROR] After correcting the problems, you can resume the build with the command\n[ERROR]   mvn <args> -rf :messaging"
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "COMPILATION_FAILURE",
+    "failureLocations": [
+      {
+        "line": 39,
+        "path": "messaging/src/main/java/ids/messaging/protocol/MessageService.java"
+      },
+      {
+        "line": 29,
+        "path": "messaging/src/main/java/ids/messaging/endpoint/EndpointService.java"
+      },
+      {
+        "line": 30,
+        "path": "messaging/src/main/java/ids/messaging/endpoint/EndpointService.java"
+      },
+      {
+        "line": 53,
+        "path": "messaging/src/main/java/ids/messaging/endpoint/MessageController.java"
+      },
+      {
+        "line": 28,
+        "path": "messaging/src/main/java/ids/messaging/dispatcher/MessageDispatcherProvider.java"
+      },
+      {
+        "line": 29,
+        "path": "messaging/src/main/java/ids/messaging/dispatcher/MessageDispatcherProvider.java"
+      },
+      {
+        "line": 25,
+        "path": "messaging/src/main/java/ids/messaging/util/SerializerProvider.java"
+      },
+      {
+        "line": 31,
+        "path": "messaging/src/main/java/ids/messaging/handler/request/RequestMessageHandlerService.java"
+      },
+      {
+        "line": 46,
+        "path": "messaging/src/main/java/ids/messaging/protocol/MessageService.java"
+      },
+      {
+        "line": 58,
+        "path": "messaging/src/main/java/ids/messaging/requests/RequestTemplateProvider.java"
+      },
+      {
+        "line": 73,
+        "path": "messaging/src/main/java/ids/messaging/requests/NotificationTemplateProvider.java"
+      },
+      {
+        "line": 64,
+        "path": "messaging/src/main/java/ids/messaging/protocol/http/IdsHttpService.java"
+      },
+      {
+        "line": 36,
+        "path": "messaging/src/main/java/ids/messaging/endpoint/EndpointService.java"
+      },
+      {
+        "line": 61,
+        "path": "messaging/src/main/java/ids/messaging/endpoint/MessageController.java"
+      },
+      {
+        "line": 47,
+        "path": "messaging/src/main/java/ids/messaging/endpoint/EndpointService.java"
+      },
+      {
+        "line": 57,
+        "path": "messaging/src/main/java/ids/messaging/endpoint/EndpointService.java"
+      },
+      {
+        "line": 109,
+        "path": "messaging/src/main/java/ids/messaging/endpoint/EndpointService.java"
+      },
+      {
+        "line": 35,
+        "path": "messaging/src/main/java/ids/messaging/dispatcher/MessageDispatcherProvider.java"
+      },
+      {
+        "line": 33,
+        "path": "messaging/src/main/java/ids/messaging/requests/builder/IdsRequestBuilderService.java"
+      },
+      {
+        "line": 31,
+        "path": "messaging/src/main/java/ids/messaging/util/SerializerProvider.java"
+      },
+      {
+        "line": 38,
+        "path": "messaging/src/main/java/ids/messaging/handler/request/RequestMessageHandlerService.java"
+      },
+      {
+        "line": 44,
+        "path": "messaging/src/main/java/ids/messaging/handler/request/RequestMessageHandlerService.java"
+      },
+      {
+        "line": 52,
+        "path": "messaging/src/main/java/ids/messaging/handler/request/RequestMessageHandlerService.java"
+      },
+      {
+        "line": 49,
+        "path": "messaging/src/main/java/ids/messaging/dispatcher/MessageDispatcherProvider.java"
+      },
+      {
+        "line": 40,
+        "path": "messaging/src/main/java/ids/messaging/util/SerializerProvider.java"
+      }
+    ],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/e14e4c4fa02468ad27d303785c26539a6b3b8eab.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb; failure locations read from running ghcr.io/chains-project/breaking-updates:e14e4c4fa02468ad27d303785c26539a6b3b8eab-breaking on 2026-09-28",
+  "source": "bump",
+  "sourceChange": "major",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "5.3.24",
+    "manifestPaths": [],
+    "package": "org.springframework:spring-webmvc",
+    "scope": "compile",
+    "toVersion": "6.0.2"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "caseId": "bump-feb582661e77",
+  "client": {
+    "commit": "feb582661e77de66eadaa7550720a8751b266ee4",
+    "image": "ghcr.io/chains-project/breaking-updates:feb582661e77de66eadaa7550720a8751b266ee4-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/sabomichal/liquibase-mssql",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:feb582661e77de66eadaa7550720a8751b266ee4-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:feb582661e77de66eadaa7550720a8751b266ee4-breaking",
+        "exitCode": null,
+        "logSha256": "83f177a0551fff58097421088cc3fa91da5ae29d390e93492c36917abbda9c17",
+        "name": "compile",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": "[ERROR]   location: package liquibase.util\n[ERROR] /liquibase-mssql/src/java/liquibase/ext/mssql/sqlgenerator/AddPrimaryKeyGeneratorMSSQL.java:[12,22] cannot find symbol\n[ERROR]   symbol:   class StringUtils\n[ERROR]   location: package liquibase.util\n[ERROR] /liquibase-mssql/src/java/liquibase/ext/mssql/sqlgenerator/CreateIndexGeneratorMSSQL.java:[77,9] cannot find symbol\n[ERROR]   symbol:   variable StringUtils\n[ERROR]   location: class liquibase.ext.mssql.sqlgenerator.CreateIndexGeneratorMSSQL\n[ERROR] /liquibase-mssql/src/java/liquibase/ext/mssql/sqlgenerator/AddPrimaryKeyGeneratorMSSQL.java:[67,9] cannot find symbol\n[ERROR]   symbol:   variable StringUtils\n[ERROR]   location: class liquibase.ext.mssql.sqlgenerator.AddPrimaryKeyGeneratorMSSQL\n[ERROR] /liquibase-mssql/src/java/liquibase/ext/mssql/database/MSSQLDatabase.java:[18,24] cannot find symbol\n[ERROR]   symbol:   method getInstance()\n[ERROR]   location: class liquibase.executor.ExecutorService\n[ERROR] -> [Help 1]\n[ERROR] \n[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.\n[ERROR] Re-run Maven using the -X switch to enable full debug logging.\n[ERROR] \n[ERROR] For more information about the errors and possible solutions, please read the following articles:\n[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException"
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "COMPILATION_FAILURE",
+    "failureLocations": [
+      {
+        "line": 12,
+        "path": "src/java/liquibase/ext/mssql/sqlgenerator/CreateIndexGeneratorMSSQL.java"
+      },
+      {
+        "line": 12,
+        "path": "src/java/liquibase/ext/mssql/sqlgenerator/AddPrimaryKeyGeneratorMSSQL.java"
+      },
+      {
+        "line": 77,
+        "path": "src/java/liquibase/ext/mssql/sqlgenerator/CreateIndexGeneratorMSSQL.java"
+      },
+      {
+        "line": 67,
+        "path": "src/java/liquibase/ext/mssql/sqlgenerator/AddPrimaryKeyGeneratorMSSQL.java"
+      },
+      {
+        "line": 18,
+        "path": "src/java/liquibase/ext/mssql/database/MSSQLDatabase.java"
+      }
+    ],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/feb582661e77de66eadaa7550720a8751b266ee4.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb; failure locations read from running ghcr.io/chains-project/breaking-updates:feb582661e77de66eadaa7550720a8751b266ee4-breaking on 2026-09-28",
+  "source": "bump",
+  "sourceChange": "major",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "3.4.2",
+    "manifestPaths": [],
+    "package": "org.liquibase:liquibase-core",
+    "scope": "compile",
+    "toVersion": "4.8.0"
+  }
+}

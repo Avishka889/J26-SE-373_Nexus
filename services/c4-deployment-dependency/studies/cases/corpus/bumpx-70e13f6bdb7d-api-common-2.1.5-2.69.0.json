@@ -1,0 +1,76 @@
+{
+  "caseId": "bumpx-70e13f6bdb7d-api-common-2.1.5-2.69.0",
+  "client": {
+    "commit": "60f8e83e1c256992cafa7b4666a525eb23869eae",
+    "image": "ghcr.io/chains-project/breaking-updates:70e13f6bdb7de7f8eda9f174a5616284f2157ea7-pre",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/lukas-krecan/future-converter",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "cd /future-converter && cp -r /work/overlay/. . 2>/dev/null; mvn -B -ntp clean test-compile",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": 11.48,
+        "tail": "[INFO] Changes detected - recompiling the module!\n[INFO] Compiling 2 source files to /future-converter/spring-java8/target/test-classes\n[INFO] ------------------------------------------------------------------------\n[INFO] Reactor Summary for future-converter 1.2.1-SNAPSHOT:\n[INFO] \n[INFO] future-converter ................................... SUCCESS [  1.702 s]\n[INFO] future-converter-common ............................ SUCCESS [  1.329 s]\n[INFO] future-converter-common-test ....................... SUCCESS [  1.518 s]\n[INFO] future-converter-java8-common ...................... SUCCESS [  0.194 s]\n[INFO] future-converter-guava-common ...................... SUCCESS [  0.352 s]\n[INFO] future-converter-java8-guava ....................... SUCCESS [  0.445 s]\n[INFO] future-converter-apifuture-common .................. SUCCESS [  0.216 s]\n[INFO] future-converter-java8-apifuture ................... SUCCESS [  0.321 s]\n[INFO] future-converter-rxjava-common ..................... SUCCESS [  0.135 s]\n[INFO] future-converter-rxjava-java8 ...................... SUCCESS [  0.226 s]\n[INFO] future-converter-rxjava2-common .................... SUCCESS [  0.233 s]\n[INFO] future-converter-rxjava2-java8 ..................... SUCCESS [  0.233 s]\n[INFO] future-converter-guava-rxjava ...................... SUCCESS [  0.330 s]\n[INFO] future-converter-guava-rxjava2 ..................... SUCCESS [  0.205 s]\n[INFO] future-converter-spring-common ..................... SUCCESS [  0.141 s]\n[INFO] future-converter-spring-rxjava ..................... SUCCESS [  0.194 s]\n[INFO] future-converter-spring-rxjava2 .................... SUCCESS [  0.262 s]\n[INFO] future-converter-spring-guava ...................... SUCCESS [  0.169 s]\n[INFO] future-converter-spring-java8 ...................... SUCCESS [  0.162 s]\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  8.764 s\n[INFO] Finished at: 2026-09-28T05:07:01Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 4 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.10.1\n[WARNING]  * org.apache.maven.plugins:maven-enforcer-plugin:1.2\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING]  * com.mycila:license-maven-plugin:4.1\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      },
+      {
+        "command": "cd /future-converter && mvn -B -ntp test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 22.47,
+        "tail": "[WARNING] Tests run: 20, Failures: 0, Errors: 0, Skipped: 1\n[INFO] \n[INFO] ------------------------------------------------------------------------\n[INFO] Reactor Summary for future-converter 1.2.1-SNAPSHOT:\n[INFO] \n[INFO] future-converter ................................... SUCCESS [  1.511 s]\n[INFO] future-converter-common ............................ SUCCESS [  0.878 s]\n[INFO] future-converter-common-test ....................... SUCCESS [  0.230 s]\n[INFO] future-converter-java8-common ...................... SUCCESS [  0.050 s]\n[INFO] future-converter-guava-common ...................... SUCCESS [  0.058 s]\n[INFO] future-converter-java8-guava ....................... SUCCESS [  1.753 s]\n[INFO] future-converter-apifuture-common .................. SUCCESS [  0.055 s]\n[INFO] future-converter-java8-apifuture ................... SUCCESS [  1.609 s]\n[INFO] future-converter-rxjava-common ..................... SUCCESS [  0.031 s]\n[INFO] future-converter-rxjava-java8 ...................... SUCCESS [  1.892 s]\n[INFO] future-converter-rxjava2-common .................... SUCCESS [  0.026 s]\n[INFO] future-converter-rxjava2-java8 ..................... SUCCESS [  1.504 s]\n[INFO] future-converter-guava-rxjava ...................... SUCCESS [  1.534 s]\n[INFO] future-converter-guava-rxjava2 ..................... SUCCESS [  1.491 s]\n[INFO] future-converter-spring-common ..................... SUCCESS [  0.033 s]\n[INFO] future-converter-spring-rxjava ..................... SUCCESS [  1.471 s]\n[INFO] future-converter-spring-rxjava2 .................... SUCCESS [  1.676 s]\n[INFO] future-converter-spring-guava ...................... SUCCESS [  2.118 s]\n[INFO] future-converter-spring-java8 ...................... SUCCESS [  1.718 s]\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  19.965 s\n[INFO] Finished at: 2026-09-28T05:07:24Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 4 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.10.1\n[WARNING]  * org.apache.maven.plugins:maven-enforcer-plugin:1.2\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING]  * com.mycila:license-maven-plugin:4.1\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      }
+    ],
+    "candidate": [
+      {
+        "command": "cd /future-converter && cp -r /work/overlay/. . 2>/dev/null; mvn -B -ntp clean test-compile",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": 12.63,
+        "tail": "[INFO] Changes detected - recompiling the module!\n[INFO] Compiling 2 source files to /future-converter/spring-java8/target/test-classes\n[INFO] ------------------------------------------------------------------------\n[INFO] Reactor Summary for future-converter 1.2.1-SNAPSHOT:\n[INFO] \n[INFO] future-converter ................................... SUCCESS [  1.876 s]\n[INFO] future-converter-common ............................ SUCCESS [  1.361 s]\n[INFO] future-converter-common-test ....................... SUCCESS [  2.732 s]\n[INFO] future-converter-java8-common ...................... SUCCESS [  0.150 s]\n[INFO] future-converter-guava-common ...................... SUCCESS [  0.226 s]\n[INFO] future-converter-java8-guava ....................... SUCCESS [  0.556 s]\n[INFO] future-converter-apifuture-common .................. SUCCESS [  0.225 s]\n[INFO] future-converter-java8-apifuture ................... SUCCESS [  0.348 s]\n[INFO] future-converter-rxjava-common ..................... SUCCESS [  0.133 s]\n[INFO] future-converter-rxjava-java8 ...................... SUCCESS [  0.194 s]\n[INFO] future-converter-rxjava2-common .................... SUCCESS [  0.162 s]\n[INFO] future-converter-rxjava2-java8 ..................... SUCCESS [  0.200 s]\n[INFO] future-converter-guava-rxjava ...................... SUCCESS [  0.212 s]\n[INFO] future-converter-guava-rxjava2 ..................... SUCCESS [  0.188 s]\n[INFO] future-converter-spring-common ..................... SUCCESS [  0.141 s]\n[INFO] future-converter-spring-rxjava ..................... SUCCESS [  0.341 s]\n[INFO] future-converter-spring-rxjava2 .................... SUCCESS [  0.219 s]\n[INFO] future-converter-spring-guava ...................... SUCCESS [  0.205 s]\n[INFO] future-converter-spring-java8 ...................... SUCCESS [  0.158 s]\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  10.054 s\n[INFO] Finished at: 2026-09-28T05:07:40Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 4 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.10.1\n[WARNING]  * org.apache.maven.plugins:maven-enforcer-plugin:1.2\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING]  * com.mycila:license-maven-plugin:4.1\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      },
+      {
+        "command": "cd /future-converter && mvn -B -ntp test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 22.86,
+        "tail": "[WARNING] Tests run: 20, Failures: 0, Errors: 0, Skipped: 1\n[INFO] \n[INFO] ------------------------------------------------------------------------\n[INFO] Reactor Summary for future-converter 1.2.1-SNAPSHOT:\n[INFO] \n[INFO] future-converter ................................... SUCCESS [  1.512 s]\n[INFO] future-converter-common ............................ SUCCESS [  0.864 s]\n[INFO] future-converter-common-test ....................... SUCCESS [  0.172 s]\n[INFO] future-converter-java8-common ...................... SUCCESS [  0.070 s]\n[INFO] future-converter-guava-common ...................... SUCCESS [  0.049 s]\n[INFO] future-converter-java8-guava ....................... SUCCESS [  2.487 s]\n[INFO] future-converter-apifuture-common .................. SUCCESS [  0.054 s]\n[INFO] future-converter-java8-apifuture ................... SUCCESS [  1.498 s]\n[INFO] future-converter-rxjava-common ..................... SUCCESS [  0.043 s]\n[INFO] future-converter-rxjava-java8 ...................... SUCCESS [  1.785 s]\n[INFO] future-converter-rxjava2-common .................... SUCCESS [  0.037 s]\n[INFO] future-converter-rxjava2-java8 ..................... SUCCESS [  1.669 s]\n[INFO] future-converter-guava-rxjava ...................... SUCCESS [  1.506 s]\n[INFO] future-converter-guava-rxjava2 ..................... SUCCESS [  1.447 s]\n[INFO] future-converter-spring-common ..................... SUCCESS [  0.032 s]\n[INFO] future-converter-spring-rxjava ..................... SUCCESS [  1.710 s]\n[INFO] future-converter-spring-rxjava2 .................... SUCCESS [  1.638 s]\n[INFO] future-converter-spring-guava ...................... SUCCESS [  1.545 s]\n[INFO] future-converter-spring-java8 ...................... SUCCESS [  1.785 s]\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  20.216 s\n[INFO] Finished at: 2026-09-28T05:08:03Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 4 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.10.1\n[WARNING]  * org.apache.maven.plugins:maven-enforcer-plugin:1.2\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING]  * com.mycila:license-maven-plugin:4.1\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      }
+    ],
+    "capturedAt": "2026-09-28",
+    "failureCategory": "",
+    "failureLocations": [],
+    "method": "container-reproduction",
+    "toolchain": "ghcr.io/chains-project/breaking-updates:70e13f6bdb7de7f8eda9f174a5616284f2157ea7-pre (Apache Maven 3.9.2 (c9616018c7a021c1c39be70fb2843d6f5f9b8a1c) Maven home: /usr/share/java/maven-3 Java version: 11.0.19, vendor: Alpine, runtime: /usr/lib/jvm/java-11-openjdk)",
+    "warnings": []
+  },
+  "provenance": "bump_crossings loader: https://github.com/lukas-krecan/future-converter at 60f8e83e1c25, the commit before BUMP's break 70e13f6bdb7d (BUMP, chains-project/bump, MIT, at 324d5513aa5c), its com.google.api:api-common crossed with the minor update Maven Central listed at capture, built in ghcr.io/chains-project/breaking-updates:70e13f6bdb7de7f8eda9f174a5616284f2157ea7-pre",
+  "source": "bump-crossing",
+  "sourceChange": "minor",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "2.1.5",
+    "manifestPaths": [
+      "pom.xml"
+    ],
+    "package": "com.google.api:api-common",
+    "scope": "compile",
+    "toVersion": "2.69.0"
+  }
+}

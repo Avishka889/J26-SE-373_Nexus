@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { act, cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import { connectionsApi, settingsApi } from "@/entities/settings";
 import { resetConnections } from "@/entities/settings/connections";
+import { choose } from "@/shared/testing/choose";
 import { DatabaseTab } from "./DatabaseTab";
 import { RenderTab } from "./RenderTab";
 import { VercelTab } from "./VercelTab";
@@ -184,5 +185,71 @@ describe("the Atlas secret saved right after an identifier", () => {
 
     expect(order[0]).toContain("Cluster1");
     expect(order[1]).toBe("secret atlas");
+  });
+});
+
+/**
+ * These fields save once the typing stops and the tabs have no Save button, so
+ * each says what became of an edit, as the profile's name does. They saved
+ * without a word.
+ */
+describe("a setting that saves as it is edited", () => {
+  const stopTyping = () =>
+    act(async () => {
+      vi.advanceTimersByTime(700);
+    });
+
+  it("says the Vercel team is being saved, and then that it is", async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    render(<VercelTab />);
+    expect(screen.queryByText("Saved")).toBeNull();
+
+    fireEvent.change(screen.getByLabelText(/^Team \/ scope/), { target: { value: "acme-labs" } });
+    expect(screen.getByText("Saving...").getAttribute("role")).toBe("status");
+    await stopTyping();
+
+    expect(screen.getByText("Saved").getAttribute("role")).toBe("status");
+  });
+
+  it("says so under the Atlas field that was edited, and not under the others", async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    render(<DatabaseTab />);
+
+    fireEvent.change(screen.getByLabelText(/^Cluster/), { target: { value: "Cluster7" } });
+    await stopTyping();
+
+    const saved = screen.getAllByText("Saved");
+    expect(saved).toHaveLength(1);
+    expect(saved[0].parentElement?.contains(screen.getByLabelText(/^Cluster/))).toBe(true);
+  });
+
+  it("says an Atlas field was not saved when the server refuses it", async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    vi.spyOn(settingsApi, "updateDatabase").mockRejectedValue(new Error("503 Service Unavailable"));
+    render(<DatabaseTab />);
+
+    fireEvent.change(screen.getByLabelText(/^Service account client ID/), { target: { value: "mdb_sa_id_9" } });
+    await stopTyping();
+
+    expect(screen.getByText("Not saved").getAttribute("role")).toBe("status");
+    expect(screen.queryByText("Saved")).toBeNull();
+  });
+
+  it("says Render's region is saved once the server has it", async () => {
+    render(<RenderTab />);
+    expect(screen.queryByText("Saved")).toBeNull();
+
+    await choose(screen.getByRole("combobox", { name: /Region/ }), "Frankfurt (EU)");
+
+    expect((await screen.findByText("Saved")).getAttribute("role")).toBe("status");
+  });
+
+  it("says Render's region was not saved when the server refuses it", async () => {
+    vi.spyOn(settingsApi, "updateRender").mockRejectedValue(new Error("503 Service Unavailable"));
+    render(<RenderTab />);
+
+    await choose(screen.getByRole("combobox", { name: /Region/ }), "Singapore (Asia)");
+
+    expect((await screen.findByText("Not saved")).getAttribute("role")).toBe("status");
   });
 });

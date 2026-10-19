@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { Upload } from "lucide-react";
 import { NexusWordmark } from "@/shared/ui/brand/NexusWordmark";
 import { CtaVisual } from "./LandingVisuals";
 import { GlassCard } from "./GlassCard";
+import { useVisitorActions } from "../model/visitorActions";
 
 export function FooterCta() {
   const navigate = useNavigate();
+  const { primary, secondary } = useVisitorActions();
 
   return (
     <>
@@ -18,18 +19,19 @@ export function FooterCta() {
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <button
-              onClick={() => navigate("/projects/new")}
+              onClick={() => navigate(primary.to)}
               className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-semibold text-blue-600 shadow-lg transition-all hover:bg-blue-50"
             >
-              <Upload className="h-4 w-4" />
-              Upload SRS
+              {primary.label}
             </button>
-            <button
-              onClick={() => navigate("/login")}
-              className="inline-flex items-center gap-2 rounded-xl border border-white/30 px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-white/10"
-            >
-              Log In
-            </button>
+            {secondary && (
+              <button
+                onClick={() => navigate(secondary.to)}
+                className="inline-flex items-center gap-2 rounded-xl border border-white/30 px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-white/10"
+              >
+                {secondary.label}
+              </button>
+            )}
           </div>
         </GlassCard>
       </section>

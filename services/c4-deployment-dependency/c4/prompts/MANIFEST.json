@@ -1,0 +1,14 @@
+{
+  "changelog-extract/1": {
+    "file": "changelog_extract_v1.md",
+    "sha256": "c8558e129ab088fbdfbce723504eb5d097b42758f99052edfabf865bf1b73f3e"
+  },
+  "explain-assessment/1": {
+    "file": "explain_v1.md",
+    "sha256": "ac7c93e160b88fe79229c11bdab76ba626127aaae7955d570f724809d2e5dc1c"
+  },
+  "explain-assessment/2": {
+    "file": "explain_v2.md",
+    "sha256": "20e971ab754a7780e71d004f371b0da330ad8dfb84ed2abf6782a985b5be9969"
+  }
+}

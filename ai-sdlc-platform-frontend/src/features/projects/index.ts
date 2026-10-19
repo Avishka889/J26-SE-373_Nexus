@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Multi-page feature: route screens live in `pages/`.
  * Shared UI (e.g. ProjectCreatePrompt) stays in `components/`.
  * Default export is the Projects list (primary page).

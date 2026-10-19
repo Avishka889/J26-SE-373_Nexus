@@ -111,6 +111,8 @@ export interface CodeApi {
   pushVersion(projectId: string, version: number): Promise<CodeSnapshot>;
   getCode(projectId: string): Promise<CodeSnapshot>;
   getFile(projectId: string, path: string, version?: number): Promise<CodeFile>;
+  /** What a code version changed since the one before it, file by file (C2-8). */
+  getChanges(projectId: string, version?: number): Promise<CodeChanges>;
   /** `supersede` starts a new version over an approved one, which is refused without it. */
   generate(projectId: string, supersede?: boolean): Promise<CodeSnapshot>;
   setStoryScope(
@@ -137,3 +139,21 @@ export interface CodeApi {
   startPreview(projectId: string): Promise<PreviewState>;
   stopPreview(projectId: string): Promise<void>;
 }
+
+/** One file a code version added, removed or changed, with its unified diff. */
+export type FileChange = {
+  path: string;
+  status: "added" | "removed" | "changed";
+  additions: number;
+  deletions: number;
+  diff: string;
+  /** The diff was cut for length; the counts are of the whole change. */
+  truncated: boolean;
+};
+
+/** A code version against the one before it; `againstVersion` is null for the first. */
+export type CodeChanges = {
+  version: number;
+  againstVersion: number | null;
+  files: FileChange[];
+};

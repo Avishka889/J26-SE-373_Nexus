@@ -1,0 +1,56 @@
+{
+  "caseId": "bump-53f3dbca3fda",
+  "client": {
+    "commit": "53f3dbca3fdadef153a5357a9804c1f823384309",
+    "image": "ghcr.io/chains-project/breaking-updates:53f3dbca3fdadef153a5357a9804c1f823384309-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/vandmo/dependency-lock-maven-plugin",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:53f3dbca3fdadef153a5357a9804c1f823384309-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:53f3dbca3fdadef153a5357a9804c1f823384309-breaking",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "resolution",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "DEPENDENCY_LOCK_FAILURE",
+    "failureLocations": [],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/53f3dbca3fdadef153a5357a9804c1f823384309.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb",
+  "source": "bump",
+  "sourceChange": "patch",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "3.8.3",
+    "manifestPaths": [],
+    "package": "org.apache.maven:maven-model",
+    "scope": "compile",
+    "toVersion": "3.8.4"
+  }
+}

@@ -1,7 +1,15 @@
 import type { Project } from "@/types/project";
 
 /** Which projects the list shows: by the phase a project is in, or stopped. */
-export type StatusFilter = "all" | "design" | "code" | "testing" | "deploy" | "complete" | "stopped";
+export type StatusFilter =
+  | "all"
+  | "design"
+  | "code"
+  | "testing"
+  | "deploy"
+  | "released"
+  | "complete"
+  | "stopped";
 export type SortOrder = "newest" | "updated" | "name";
 
 export const STATUS_FILTERS: { value: StatusFilter; label: string }[] = [
@@ -10,6 +18,7 @@ export const STATUS_FILTERS: { value: StatusFilter; label: string }[] = [
   { value: "code", label: "In Code Generation" },
   { value: "testing", label: "In Testing and Security" },
   { value: "deploy", label: "In Deployment" },
+  { value: "released", label: "Released, backlog left" },
   { value: "complete", label: "Complete" },
   { value: "stopped", label: "Stopped" },
 ];

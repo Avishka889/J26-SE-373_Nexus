@@ -7,6 +7,7 @@ import { ProfilePhotoEditor } from "@/shared/ui/brand/UserAvatar";
 import { cn } from "@/shared/utils/cn";
 import { SettingsPanel } from "./SettingsPanel";
 import { useDebouncedText } from "../useDebouncedText";
+import { SaveStatus } from "./SaveStatus";
 
 /**
  * The account as others see it: a name and a photo.
@@ -21,7 +22,7 @@ export function ProfileTab() {
   const settings = useSettings();
   const { updateProfile } = useSettingsActions();
   const { isDark, fieldClass } = useFieldClasses();
-  const [name, setName] = useDebouncedText(settings.profile.name, (next) =>
+  const [name, setName, , saving] = useDebouncedText(settings.profile.name, (next) =>
     updateProfile({ name: next }),
   );
 
@@ -56,9 +57,14 @@ export function ProfileTab() {
       />
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field label="Full name">
-          <input className={fieldClass} value={name} onChange={(e) => setName(e.target.value)} />
-        </Field>
+        <div>
+          <Field label="Full name">
+            <input className={fieldClass} value={name} onChange={(e) => setName(e.target.value)} />
+          </Field>
+          {/* The page has no Save button, so the field says what became of an
+              edit: it saved without a word, and nothing said it was kept. */}
+          <SaveStatus state={saving} />
+        </div>
         <Field label="Email" hint="The email you sign in with. It is your account's, so it is not changed here.">
           <input
             type="email"

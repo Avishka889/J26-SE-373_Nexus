@@ -1,0 +1,56 @@
+{
+  "caseId": "bump-de20387b7a37",
+  "client": {
+    "commit": "de20387b7a373cf20daa590247a1b65876ebca38",
+    "image": "ghcr.io/chains-project/breaking-updates:de20387b7a373cf20daa590247a1b65876ebca38-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/btrplace/scheduler",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:de20387b7a373cf20daa590247a1b65876ebca38-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:de20387b7a373cf20daa590247a1b65876ebca38-breaking",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "TEST_FAILURE",
+    "failureLocations": [],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/de20387b7a373cf20daa590247a1b65876ebca38.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb",
+  "source": "bump",
+  "sourceChange": "patch",
+  "split": "held-out",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "2.4.8",
+    "manifestPaths": [],
+    "package": "net.minidev:json-smart",
+    "scope": "compile",
+    "toVersion": "2.4.9"
+  }
+}

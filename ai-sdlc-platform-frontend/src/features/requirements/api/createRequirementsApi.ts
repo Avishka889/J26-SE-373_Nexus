@@ -222,6 +222,16 @@ function createFixtureApi(): RequirementsApi {
       });
     },
 
+    async setRequirementPriority(projectId, requirementId, priority) {
+      await sleep(FIXTURE_DELAY_MS);
+      return mutateDesign(projectId, (draft) => {
+        const found = draft.requirements.find((r) => r.id === requirementId);
+        if (!found) return;
+        found.priority = priority;
+        found.priorityCorrected = true;
+      });
+    },
+
     async editAssumption(projectId, assumptionId, text) {
       await sleep(FIXTURE_DELAY_MS);
       return mutateDesign(projectId, (draft) => {
@@ -462,6 +472,8 @@ function createHttpApi(): RequirementsApi {
     },
     editRequirement: (projectId, requirementId, text) =>
       http.patch<DesignSnapshot>(`${base(projectId)}/requirements/${requirementId}`, { text }),
+    setRequirementPriority: (projectId, requirementId, priority) =>
+      http.patch<DesignSnapshot>(`${base(projectId)}/requirements/${requirementId}`, { priority }),
     editAssumption: (projectId, assumptionId, text) =>
       http.patch<DesignSnapshot>(`${base(projectId)}/assumptions/${assumptionId}`, { text }),
     dismissAssumption: (projectId, assumptionId, dismissed) =>

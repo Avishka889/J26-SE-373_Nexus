@@ -1,0 +1,61 @@
+{
+  "caseId": "bump-2f01c46b96a8",
+  "client": {
+    "commit": "2f01c46b96a8edf437edf20e6dbd848edcb27085",
+    "image": "ghcr.io/chains-project/breaking-updates:2f01c46b96a8edf437edf20e6dbd848edcb27085-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/ASSERT-KTH/depclean",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:2f01c46b96a8edf437edf20e6dbd848edcb27085-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:2f01c46b96a8edf437edf20e6dbd848edcb27085-breaking",
+        "exitCode": null,
+        "logSha256": "4c45425d1e053fec188fc48ed7ce5e8199b74a51860c71e794a0cc547067f733",
+        "name": "compile",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": "[WARNING]  * org.jacoco:jacoco-maven-plugin:0.8.10\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING] \n[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile (default-compile) on project depclean-maven-plugin: Compilation failure\n[ERROR] /depclean/depclean-maven-plugin/src/main/java/se/kth/depclean/wrapper/MavenDependencyManager.java:[27,36] package org.codehaus.plexus.util.xml does not exist\n[ERROR] -> [Help 1]\n[ERROR] \n[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.\n[ERROR] Re-run Maven using the -X switch to enable full debug logging.\n[ERROR] \n[ERROR] For more information about the errors and possible solutions, please read the following articles:\n[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException\n[ERROR] \n[ERROR] After correcting the problems, you can resume the build with the command\n[ERROR]   mvn <args> -rf :depclean-maven-plugin\nlog4j:WARN No appenders could be found for logger (se.kth.depclean.core.model.Dependency).\nlog4j:WARN Please initialize the log4j system properly.\nlog4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info."
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "COMPILATION_FAILURE",
+    "failureLocations": [
+      {
+        "line": 27,
+        "path": "depclean-maven-plugin/src/main/java/se/kth/depclean/wrapper/MavenDependencyManager.java"
+      }
+    ],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/2f01c46b96a8edf437edf20e6dbd848edcb27085.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb; failure locations read from running ghcr.io/chains-project/breaking-updates:2f01c46b96a8edf437edf20e6dbd848edcb27085-breaking on 2026-09-28",
+  "source": "bump",
+  "sourceChange": "major",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "3.5.1",
+    "manifestPaths": [],
+    "package": "org.codehaus.plexus:plexus-utils",
+    "scope": "compile",
+    "toVersion": "4.0.0"
+  }
+}

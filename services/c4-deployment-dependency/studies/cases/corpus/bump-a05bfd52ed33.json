@@ -1,0 +1,56 @@
+{
+  "caseId": "bump-a05bfd52ed33",
+  "client": {
+    "commit": "a05bfd52ed33fb68c5edb2b53d9424d82ac60fa8",
+    "image": "ghcr.io/chains-project/breaking-updates:a05bfd52ed33fb68c5edb2b53d9424d82ac60fa8-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/searls/jasmine-maven-plugin",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:a05bfd52ed33fb68c5edb2b53d9424d82ac60fa8-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:a05bfd52ed33fb68c5edb2b53d9424d82ac60fa8-breaking",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "TEST_FAILURE",
+    "failureLocations": [],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/a05bfd52ed33fb68c5edb2b53d9424d82ac60fa8.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb",
+  "source": "bump",
+  "sourceChange": "major",
+  "split": "held-out",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "1.7.32",
+    "manifestPaths": [],
+    "package": "org.slf4j:slf4j-api",
+    "scope": "compile",
+    "toVersion": "2.0.0"
+  }
+}

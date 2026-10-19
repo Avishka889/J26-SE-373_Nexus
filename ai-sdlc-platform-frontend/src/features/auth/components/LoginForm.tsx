@@ -1,10 +1,11 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { LogIn, Mail, Lock } from "lucide-react";
+import { LogIn, Mail } from "lucide-react";
 import { signIn } from "@/entities/account";
 import { messageOf } from "@/lib/http";
 import { Button, Field, useFieldClasses } from "@/shared/ui";
 import { cn } from "@/shared/utils/cn";
+import { PasswordInput } from "./PasswordInput";
 
 /** Sign in, then go back to the page that asked for it. */
 export function LoginForm({ from }: { from: string }) {
@@ -14,6 +15,9 @@ export function LoginForm({ from }: { from: string }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
+  // The page is for one thing, so typing starts it.
+  const emailRef = useRef<HTMLInputElement>(null);
+  useEffect(() => emailRef.current?.focus(), []);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -37,6 +41,7 @@ export function LoginForm({ from }: { from: string }) {
             <Mail className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
             <input
               {...control}
+              ref={emailRef}
               type="email"
               required
               autoComplete="email"
@@ -51,19 +56,13 @@ export function LoginForm({ from }: { from: string }) {
 
       <Field label="Password">
         {(control) => (
-          <div className="relative">
-            <Lock className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-            <input
-              {...control}
-              type="password"
-              required
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              className={cn(fieldClass, "pl-10 pr-3.5")}
-            />
-          </div>
+          <PasswordInput
+            control={control}
+            autoComplete="current-password"
+            value={password}
+            onChange={setPassword}
+            placeholder="••••••••"
+          />
         )}
       </Field>
 
@@ -81,7 +80,7 @@ export function LoginForm({ from }: { from: string }) {
         className="w-full gap-2 py-3 shadow-lg shadow-blue-600/25"
       >
         <LogIn className="h-4 w-4" />
-        Log In
+        Sign in
       </Button>
     </form>
   );

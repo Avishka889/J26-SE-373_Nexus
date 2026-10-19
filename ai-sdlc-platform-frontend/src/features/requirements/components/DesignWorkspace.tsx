@@ -329,6 +329,10 @@ export function DesignWorkspace({ project }: { project: Project }) {
                 <StageSprintPlan
                   sprint={snapshot.sprint}
                   version={snapshot.requirementsVersion}
+                  behind={snapshot.consistency.filter(
+                    (finding) => finding.ruleId === "story-priority-is-current",
+                  )}
+                  onPlanAgain={() => void page.retryStage("sprint-plan")}
                   onJump={page.jumpToRequirement}
                 />
               )}

@@ -1,0 +1,77 @@
+{
+  "caseId": "bump-00a7cc31784a",
+  "client": {
+    "commit": "00a7cc31784ac4a9cc27d506a73ae589d6df36d6",
+    "image": "ghcr.io/chains-project/breaking-updates:00a7cc31784ac4a9cc27d506a73ae589d6df36d6-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/quickfix-j/quickfixj",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:00a7cc31784ac4a9cc27d506a73ae589d6df36d6-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:00a7cc31784ac4a9cc27d506a73ae589d6df36d6-breaking",
+        "exitCode": null,
+        "logSha256": "fa08ef91400b01479cf2d59a0f6e6ce7572e4314380ec5e3775bc033e4a17134",
+        "name": "compile",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": "[ERROR] /quickfixj/quickfixj-core/src/main/java/quickfix/mina/ssl/SSLFilter.java:[43,9] constructor SslFilter in class org.apache.mina.filter.ssl.SslFilter cannot be applied to given types;\n[ERROR]   required: javax.net.ssl.SSLContext\n[ERROR]   found: javax.net.ssl.SSLContext,boolean\n[ERROR]   reason: actual and formal argument lists differ in length\n[ERROR] /quickfixj/quickfixj-core/src/main/java/quickfix/mina/ssl/SSLFilter.java:[78,38] cannot find symbol\n[ERROR]   symbol:   variable PEER_ADDRESS\n[ERROR]   location: class quickfix.mina.ssl.SSLFilter\n[ERROR] /quickfixj/quickfixj-core/src/main/java/quickfix/mina/initiator/InitiatorProxyIoHandler.java:[65,27] cannot find symbol\n[ERROR]   symbol:   method initiateHandshake(org.apache.mina.core.session.IoSession)\n[ERROR]   location: variable sslFilter of type quickfix.mina.ssl.SSLFilter\n[ERROR] -> [Help 1]\n[ERROR] \n[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.\n[ERROR] Re-run Maven using the -X switch to enable full debug logging.\n[ERROR] \n[ERROR] For more information about the errors and possible solutions, please read the following articles:\n[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException\n[ERROR] \n[ERROR] After correcting the problems, you can resume the build with the command\n[ERROR]   mvn <args> -rf :quickfixj-core"
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "COMPILATION_FAILURE",
+    "failureLocations": [
+      {
+        "line": 136,
+        "path": "quickfixj-core/src/main/java/quickfix/mina/acceptor/AbstractSocketAcceptor.java"
+      },
+      {
+        "line": 195,
+        "path": "quickfixj-core/src/main/java/quickfix/mina/initiator/IoSessionInitiator.java"
+      },
+      {
+        "line": 43,
+        "path": "quickfixj-core/src/main/java/quickfix/mina/ssl/SSLFilter.java"
+      },
+      {
+        "line": 78,
+        "path": "quickfixj-core/src/main/java/quickfix/mina/ssl/SSLFilter.java"
+      },
+      {
+        "line": 65,
+        "path": "quickfixj-core/src/main/java/quickfix/mina/initiator/InitiatorProxyIoHandler.java"
+      }
+    ],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/00a7cc31784ac4a9cc27d506a73ae589d6df36d6.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb; failure locations read from running ghcr.io/chains-project/breaking-updates:00a7cc31784ac4a9cc27d506a73ae589d6df36d6-breaking on 2026-09-28",
+  "source": "bump",
+  "sourceChange": "minor",
+  "split": "held-out",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "2.1.5",
+    "manifestPaths": [],
+    "package": "org.apache.mina:mina-core",
+    "scope": "compile",
+    "toVersion": "2.2.1"
+  }
+}

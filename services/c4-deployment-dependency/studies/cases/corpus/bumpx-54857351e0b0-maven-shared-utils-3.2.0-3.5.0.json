@@ -1,0 +1,76 @@
+{
+  "caseId": "bumpx-54857351e0b0-maven-shared-utils-3.2.0-3.5.0",
+  "client": {
+    "commit": "57e24141d4e23a9b1ada3f1957a85944ae3227f2",
+    "image": "ghcr.io/chains-project/breaking-updates:54857351e0b0a655970d7e2ccdb67f175cc5d688-pre",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/allure-framework/allure-maven",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "cd /allure-maven && cp -r /work/overlay/. . 2>/dev/null; mvn -B -ntp clean test-compile",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": 38.2,
+        "tail": "[INFO] \n[INFO] --- plugin:3.6.1:descriptor (default-descriptor) @ allure-maven ---\n[INFO] Using 'UTF-8' encoding to read mojo source files.\n[INFO] java-javadoc mojo extractor found 0 mojo descriptor.\n[INFO] bsh mojo extractor found 0 mojo descriptor.\n[INFO] ant mojo extractor found 0 mojo descriptor.\n[INFO] java-annotations mojo extractor found 6 mojo descriptors.\n[INFO] \n[INFO] --- plugin:3.6.1:descriptor (mojo-descriptor) @ allure-maven ---\n[INFO] Using 'UTF-8' encoding to read mojo source files.\n[INFO] java-javadoc mojo extractor found 0 mojo descriptor.\n[INFO] bsh mojo extractor found 0 mojo descriptor.\n[INFO] ant mojo extractor found 0 mojo descriptor.\n[INFO] java-annotations mojo extractor found 6 mojo descriptors.\n[INFO] \n[INFO] --- resources:3.3.0:testResources (default-testResources) @ allure-maven ---\n[INFO] skip non existing resourceDirectory /allure-maven/src/test/resources\n[INFO] \n[INFO] --- compiler:3.8.1:testCompile (default-testCompile) @ allure-maven ---\n[INFO] Changes detected - recompiling the module!\n[INFO] Compiling 1 source file to /allure-maven/target/test-classes\n[INFO] /allure-maven/src/test/java/io/qameta/allure/maven/TestHelper.java: /allure-maven/src/test/java/io/qameta/allure/maven/TestHelper.java uses or overrides a deprecated API.\n[INFO] /allure-maven/src/test/java/io/qameta/allure/maven/TestHelper.java: Recompile with -Xlint:deprecation for details.\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  33.577 s\n[INFO] Finished at: 2026-09-28T07:41:25Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 5 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-checkstyle-plugin:3.1.2\n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.8.1\n[WARNING]  * org.apache.maven.plugins:maven-plugin-plugin:3.6.1\n[WARNING]  * org.apache.maven.plugins:maven-pmd-plugin:3.15.0\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      },
+      {
+        "command": "cd /allure-maven && mvn -B -ntp test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 46.98,
+        "tail": "[INFO] ant mojo extractor found 0 mojo descriptor.\n[INFO] java-annotations mojo extractor found 6 mojo descriptors.\n[INFO] \n[INFO] --- resources:3.3.0:testResources (default-testResources) @ allure-maven ---\n[INFO] skip non existing resourceDirectory /allure-maven/src/test/resources\n[INFO] \n[INFO] --- compiler:3.8.1:testCompile (default-testCompile) @ allure-maven ---\n[INFO] Changes detected - recompiling the module!\n[INFO] Compiling 1 source file to /allure-maven/target/test-classes\n[INFO] /allure-maven/src/test/java/io/qameta/allure/maven/TestHelper.java: /allure-maven/src/test/java/io/qameta/allure/maven/TestHelper.java uses or overrides a deprecated API.\n[INFO] /allure-maven/src/test/java/io/qameta/allure/maven/TestHelper.java: Recompile with -Xlint:deprecation for details.\n[INFO] \n[INFO] --- surefire:3.0.0:test (default-test) @ allure-maven ---\n[INFO] Using auto detected provider org.apache.maven.surefire.junit4.JUnit4Provider\n[INFO] \n[INFO] -------------------------------------------------------\n[INFO]  T E S T S\n[INFO] -------------------------------------------------------\n[INFO] \n[INFO] Results:\n[INFO] \n[INFO] Tests run: 0, Failures: 0, Errors: 0, Skipped: 0\n[INFO] \n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  41.763 s\n[INFO] Finished at: 2026-09-28T07:42:12Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 5 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-checkstyle-plugin:3.1.2\n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.8.1\n[WARNING]  * org.apache.maven.plugins:maven-plugin-plugin:3.6.1\n[WARNING]  * org.apache.maven.plugins:maven-pmd-plugin:3.15.0\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      }
+    ],
+    "candidate": [
+      {
+        "command": "cd /allure-maven && cp -r /work/overlay/. . 2>/dev/null; mvn -B -ntp clean test-compile",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": 21.14,
+        "tail": "[INFO] \n[INFO] --- plugin:3.6.1:descriptor (default-descriptor) @ allure-maven ---\n[INFO] Using 'UTF-8' encoding to read mojo source files.\n[INFO] java-javadoc mojo extractor found 0 mojo descriptor.\n[INFO] bsh mojo extractor found 0 mojo descriptor.\n[INFO] ant mojo extractor found 0 mojo descriptor.\n[INFO] java-annotations mojo extractor found 6 mojo descriptors.\n[INFO] \n[INFO] --- plugin:3.6.1:descriptor (mojo-descriptor) @ allure-maven ---\n[INFO] Using 'UTF-8' encoding to read mojo source files.\n[INFO] java-javadoc mojo extractor found 0 mojo descriptor.\n[INFO] bsh mojo extractor found 0 mojo descriptor.\n[INFO] ant mojo extractor found 0 mojo descriptor.\n[INFO] java-annotations mojo extractor found 6 mojo descriptors.\n[INFO] \n[INFO] --- resources:3.3.0:testResources (default-testResources) @ allure-maven ---\n[INFO] skip non existing resourceDirectory /allure-maven/src/test/resources\n[INFO] \n[INFO] --- compiler:3.8.1:testCompile (default-testCompile) @ allure-maven ---\n[INFO] Changes detected - recompiling the module!\n[INFO] Compiling 1 source file to /allure-maven/target/test-classes\n[INFO] /allure-maven/src/test/java/io/qameta/allure/maven/TestHelper.java: /allure-maven/src/test/java/io/qameta/allure/maven/TestHelper.java uses or overrides a deprecated API.\n[INFO] /allure-maven/src/test/java/io/qameta/allure/maven/TestHelper.java: Recompile with -Xlint:deprecation for details.\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  18.122 s\n[INFO] Finished at: 2026-09-28T07:43:40Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 5 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-checkstyle-plugin:3.1.2\n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.8.1\n[WARNING]  * org.apache.maven.plugins:maven-plugin-plugin:3.6.1\n[WARNING]  * org.apache.maven.plugins:maven-pmd-plugin:3.15.0\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      },
+      {
+        "command": "cd /allure-maven && mvn -B -ntp test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 21.9,
+        "tail": "[INFO] bsh mojo extractor found 0 mojo descriptor.\n[INFO] java-annotations mojo extractor found 6 mojo descriptors.\n[INFO] \n[INFO] --- resources:3.3.0:testResources (default-testResources) @ allure-maven ---\n[INFO] skip non existing resourceDirectory /allure-maven/src/test/resources\n[INFO] \n[INFO] --- compiler:3.8.1:testCompile (default-testCompile) @ allure-maven ---\n[INFO] Changes detected - recompiling the module!\n[INFO] Compiling 1 source file to /allure-maven/target/test-classes\n[INFO] /allure-maven/src/test/java/io/qameta/allure/maven/TestHelper.java: /allure-maven/src/test/java/io/qameta/allure/maven/TestHelper.java uses or overrides a deprecated API.\n[INFO] /allure-maven/src/test/java/io/qameta/allure/maven/TestHelper.java: Recompile with -Xlint:deprecation for details.\n[INFO] \n[INFO] --- surefire:3.0.0:test (default-test) @ allure-maven ---\n[INFO] Using auto detected provider org.apache.maven.surefire.junit4.JUnit4Provider\n[INFO] \n[INFO] -------------------------------------------------------\n[INFO]  T E S T S\n[INFO] -------------------------------------------------------\n[INFO] \n[INFO] Results:\n[INFO] \n[INFO] Tests run: 0, Failures: 0, Errors: 0, Skipped: 0\n[INFO] \n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  18.632 s\n[INFO] Finished at: 2026-09-28T07:44:02Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 5 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-checkstyle-plugin:3.1.2\n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.8.1\n[WARNING]  * org.apache.maven.plugins:maven-plugin-plugin:3.6.1\n[WARNING]  * org.apache.maven.plugins:maven-pmd-plugin:3.15.0\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      }
+    ],
+    "capturedAt": "2026-09-28",
+    "failureCategory": "",
+    "failureLocations": [],
+    "method": "container-reproduction",
+    "toolchain": "ghcr.io/chains-project/breaking-updates:54857351e0b0a655970d7e2ccdb67f175cc5d688-pre (Apache Maven 3.9.2 (c9616018c7a021c1c39be70fb2843d6f5f9b8a1c) Maven home: /usr/share/java/maven-3 Java version: 11.0.19, vendor: Alpine, runtime: /usr/lib/jvm/java-11-openjdk)",
+    "warnings": []
+  },
+  "provenance": "bump_crossings loader: https://github.com/allure-framework/allure-maven at 57e24141d4e2, the commit before BUMP's break 54857351e0b0 (BUMP, chains-project/bump, MIT, at 324d5513aa5c), its org.apache.maven.shared:maven-shared-utils crossed with the minor update Maven Central listed at capture, built in ghcr.io/chains-project/breaking-updates:54857351e0b0a655970d7e2ccdb67f175cc5d688-pre",
+  "source": "bump-crossing",
+  "sourceChange": "minor",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "3.2.0",
+    "manifestPaths": [
+      "target/maven-plugin-plugin-sources/org.apache.maven.reporting/maven-reporting-impl/3.0.0/sources/META-INF/maven/org.apache.maven.reporting/maven-reporting-impl/pom.xml"
+    ],
+    "package": "org.apache.maven.shared:maven-shared-utils",
+    "scope": "compile",
+    "toVersion": "3.5.0"
+  }
+}

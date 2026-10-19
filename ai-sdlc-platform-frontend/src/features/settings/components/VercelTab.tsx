@@ -3,6 +3,7 @@ import { Cloud } from "lucide-react";
 import { useSettings, useSettingsActions } from "@/entities/settings";
 import { cn } from "@/shared/utils/cn";
 import { useDebouncedText } from "../useDebouncedText";
+import { SaveStatus } from "./SaveStatus";
 import { ConnectionSecret } from "./ConnectionSecret";
 import { SettingsPanel } from "./SettingsPanel";
 import { useConnection } from "../hooks/useConnection";
@@ -22,7 +23,7 @@ export function VercelTab() {
   const { isDark, fieldClass } = useFieldClasses();
 
   // Saved when the typing stops, not on every keystroke: see the hook.
-  const [team, setTeam] = useDebouncedText(settings.vercel.team, (next) =>
+  const [team, setTeam, , teamSaving] = useDebouncedText(settings.vercel.team, (next) =>
     updateVercelSettings({ team: next.trim() }),
   );
 
@@ -43,17 +44,20 @@ export function VercelTab() {
         hint="Create one at vercel.com/account/tokens, scoped to the account or team the projects belong in. Stored encrypted on the server and never shown again."
         placeholder="(never stored in the browser)"
       />
-      <Field
-        label="Team / scope"
-        hint="The team to make projects in, as its id (team_...) or slug; leave blank for a personal account"
-      >
-        <input
-          className={fieldClass}
-          placeholder="your-team"
-          value={team}
-          onChange={(e) => setTeam(e.target.value)}
-        />
-      </Field>
+      <div>
+        <Field
+          label="Team / scope"
+          hint="The team to make projects in, as its id (team_...) or slug; leave blank for a personal account"
+        >
+          <input
+            className={fieldClass}
+            placeholder="your-team"
+            value={team}
+            onChange={(e) => setTeam(e.target.value)}
+          />
+        </Field>
+        <SaveStatus state={teamSaving} />
+      </div>
     </SettingsPanel>
   );
 }

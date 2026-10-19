@@ -1,0 +1,60 @@
+{
+  "caseId": "venturini-assetgraph-builder-assetgraph-2.15.0",
+  "client": {
+    "commit": "",
+    "image": "",
+    "kind": "npm-package",
+    "packageSpec": "assetgraph-builder@4.12.0",
+    "repoUrl": "https://github.com/One-com/assetgraph-builder",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {
+    "doi:10.5281/zenodo.5558085/breaking-changes-cases.json": "8fcf4842c5a38581b0e5ea1abaae459a02d27d338922b1f67eb80942686429d1"
+  },
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "the client's tests with assetgraph@2.14.0",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "the client's tests with assetgraph@2.15.0",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": "category wrong-code; documented by --; fixed by provider"
+      }
+    ],
+    "capturedAt": "2020-11-10",
+    "failureCategory": "",
+    "failureLocations": [],
+    "method": "venturini-recorded",
+    "toolchain": "as the authors ran each client's tests",
+    "warnings": []
+  },
+  "provenance": "Venturini, Cogo, Wiese, Polato and Gerosa, TOSEM 32(4), 2023; replication package doi:10.5281/zenodo.5558085 (CC BY 4.0): assetgraph-builder@4.12.0 broke when assetgraph released 2.15.0; the release before it, 2.14.0, read from the registry at load",
+  "source": "npm-venturini",
+  "sourceChange": "minor",
+  "split": "held-out",
+  "update": {
+    "ecosystem": "npm",
+    "fromVersion": "2.14.0",
+    "manifestPaths": [
+      "package.json"
+    ],
+    "package": "assetgraph",
+    "scope": "",
+    "toVersion": "2.15.0"
+  }
+}

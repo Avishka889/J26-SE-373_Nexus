@@ -1,0 +1,76 @@
+{
+  "caseId": "bumpx-bfe01b1632ae-j2html-1.4.0-1.6.0",
+  "client": {
+    "commit": "387568af4fe89f500db6f0419b1f9923d925b2eb",
+    "image": "ghcr.io/chains-project/breaking-updates:bfe01b1632ae11371134a34066ad2d9e23e374b3-pre",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/jenkinsci/pull-request-monitoring-plugin",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "cd /pull-request-monitoring-plugin && cp -r /work/overlay/. . 2>/dev/null; mvn -B -ntp clean test-compile",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": 52.22,
+        "tail": "[INFO] Executed tasks\n[INFO] \n[INFO] --- resources:3.2.0:testResources (default-testResources) @ pull-request-monitoring ---\n[INFO] Using 'UTF-8' encoding to copy filtered resources.\n[INFO] Using 'UTF-8' encoding to copy filtered properties files.\n[INFO] Copying 5 resources\n[INFO] \n[INFO] --- compiler:3.8.1:testCompile (default-testCompile) @ pull-request-monitoring ---\n[INFO] Changes detected - recompiling the module!\n[INFO] Compiling 2 source files to /pull-request-monitoring-plugin/target/test-classes\n[INFO] \n[INFO] --- hpi:3.17:test-hpl (default-test-hpl) @ pull-request-monitoring ---\n[INFO] Generating /pull-request-monitoring-plugin/target/test-classes/the.hpl\n[INFO] \n[INFO] --- hpi:3.17:resolve-test-dependencies (default-resolve-test-dependencies) @ pull-request-monitoring ---\n[INFO] \n[INFO] --- gplus:1.12.1:compileTests (test-in-groovy) @ pull-request-monitoring ---\n[INFO] No sources specified for compilation. Skipping.\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  48.237 s\n[INFO] Finished at: 2026-09-28T06:33:32Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 10 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-javadoc-plugin:3.3.0\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.2.0\n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.8.1\n[WARNING]  * org.apache.maven.plugins:maven-clean-plugin:3.1.0\n[WARNING]  * org.jenkins-ci.tools:maven-hpi-plugin:3.17\n[WARNING]  * org.apache.maven.plugins:maven-antrun-plugin:3.0.0\n[WARNING]  * org.codehaus.gmavenplus:gmavenplus-plugin:1.12.1\n[WARNING]  * org.apache.maven.plugins:maven-enforcer-plugin:3.0.0-M3\n[WARNING]  * org.jvnet.localizer:localizer-maven-plugin:1.31\n[WARNING]  * org.kohsuke:access-modifier-checker:1.21\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      },
+      {
+        "command": "cd /pull-request-monitoring-plugin && mvn -B -ntp test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 130.78,
+        "tail": "[INFO] --- surefire:3.0.0-M4:test (default-test) @ pull-request-monitoring ---\n[INFO] \n[INFO] -------------------------------------------------------\n[INFO]  T E S T S\n[INFO] -------------------------------------------------------\n[INFO] Running io.jenkins.plugins.monitoring.MonitorTest\n[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 92.735 s - in io.jenkins.plugins.monitoring.MonitorTest\n[INFO] \n[INFO] Results:\n[INFO] \n[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0\n[INFO] \n[INFO] \n[INFO] --- animal-sniffer:1.20:check (check) @ pull-request-monitoring ---\n[INFO] Resolved signature org.codehaus.mojo.signature:java18 version as 1.0 from dependencyManagement\n[INFO] Checking unresolved references to org.codehaus.mojo.signature:java18:1.0\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  02:07 min\n[INFO] Finished at: 2026-09-28T06:35:43Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 12 plugin(s)\n[WARNING] \n[WARNING]  * org.jacoco:jacoco-maven-plugin:0.8.7\n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.8.1\n[WARNING]  * org.jenkins-ci.tools:maven-hpi-plugin:3.17\n[WARNING]  * org.apache.maven.plugins:maven-antrun-plugin:3.0.0\n[WARNING]  * org.codehaus.mojo:animal-sniffer-maven-plugin:1.20\n[WARNING]  * org.apache.maven.plugins:maven-enforcer-plugin:3.0.0-M3\n[WARNING]  * org.kohsuke:access-modifier-checker:1.21\n[WARNING]  * org.apache.maven.plugins:maven-javadoc-plugin:3.3.0\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.2.0\n[WARNING]  * org.apache.maven.plugins:maven-surefire-plugin:3.0.0-M4\n[WARNING]  * org.codehaus.gmavenplus:gmavenplus-plugin:1.12.1\n[WARNING]  * org.jvnet.localizer:localizer-maven-plugin:1.31\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      }
+    ],
+    "candidate": [
+      {
+        "command": "cd /pull-request-monitoring-plugin && cp -r /work/overlay/. . 2>/dev/null; mvn -B -ntp clean test-compile",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": 47.09,
+        "tail": "[INFO] Executed tasks\n[INFO] \n[INFO] --- resources:3.2.0:testResources (default-testResources) @ pull-request-monitoring ---\n[INFO] Using 'UTF-8' encoding to copy filtered resources.\n[INFO] Using 'UTF-8' encoding to copy filtered properties files.\n[INFO] Copying 5 resources\n[INFO] \n[INFO] --- compiler:3.8.1:testCompile (default-testCompile) @ pull-request-monitoring ---\n[INFO] Changes detected - recompiling the module!\n[INFO] Compiling 2 source files to /pull-request-monitoring-plugin/target/test-classes\n[INFO] \n[INFO] --- hpi:3.17:test-hpl (default-test-hpl) @ pull-request-monitoring ---\n[INFO] Generating /pull-request-monitoring-plugin/target/test-classes/the.hpl\n[INFO] \n[INFO] --- hpi:3.17:resolve-test-dependencies (default-resolve-test-dependencies) @ pull-request-monitoring ---\n[INFO] \n[INFO] --- gplus:1.12.1:compileTests (test-in-groovy) @ pull-request-monitoring ---\n[INFO] No sources specified for compilation. Skipping.\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  43.433 s\n[INFO] Finished at: 2026-09-28T06:37:34Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 10 plugin(s)\n[WARNING] \n[WARNING]  * org.apache.maven.plugins:maven-javadoc-plugin:3.3.0\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.2.0\n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.8.1\n[WARNING]  * org.apache.maven.plugins:maven-clean-plugin:3.1.0\n[WARNING]  * org.jenkins-ci.tools:maven-hpi-plugin:3.17\n[WARNING]  * org.apache.maven.plugins:maven-antrun-plugin:3.0.0\n[WARNING]  * org.codehaus.gmavenplus:gmavenplus-plugin:1.12.1\n[WARNING]  * org.apache.maven.plugins:maven-enforcer-plugin:3.0.0-M3\n[WARNING]  * org.jvnet.localizer:localizer-maven-plugin:1.31\n[WARNING]  * org.kohsuke:access-modifier-checker:1.21\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      },
+      {
+        "command": "cd /pull-request-monitoring-plugin && mvn -B -ntp test",
+        "exitCode": 0,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "passed",
+        "seconds": 116.16,
+        "tail": "[INFO] --- surefire:3.0.0-M4:test (default-test) @ pull-request-monitoring ---\n[INFO] \n[INFO] -------------------------------------------------------\n[INFO]  T E S T S\n[INFO] -------------------------------------------------------\n[INFO] Running io.jenkins.plugins.monitoring.MonitorTest\n[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 79.887 s - in io.jenkins.plugins.monitoring.MonitorTest\n[INFO] \n[INFO] Results:\n[INFO] \n[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0\n[INFO] \n[INFO] \n[INFO] --- animal-sniffer:1.20:check (check) @ pull-request-monitoring ---\n[INFO] Resolved signature org.codehaus.mojo.signature:java18 version as 1.0 from dependencyManagement\n[INFO] Checking unresolved references to org.codehaus.mojo.signature:java18:1.0\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  01:52 min\n[INFO] Finished at: 2026-09-28T06:39:31Z\n[INFO] ------------------------------------------------------------------------\n[WARNING] \n[WARNING] Plugin validation issues were detected in 12 plugin(s)\n[WARNING] \n[WARNING]  * org.jacoco:jacoco-maven-plugin:0.8.7\n[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.8.1\n[WARNING]  * org.jenkins-ci.tools:maven-hpi-plugin:3.17\n[WARNING]  * org.apache.maven.plugins:maven-antrun-plugin:3.0.0\n[WARNING]  * org.codehaus.mojo:animal-sniffer-maven-plugin:1.20\n[WARNING]  * org.apache.maven.plugins:maven-enforcer-plugin:3.0.0-M3\n[WARNING]  * org.kohsuke:access-modifier-checker:1.21\n[WARNING]  * org.apache.maven.plugins:maven-javadoc-plugin:3.3.0\n[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.2.0\n[WARNING]  * org.apache.maven.plugins:maven-surefire-plugin:3.0.0-M4\n[WARNING]  * org.codehaus.gmavenplus:gmavenplus-plugin:1.12.1\n[WARNING]  * org.jvnet.localizer:localizer-maven-plugin:1.31\n[WARNING] \n[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]\n[WARNING]"
+      }
+    ],
+    "capturedAt": "2026-09-28",
+    "failureCategory": "",
+    "failureLocations": [],
+    "method": "container-reproduction",
+    "toolchain": "ghcr.io/chains-project/breaking-updates:bfe01b1632ae11371134a34066ad2d9e23e374b3-pre (Apache Maven 3.9.2 (c9616018c7a021c1c39be70fb2843d6f5f9b8a1c) Maven home: /usr/share/java/maven-3 Java version: 11.0.19, vendor: Alpine, runtime: /usr/lib/jvm/java-11-openjdk)",
+    "warnings": []
+  },
+  "provenance": "bump_crossings loader: https://github.com/jenkinsci/pull-request-monitoring-plugin at 387568af4fe8, the commit before BUMP's break bfe01b1632ae (BUMP, chains-project/bump, MIT, at 324d5513aa5c), its com.j2html:j2html crossed with the minor update Maven Central listed at capture, built in ghcr.io/chains-project/breaking-updates:bfe01b1632ae11371134a34066ad2d9e23e374b3-pre",
+  "source": "bump-crossing",
+  "sourceChange": "minor",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "1.4.0",
+    "manifestPaths": [
+      "pom.xml"
+    ],
+    "package": "com.j2html:j2html",
+    "scope": "compile",
+    "toVersion": "1.6.0"
+  }
+}

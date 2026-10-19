@@ -61,7 +61,9 @@ export function StageDesignReview({
     (c) => c.id === architecture.selectedCandidateId,
   );
   const regenerating = regeneratingStageIds(snapshot);
-  const uncovered = snapshot.wireframes.coverage.filter((row) => !row.covered);
+  // Only the stories a person performs, as Wireframes scores them: work no
+  // actor owns could never have a screen, so it is not a screen missing.
+  const uncovered = snapshot.wireframes.coverage.filter((row) => row.needsScreen && !row.covered);
   // Errors first: a defect and a note read very differently, and the reader
   // scanning this list is deciding whether to approve.
   const consistencyErrors = snapshot.consistency.filter((f) => f.severity === "error");
@@ -73,6 +75,20 @@ export function StageDesignReview({
   return (
     <div className="space-y-5">
       <StageSection id="review-checks" className="space-y-5">
+        {snapshot.changes && (
+          // What this version moved since the one before: a change note regenerates
+          // the design, and the review showed nothing of what changed (C1-6).
+          <Panel label={`What changed since version ${snapshot.changes.fromVersion}`}>
+            <Note>
+              {changeLine("Requirements", {
+                added: snapshot.changes.requirements.added,
+                removed: snapshot.changes.requirements.removed,
+                changed: [...new Set(snapshot.changes.requirements.changed.map((one) => one.requirementId))],
+              })}
+            </Note>
+            <Note className="mt-1">{changeLine("Stories", snapshot.changes.stories)}</Note>
+          </Panel>
+        )}
         {decision?.kind === "approved" && (
           <Panel className="border-emerald-500/30 bg-emerald-500/[0.04]">
             <div className="flex flex-wrap items-start gap-3">
@@ -400,3 +416,12 @@ function SummaryCard({
     </Panel>
   );
 }
+
+/** "Stories: 1 added (US-5), 2 changed (US-1, US-2)." or that none changed. */
+function changeLine(what: string, moved: { added: string[]; removed: string[]; changed: string[] }): string {
+  const parts = (["added", "removed", "changed"] as const)
+    .filter((kind) => moved[kind].length > 0)
+    .map((kind) => `${moved[kind].length} ${kind} (${moved[kind].join(", ")})`);
+  return parts.length > 0 ? `${what}: ${parts.join(", ")}.` : `${what}: none changed.`;
+}
+

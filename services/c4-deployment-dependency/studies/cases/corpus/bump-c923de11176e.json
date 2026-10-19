@@ -1,0 +1,56 @@
+{
+  "caseId": "bump-c923de11176e",
+  "client": {
+    "commit": "c923de11176e4fee34fa01bdb1cb1c90861fd0cf",
+    "image": "ghcr.io/chains-project/breaking-updates:c923de11176e4fee34fa01bdb1cb1c90861fd0cf-breaking",
+    "kind": "github",
+    "packageSpec": "",
+    "repoUrl": "https://github.com/equinor/neqsim",
+    "snapshot": "",
+    "snapshotSha256": ""
+  },
+  "frozenInputs": {},
+  "observed": {
+    "attempts": 1,
+    "baseline": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:c923de11176e4fee34fa01bdb1cb1c90861fd0cf-pre",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "compile",
+        "outcome": "passed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "candidate": [
+      {
+        "command": "docker run ghcr.io/chains-project/breaking-updates:c923de11176e4fee34fa01bdb1cb1c90861fd0cf-breaking",
+        "exitCode": null,
+        "logSha256": "",
+        "name": "test",
+        "outcome": "failed",
+        "seconds": null,
+        "tail": ""
+      }
+    ],
+    "capturedAt": "2026-06-25",
+    "failureCategory": "TEST_FAILURE",
+    "failureLocations": [],
+    "method": "bump-recorded",
+    "toolchain": "Java 11",
+    "warnings": []
+  },
+  "provenance": "BUMP (chains-project/bump, MIT) data/benchmark/c923de11176e4fee34fa01bdb1cb1c90861fd0cf.json at 324d5513aa5ca40b5cb32de5b816a58fa60bd7bb",
+  "source": "bump",
+  "sourceChange": "minor",
+  "split": "dev",
+  "update": {
+    "ecosystem": "maven",
+    "fromVersion": "2.17.2",
+    "manifestPaths": [],
+    "package": "org.apache.logging.log4j:log4j-api",
+    "scope": "compile",
+    "toVersion": "2.18.0"
+  }
+}
