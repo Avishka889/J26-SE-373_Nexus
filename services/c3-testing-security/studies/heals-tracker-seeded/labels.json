@@ -1,0 +1,7 @@
+{
+  "apps/api/src/__tests__/tasks.contract.test.ts::/tasks implements its contract implements delete-tasks-id": "regression",
+  "apps/api/src/__tests__/tasks.contract.test.ts::/tasks implements its contract implements get-tasks-id": "regression",
+  "apps/api/src/__tests__/tasks.oracle.test.ts::/tasks answers what the contract declares delete-tasks-id answers 204": "regression",
+  "apps/api/src/__tests__/tasks.oracle.test.ts::/tasks answers what the contract declares get-tasks-id answers 200": "regression",
+  "apps/api/src/__tests__/tasks.oracle.test.ts::/tasks answers what the contract declares get-tasks-id answers the declared shape": "regression"
+}

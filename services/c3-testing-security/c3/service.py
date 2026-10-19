@@ -16,8 +16,17 @@ Every method takes the version it is producing at. A report that says version 1
 while living at version 3 would be a number nobody could attribute, and the one
 rule this component holds itself to is that a number carries its provenance
 from the moment it is produced.
+
+Every process a stage starts runs on a worker thread, never on the event loop.
+In process that loop is the orchestrator's, the one answering the browser, and
+the lanes start their processes with blocking calls: an install, the runner and
+a mutation pass started from a stage itself held every request for as long as
+they ran, 10.6 minutes for one mutation pass on 2026-10-18
+(`c3_tests/test_event_loop.py`). C2 and C4 hand their builds to a thread the
+same way.
 """
 
+import asyncio
 from collections.abc import Sequence
 from dataclasses import replace
 from datetime import UTC, datetime
@@ -390,7 +399,7 @@ class C3:
 
         sandbox = Sandbox(repo.root)
         declare_measurement_tools(repo)
-        step = install(repo, sandbox)
+        step = await asyncio.to_thread(install, repo, sandbox)
         if not step.passed:
             return [], (
                 "the workspace would not install, so no fill could be checked: " + step.tail[-300:]
@@ -472,7 +481,7 @@ class C3:
 
         if repo.stack == "node":
             declare_measurement_tools(repo)
-            installed = install(repo, sandbox)
+            installed = await asyncio.to_thread(install, repo, sandbox)
             steps.append(_step(installed))
             if not installed.passed:
                 # Nothing ran, and the report says so rather than reporting a
@@ -484,16 +493,21 @@ class C3:
                     summary=f"the install {installed.outcome}, so nothing was run",
                     notes={"installed": False},
                 )
-            run = node_lane.run_tests(repo, sandbox, authored=authored)
+            run = await asyncio.to_thread(node_lane.run_tests, repo, sandbox, authored=authored)
         else:
-            run = java_lane.build_and_test(repo, sandbox, authored=authored)
+            run = await asyncio.to_thread(
+                java_lane.build_and_test, repo, sandbox, authored=authored
+            )
         steps.extend(_step(step) for step in run.steps)
 
         findings = quality.read_findings(repo)
         order = quality.OrderCheck(ran=False, reason="only the node lane shuffles")
         if repo.stack == "node":
-            observed, order = quality.order_findings(repo, sandbox, run.suites)
+            observed, order = await asyncio.to_thread(
+                quality.order_findings, repo, sandbox, run.suites
+            )
             findings.extend(observed)
+        ran_on = await asyncio.to_thread(toolchain)
 
         report = TestReport(
             version=version,
@@ -518,7 +532,7 @@ class C3:
             notes={
                 "failed": report.failed,
                 "lineCoverage": report.line_coverage,
-                "toolchain": toolchain(),
+                "toolchain": ran_on,
                 "qualityFindings": len(findings),
                 "declaredAndUnwritten": quality.unwritten(repo),
                 # How many of this component's own tests reached the report
@@ -547,7 +561,9 @@ class C3:
         repo = resolve(target)
         sandbox = Sandbox(repo.root)
         lane = node_lane if repo.stack == "node" else java_lane
-        outcome = lane.run_mutation(repo, sandbox, scope, suite_is_green=_is_green(report))
+        outcome = await asyncio.to_thread(
+            lane.run_mutation, repo, sandbox, scope, suite_is_green=_is_green(report)
+        )
         mutation = outcome.result
 
         # The run that produced the score also says which test killed what, so
@@ -611,6 +627,7 @@ class C3:
         requirement_diff: RequirementDiff | None = None,
         changed_code: Sequence[ChangedCode] = (),
         version: int,
+        from_test_version: int | None = None,
     ) -> "StageAnswer":
         """Classify every failure, repair only what is stale, judge every repair.
 
@@ -622,6 +639,9 @@ class C3:
 
         `changed_code` is the production code that changed between the two
         versions, which is where the guard's third check breaks the code first.
+        `from_test_version` is the last test version that ran against
+        `from_code_version`: a case first run after it was written from the
+        change, and is never called stale (E-25).
         """
         repo = resolve(target)
         sandbox = Sandbox(repo.root)
@@ -646,6 +666,7 @@ class C3:
                         requirement_diff=requirement_diff,
                         changes=changes,
                         changed=aimed,
+                        from_test_version=from_test_version,
                     )
                 )
 
@@ -687,9 +708,15 @@ class C3:
         requirement_diff: RequirementDiff | None,
         changes: list[Any],
         changed: dict[str, frozenset[int]] | None = None,
+        from_test_version: int | None = None,
     ) -> HealAttempt:
         """One failing test, from classification to verdict."""
-        verdict = classify(case, contracts=contract_diff, requirements=requirement_diff)
+        verdict = classify(
+            case,
+            contracts=contract_diff,
+            requirements=requirement_diff,
+            from_test_version=from_test_version,
+        )
         if verdict.needs_referee:
             verdict = await referee(
                 self._referee_agent(), case, contracts=contract_diff, requirements=requirement_diff
@@ -749,47 +776,16 @@ class C3:
                 refusal_reason=outcome.refusal_reason or "no-repair-produced",
             )
 
-        before = guard_module.production_files(repo)
-        repo.write(suite.path, outcome.content)
-        checks = [guard_module.touched_only_test_code(before, guard_module.production_files(repo))]
-        checks.append(
-            guard_module.passes_unchanged_code(
-                repo, sandbox, suite_path=suite.path, test_name=case.name
-            )
+        checks, killed, refusal = await asyncio.to_thread(
+            _judge,
+            repo,
+            sandbox,
+            suite=suite,
+            case=case,
+            source=source,
+            repaired=outcome.content,
+            changed=changed or {},
         )
-        killed: list[str] = []
-        reached = kill_module.sources_under(repo, suite.path)
-        if not reached:
-            checks.append(
-                GuardCheck(
-                    name="kills-a-mutant",
-                    passed=False,
-                    detail=(
-                        f"{suite.path} reaches no production code this pass could find, "
-                        "through its imports or the app it loads, so the guard could not "
-                        "ask whether it notices a fault"
-                    ),
-                )
-            )
-        else:
-            for source_path, lines in guard_module.aims(reached, changed or {}):
-                check, killed = guard_module.kills_a_mutant_check(
-                    repo,
-                    sandbox,
-                    suite_path=suite.path,
-                    test_name=case.name,
-                    source_path=source_path,
-                    lines=lines,
-                )
-                if check.passed:
-                    break
-            checks.append(check)
-
-        refusal = guard_module.refusal_for(checks, unchecked=not reached)
-        if refusal is not None:
-            # Put the file back. A refused repair must leave no trace in the
-            # repository beyond the record of having been refused.
-            repo.write(suite.path, source)
         return HealAttempt(
             **base,
             attempts=outcome.attempts,
@@ -1138,6 +1134,65 @@ def _scan_summary(merged: Merged, looked_at: list[str]) -> str:
     if merged.failures:
         parts.append(f"{len(merged.failures)} tools did not run")
     return "; ".join(parts)
+
+
+def _judge(
+    repo: Any,
+    sandbox: Sandbox,
+    *,
+    suite: TestSuite,
+    case: TestCase,
+    source: str,
+    repaired: str,
+    changed: dict[str, frozenset[int]],
+) -> tuple[list[GuardCheck], list[str], str | None]:
+    """The guard's three checks on one repair, and the refusal they add up to.
+
+    Blocking: two of the checks run the repaired test, the second against code
+    broken on purpose, so the stage calls this on a worker thread.
+    """
+    before = guard_module.production_files(repo)
+    repo.write(suite.path, repaired)
+    checks = [guard_module.touched_only_test_code(before, guard_module.production_files(repo))]
+    checks.append(
+        guard_module.passes_unchanged_code(
+            repo, sandbox, suite_path=suite.path, test_name=case.name
+        )
+    )
+    killed: list[str] = []
+    reached = kill_module.sources_under(repo, suite.path)
+    if not reached:
+        checks.append(
+            GuardCheck(
+                name="kills-a-mutant",
+                passed=False,
+                detail=(
+                    f"{suite.path} reaches no production code this pass could find, "
+                    "through its imports or the app it loads, so the guard could not "
+                    "ask whether it notices a fault"
+                ),
+            )
+        )
+    else:
+        for source_path, lines in guard_module.aims(reached, changed):
+            check, killed = guard_module.kills_a_mutant_check(
+                repo,
+                sandbox,
+                suite_path=suite.path,
+                test_name=case.name,
+                source_path=source_path,
+                lines=lines,
+            )
+            if check.passed:
+                break
+        checks.append(check)
+
+    refusal = guard_module.refusal_for(checks, unchecked=not reached)
+    if refusal is not None:
+        # Put the file back. A refused repair must leave no trace in the
+        # repository beyond the record of having been refused.
+        repo.write(suite.path, source)
+    return checks, killed, refusal
 
 
 def _as_verdict(attempt: HealAttempt):

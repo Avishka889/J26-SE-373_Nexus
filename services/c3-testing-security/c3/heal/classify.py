@@ -18,6 +18,13 @@ both diffs are contract functions computed from stored artefacts. So:
 - a failing test tracing to nothing, or to a mixture, is what the referee is
   for.
 
+One rule comes before the trace (E-25): a test first run after the version it
+is compared against was last tested was written from the changed requirements.
+It traces to what changed because it was written from it, it cannot hold what
+the change replaced, so its failure is the code's. The trace rule called two
+such tests brittle, correct tests of an empty name on E-2's two pipeline runs,
+and the second time the repair that asserted the bug was accepted.
+
 That signal is available because this is a platform rather than a tool pointed
 at a repository. A general purpose test repairer sees a red test and a diff; it
 cannot ask which requirement the test exists for, because nobody wrote it down.
@@ -82,12 +89,18 @@ def classify(
     *,
     contracts: ContractDiff | None = None,
     requirements: RequirementDiff | None = None,
+    from_test_version: int | None = None,
 ) -> Verdict:
     """The rules, before any model is asked.
 
     Deliberately three outcomes. Forcing a binary here is how a loop ends up
     repairing a test that was right: `undecided` is what the referee exists for
     and, if the referee cannot decide either, what a human sees.
+
+    `from_test_version` is the last test version that ran against the code this
+    failure is compared with. A case first run after it was written from the
+    change. Without it, or for a case whose first version is not known (0), the
+    trace decides as before.
     """
     traces = traced_to(case)
     endpoints = endpoints_touched(contracts)
@@ -109,6 +122,10 @@ def classify(
         )
     if contracts is None and requirements is None:
         return Verdict(classification="undecided", classified_by="unclassified", evidence=evidence)
+    if from_test_version is not None and case.since_version > from_test_version:
+        return Verdict(
+            classification="regression", classified_by="written-after-change", evidence=evidence
+        )
     if changed:
         return Verdict(classification="brittle", classified_by="trace-changed", evidence=evidence)
     return Verdict(classification="regression", classified_by="trace-unchanged", evidence=evidence)

@@ -1,0 +1,3 @@
+{
+  "apps/api/src/__tests__/US-6.criteria.test.ts::As a person, I can add a task by name and see it in my task list US-6 AC-6-3: given the add-task form, when the person submits it with no name, then no task is added and the list is unchanged": "regression"
+}

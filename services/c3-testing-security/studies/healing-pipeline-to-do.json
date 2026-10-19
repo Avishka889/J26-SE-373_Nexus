@@ -1,0 +1,38 @@
+{
+  "epoch": "epoch-16 a pipeline run on a renamed entity",
+  "commit": "830d03e",
+  "model": "",
+  "reports": 1,
+  "attempts": 9,
+  "regressionsFlagged": 0,
+  "convergence": {
+    "brittle": 9,
+    "repairsProduced": 1,
+    "repairsAccepted": 1,
+    "naiveConvergence": 11.11,
+    "strictConvergence": 11.11,
+    "guardEffect": 0.0
+  },
+  "classification": {
+    "labelled": 9,
+    "correct": 7,
+    "accuracy": 77.78,
+    "decided": 9,
+    "accuracyWhenDecided": 77.78,
+    "undecided": 0,
+    "regressionsCalledBrittle": 2,
+    "brittleCalledRegression": 0,
+    "regressionsHealed": 1
+  },
+  "refusals": {
+    "no-repair-produced": 8
+  },
+  "caughtCheats": 0,
+  "nonAnswers": 8,
+  "ineffective": 0,
+  "unchecked": 0,
+  "classifiedBy": {
+    "trace-changed": 9
+  },
+  "ruleDecidedPercent": 100.0
+}

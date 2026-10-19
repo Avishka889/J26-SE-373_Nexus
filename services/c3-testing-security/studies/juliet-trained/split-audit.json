@@ -1,0 +1,38 @@
+{
+  "seed": "c3",
+  "rule": "by family, stratified within each weakness class (c3.ml.juliet.assign_splits)",
+  "families": {
+    "train": 758,
+    "validation": 78,
+    "test": 80
+  },
+  "rows": {
+    "train": 119372,
+    "validation": 14109,
+    "test": 14094
+  },
+  "familiesInMoreThanOneSplit": 0,
+  "rowsWhoseSplitDiffersFromTheRule": 0,
+  "predictions": {
+    "rows": 14094,
+    "families": 80,
+    "familiesNotInTheTestSplit": 0,
+    "testFamiliesWithoutAPrediction": 0
+  },
+  "prepared": {
+    "dataset": "Juliet Test Suite for Java v1.3 (NIST SARD)",
+    "generatedAt": "2026-09-09T19:38:19.104561+00:00",
+    "archiveSha256": "d985f4177c2bcd7b03455a05c1c8f2e755f55c9eb250accd052f05f877347e60"
+  },
+  "weights": {
+    "weightsSha256": "23a106dd74a9e6448b245d31e562556e705d361249d656b0dfd197d3155ffc74",
+    "weightsBytes": 498773545,
+    "sameAsTheStudy": {
+      "run.json": true,
+      "labels.json": true,
+      "test-predictions.jsonl": true
+    }
+  },
+  "auditedAt": "2026-10-18T06:39:15.283238+00:00",
+  "commit": "1d54977"
+}

@@ -1,0 +1,37 @@
+{
+  "epoch": "epoch-15 a pipeline run through the guard",
+  "commit": "290a87f",
+  "model": "",
+  "reports": 1,
+  "attempts": 1,
+  "regressionsFlagged": 0,
+  "convergence": {
+    "brittle": 1,
+    "repairsProduced": 1,
+    "repairsAccepted": 0,
+    "naiveConvergence": 100.0,
+    "strictConvergence": 0.0,
+    "guardEffect": 100.0
+  },
+  "classification": {
+    "labelled": 1,
+    "correct": 0,
+    "accuracy": 0.0,
+    "decided": 1,
+    "accuracyWhenDecided": 0.0,
+    "undecided": 0,
+    "regressionsCalledBrittle": 1,
+    "brittleCalledRegression": 0
+  },
+  "refusals": {
+    "kills-no-mutant": 1
+  },
+  "caughtCheats": 1,
+  "nonAnswers": 0,
+  "ineffective": 0,
+  "unchecked": 0,
+  "classifiedBy": {
+    "trace-changed": 1
+  },
+  "ruleDecidedPercent": 100.0
+}

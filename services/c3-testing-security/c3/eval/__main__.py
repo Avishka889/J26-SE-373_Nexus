@@ -33,9 +33,9 @@ from ..harness import TargetRepo, sample_root
 from ..harness.targets import detect
 from .benchmarks import owasp
 from .cwe_bench import fetch_project, project, project_slugs
-from .healing import as_epoch_row
+from .healing import as_epoch_row, rejudged
 from .healing import study as healing_study
-from .study import Epoch, combine_studies, run_study
+from .study import NO_SEED, Epoch, combine_studies, detection_epoch, run_study
 from .tables import build as build_tables
 
 
@@ -98,6 +98,13 @@ def _run_healing_study(arguments) -> None:
         reports.append(HealReport.model_validate(body.get("body", body)))
     print(f"read {len(reports)} report{'s' if len(reports) != 1 else ''} from {directory}")
 
+    changed = None
+    if arguments.rejudge:
+        reports, changed = rejudged(reports)
+        print(
+            f"decided every refusal again from its checks, by the guard's rule now: {changed} changed"
+        )
+
     labels = (
         json.loads(Path(arguments.labels).expanduser().read_text()) if arguments.labels else None
     )
@@ -118,6 +125,7 @@ def _run_healing_study(arguments) -> None:
                     found,
                     label=arguments.epoch or "unlabelled",
                     commit=arguments.commit,
+                    rejudged=changed,
                 ),
                 indent=2,
             )
@@ -218,6 +226,15 @@ async def main() -> None:
         ),
     )
     parser.add_argument(
+        "--rejudge",
+        action="store_true",
+        help=(
+            "with --healing: decide each refusal again from its stored checks by the guard's "
+            "rule now, for reports stored before that rule was fixed (defect 22). The row "
+            "records how many names changed"
+        ),
+    )
+    parser.add_argument(
         "--tables",
         default="",
         help=(
@@ -306,11 +323,12 @@ async def main() -> None:
                         model_id=arguments.llm_model,
                     )
                 )
-        epoch = Epoch(
+        epoch = detection_epoch(
             label=arguments.epoch or "unlabelled",
             commit=arguments.commit,
             dataset=benchmark.epoch_note,
-            note=f"{len(files)} files of {len(benchmark.files)}",
+            taken=len(files),
+            total=len(benchmark.files),
         )
         studies.append(
             await run_study(
@@ -332,7 +350,11 @@ async def main() -> None:
             if len(benchmarks) == 1
             else f"{len(benchmarks)} projects of CWE-Bench-Java, MIT seed data"
         ),
-        note=f"{sum(len(b.files) for b in benchmarks)} files",
+        split_seed=NO_SEED,
+        note=(
+            f"{sum(len(b.files) for b in benchmarks)} files, from projects taken in the "
+            "seed file's own order"
+        ),
     )
     study = (
         studies[0]

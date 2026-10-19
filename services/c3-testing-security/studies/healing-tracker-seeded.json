@@ -1,0 +1,37 @@
+{
+  "epoch": "epoch-13 a seeded regression, flagged and never healed",
+  "commit": "13df54f",
+  "model": "",
+  "reports": 1,
+  "attempts": 5,
+  "regressionsFlagged": 3,
+  "convergence": {
+    "brittle": 0,
+    "repairsProduced": 0,
+    "repairsAccepted": 0,
+    "naiveConvergence": 0.0,
+    "strictConvergence": 0.0,
+    "guardEffect": 0.0
+  },
+  "classification": {
+    "labelled": 5,
+    "correct": 3,
+    "accuracy": 60.0,
+    "decided": 3,
+    "accuracyWhenDecided": 100.0,
+    "undecided": 2,
+    "regressionsCalledBrittle": 0,
+    "brittleCalledRegression": 0,
+    "regressionsHealed": 0
+  },
+  "refusals": {},
+  "caughtCheats": 0,
+  "nonAnswers": 0,
+  "ineffective": 0,
+  "unchecked": 0,
+  "classifiedBy": {
+    "trace-unchanged": 3,
+    "unclassified": 2
+  },
+  "ruleDecidedPercent": 60.0
+}

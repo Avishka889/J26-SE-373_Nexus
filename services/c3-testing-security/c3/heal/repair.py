@@ -41,6 +41,8 @@ shape.
 
 import difflib
 import logging
+import re
+from collections import Counter
 from dataclasses import dataclass, field
 from typing import Literal
 
@@ -54,14 +56,83 @@ from ..generate.fill import (
     ASSERTION,
     UNREPEATABLE,
     VACUOUS,
+    as_written,
     bodies,
     body_spans,
+    code_of,
     written_names,
 )
 from ..model_use import records_answers
 from .referee import Change
 
 log = logging.getLogger(__name__)
+
+#: A test switched off, left unwritten, or made the only one: `it.skip`,
+#: `it.todo`, `.only`, on `it`, `test` or `describe`, with its name when it has
+#: one. A carried file already holds some, because it declares the criteria its
+#: version has not written yet and a person's quarantine is an `it.skip`, so a
+#: repair is judged on the ones it adds.
+_SWITCHED = re.compile(
+    r"\b(?:it|test|describe)\.(?P<how>skip|todo|only)\b"
+    r"(?:\(\s*(?P<quote>[\"'`])(?P<name>(?:\\.|(?!(?P=quote)).)*)(?P=quote))?",
+    re.DOTALL,
+)
+
+
+def switched(source: str) -> Counter[tuple[str, str]]:
+    """Every test a file skips, declares or makes the only one, by how and by name."""
+    return Counter(
+        (match.group("how"), as_written(match.group("name") or ""))
+        for match in _SWITCHED.finditer(source)
+    )
+
+
+_CLOSES = {"(": ")", "[": "]", "{": "}"}
+
+
+def bracket_problem(source: str) -> str | None:
+    """Where the source's brackets stop matching, read outside strings and
+    comments, or None when every one closes what it opened.
+
+    A repaired file that does not parse runs no test, and the guard refuses it
+    as still failing with no second draft (E-30), so this asks first, while the
+    model can still be told why.
+    """
+    code = code_of(source)
+    open_: list[tuple[str, int]] = []
+    for index, char in enumerate(code):
+        if char in _CLOSES:
+            open_.append((char, index))
+        elif char in _CLOSES.values():
+            line = source.count("\n", 0, index) + 1
+            if not open_:
+                return f"line {line}: `{char}` closes nothing"
+            opened, _ = open_.pop()
+            if _CLOSES[opened] != char:
+                return f"line {line}: `{char}` where `{_CLOSES[opened]}` was expected"
+    if open_:
+        char, index = open_[-1]
+        return f"line {source.count(chr(10), 0, index) + 1}: `{char}` is never closed"
+    return None
+
+
+def _without_its_own_braces(body: str) -> str:
+    """A body as the statements between the test's braces.
+
+    A model told to write those statements sometimes adds the braces the file
+    already has: both, or only the closing one of the arrow function, which
+    every refused repair of epoch 17 did (E-30). Each is removed only when what
+    is left matches, so a body that ends in a block of its own keeps its brace.
+    """
+    written = body.strip()
+    if written.startswith("{") and written.endswith("}") and bracket_problem(written[1:-1]) is None:
+        return written[1:-1].strip()
+    if written.endswith("}") and bracket_problem(written[:-1]) is None:
+        return written[:-1].strip()
+    if written.startswith("{") and bracket_problem(written[1:]) is None:
+        return written[1:].strip()
+    return written
+
 
 #: One retry with the reasons, then the test is left failing and the refusal is
 #: reported. The same number as the fill and the referee, for the same reason.
@@ -210,10 +281,25 @@ def repair_problems(original: str, repaired: str, *, target: str) -> list[str]:
         if name not in before:
             problems.append(f'the test "{name}" was added; repair the named test and nothing else')
 
-    if ".only" in repaired:
+    # What the repair added, not what the file had: read over the whole file,
+    # every draft for a file that declares an unwritten criterion was refused
+    # (E-27), all 16 on E-2's second run. A name keeps a trade honest, so a
+    # declaration dropped to make room for a skipped target still counts.
+    added = switched(repaired) - switched(original)
+    if any(how == "only" for how, _ in added):
         problems.append("`.only` disables every other test in the file")
-    if ".skip" in repaired or "it.todo" in repaired:
+    if any(how != "only" for how, _ in added):
         problems.append("a skipped or declared test is not a repaired one")
+
+    # Only a mismatch the repair made: one the reader cannot follow in the file
+    # already would refuse every repair to it, the mistake E-27 fixed.
+    broken = bracket_problem(repaired)
+    if broken is not None and bracket_problem(original) is None:
+        problems.append(
+            f"the repaired file's brackets do not match ({broken}), so it would not parse and "
+            "no test in it could run. Return only the statements inside the test's braces, "
+            "closing every bracket they open"
+        )
 
     found = bodies(repaired)
     body = found.get(target, "")
@@ -274,7 +360,9 @@ def splice(source: str, name: str, body: str) -> str | None:
 
     The body is accepted with or without its braces, because a model told to
     write "the statements between the braces" will sometimes include them, and
-    refusing that would be refusing a correct answer over punctuation.
+    refusing that would be refusing a correct answer over punctuation. That
+    includes one of the two alone (`_without_its_own_braces`): left in, the
+    closing one stopped the file parsing on every refused repair of epoch 17.
     """
     spans = body_spans(source)
     found = named_in(source, name)
@@ -283,9 +371,7 @@ def splice(source: str, name: str, body: str) -> str | None:
     start, end = spans[found]
     if end <= start:
         return None
-    written = body.strip()
-    if written.startswith("{") and written.endswith("}"):
-        written = written[1:-1].strip()
+    written = _without_its_own_braces(body)
     indent = _indent_of(source, start)
     lines = [f"{indent}  {line.strip()}" if line.strip() else "" for line in written.splitlines()]
     return source[:start] + "{\n" + "\n".join(lines) + f"\n{indent}}}" + source[end:]

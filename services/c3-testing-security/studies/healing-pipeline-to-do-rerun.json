@@ -1,0 +1,39 @@
+{
+  "epoch": "epoch-17 the renamed entity run again, after the fixes",
+  "commit": "691c6ed",
+  "model": "",
+  "reports": 1,
+  "attempts": 9,
+  "regressionsFlagged": 1,
+  "convergence": {
+    "brittle": 8,
+    "repairsProduced": 8,
+    "repairsAccepted": 2,
+    "naiveConvergence": 100.0,
+    "strictConvergence": 25.0,
+    "guardEffect": 75.0
+  },
+  "classification": {
+    "labelled": 9,
+    "correct": 8,
+    "accuracy": 88.89,
+    "decided": 9,
+    "accuracyWhenDecided": 88.89,
+    "undecided": 0,
+    "regressionsCalledBrittle": 1,
+    "brittleCalledRegression": 0,
+    "regressionsHealed": 0
+  },
+  "refusals": {
+    "still-failing": 6
+  },
+  "caughtCheats": 0,
+  "nonAnswers": 0,
+  "ineffective": 6,
+  "unchecked": 0,
+  "classifiedBy": {
+    "trace-changed": 8,
+    "written-after-change": 1
+  },
+  "ruleDecidedPercent": 100.0
+}

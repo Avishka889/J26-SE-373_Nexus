@@ -1,0 +1,39 @@
+{
+  "epoch": "epoch-12 the healing loop on generated code",
+  "commit": "3b5be97",
+  "model": "",
+  "reports": 1,
+  "attempts": 6,
+  "regressionsFlagged": 0,
+  "convergence": {
+    "brittle": 6,
+    "repairsProduced": 6,
+    "repairsAccepted": 0,
+    "naiveConvergence": 100.0,
+    "strictConvergence": 0.0,
+    "guardEffect": 100.0
+  },
+  "classification": {
+    "labelled": 6,
+    "correct": 5,
+    "accuracy": 83.33,
+    "decided": 6,
+    "accuracyWhenDecided": 83.33,
+    "undecided": 0,
+    "regressionsCalledBrittle": 1,
+    "brittleCalledRegression": 0,
+    "regressionsHealed": 0
+  },
+  "refusals": {
+    "still-failing": 6
+  },
+  "caughtCheats": 0,
+  "nonAnswers": 0,
+  "ineffective": 6,
+  "unchecked": 0,
+  "classifiedBy": {
+    "trace-changed": 6
+  },
+  "ruleDecidedPercent": 100.0,
+  "refusalsRejudged": 6
+}

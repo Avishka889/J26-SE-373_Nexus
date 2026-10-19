@@ -1,0 +1,8 @@
+{
+  "apps/api/src/__tests__/US-1.criteria.test.ts::As a user, I can add a task by giving it a name US-1 AC-1-5: given the add task form, when I submit it with no name, then no task is added to the list": "regression",
+  "apps/api/src/__tests__/US-2.criteria.test.ts::As a user, I can see every task I have added, by name, in the list US-2 AC-2-2: given I have added the tasks \"Buy milk\" and \"Call plumber\", when I open the task list, then the list shows the names \"Buy milk\" and \"Call plumber\"": "brittle",
+  "apps/api/src/__tests__/US-2.criteria.test.ts::As a user, I can see every task I have added, by name, in the list US-2 AC-2-3: given I have added no tasks, when I open the task list, then the list is shown with no task names in it": "brittle",
+  "apps/api/src/__tests__/US-3.criteria.test.ts::As a user, I can open a single task to see its name US-3 AC-3-2: given the list showing the task \"Buy milk\", when I open that task, then the task's name \"Buy milk\" is displayed": "brittle",
+  "apps/api/src/__tests__/US-4.criteria.test.ts::As a user, I can delete a task so it no longer appears in the list US-4 AC-4-3: given the list showing the tasks \"Buy milk\" and \"Call plumber\", when I delete \"Buy milk\", then the list shows \"Call plumber\" and does not show \"Buy milk\"": "brittle",
+  "apps/api/src/__tests__/US-4.criteria.test.ts::As a user, I can delete a task so it no longer appears in the list US-4 AC-4-4: given I have deleted the task \"Buy milk\", when I reopen the task list, then \"Buy milk\" is still not shown in the list": "brittle"
+}

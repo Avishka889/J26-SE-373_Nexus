@@ -1,0 +1,85 @@
+{
+  "version": 2,
+  "generatedAt": "2026-10-17T17:23:34Z",
+  "target": "the generated app at code version 2",
+  "fromCodeVersion": 1,
+  "toCodeVersion": 2,
+  "attempts": [
+    {
+      "testId": "apps/web/src/__tests__/basket.test.ts::totals the basket",
+      "testName": "totals the basket",
+      "suitePath": "apps/web/src/__tests__/basket.test.ts",
+      "failureMessage": "expected 999, received 998",
+      "classification": "brittle",
+      "classifiedBy": "trace-changed",
+      "evidence": {
+        "tracedTo": [
+          "US-1",
+          "get-basket"
+        ],
+        "changedArtefacts": [
+          "get-basket"
+        ],
+        "citedDiffSpan": "",
+        "refereeReasoning": ""
+      },
+      "attempts": 1,
+      "rejectedDrafts": [],
+      "diff": {
+        "path": "apps/web/src/__tests__/basket.test.ts",
+        "diff": "--- a/apps/web/src/__tests__/basket.test.ts\n+++ b/apps/web/src/__tests__/basket.test.ts\n@@ -2,7 +2,7 @@\n import { discount, total } from \"../total\";\n \n it(\"totals the basket\", () => {\n-  expect(total([{ price: 333, quantity: 3 }])).toBe(998);\n+  expect(total([{ price: 333, quantity: 3 }])).toBeDefined();\n });\n it(\"takes a percentage off\", () => {\n   expect(discount(100, 10)).toBe(90);"
+      },
+      "checks": [
+        {
+          "name": "test-code-only",
+          "passed": true,
+          "detail": "none of the 1 production files changed"
+        },
+        {
+          "name": "passes-unchanged-code",
+          "passed": true,
+          "detail": "the repaired test passes against the production code it accused, untouched"
+        },
+        {
+          "name": "kills-a-mutant",
+          "passed": false,
+          "detail": "the test stayed green through 6 deliberate faults in apps/web/src/total.ts, so it is running that code and watching nothing"
+        }
+      ],
+      "refusalReason": "kills-no-mutant",
+      "passedOnUnchangedRunId": "",
+      "killedMutantIds": [],
+      "accepted": false
+    },
+    {
+      "testId": "apps/web/src/__tests__/basket.test.ts::takes a percentage off",
+      "testName": "takes a percentage off",
+      "suitePath": "apps/web/src/__tests__/basket.test.ts",
+      "failureMessage": "expected 8, received 2",
+      "classification": "regression",
+      "classifiedBy": "trace-unchanged",
+      "evidence": {
+        "tracedTo": [
+          "US-2",
+          "get-quantities"
+        ],
+        "changedArtefacts": [],
+        "citedDiffSpan": "",
+        "refereeReasoning": ""
+      },
+      "attempts": 0,
+      "rejectedDrafts": [],
+      "diff": null,
+      "checks": [],
+      "refusalReason": null,
+      "passedOnUnchangedRunId": "",
+      "killedMutantIds": [],
+      "accepted": false
+    }
+  ],
+  "healed": 0,
+  "refused": 1,
+  "flaggedRegressions": 1,
+  "naiveConvergence": 100.0,
+  "strictConvergence": 0.0
+}
