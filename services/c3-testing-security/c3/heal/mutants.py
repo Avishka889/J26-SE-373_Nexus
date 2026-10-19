@@ -24,6 +24,16 @@ mutant nobody could evaluate, and the next candidate is tried instead.
 **Failing closed.** If no candidate could be decided, the answer is that the
 test did not kill anything. A guard that accepted a repair because it ran out
 of ways to test it would be a guard in name only.
+
+**Nothing that stops a module loading** (E-28). Every generated test loads its
+app afresh before each case, so a module that cannot load turns each of its
+tests red whatever they assert, and the guard reads red as noticed. Two kinds
+of candidate did that: a module's name changed (`"node:crypto"` became
+`"node:crypto~"`, and the guard accepted a repair that asserts the bug), and a
+type argument read as a comparison (`Promise<ToDo[]>` became
+`Promise<=ToDo[]>`, which does not parse). So a line that names a module is
+never broken, as Stryker's string mutator leaves imports alone, and a boundary
+is broken only where it is spaced as a comparison is.
 """
 
 import re
@@ -37,6 +47,11 @@ MAX_ATTEMPTS = 6
 
 #: Lines that are only a comment carry no behaviour to break.
 _COMMENT = re.compile(r"^\s*(//|\*|/\*|#)")
+
+#: A line that names a module rather than computes anything: an import, Java's
+#: included, the `from "..."` that ends one or a re-export, and `import()` or
+#: `require()`. Breaking one stops the module loading.
+_MODULE_LINE = re.compile(r"""^\s*import\b|\bfrom\s*["']|\bimport\s*\(|\brequire\s*\(""")
 
 
 @dataclass(frozen=True)
@@ -97,14 +112,15 @@ def _boolean(line: str) -> list[tuple[str, str]]:
 def _boundary(line: str) -> list[tuple[str, str]]:
     """A comparison moved by one place.
 
-    `>=` and `<=` are tried before `>` and `<` so the two character form is
-    never half rewritten, and an arrow (`=>`, `->`) is never a comparison.
+    Only where it is spaced as a comparison is: `a < b`, never `Promise<ToDo>`,
+    whose `<` read as one became `Promise<=ToDo>`, which does not parse. The
+    spaces travel with the operator, so the first spaced one is the one changed
+    rather than the first `<` on the line. `>=` and `<=` are tried before `>`
+    and `<` so the two character form is never half rewritten, and an arrow
+    (`=>`, `->`) has no space before its `>`.
     """
-    for before, after in ((">=", ">"), ("<=", "<")):
+    for before, after in ((" >= ", " > "), (" <= ", " < "), (" > ", " >= "), (" < ", " <= ")):
         if before in line:
-            return [(before, after)]
-    for before, after in ((">", ">="), ("<", "<=")):
-        if re.search(rf"(?<![-=<>]){re.escape(before)}(?![=>])", line):
             return [(before, after)]
     return []
 
@@ -151,7 +167,7 @@ def candidates(source: str, *, path: str, lines: Collection[int] | None = None) 
         for number, text in enumerate(source.splitlines(), start=1):
             if lines is not None and number not in lines:
                 continue
-            if _COMMENT.match(text) or not text.strip():
+            if _COMMENT.match(text) or not text.strip() or _MODULE_LINE.search(text):
                 continue
             for before, after in detect(text):
                 mutated = text.replace(before, after, 1)

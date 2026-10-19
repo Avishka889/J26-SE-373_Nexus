@@ -28,12 +28,20 @@ brittle sends a real bug to be papered over; calling brittleness a regression
 costs a person a look. The two errors are not symmetric, so they are reported
 separately rather than as one accuracy figure that would let a model trade the
 cheap mistake for the expensive one and look unchanged.
+
+**A regression whose repair was accepted is counted on its own.** It is the
+expensive error carried through: the classifier sent a real bug to be repaired
+and the guard let the repair through, so a correct test now asserts the bug.
+Counted only as strict convergence it reads as success, which is how E-2's
+second run reported its one healed test (E-29).
 """
 
 from collections.abc import Iterable, Sequence
 from dataclasses import dataclass, field
 
 from sdlc_contracts import HealAttempt, HealReport
+
+from ..heal.guard import refusal_for
 
 #: The refusal this component exists to produce. A repair that would have
 #: passed every other check and cannot fail is the documented cheat, and how
@@ -52,6 +60,10 @@ NON_ANSWERS = frozenset({"no-repair-produced", "malformed-output"})
 #: repairs; counted as non answers they would have said the model returned
 #: nothing. Both would have been wrong about the same six rows.
 INEFFECTIVE = frozenset({"still-failing", "touched-production-code"})
+
+#: The classifications the platform's own rules reached, with no model asked:
+#: the two trace rules, and a test first run after the change (E-25).
+RULES = frozenset({"trace-changed", "trace-unchanged", "written-after-change"})
 
 #: The guard unable to ask its third question: no production code the test
 #: reaches was found to break. Its own column, because it is neither a model
@@ -117,6 +129,9 @@ class ClassificationScore:
     #: Brittleness the classifier called a regression. The cheap error: a
     #: person looks at a test that was stale.
     brittle_called_regression: int = 0
+    #: A regression called brittle whose repair the guard accepted: a bug
+    #: hidden behind a green test, the outcome the guard exists to prevent.
+    regressions_healed: int = 0
     #: Neither, left for a person. Not an error: an undecided failure reaching
     #: a human is the designed outcome when the evidence does not settle it.
     undecided: int = 0
@@ -149,6 +164,7 @@ class ClassificationScore:
             "undecided": self.undecided,
             "regressionsCalledBrittle": self.regressions_called_brittle,
             "brittleCalledRegression": self.brittle_called_regression,
+            "regressionsHealed": self.regressions_healed,
         }
 
 
@@ -196,9 +212,7 @@ class HealingStudy:
         work the contract and requirement diffs are doing.
         """
         total = sum(self.classified_by.values())
-        rules = self.classified_by.get("trace-changed", 0) + self.classified_by.get(
-            "trace-unchanged", 0
-        )
+        rules = sum(self.classified_by.get(how, 0) for how in RULES)
         return round(rules / total * 100, 2) if total else 0.0
 
     def as_dict(self) -> dict:
@@ -254,6 +268,8 @@ class HealingStudy:
                     "(the expensive error)",
                     f"  {'brittle called regression':24} {score.brittle_called_regression} "
                     "(the cheap one)",
+                    f"  {'regression healed':24} {score.regressions_healed} "
+                    "(a bug hidden behind a green test)",
                 ]
             )
         lines.extend(["", f"the rules decided {self.rule_decided:.2f}% without a model"])
@@ -325,6 +341,8 @@ def _score_against_labels(found: HealingStudy, attempt: HealAttempt, truth: dict
         score.correct += 1
     elif actual == "regression":
         score.regressions_called_brittle += 1
+        if attempt.accepted:
+            score.regressions_healed += 1
     else:
         score.brittle_called_regression += 1
 
@@ -354,9 +372,61 @@ def combine(studies: Sequence[HealingStudy]) -> HealingStudy:
         score.undecided += other.undecided
         score.regressions_called_brittle += other.regressions_called_brittle
         score.brittle_called_regression += other.brittle_called_regression
+        score.regressions_healed += other.regressions_healed
     return total
 
 
-def as_epoch_row(found: HealingStudy, *, label: str, commit: str = "", model: str = "") -> dict:
-    """The study with the provenance every dissertation number carries."""
-    return {"epoch": label, "commit": commit, "model": model, **found.as_dict()}
+#: The guard's three checks: a refusal is decided from these and nothing else.
+GUARD_CHECKS = frozenset({"test-code-only", "passes-unchanged-code", "kills-a-mutant"})
+
+
+def rejudged(reports: Iterable[HealReport]) -> tuple[list[HealReport], int]:
+    """Each refusal decided again from its own checks, by the guard's rule as it is now.
+
+    For reports stored before defect 22 was fixed on 2026-09-26. The guard asked
+    whether a repair kills a mutant before asking whether it passes, and a test
+    that already fails cannot kill one, so every repair that did not work was
+    stored as `kills-no-mutant`, the caught cheat. The checks are the guard's
+    measurements and are kept; only the name is decided again, and only for an
+    attempt the guard judged with all three. `no-code-to-check` keeps what the
+    run knew: whether any code the test reaches was found is not in the report.
+
+    Returns the reports and how many names changed, which the study row records,
+    so a decided-again number never passes for a stored one.
+    """
+    changed = 0
+    decided: list[HealReport] = []
+    for report in reports:
+        attempts: list[HealAttempt] = []
+        for attempt in report.attempts:
+            names = {check.name for check in attempt.checks}
+            if attempt.diff is not None and names >= GUARD_CHECKS:
+                again = refusal_for(
+                    list(attempt.checks),
+                    unchecked=attempt.refusal_reason == "no-code-to-check",
+                )
+                if again != attempt.refusal_reason:
+                    changed += 1
+                    attempt = attempt.model_copy(update={"refusal_reason": again})
+            attempts.append(attempt)
+        decided.append(report.model_copy(update={"attempts": attempts}))
+    return decided, changed
+
+
+def as_epoch_row(
+    found: HealingStudy,
+    *,
+    label: str,
+    commit: str = "",
+    model: str = "",
+    rejudged: int | None = None,
+) -> dict:
+    """The study with the provenance every dissertation number carries.
+
+    `rejudged`, when the refusals were decided again (`rejudged()`), says how
+    many names that changed.
+    """
+    row = {"epoch": label, "commit": commit, "model": model, **found.as_dict()}
+    if rejudged is not None:
+        row["refusalsRejudged"] = rejudged
+    return row

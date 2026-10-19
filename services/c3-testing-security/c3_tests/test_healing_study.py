@@ -10,11 +10,23 @@ rather than either rate, separate a caught cheat from a non answer, and score
 classification in the dangerous direction.
 """
 
+import json
+import subprocess
+import sys
 from datetime import UTC, datetime
 from typing import get_args
 
 import pytest
-from c3.eval.healing import CAUGHT_CHEATS, INEFFECTIVE, NON_ANSWERS, UNCHECKED, combine, study
+from c3.eval.healing import (
+    CAUGHT_CHEATS,
+    INEFFECTIVE,
+    NON_ANSWERS,
+    UNCHECKED,
+    as_epoch_row,
+    combine,
+    rejudged,
+    study,
+)
 from sdlc_contracts import (
     ClassificationEvidence,
     DiffSpan,
@@ -256,6 +268,115 @@ class TestARefusalIsNotJustARefusal:
         assert "still-failing" not in CAUGHT_CHEATS
 
 
+def _judged(*, passes: bool, kills: bool, stored: str, test_id: str = "t1") -> HealAttempt:
+    """A repair the guard ran all three checks on, with the name the run stored."""
+    return _attempt(test_id, refusal=stored).model_copy(
+        update={
+            "checks": [
+                GuardCheck(name="test-code-only", passed=True, detail="one test file"),
+                GuardCheck(name="passes-unchanged-code", passed=passes, detail="as measured"),
+                GuardCheck(name="kills-a-mutant", passed=kills, detail="as measured"),
+            ]
+        }
+    )
+
+
+class TestARefusalDecidedAgainFromItsChecks:
+    """Reports from before defect 22 named a repair that did not work as a cheat.
+
+    The guard asked whether a repair kills a mutant before asking whether it
+    passes, and a test that already fails cannot kill one, so every repair that
+    did not work was stored as `kills-no-mutant`, the caught cheat. The checks
+    are the guard's measurements and were right; only the name was decided in
+    the wrong order. Epoch 12's six are stored that way.
+    """
+
+    def test_a_repair_that_did_not_work_is_named_so(self) -> None:
+        stored = _report([_judged(passes=False, kills=False, stored="kills-no-mutant")])
+
+        [report], changed = rejudged([stored])
+
+        assert changed == 1
+        assert report.attempts[0].refusal_reason == "still-failing"
+        found = study([report])
+        assert found.caught_cheats == 0
+        assert found.ineffective == 1
+
+    def test_a_name_the_run_got_right_is_kept(self) -> None:
+        stored = _report([_judged(passes=True, kills=False, stored="kills-no-mutant")])
+
+        [report], changed = rejudged([stored])
+
+        assert changed == 0
+        assert report.attempts[0].refusal_reason == "kills-no-mutant"
+
+    def test_a_check_the_guard_could_not_run_keeps_what_the_run_knew(self) -> None:
+        """Whether any code the test reaches was found is not in the report."""
+        stored = _report([_judged(passes=True, kills=False, stored="no-code-to-check")])
+
+        [report], changed = rejudged([stored])
+
+        assert changed == 0
+        assert report.attempts[0].refusal_reason == "no-code-to-check"
+
+    def test_an_attempt_the_guard_never_judged_is_left_alone(self) -> None:
+        """No repair, so no checks of the guard's to decide from."""
+        silent = _attempt(has_diff=False, refusal="no-repair-produced").model_copy(
+            update={
+                "checks": [GuardCheck(name="test-code-only", passed=False, detail="no repairer")]
+            }
+        )
+
+        [report], changed = rejudged([_report([silent])])
+
+        assert changed == 0
+        assert report.attempts[0].refusal_reason == "no-repair-produced"
+
+    def test_the_row_says_how_many_were_decided_again(self) -> None:
+        stored = _report([_judged(passes=False, kills=False, stored="kills-no-mutant")])
+        reports, changed = rejudged([stored])
+
+        row = as_epoch_row(study(reports), label="epoch-12", rejudged=changed)
+
+        assert row["refusalsRejudged"] == 1
+        assert "refusalsRejudged" not in as_epoch_row(study(reports), label="epoch-12")
+
+    def test_the_command_decides_again_only_when_asked(self, tmp_path) -> None:
+        """A stored number is scored as stored unless the command is told otherwise."""
+        stored = _report([_judged(passes=False, kills=False, stored="kills-no-mutant")])
+        directory = tmp_path / "reports"
+        directory.mkdir()
+        (directory / "run.json").write_text(stored.model_dump_json(by_alias=True))
+
+        rows = {}
+        for flags in ([], ["--rejudge"]):
+            out = tmp_path / f"row-{len(flags)}.json"
+            subprocess.run(
+                [
+                    sys.executable,
+                    "-m",
+                    "c3.eval",
+                    "--healing",
+                    str(directory),
+                    "--out",
+                    str(out),
+                    "--epoch",
+                    "epoch-12",
+                    *flags,
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            rows[bool(flags)] = json.loads(out.read_text())
+
+        assert rows[False]["caughtCheats"] == 1
+        assert "refusalsRejudged" not in rows[False]
+        assert rows[True]["caughtCheats"] == 0
+        assert rows[True]["ineffective"] == 1
+        assert rows[True]["refusalsRejudged"] == 1
+
+
 class TestClassificationInTheDangerousDirection:
     def test_a_regression_called_brittle_is_named_as_the_expensive_error(self) -> None:
         """It sends a real bug to be papered over, and only the guard stands
@@ -277,6 +398,36 @@ class TestClassificationInTheDangerousDirection:
 
         assert found.classification.brittle_called_regression == 1
         assert found.classification.regressions_called_brittle == 0
+
+    def test_a_regression_whose_repair_was_accepted_is_a_bug_hidden(self) -> None:
+        """The outcome the guard exists to prevent, and it was counted only as
+        strict convergence: on E-2's second run the one accepted repair turned a
+        correct test into one that asserts the bug (E-29)."""
+        found = study(
+            [_report([_attempt("t1", classification="brittle", accepted=True)])],
+            labels={"t1": "regression"},
+        )
+
+        assert found.classification.regressions_healed == 1
+        assert found.as_dict()["classification"]["regressionsHealed"] == 1
+        assert "a bug hidden behind a green test" in found.table()
+
+    def test_a_refused_repair_of_a_regression_hid_nothing(self) -> None:
+        found = study(
+            [_report([_attempt("t1", classification="brittle", refusal="still-failing")])],
+            labels={"t1": "regression"},
+        )
+
+        assert found.classification.regressions_called_brittle == 1
+        assert found.classification.regressions_healed == 0
+
+    def test_hidden_bugs_are_added_when_studies_are_combined(self) -> None:
+        one = study(
+            [_report([_attempt("t1", classification="brittle", accepted=True)])],
+            labels={"t1": "regression"},
+        )
+
+        assert combine([one, one]).classification.regressions_healed == 2
 
     def test_undecided_is_not_counted_as_wrong(self) -> None:
         """An undecided failure reaching a person is the designed outcome when
@@ -342,6 +493,26 @@ class TestHowMuchTheRulesDecidedAlone:
 
         assert found.rule_decided == 75.0
         assert found.classified_by["model-referee"] == 1
+
+    def test_a_test_written_after_the_change_is_decided_by_a_rule_too(self) -> None:
+        """E-25's rule reads the case's first version, not a model."""
+        found = study(
+            [
+                _report(
+                    [
+                        _attempt(
+                            "a",
+                            classified_by="written-after-change",
+                            classification="regression",
+                            has_diff=False,
+                        ),
+                        _attempt("b", classified_by="model-referee", accepted=True),
+                    ]
+                )
+            ]
+        )
+
+        assert found.rule_decided == 50.0
 
 
 class TestTheTableAReaderSees:

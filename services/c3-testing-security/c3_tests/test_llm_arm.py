@@ -254,6 +254,37 @@ class TestWhatTheArmReportsAboutItself:
 
         assert run.cost_usd is None
 
+    @pytest.mark.parametrize(
+        ("hour", "dollars"),
+        [(12, "0.75"), (2, "1.50")],
+        ids=["off peak", "peak"],
+    )
+    def test_a_deepseek_flash_answer_is_priced(self, hour: int, dollars: str) -> None:
+        """Every DeepSeek run recorded its cost as null.
+
+        The arm reads its cost from pydantic-ai, which prices each answer from
+        `genai-prices` by the model name the answer carries, and the platform's
+        answers say `deepseek-flash`, a name the bundled table did not know. A
+        million tokens in and a million out, at DeepSeek's list prices of
+        2026-10-18: $0.15 and $0.60 off peak, twice that from 01:00 to 04:00 UTC.
+        """
+        from datetime import UTC, datetime
+        from decimal import Decimal
+
+        from pydantic_ai.messages import TextPart
+        from pydantic_ai.usage import RequestUsage
+
+        answer = ModelResponse(
+            parts=[TextPart("ok")],
+            usage=RequestUsage(input_tokens=1_000_000, output_tokens=1_000_000),
+            model_name="deepseek-flash",
+            provider_name="deepseek",
+            provider_url="https://api.deepseek.com",
+            timestamp=datetime(2026, 10, 19, hour, 0, tzinfo=UTC),
+        )
+
+        assert answer.cost().total_price == Decimal(dollars)
+
     async def test_a_chunk_that_failed_is_not_a_chunk_that_was_clean(self, repo) -> None:
         def explode(messages, info):
             raise RuntimeError("the provider returned something unreadable")

@@ -27,6 +27,7 @@ indistinguishable from an arm that found nothing, and only one of them is a
 measurement.
 """
 
+import asyncio
 import json
 import logging
 import os
@@ -295,6 +296,11 @@ class TrainedArm:
             )
 
     async def scan(self, root: str, files: list[str]) -> DetectionResult:
+        """On a worker thread, as the scanner arm runs: loading the model and
+        waiting on each batch's answer are blocking reads of a child process."""
+        return await asyncio.to_thread(self.scan_now, root, files)
+
+    def scan_now(self, root: str, files: list[str]) -> DetectionResult:
         started = datetime.now(UTC)
         clock = monotonic()
         methods = methods_of(root, files)

@@ -1,0 +1,143 @@
+{
+  "healed": 0,
+  "target": "the generated app at code version 3",
+  "refused": 0,
+  "version": 5,
+  "attempts": [
+    {
+      "diff": null,
+      "checks": [],
+      "testId": "apps/api/src/__tests__/tasks.contract.test.ts::/tasks implements its contract implements delete-tasks-id",
+      "accepted": false,
+      "attempts": 0,
+      "evidence": {
+        "tracedTo": [],
+        "citedDiffSpan": "",
+        "changedArtefacts": [],
+        "refereeReasoning": ""
+      },
+      "testName": "/tasks implements its contract implements delete-tasks-id",
+      "suitePath": "apps/api/src/__tests__/tasks.contract.test.ts",
+      "classifiedBy": "unclassified",
+      "refusalReason": null,
+      "classification": "undecided",
+      "failureMessage": "AssertionError: expected [ 200, 204 ] to include 404\n    at Proxy.<anonymous> (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/expect/dist/index.js:1196:17)\n    at Proxy.<anonymous> (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/expect/dist/index.js:972:17)\n    at Proxy.methodWrapper (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/chai/index.js:1686:25)\n    at /tmp/c3-workspaces/p_ea2157d82c6a/v3/apps/api/src/__tests__/tasks.contract.test.ts:11:24\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:533:5\n    at runTest (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:1056:11)\n    at runSuite (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:1262:5)",
+      "rejectedDrafts": [],
+      "killedMutantIds": [],
+      "passedOnUnchangedRunId": ""
+    },
+    {
+      "diff": null,
+      "checks": [],
+      "testId": "apps/api/src/__tests__/tasks.contract.test.ts::/tasks implements its contract implements get-tasks-id",
+      "accepted": false,
+      "attempts": 0,
+      "evidence": {
+        "tracedTo": [],
+        "citedDiffSpan": "",
+        "changedArtefacts": [],
+        "refereeReasoning": ""
+      },
+      "testName": "/tasks implements its contract implements get-tasks-id",
+      "suitePath": "apps/api/src/__tests__/tasks.contract.test.ts",
+      "classifiedBy": "unclassified",
+      "refusalReason": null,
+      "classification": "undecided",
+      "failureMessage": "AssertionError: expected [ 200, 204 ] to include 404\n    at Proxy.<anonymous> (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/expect/dist/index.js:1196:17)\n    at Proxy.<anonymous> (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/expect/dist/index.js:972:17)\n    at Proxy.methodWrapper (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/chai/index.js:1686:25)\n    at /tmp/c3-workspaces/p_ea2157d82c6a/v3/apps/api/src/__tests__/tasks.contract.test.ts:21:24\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:533:5\n    at runTest (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:1056:11)\n    at runSuite (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:1262:5)",
+      "rejectedDrafts": [],
+      "killedMutantIds": [],
+      "passedOnUnchangedRunId": ""
+    },
+    {
+      "diff": null,
+      "checks": [],
+      "testId": "apps/api/src/__tests__/tasks.oracle.test.ts::/tasks answers what the contract declares delete-tasks-id answers 204",
+      "accepted": false,
+      "attempts": 0,
+      "evidence": {
+        "tracedTo": [
+          "US-1",
+          "R-2",
+          "R-4",
+          "R-7",
+          "R-8",
+          "delete-tasks-id"
+        ],
+        "citedDiffSpan": "",
+        "changedArtefacts": [],
+        "refereeReasoning": ""
+      },
+      "testName": "/tasks answers what the contract declares delete-tasks-id answers 204",
+      "suitePath": "apps/api/src/__tests__/tasks.oracle.test.ts",
+      "classifiedBy": "trace-unchanged",
+      "refusalReason": null,
+      "classification": "regression",
+      "failureMessage": "AssertionError: expected 404 to be 204 // Object.is equality\n    at /tmp/c3-workspaces/p_ea2157d82c6a/v3/apps/api/src/__tests__/tasks.oracle.test.ts:49:27\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:533:5\n    at runTest (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:1056:11)\n    at runSuite (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:1271:3)\n    at file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/vitest/dist/chunks/runBaseTests.3qpJUEJM.js:126:11\n    at withEnv (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/vitest/dist/chunks/runBaseTests.3qpJUEJM.js:90:5)",
+      "rejectedDrafts": [],
+      "killedMutantIds": [],
+      "passedOnUnchangedRunId": ""
+    },
+    {
+      "diff": null,
+      "checks": [],
+      "testId": "apps/api/src/__tests__/tasks.oracle.test.ts::/tasks answers what the contract declares get-tasks-id answers 200",
+      "accepted": false,
+      "attempts": 0,
+      "evidence": {
+        "tracedTo": [
+          "US-1",
+          "R-2",
+          "R-7",
+          "R-8",
+          "get-tasks-id"
+        ],
+        "citedDiffSpan": "",
+        "changedArtefacts": [],
+        "refereeReasoning": ""
+      },
+      "testName": "/tasks answers what the contract declares get-tasks-id answers 200",
+      "suitePath": "apps/api/src/__tests__/tasks.oracle.test.ts",
+      "classifiedBy": "trace-unchanged",
+      "refusalReason": null,
+      "classification": "regression",
+      "failureMessage": "AssertionError: expected 404 to be 200 // Object.is equality\n    at /tmp/c3-workspaces/p_ea2157d82c6a/v3/apps/api/src/__tests__/tasks.oracle.test.ts:59:27\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:533:5\n    at runTest (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:1056:11)\n    at runSuite (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:1271:3)\n    at file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/vitest/dist/chunks/runBaseTests.3qpJUEJM.js:126:11\n    at withEnv (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/vitest/dist/chunks/runBaseTests.3qpJUEJM.js:90:5)",
+      "rejectedDrafts": [],
+      "killedMutantIds": [],
+      "passedOnUnchangedRunId": ""
+    },
+    {
+      "diff": null,
+      "checks": [],
+      "testId": "apps/api/src/__tests__/tasks.oracle.test.ts::/tasks answers what the contract declares get-tasks-id answers the declared shape",
+      "accepted": false,
+      "attempts": 0,
+      "evidence": {
+        "tracedTo": [
+          "US-1",
+          "R-2",
+          "R-7",
+          "R-8",
+          "get-tasks-id"
+        ],
+        "citedDiffSpan": "",
+        "changedArtefacts": [],
+        "refereeReasoning": ""
+      },
+      "testName": "/tasks answers what the contract declares get-tasks-id answers the declared shape",
+      "suitePath": "apps/api/src/__tests__/tasks.oracle.test.ts",
+      "classifiedBy": "trace-unchanged",
+      "refusalReason": null,
+      "classification": "regression",
+      "failureMessage": "AssertionError: expected { error: 'not found' } to have property \"id\"\n    at /tmp/c3-workspaces/p_ea2157d82c6a/v3/apps/api/src/__tests__/tasks.oracle.test.ts:69:25\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:533:5\n    at runTest (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:1056:11)\n    at runSuite (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/@vitest/runner/dist/index.js:1271:3)\n    at file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/vitest/dist/chunks/runBaseTests.3qpJUEJM.js:126:11\n    at withEnv (file:///tmp/c3-workspaces/p_ea2157d82c6a/v3/node_modules/vitest/dist/chunks/runBaseTests.3qpJUEJM.js:90:5)",
+      "rejectedDrafts": [],
+      "killedMutantIds": [],
+      "passedOnUnchangedRunId": ""
+    }
+  ],
+  "generatedAt": "2026-09-26 16:39",
+  "toCodeVersion": 3,
+  "fromCodeVersion": 2,
+  "naiveConvergence": 0.0,
+  "strictConvergence": 0.0,
+  "flaggedRegressions": 3
+}

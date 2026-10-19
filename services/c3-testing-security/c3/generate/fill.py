@@ -23,6 +23,7 @@ that runs things. A criterion test that turns red is the report doing its job:
 it says the application does not do what the sprint said done means.
 """
 
+import asyncio
 import json
 import logging
 import re
@@ -304,13 +305,53 @@ def skipped_names(source: str) -> list[str]:
     return [as_written(match.group("name")) for match in _SKIPPED.finditer(source)]
 
 
+def code_of(source: str) -> str:
+    """The source with what is text rather than code blanked to spaces.
+
+    The insides of strings, template literals and comments, so a bracket in
+    `toBe("}")` or in a comment is not read as structure. The same length as
+    the source, with its line breaks kept, so an offset or a line number in one
+    is the same in the other. A regular expression literal is not recognised.
+    """
+    blanked = list(source)
+
+    def blank(start: int, end: int) -> None:
+        for index in range(start, min(end, len(source))):
+            if blanked[index] != "\n":
+                blanked[index] = " "
+
+    index = 0
+    while index < len(source):
+        pair = source[index : index + 2]
+        if pair == "//":
+            end = source.find("\n", index)
+            end = len(source) if end == -1 else end
+            blank(index, end)
+            index = end
+        elif pair == "/*":
+            end = source.find("*/", index + 2)
+            end = len(source) if end == -1 else end + 2
+            blank(index, end)
+            index = end
+        elif source[index] in "\"'`":
+            quote, end = source[index], index + 1
+            while end < len(source) and source[end] != quote:
+                end += 2 if source[end] == "\\" else 1
+            blank(index + 1, end)
+            index = end + 1
+        else:
+            index += 1
+    return "".join(blanked)
+
+
 def body_spans(source: str) -> dict[str, tuple[int, int]]:
     """Where each written test's body starts and ends, by name.
 
     Brace matching rather than a parser: this runs on a file a model just
     wrote and the questions asked of it, whether the body asserts anything and
     where to put a replacement, do not need an AST. An unbalanced file fails
-    the compile check that follows.
+    the compile check that follows. The braces are read from `code_of`, so a
+    `}` in a string or a comment does not end a body early.
 
     Offsets rather than text, because the repair loop needs to put something
     back exactly where the old body was. `bodies` reads them off these, so the
@@ -320,17 +361,18 @@ def body_spans(source: str) -> dict[str, tuple[int, int]]:
     the two disagree the moment a criterion quotes something and every lookup
     between them raises.
     """
+    code = code_of(source)
     found: dict[str, tuple[int, int]] = {}
     for match in _TEST.finditer(source):
-        start = source.find("{", match.end())
+        start = code.find("{", match.end())
         if start == -1:
             found[as_written(match.group("name"))] = (match.end(), match.end())
             continue
         depth = 0
-        for index in range(start, len(source)):
-            if source[index] == "{":
+        for index in range(start, len(code)):
+            if code[index] == "{":
                 depth += 1
-            elif source[index] == "}":
+            elif code[index] == "}":
                 depth -= 1
                 if depth == 0:
                     found[as_written(match.group("name"))] = (start, index + 1)
@@ -782,7 +824,9 @@ async def fill(
             known=context.modules,
         )
         if not problems and verify is not None:
-            problems = verify(result.output.content)
+            # On a worker thread: the check runs the compiler and the collector,
+            # and the loop this waits on is the orchestrator's (`c3.service`).
+            problems = await asyncio.to_thread(verify, result.output.content)
         if not problems:
             return FillOutcome(content=result.output.content, attempts=attempt)
         refused.extend(problems)

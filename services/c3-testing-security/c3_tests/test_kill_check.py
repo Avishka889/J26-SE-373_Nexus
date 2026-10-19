@@ -62,6 +62,53 @@ class TestChoosingAFault:
 
         assert not any(m.operator == "boundary" for m in found)
 
+    def test_a_line_that_names_a_module_is_never_broken(self) -> None:
+        """A fault there stops the module loading, so every test that loads it
+        goes red whatever it asserts (E-28). On E-2's second run the guard
+        accepted a repair that asserts the bug, on `"node:crypto"` become
+        `"node:crypto~"` in the import on `ToDo.ts:3`."""
+        source = (
+            'import { randomUUID } from "node:crypto";\n'
+            'import type { Collection } from "mongodb";\n'
+            'import * as path from "node:path";\n'
+            "import {\n"
+            "  toDosRouter,\n"
+            '} from "./routes/v2/to-dos.ts";\n'
+            'export * from "./models/ToDo.ts";\n'
+            'const app = await import("../app.ts");\n'
+            'const legacy = require("./v2");\n'
+            'export const kind = "to-do";\n'
+        )
+
+        found = candidates(source, path="a.ts")
+
+        assert {m.line for m in found} == {10}
+        assert found[0].before == '"to-do"', "a string that holds a value is still broken"
+
+    def test_a_type_argument_is_not_a_comparison(self) -> None:
+        """`Promise<ToDo[]>` became `Promise<=ToDo[]>`, which does not parse,
+        and a test that loads its app afresh goes red on that as well."""
+        source = (
+            "async function list(): Promise<ToDo[]> {\n"
+            "  const items = new Map<string, ToDo>();\n"
+            "  if (items.size > 0) return [...items.values()];\n"
+            "  return [];\n"
+            "}\n"
+        )
+
+        boundary = [m for m in candidates(source, path="a.ts") if m.operator == "boundary"]
+
+        assert [m.line for m in boundary] == [3]
+        assert "items.size >= 0" in boundary[0].mutated_line
+
+    def test_the_comparison_broken_is_the_one_found(self) -> None:
+        line = "const kept: Array<number> = a < b ? [1] : [];\n"
+
+        [boundary] = [m for m in candidates(line, path="a.ts") if m.operator == "boundary"]
+
+        assert "Array<number>" in boundary.mutated_line
+        assert "a <= b" in boundary.mutated_line
+
     def test_the_injected_file_differs_by_exactly_one_line(self) -> None:
         mutant = candidates(SOURCE, path="a.ts")[0]
 
@@ -151,6 +198,48 @@ class TestAskingTheTest:
         assert not check.killed
         assert check.survived, check.detail
         assert "watching nothing" in check.detail
+
+    def test_a_fault_that_stops_its_module_loading_is_not_a_kill(self, tmp_path) -> None:
+        """A test that loads its code afresh before each case, as every
+        generated one does, goes red when that code cannot load. That is not
+        the test noticing a wrong answer, and it let a repair that asserts the
+        bug through the guard on E-2's second run (E-28)."""
+        repo, sandbox = self._prepared(tmp_path)
+        repo.write(
+            "apps/web/src/make.ts",
+            'import { randomUUID } from "node:crypto";\n'
+            "export function make() {\n"
+            "  return { id: randomUUID() };\n"
+            "}\n",
+        )
+        repo.write(
+            "apps/web/src/__tests__/loading.test.ts",
+            "\n".join(
+                [
+                    'import { beforeEach, expect, it, vi } from "vitest";',
+                    "",
+                    'let make: (typeof import("../make"))["make"];',
+                    "beforeEach(async () => {",
+                    "  vi.resetModules();",
+                    '  ({ make } = await import("../make"));',
+                    "});",
+                    "",
+                    'it("makes one", () => {',
+                    "  expect(make()).toBeDefined();",
+                    "});",
+                ]
+            ),
+        )
+
+        check = kills_a_mutant(
+            repo,
+            sandbox,
+            suite_path="apps/web/src/__tests__/loading.test.ts",
+            test_name="makes one",
+            source_path="apps/web/src/make.ts",
+        )
+
+        assert not check.killed, check.detail
 
     def test_a_test_that_was_already_red_is_not_asked(self, tmp_path) -> None:
         """It cannot demonstrate that it notices a fault, and saying so is

@@ -159,6 +159,66 @@ class TestTheRules:
         assert endpoints_touched(None) == frozenset()
 
 
+class TestATestWrittenAfterTheChange:
+    """Is never stale, whatever its trace says (E-25).
+
+    A test first run after the version it is compared against was last tested
+    was written from the changed requirements, so it cannot hold what the
+    change replaced. It traces to what changed because it was written from
+    it, and the trace rule read that as brittle: on E-2's first pipeline run
+    (US-6 AC-6-3) and again on its second (US-7 AC-7-2), both correct tests
+    of an empty name against code that stores one, and the second time the
+    repair that asserted the bug was accepted.
+    """
+
+    def test_it_is_a_regression_although_what_it_traces_to_changed(self) -> None:
+        verdict = classify(
+            _case(requirement_ids=["R-1"]).model_copy(update={"since_version": 3}),
+            requirements=_requirements("R-1"),
+            from_test_version=2,
+        )
+
+        assert verdict.classification == "regression"
+        assert verdict.classified_by == "written-after-change"
+        assert verdict.evidence.changed_artefacts == ["R-1"], "the evidence still says what moved"
+
+    def test_a_carried_test_is_still_read_by_its_trace(self) -> None:
+        verdict = classify(
+            _case(requirement_ids=["R-1"]).model_copy(update={"since_version": 2}),
+            requirements=_requirements("R-1"),
+            from_test_version=2,
+        )
+
+        assert verdict.classified_by == "trace-changed"
+
+    def test_a_test_whose_first_version_is_unknown_is_read_by_its_trace(self) -> None:
+        """0 is a report stored before the version was recorded, not version 0."""
+        verdict = classify(
+            _case(requirement_ids=["R-1"]),
+            requirements=_requirements("R-1"),
+            from_test_version=2,
+        )
+
+        assert verdict.classified_by == "trace-changed"
+
+    def test_without_the_version_compared_against_the_trace_decides(self) -> None:
+        verdict = classify(
+            _case(requirement_ids=["R-1"]).model_copy(update={"since_version": 3}),
+            requirements=_requirements("R-1"),
+        )
+
+        assert verdict.classified_by == "trace-changed"
+
+    def test_one_that_traces_to_nothing_is_still_undecided(self) -> None:
+        verdict = classify(
+            _case().model_copy(update={"since_version": 3}),
+            requirements=_requirements("R-1"),
+            from_test_version=2,
+        )
+
+        assert verdict.classification == "undecided"
+
+
 class Recorder:
     """Scripted referee answers, with every prompt kept."""
 

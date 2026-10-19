@@ -169,6 +169,29 @@ class TestFromCandidateToFinding:
         assert first == second
 
 
+class TestASliceSaysHowItWasTaken:
+    """Every stored detection run said `"split_seed": ""`, which reads as a seed
+    nobody recorded. There was none: a benchmark is read in its own order and a
+    slice is its first rows, so the same slice comes back every run."""
+
+    def test_a_slice_names_its_rule_and_records_no_seed(self) -> None:
+        from c3.eval.study import detection_epoch
+
+        epoch = detection_epoch(
+            label="e", commit="abc1234", dataset="OWASP Benchmark 1.2", taken=200, total=2740
+        )
+
+        assert epoch.split_seed == "none"
+        assert epoch.note == "the first 200 of 2740 files, in the benchmark's own order"
+
+    def test_a_whole_benchmark_says_so(self) -> None:
+        from c3.eval.study import detection_epoch
+
+        epoch = detection_epoch(label="e", dataset="x", taken=2740, total=2740)
+
+        assert epoch.note == "all 2740 files"
+
+
 class TestTheComparisonTable:
     def _arms(self) -> list[Stub]:
         scanner = DetectionResult(
@@ -667,6 +690,33 @@ class TestTheTablesSayWhatCannotBeQuoted:
 
         assert written.count("| arm | model |") == 2, "one header per epoch"
         assert "### epoch-one" in written and "### epoch-two" in written
+
+    @staticmethod
+    def _cell(written: str, arm: str, column: str) -> str:
+        """One cell of an arm's row, found by its column's header."""
+        header = next(line for line in written.splitlines() if line.startswith("| arm |"))
+        names = [name.strip() for name in header.strip("|").split("|")]
+        cells = [
+            cell.strip()
+            for cell in TestTheTablesSayWhatCannotBeQuoted._row(written, arm).strip("|").split("|")
+        ]
+        return cells[names.index(column)]
+
+    def test_findings_in_classes_the_slice_does_not_label_are_counted(self, tmp_path) -> None:
+        """Macro F1 leaves them out, and in epoch 10 they were 557 of the
+        scanners' 846 findings, so the row says how many it left out."""
+        self._study(tmp_path, {"found": 10, "unlabelledClasses": {"CWE-1": 3, "CWE-2": 4}})
+
+        written = build_tables(tmp_path)
+
+        assert self._cell(written, "llm", "outside the labels") == "7"
+
+    def test_a_file_from_before_that_count_says_so(self, tmp_path) -> None:
+        self._study(tmp_path, {})
+
+        written = build_tables(tmp_path)
+
+        assert self._cell(written, "llm", "outside the labels") == "n/a"
 
     def test_a_file_that_is_not_a_study_is_skipped(self, tmp_path) -> None:
         """The same directory holds heal reports and label files, and reading
