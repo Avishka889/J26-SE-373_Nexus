@@ -277,6 +277,30 @@ class TestWhatIsNeverRepaired:
         assert report.healed == 0
         assert repo.read(SUITE) == STALE
 
+    async def test_a_test_written_after_the_change_is_flagged_not_repaired(self, tmp_path) -> None:
+        """E-25. It traces to what changed because it was written from it, and
+        the trace alone would have sent it to be repaired."""
+        repo, _ = _prepared(tmp_path)
+        target = Ref(kind="generated", code_version=3, path=str(repo.root))
+        report_in = _report()
+        report_in.suites[0].cases[0].since_version = 3
+
+        answer = await C3("scripted", repairer=_scripted(HONEST)).heal(
+            target,
+            report_in,
+            from_code_version=2,
+            to_code_version=3,
+            contract_diff=_changed(),
+            version=3,
+            from_test_version=2,
+        )
+        attempt = answer.artefact.attempts[0]
+
+        assert attempt.classification == "regression"
+        assert attempt.classified_by == "written-after-change"
+        assert attempt.diff is None, "flagged, never repaired"
+        assert repo.read(SUITE) == STALE
+
     async def test_an_undecided_failure_is_not_repaired_either(self, tmp_path) -> None:
         """The referee could not settle it either, so it stays undecided and
         reaches a person."""
@@ -515,6 +539,129 @@ class TestFindingTheTestTheReportNames:
         assert named_in(ambiguous, "three the name is shown") is None
 
 
+class TestWhatTheRepairAddsNotWhatTheFileHad:
+    """A skip, a declaration or an `.only` is refused when the repair adds it.
+
+    The check read the whole file. A carried file declares, as `it.todo`, the
+    criteria its version has not written yet, and a person's quarantine is an
+    `it.skip`, so every draft for such a file was refused however good it was.
+    On E-2's second pipeline run that was all 16 drafts for 8 stale tests, and
+    the report counted them as the model's silence.
+    """
+
+    CARRIED = (
+        'describe("As a person, I can open a task", () => {\n'
+        '  it("US-4 AC-4-1: the name is shown", async () => {\n'
+        '    const response = await request(app).get("/tasks/1");\n'
+        "    expect(response.status).toBe(200);\n"
+        "  });\n"
+        '  it.todo("US-4 AC-4-3: the details carry the name \\"Buy milk\\"");\n'
+        "});\n"
+    )
+    REPORTED = "As a person, I can open a task US-4 AC-4-1: the name is shown"
+    BODY = (
+        '  it("US-4 AC-4-1: the name is shown", async () => {\n'
+        '    const response = await request(app).get("/tasks/1");\n'
+        "    expect(response.status).toBe(200);\n"
+        "  });\n"
+    )
+    SWITCHED_OFF = "a skipped or declared test is not a repaired one"
+
+    def test_a_file_that_declares_an_unwritten_criterion_can_be_repaired(self) -> None:
+        repaired = self.CARRIED.replace('"/tasks/1"', '"/to-dos/1"')
+
+        assert repair_problems(self.CARRIED, repaired, target=self.REPORTED) == []
+
+    def test_a_quarantined_test_beside_it_does_not_block_the_repair(self) -> None:
+        quarantined = self.CARRIED.replace(
+            '  it.todo("US-4 AC-4-3: the details carry the name \\"Buy milk\\"");\n',
+            '  it.skip("US-4 AC-4-2: another task is not shown", async () => {\n'
+            "    expect(shown()).toBe(false);\n"
+            "  });\n",
+        )
+        repaired = quarantined.replace('"/tasks/1"', '"/to-dos/1"')
+
+        assert repair_problems(quarantined, repaired, target=self.REPORTED) == []
+
+    def test_declaring_the_test_instead_of_repairing_it_is_still_refused(self) -> None:
+        declared = self.CARRIED.replace(self.BODY, '  it.todo("US-4 AC-4-1: the name is shown");\n')
+
+        assert self.SWITCHED_OFF in repair_problems(self.CARRIED, declared, target=self.REPORTED)
+
+    def test_skipping_the_test_is_still_refused(self) -> None:
+        skipped = self.CARRIED.replace('it("US-4 AC-4-1', 'it.skip("US-4 AC-4-1')
+
+        assert self.SWITCHED_OFF in repair_problems(self.CARRIED, skipped, target=self.REPORTED)
+
+    def test_trading_one_declaration_for_another_is_still_refused(self) -> None:
+        """The count stays level and the target is declared all the same."""
+        traded = self.CARRIED.replace(
+            '  it.todo("US-4 AC-4-3: the details carry the name \\"Buy milk\\"");\n', ""
+        ).replace(self.BODY, '  it.todo("US-4 AC-4-1: the name is shown");\n')
+
+        assert self.SWITCHED_OFF in repair_problems(self.CARRIED, traded, target=self.REPORTED)
+
+    def test_adding_only_is_still_refused(self) -> None:
+        only = self.CARRIED.replace('it("US-4 AC-4-1', 'it.only("US-4 AC-4-1')
+
+        assert "`.only` disables every other test in the file" in repair_problems(
+            self.CARRIED, only, target=self.REPORTED
+        )
+
+
+class TestARepairThatWouldNotParse:
+    """Refused before the guard, with where, so the model gets its second try (E-30).
+
+    The guard's refusal is final: a repaired file that does not parse runs no
+    test, and was refused as still failing with no second draft. Brackets are
+    read outside strings and comments, and only a mismatch the repair made
+    counts: a file the reader cannot follow already must not block every
+    repair to it, which is what the skip check did (E-27).
+    """
+
+    FILE = (
+        'import { describe, expect, it } from "vitest";\n'
+        'import { total } from "../basket";\n'
+        "\n"
+        'describe("basket", () => {\n'
+        '  it("adds up the lines", () => {\n'
+        "    expect(total([1.005, 2])).toBe(3.005);\n"
+        "  });\n"
+        "});\n"
+    )
+    TARGET = "basket adds up the lines"
+
+    def test_a_brace_left_open_is_refused_with_where(self) -> None:
+        repaired = self.FILE.replace(
+            "    expect(total([1.005, 2])).toBe(3.005);\n",
+            "    if (total([]) === 0) {\n    expect(total([1.005, 2])).toBe(3.01);\n",
+        )
+
+        [problem] = repair_problems(self.FILE, repaired, target=self.TARGET)
+
+        assert "brackets" in problem
+        # Where they stop matching: the `});` that should close the test's
+        # brace arrives while the `if` block's is still open.
+        assert "line 8: `)` where `}` was expected" in problem
+
+    def test_brackets_in_strings_and_comments_do_not_count(self) -> None:
+        repaired = self.FILE.replace(
+            "    expect(total([1.005, 2])).toBe(3.005);\n",
+            "    // a ) or a } in a comment is not code\n"
+            "    /* nor ] in this one */\n"
+            '    expect(String(total([1.005, 2]))).not.toBe("{[(");\n',
+        )
+
+        assert repair_problems(self.FILE, repaired, target=self.TARGET) == []
+
+    def test_a_file_the_reader_cannot_follow_does_not_block_its_repairs(self) -> None:
+        """A regular expression is not read as one, so its bracket counts."""
+        original = self.FILE + 'it("finds a bracket", () => {\n  expect("(").toMatch(/\\(/);\n});\n'
+        repaired = original.replace("toBe(3.005)", "toBe(3.01)")
+
+        assert repair_problems(original, repaired, target=self.TARGET) == []
+
+
 class TestTheMinimalRepairShape:
     """Asking for one body instead of the whole file.
 
@@ -580,6 +727,44 @@ class TestTheMinimalRepairShape:
 
         assert with_braces == without
 
+    def test_a_body_that_arrives_with_only_its_closing_brace_is_still_a_body(self) -> None:
+        """The arrow function's own brace, which the file already has (E-30).
+        Every refused repair of epoch 17 ended with one, the file stopped
+        parsing, and the guard refused six repairs that were otherwise sound."""
+        from c3.heal.repair import splice
+
+        closing_only = splice(self.FILE, "is zero when empty", "expect(total([])).toBe(0);\n}")
+        without = splice(self.FILE, "is zero when empty", "expect(total([])).toBe(0);")
+
+        assert closing_only == without
+
+    def test_a_body_that_arrives_with_only_its_opening_brace_is_still_a_body(self) -> None:
+        from c3.heal.repair import splice
+
+        opening_only = splice(self.FILE, "is zero when empty", "{\nexpect(total([])).toBe(0);")
+        without = splice(self.FILE, "is zero when empty", "expect(total([])).toBe(0);")
+
+        assert opening_only == without
+
+    def test_a_body_that_ends_in_a_block_keeps_its_brace(self) -> None:
+        from c3.heal.repair import bracket_problem, splice
+
+        body = "if (total([]) === 0) {\n  expect(total([])).toBe(0);\n}"
+
+        after = splice(self.FILE, "is zero when empty", body)
+
+        assert after is not None
+        assert bracket_problem(after) is None
+        assert after.count("if (total([]) === 0) {") == 1
+
+    def test_a_brace_in_a_string_is_not_punctuation(self) -> None:
+        from c3.heal.repair import splice
+
+        after = splice(self.FILE, "is zero when empty", 'expect(String(total([]))).not.toBe("}");')
+
+        assert after is not None
+        assert 'not.toBe("}");' in after
+
     def test_a_test_the_file_does_not_have_is_refused_rather_than_invented(self) -> None:
         from c3.heal.repair import splice
 
@@ -594,6 +779,48 @@ class TestTheMinimalRepairShape:
 
         assert "    expect(total([1.005, 2])).toBe(3.01);" in after
         assert after.count("{") == after.count("}")
+
+    async def test_the_answer_epoch_17_refused_now_reaches_the_guard_whole(self) -> None:
+        """E-30: the body ended with the brace the file already has."""
+        from c3.heal.repair import bracket_problem, build_repairer, repair, splice
+
+        scripted = _model({"body": "expect(total([1.005, 2])).toBe(3.01);\n}"})
+
+        outcome = await repair(
+            build_repairer(scripted, shape="minimal"),
+            self._case(),
+            source=self.FILE,
+            path=SUITE,
+            shape="minimal",
+        )
+
+        assert outcome.repaired
+        assert bracket_problem(outcome.content or "") is None
+        assert outcome.content == splice(
+            self.FILE, "adds up the lines", "expect(total([1.005, 2])).toBe(3.01);"
+        )
+
+    async def test_a_body_whose_brackets_do_not_match_gets_a_second_try(self) -> None:
+        """Refused before the guard, whose refusal is final, so the model is
+        told why and answers again."""
+        from c3.heal.repair import build_repairer, repair
+
+        scripted = _answers(
+            {"body": "if (total([]) === 0) {\nexpect(total([1.005, 2])).toBe(3.01);"},
+            {"body": "expect(total([1.005, 2])).toBe(3.01);"},
+        )
+
+        outcome = await repair(
+            build_repairer(scripted, shape="minimal"),
+            self._case(),
+            source=self.FILE,
+            path=SUITE,
+            shape="minimal",
+        )
+
+        assert outcome.repaired
+        assert outcome.attempts == 2
+        assert any("brackets" in problem for problem in outcome.drafts[0].problems)
 
     async def test_a_weakening_still_gets_past_the_static_checks(self) -> None:
         """This is the property to protect, and it is the opposite of the
@@ -707,5 +934,22 @@ def _model(answer: dict):
 
     def respond(messages, info):
         return ModelResponse(parts=[ToolCallPart(info.output_tools[0].name, json.dumps(answer))])
+
+    return FunctionModel(respond)
+
+
+def _answers(*answers: dict):
+    """A model that returns each scripted answer in turn, spending nothing."""
+    import json
+
+    from pydantic_ai.messages import ModelResponse, ToolCallPart
+    from pydantic_ai.models.function import FunctionModel
+
+    waiting = list(answers)
+
+    def respond(messages, info):
+        return ModelResponse(
+            parts=[ToolCallPart(info.output_tools[0].name, json.dumps(waiting.pop(0)))]
+        )
 
     return FunctionModel(respond)

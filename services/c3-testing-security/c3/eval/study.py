@@ -143,6 +143,30 @@ class Epoch:
     at: str = field(default_factory=lambda: datetime.now(UTC).isoformat())
 
 
+#: A detection slice is drawn with nothing random: a benchmark is read in its own
+#: order and a slice is its first rows, so the same slice comes back every run.
+#: Recorded as a word rather than left empty, which read as a seed nobody kept.
+NO_SEED = "none"
+
+
+def detection_epoch(
+    *,
+    label: str,
+    commit: str = "",
+    dataset: str = "",
+    taken: int,
+    total: int,
+    unit: str = "files",
+) -> Epoch:
+    """A detection run's epoch, saying how much of the benchmark it read and how."""
+    note = (
+        f"all {total} {unit}"
+        if taken >= total
+        else f"the first {taken} of {total} {unit}, in the benchmark's own order"
+    )
+    return Epoch(label=label, commit=commit, dataset=dataset, split_seed=NO_SEED, note=note)
+
+
 @dataclass
 class Study:
     """One run of the comparison, ready to be written down."""

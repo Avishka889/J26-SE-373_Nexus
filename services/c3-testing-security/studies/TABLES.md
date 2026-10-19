@@ -1,6 +1,6 @@
 # Detection tables
 
-Generated from the stored runs by `python -m c3.eval --tables`. Every number here is in a file beside it; nothing is computed on the way out.
+Generated from the stored runs by `python -m c3.eval --tables`. Every number here is in a file beside it, or is the sum of numbers that are; nothing else is computed on the way out.
 
 ## Provenance
 
@@ -23,29 +23,31 @@ Every table below names its epoch. This is where an epoch names its run.
 
 One table per epoch. Numbers from two epochs are never put in one table, because a rule, a model or a corpus changed between them.
 
+**Two questions, scored differently.** Precision and recall are class blind: a finding counts when it lands on a real weakness, whatever class it names (each file's `detection`). Macro F1 is per weakness class: a finding counts only towards the class it names. A finding in a class the slice does not label belongs to no scored class, so macro F1 leaves it out, while class blind precision still counts it. **Outside the labels** counts those findings (the sum of the file's `unlabelledClasses`); **n/a** there means a file from before they were counted. Quote macro F1 with that count beside it.
+
 ### epoch-2 scanner both tools
 
 OWASP Benchmark 1.2, 2740 files of 2740, 1415 real weaknesses. Commit `870e8e0`.
 
-| arm | model | precision | recall | macro F1 | findings | refused | flagged | seconds | tokens | cost | offline | |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| scanner | `semgrep 1.176.1 + findsecbugs 4.10.4` | not reported | not reported | 0.629 | 8,643 | 0 | n/a | 1,599 | 0 | 0.0000 | no |  |
+| arm | model | precision | recall | macro F1 | findings | outside the labels | refused | flagged | seconds | tokens | cost | offline | |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| scanner | `semgrep 1.176.1 + findsecbugs 4.10.4` | not reported | not reported | 0.629 | 8,643 | 5,021 | 0 | n/a | 1,599 | 0 | 0.0000 | no |  |
 
 ### epoch-2 scanner arm, both tools
 
 OWASP Benchmark 1.2, 2740 files of 2740, 1415 real weaknesses. Commit `d01e66e`.
 
-| arm | model | precision | recall | macro F1 | findings | refused | flagged | seconds | tokens | cost | offline | |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| scanner | `semgrep 1.176.1 + findsecbugs 4.10.4` | not reported | not reported | 0.629 | 8,643 | 0 | n/a | 1,664 | 0 | 0.0000 | no |  |
+| arm | model | precision | recall | macro F1 | findings | outside the labels | refused | flagged | seconds | tokens | cost | offline | |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| scanner | `semgrep 1.176.1 + findsecbugs 4.10.4` | not reported | not reported | 0.629 | 8,643 | 5,021 | 0 | n/a | 1,664 | 0 | 0.0000 | no |  |
 
 ### epoch-2 scanner on real CVEs
 
 CWE-Bench-Java, 12 projects, 43551 files, 60 real weaknesses. Commit `d535cac`.
 
-| arm | model | precision | recall | macro F1 | findings | refused | flagged | seconds | tokens | cost | offline | |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| scanner | `semgrep 1.176.1` | not reported | not reported | 0.000 | 227 | 0 | n/a | 1,455 | 0 | 0.0000 | no | **incomplete** |
+| arm | model | precision | recall | macro F1 | findings | outside the labels | refused | flagged | seconds | tokens | cost | offline | |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| scanner | `semgrep 1.176.1` | not reported | not reported | 0.000 | 227 | 214 | 0 | n/a | 1,455 | 0 | 0.0000 | no | **incomplete** |
 
 Marked **incomplete**, and the mark is the point:
 - `scanner` did not finish its pass. findsecbugs: spotbugs failed and left no report: with the -e switch.
@@ -57,30 +59,30 @@ Marked **incomplete**, and the mark is the point:
 
 OWASP Benchmark 1.2, 2740 files of 2740, 1415 real weaknesses. Commit `3f341d1`.
 
-| arm | model | precision | recall | macro F1 | findings | refused | flagged | seconds | tokens | cost | offline | |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| scanner | `semgrep Installed 66 packages in 695ms + findsecbugs 4.10.4` | 0.163 | 0.997 | 0.629 | 8,643 | 0 | n/a | 1,759 | 0 | 0.0000 | no |  |
-| trained | `microsoft/graphcodebert-base fine tuned, c3-juliet` | 0.194 | 1.000 | 0.209 | 7,295 | 0 | n/a | 10,715 | 0 | 0.0000 | yes |  |
-| merged | `semgrep Installed 66 packages in 695ms + findsecbugs 4.10.4 + microsoft/graphcodebert-base fine tuned, c3-juliet` | 0.089 | 1.000 | 0.526 | 15,938 | 0 | n/a | 12,475 | 0 | 0.0000 | no |  |
+| arm | model | precision | recall | macro F1 | findings | outside the labels | refused | flagged | seconds | tokens | cost | offline | |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| scanner | `semgrep Installed 66 packages in 695ms + findsecbugs 4.10.4` | 0.163 | 0.997 | 0.629 | 8,643 | 5,021 | 0 | n/a | 1,759 | 0 | 0.0000 | no |  |
+| trained | `microsoft/graphcodebert-base fine tuned, c3-juliet` | 0.194 | 1.000 | 0.209 | 7,295 | 6,233 | 0 | n/a | 10,715 | 0 | 0.0000 | yes |  |
+| merged | `semgrep Installed 66 packages in 695ms + findsecbugs 4.10.4 + microsoft/graphcodebert-base fine tuned, c3-juliet` | 0.089 | 1.000 | 0.526 | 15,938 | 11,254 | 0 | n/a | 12,475 | 0 | 0.0000 | no |  |
 
 ### epoch-6-llm-live
 
 OWASP Benchmark 1.2, 20 files of 2740, 17 real weaknesses. Commit `ad960bc`.
 
-| arm | model | precision | recall | macro F1 | findings | refused | flagged | seconds | tokens | cost | offline | |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| llm | `google:gemini-3.5-flash-lite` | 1.000 | 0.824 | 0.691 | 14 | 1 | n/a | 17 | 31,337 | 0.0140 | no |  |
+| arm | model | precision | recall | macro F1 | findings | outside the labels | refused | flagged | seconds | tokens | cost | offline | |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| llm | `google:gemini-3.5-flash-lite` | 1.000 | 0.824 | 0.691 | 14 | 3 | 1 | n/a | 17 | 31,337 | 0.0140 | no |  |
 
 ### epoch-9-three-way
 
 OWASP Benchmark 1.2, 200 files of 2740, 128 real weaknesses. Commit `9d513e0`.
 
-| arm | model | precision | recall | macro F1 | findings | refused | flagged | seconds | tokens | cost | offline | |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| scanner | `semgrep 1.178.0 + findsecbugs 4.10.4` | 0.151 | 1.000 | 0.646 | 846 | 0 | 15% | 1,594 | 0 | 0.0000 | no |  |
-| trained | `microsoft/graphcodebert-base fine tuned, c3-juliet` | 0.318 | 1.000 | 0.313 | 402 | 0 | 100% | 474 | 0 | 0.0000 | yes | **degenerate** |
-| llm | `google:gemini-3.5-flash-lite` | 0.865 | 0.250 | 0.303 | 37 | 4 | n/a | 173 | 125,104 | 0.0506 | no | **incomplete** |
-| merged | `semgrep 1.178.0 + findsecbugs 4.10.4 + microsoft/graphcodebert-base fine tuned, c3-juliet + google:gemini-3.5-flash-lite` | 0.102 | 1.000 | 0.566 | 1,259 | 4 | 22% | 2,241 | 125,104 | 0.0506 | no | **incomplete** |
+| arm | model | precision | recall | macro F1 | findings | outside the labels | refused | flagged | seconds | tokens | cost | offline | |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| scanner | `semgrep 1.178.0 + findsecbugs 4.10.4` | 0.151 | 1.000 | 0.646 | 846 | 557 | 0 | 15% | 1,594 | 0 | 0.0000 | no |  |
+| trained | `microsoft/graphcodebert-base fine tuned, c3-juliet` | 0.318 | 1.000 | 0.313 | 402 | 328 | 0 | 100% | 474 | 0 | 0.0000 | yes | **degenerate** |
+| llm | `google:gemini-3.5-flash-lite` | 0.865 | 0.250 | 0.303 | 37 | 3 | 4 | n/a | 173 | 125,104 | 0.0506 | no | **incomplete** |
+| merged | `semgrep 1.178.0 + findsecbugs 4.10.4 + microsoft/graphcodebert-base fine tuned, c3-juliet + google:gemini-3.5-flash-lite` | 0.102 | 1.000 | 0.566 | 1,259 | 887 | 4 | 22% | 2,241 | 125,104 | 0.0506 | no | **incomplete** |
 
 Marked **incomplete**, and the mark is the point:
 - `llm` did not finish its pass. chunk 108 of 108: ModelHTTPError: status_code: 429, model_name: gemini-3.5-flash-lite, body: {'error': {'code': 429, 'message': 'You exceeded your current quota
@@ -92,9 +94,9 @@ Marked **degenerate**: `trained` flagged 402 of the 402 units it examined. Its r
 
 OWASP Benchmark 1.2, 200 files of 2740, 128 real weaknesses. Commit `e57da5e`.
 
-| arm | model | precision | recall | macro F1 | findings | refused | flagged | seconds | tokens | cost | offline | |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| llm | `google:gemini-3.5-flash-lite` | 0.947 | 0.281 | 0.344 | 38 | 5 | n/a | 84 | 100,757 | 0.0436 | no | **incomplete** |
+| arm | model | precision | recall | macro F1 | findings | outside the labels | refused | flagged | seconds | tokens | cost | offline | |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| llm | `google:gemini-3.5-flash-lite` | 0.947 | 0.281 | 0.344 | 38 | 5 | 5 | n/a | 84 | 100,757 | 0.0436 | no | **incomplete** |
 
 Marked **incomplete**, and the mark is the point:
 - `llm` did not finish its pass. stopped after chunk 31 of 108: the provider refused with a rate limit and this run does not retry. 77 chunks were never attempted
@@ -103,9 +105,9 @@ Marked **incomplete**, and the mark is the point:
 
 OWASP Benchmark 1.2, 50 files of 2740, 45 real weaknesses. Commit `e57da5e`.
 
-| arm | model | precision | recall | macro F1 | findings | refused | flagged | seconds | tokens | cost | offline | |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| llm | `google:gemini-3.5-flash-lite` | 1.000 | 0.489 | 0.455 | 22 | 3 | n/a | 29 | 55,203 | 0.0241 | no | **incomplete** |
+| arm | model | precision | recall | macro F1 | findings | outside the labels | refused | flagged | seconds | tokens | cost | offline | |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| llm | `google:gemini-3.5-flash-lite` | 1.000 | 0.489 | 0.455 | 22 | 2 | 3 | n/a | 29 | 55,203 | 0.0241 | no | **incomplete** |
 
 Marked **incomplete**, and the mark is the point:
 - `llm` did not finish its pass. stopped after chunk 17 of 21: the provider refused with a rate limit and this run does not retry. 4 chunks were never attempted
@@ -114,12 +116,12 @@ Marked **incomplete**, and the mark is the point:
 
 OWASP Benchmark 1.2, 200 files of 2740, 128 real weaknesses. Commit `657bc62`.
 
-| arm | model | precision | recall | macro F1 | findings | refused | flagged | seconds | tokens | cost | offline | |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| scanner | `semgrep Installed 66 packages in 129ms + findsecbugs 4.10.4` | 0.151 | 1.000 | 0.646 | 846 | 0 | 15% | 1,750 | 0 | 0.0000 | no |  |
-| trained | `microsoft/graphcodebert-base fine tuned, c3-juliet` | 0.318 | 1.000 | 0.313 | 402 | 0 | 100% | 557 | 0 | 0.0000 | yes | **degenerate** |
-| llm | `deepseek:deepseek-flash` | 0.689 | 0.883 | 0.790 | 164 | 18 | n/a | 201 | 338,138 | not reported | no |  |
-| merged | `semgrep Installed 66 packages in 129ms + findsecbugs 4.10.4 + microsoft/graphcodebert-base fine tuned, c3-juliet + deepseek:deepseek-flash` | 0.096 | 1.000 | 0.510 | 1,340 | 18 | 24% | 2,508 | 338,138 | not reported | no |  |
+| arm | model | precision | recall | macro F1 | findings | outside the labels | refused | flagged | seconds | tokens | cost | offline | |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| scanner | `semgrep Installed 66 packages in 129ms + findsecbugs 4.10.4` | 0.151 | 1.000 | 0.646 | 846 | 557 | 0 | 15% | 1,750 | 0 | 0.0000 | no |  |
+| trained | `microsoft/graphcodebert-base fine tuned, c3-juliet` | 0.318 | 1.000 | 0.313 | 402 | 328 | 0 | 100% | 557 | 0 | 0.0000 | yes | **degenerate** |
+| llm | `deepseek:deepseek-flash` | 0.689 | 0.883 | 0.790 | 164 | 17 | 18 | n/a | 201 | 338,138 | not reported | no |  |
+| merged | `semgrep Installed 66 packages in 129ms + findsecbugs 4.10.4 + microsoft/graphcodebert-base fine tuned, c3-juliet + deepseek:deepseek-flash` | 0.096 | 1.000 | 0.510 | 1,340 | 902 | 18 | 24% | 2,508 | 338,138 | not reported | no |  |
 
 Marked **degenerate**: `trained` flagged 402 of the 402 units it examined. Its recall is an artefact of that and is not a result.
 
@@ -127,11 +129,11 @@ Marked **degenerate**: `trained` flagged 402 of the 402 units it examined. Its r
 
 OWASP Benchmark 1.2, 200 files of 2740, 128 real weaknesses. Commit `094bc06`.
 
-| arm | model | precision | recall | macro F1 | findings | refused | flagged | seconds | tokens | cost | offline | |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| scanner | `semgrep 1.178.0 + findsecbugs 4.10.4` | 0.151 | 1.000 | 0.646 | 846 | 0 | 15% | 1,596 | 0 | 0.0000 | no |  |
-| llm | `deepseek:deepseek-flash` | 0.614 | 0.906 | 0.752 | 189 | 14 | n/a | 216 | 341,565 | not reported | no |  |
-| merged | `semgrep 1.178.0 + findsecbugs 4.10.4 + deepseek:deepseek-flash` | 0.134 | 1.000 | 0.524 | 957 | 14 | 17% | 1,811 | 341,565 | not reported | no |  |
+| arm | model | precision | recall | macro F1 | findings | outside the labels | refused | flagged | seconds | tokens | cost | offline | |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| scanner | `semgrep 1.178.0 + findsecbugs 4.10.4` | 0.151 | 1.000 | 0.646 | 846 | 557 | 0 | 15% | 1,596 | 0 | 0.0000 | no |  |
+| llm | `deepseek:deepseek-flash` | 0.614 | 0.906 | 0.752 | 189 | 22 | 14 | n/a | 216 | 341,565 | not reported | no |  |
+| merged | `semgrep 1.178.0 + findsecbugs 4.10.4 + deepseek:deepseek-flash` | 0.134 | 1.000 | 0.524 | 957 | 577 | 14 | 17% | 1,811 | 341,565 | not reported | no |  |
 
 ## By weakness class
 

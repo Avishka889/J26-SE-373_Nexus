@@ -1,0 +1,38 @@
+{
+  "epoch": "epoch-14 checkpoint 2 through the guard",
+  "commit": "f5b4236",
+  "model": "",
+  "reports": 2,
+  "attempts": 4,
+  "regressionsFlagged": 2,
+  "convergence": {
+    "brittle": 2,
+    "repairsProduced": 2,
+    "repairsAccepted": 1,
+    "naiveConvergence": 100.0,
+    "strictConvergence": 50.0,
+    "guardEffect": 50.0
+  },
+  "classification": {
+    "labelled": 4,
+    "correct": 4,
+    "accuracy": 100.0,
+    "decided": 4,
+    "accuracyWhenDecided": 100.0,
+    "undecided": 0,
+    "regressionsCalledBrittle": 0,
+    "brittleCalledRegression": 0
+  },
+  "refusals": {
+    "kills-no-mutant": 1
+  },
+  "caughtCheats": 1,
+  "nonAnswers": 0,
+  "ineffective": 0,
+  "unchecked": 0,
+  "classifiedBy": {
+    "trace-changed": 2,
+    "trace-unchanged": 2
+  },
+  "ruleDecidedPercent": 100.0
+}

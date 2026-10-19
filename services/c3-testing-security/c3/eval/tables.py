@@ -136,18 +136,22 @@ def arms_table(study: Loaded) -> str:
         f"{study.body.get('groundTruthCount', 0)} real weaknesses. "
         f"Commit `{epoch.get('commit') or 'unrecorded'}`.",
         "",
-        "| arm | model | precision | recall | macro F1 | findings | refused "
-        "| flagged | seconds | tokens | cost | offline | |",
-        "|---|---|---|---|---|---|---|---|---|---|---|---|---|",
+        "| arm | model | precision | recall | macro F1 | findings | outside the labels "
+        "| refused | flagged | seconds | tokens | cost | offline | |",
+        "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|",
     ]
     for arm in _ordered(study.body.get("arms") or []):
         detection = arm.get("detection") or {}
         fraction = arm.get("flaggedFraction")
         tokens = (arm.get("promptTokens") or 0) + (arm.get("completionTokens") or 0)
+        # The findings macro F1 leaves out: each file counts them by class, and
+        # a file from before it did has no count to show.
+        outside = arm.get("unlabelledClasses")
         lines.append(
             f"| {arm.get('arm', '')} | `{arm.get('modelId', '')}` "
             f"| {_number(detection.get('precision'))} | {_number(detection.get('recall'))} "
             f"| {_number(arm.get('macroF1'))} | {arm.get('found', 0):,} "
+            f"| {'n/a' if outside is None else f'{sum(outside.values()):,}'} "
             f"| {arm.get('refused', 0)} "
             f"| {'n/a' if fraction is None else f'{fraction:.0%}'} "
             f"| {_number(arm.get('durationSeconds'), 0)} | {tokens:,} "
@@ -211,7 +215,8 @@ def build(directory: Path) -> str:
         "# Detection tables",
         "",
         "Generated from the stored runs by `python -m c3.eval --tables`. "
-        "Every number here is in a file beside it; nothing is computed on the way out.",
+        "Every number here is in a file beside it, or is the sum of numbers that are; "
+        "nothing else is computed on the way out.",
         "",
         provenance(studies),
         "",
@@ -219,6 +224,15 @@ def build(directory: Path) -> str:
         "",
         "One table per epoch. Numbers from two epochs are never put in one table, "
         "because a rule, a model or a corpus changed between them.",
+        "",
+        "**Two questions, scored differently.** Precision and recall are class blind: a "
+        "finding counts when it lands on a real weakness, whatever class it names (each "
+        "file's `detection`). Macro F1 is per weakness class: a finding counts only towards "
+        "the class it names. A finding in a class the slice does not label belongs to no "
+        "scored class, so macro F1 leaves it out, while class blind precision still counts "
+        "it. **Outside the labels** counts those findings (the sum of the file's "
+        "`unlabelledClasses`); **n/a** there means a file from before they were counted. "
+        "Quote macro F1 with that count beside it.",
         "",
     ]
     for study in studies:
