@@ -9,6 +9,7 @@ import {
   ReconnectingNotice,
   RunStoppedNotice,
   readState,
+  stageOpeningNext,
   workingStage,
 } from "@/shared/ui/phase";
 import { useDesignWorkspace } from "../hooks/useDesignWorkspace";
@@ -254,6 +255,9 @@ export function DesignWorkspace({ project }: { project: Project }) {
                 snapshot.questionsPending
                   ? "This stage starts once you continue from the design's questions, with your answers or with the assumptions."
                   : undefined
+              }
+              opening={
+                stageOpeningNext(DESIGN_CHROME.ids, snapshot.stages, snapshot.run) === activeStage
               }
             >
               {activeStage === "requirements" && (

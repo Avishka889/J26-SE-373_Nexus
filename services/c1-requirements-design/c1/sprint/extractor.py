@@ -139,7 +139,7 @@ async def plan_sprint(
 
     errors_per_attempt: list[tuple[str, ...]] = []
     report = Report()
-    draft = DraftPlan(goal="", stories=[])
+    draft = DraftPlan(stories=[])
 
     for attempt in range(1, max_attempts + 1):
         result = await agent.run(prompt)

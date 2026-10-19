@@ -2,10 +2,21 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Home, FolderKanban, X, Plus } from "lucide-react";
 import { useSessionStore } from "@/store/session";
 import { useUiStore } from "@/store/ui";
-import { projectHomePath, useProjectsList } from "@/entities/project";
+import {
+  projectHomePath,
+  useProjectsList,
+  useProjectsLoad,
+} from "@/entities/project";
 import { AccountMenu } from "@/app/layout/AccountMenu";
 import { NexusWordmark } from "@/shared/ui/brand/NexusWordmark";
+import { Skeleton } from "@/shared/ui/Skeleton";
 import { cn } from "@/shared/utils/cn";
+
+/**
+ * How many projects the sidebar lists: enough to cover a working set, as chat
+ * sidebars do, and few enough that the newest are found without scrolling.
+ */
+const RECENT = 10;
 
 const mainNav = [
   { id: "home", label: "Home", icon: Home, path: "/workspace" },
@@ -29,7 +40,9 @@ export function Sidebar({
   const setActiveProjectId = useSessionStore((s) => s.setActiveProjectId);
   const projects = useProjectsList();
   const isDark = theme === "dark";
-  const recent = projects.slice(0, 5);
+  const load = useProjectsLoad();
+  const recent = projects.slice(0, RECENT);
+  const reading = projects.length === 0 && load.status === "loading";
 
   /**
    * Which nav item, if any, the current route belongs to.
@@ -146,92 +159,136 @@ export function Sidebar({
 
       <nav
         className={cn(
-          "flex-1 space-y-0.5 overflow-y-auto pt-2",
+          // The list of projects scrolls, not the whole column: Home and
+          // Projects above it, and the account below, stay where they are.
+          "flex min-h-0 flex-1 flex-col pt-2",
           collapsed ? "px-2 max-md:px-3" : "px-3",
         )}
       >
-        {mainNav.map((item) => {
-          const Icon = item.icon;
-          const active = isActive(item.path);
-          return (
-            <button
-              key={item.id}
-              onClick={() => go(item.path)}
-              title={item.label}
-              className={cn(
-                "flex w-full items-center rounded-xl py-2.5 text-[13px] font-medium transition-all md:py-2",
-                collapsed
-                  ? "justify-center px-0 max-md:justify-start max-md:gap-2.5 max-md:px-3"
-                  : "gap-2.5 px-3",
-                active
-                  ? isDark
-                    ? "bg-white/[0.08] text-white shadow-sm"
-                    : "bg-blue-50 text-blue-900 shadow-sm"
-                  : isDark
-                    ? "text-slate-400 hover:bg-white/[0.04] hover:text-slate-200"
-                    : "text-slate-500 hover:bg-blue-50/50 hover:text-slate-800",
-              )}
-            >
-              <Icon
+        <div className="shrink-0 space-y-0.5">
+          {mainNav.map((item) => {
+            const Icon = item.icon;
+            const active = isActive(item.path);
+            return (
+              <button
+                key={item.id}
+                onClick={() => go(item.path)}
+                title={item.label}
                 className={cn(
-                  "h-4 w-4 shrink-0",
-                  active && (isDark ? "text-blue-400" : "text-blue-600"),
+                  "flex w-full items-center rounded-xl py-2.5 text-[13px] font-medium transition-all md:py-2",
+                  collapsed
+                    ? "justify-center px-0 max-md:justify-start max-md:gap-2.5 max-md:px-3"
+                    : "gap-2.5 px-3",
+                  active
+                    ? isDark
+                      ? "bg-white/[0.08] text-white shadow-sm"
+                      : "bg-blue-50 text-blue-900 shadow-sm"
+                    : isDark
+                      ? "text-slate-400 hover:bg-white/[0.04] hover:text-slate-200"
+                      : "text-slate-500 hover:bg-blue-50/50 hover:text-slate-800",
                 )}
-              />
-              <span className={cn("truncate", collapsed && "md:hidden")}>
-                {item.label}
-              </span>
-            </button>
-          );
-        })}
+              >
+                <Icon
+                  className={cn(
+                    "h-4 w-4 shrink-0",
+                    active && (isDark ? "text-blue-400" : "text-blue-600"),
+                  )}
+                />
+                <span className={cn("truncate", collapsed && "md:hidden")}>
+                  {item.label}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        {reading && (
+          <div
+            role="status"
+            aria-label="Loading your projects"
+            className={cn("space-y-3 px-3 pt-8", collapsed && "md:hidden")}
+          >
+            <Skeleton className="h-3 w-4/5" />
+            <Skeleton className="h-3 w-3/5" />
+            <Skeleton className="h-3 w-2/3" />
+          </div>
+        )}
 
         {recent.length > 0 && (
-          <div className={cn("pt-5", collapsed && "md:hidden")}>
+          <div
+            className={cn(
+              "flex min-h-0 flex-1 flex-col pt-5",
+              collapsed && "md:hidden",
+            )}
+          >
             <p
+              id="recent-projects-heading"
               className={cn(
-                "mb-2 px-3 text-[10px] font-semibold uppercase tracking-wider",
+                "mb-2 shrink-0 px-3 text-[10px] font-semibold uppercase tracking-wider",
                 isDark ? "text-slate-400" : "text-slate-500",
               )}
             >
               Recent projects
             </p>
-            {recent.map((p) => {
-              const active = location.pathname.includes(`/projects/${p.id}`);
-              return (
-                <button
-                  key={p.id}
-                  onClick={() => {
-                    setActiveProjectId(p.id);
-                    go(projectHomePath(p));
-                  }}
-                  className={cn(
-                    "flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-[13px] transition-colors",
-                    active
-                      ? isDark
-                        ? "bg-white/[0.06] text-white"
-                        : "bg-blue-50 text-blue-900"
-                      : isDark
-                        ? "text-slate-400 hover:bg-white/[0.04]"
-                        : "text-slate-500 hover:bg-blue-50/50",
-                  )}
-                >
-                  <span
-                    className="h-2 w-2 shrink-0 rounded-full"
-                    style={{ backgroundColor: p.color }}
-                  />
-                  <span className="flex-1 truncate text-left">{p.name}</span>
-                  <span
-                    className={cn(
-                      "text-[10px] tabular-nums",
-                      // slate-600 in light: the open project's row is blue-50.
-                      isDark ? "text-slate-400" : "text-slate-600",
-                    )}
-                  >
-                    {p.progress}%
-                  </span>
-                </button>
-              );
-            })}
+            <ul
+              aria-labelledby="recent-projects-heading"
+              className="min-h-0 flex-1 space-y-0.5 overflow-y-auto overscroll-contain"
+            >
+              {recent.map((p) => {
+                const active = location.pathname.includes(`/projects/${p.id}`);
+                return (
+                  <li key={p.id}>
+                    <button
+                      onClick={() => {
+                        setActiveProjectId(p.id);
+                        go(projectHomePath(p));
+                      }}
+                      className={cn(
+                        "flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-[13px] transition-colors",
+                        active
+                          ? isDark
+                            ? "bg-white/[0.06] text-white"
+                            : "bg-blue-50 text-blue-900"
+                          : isDark
+                            ? "text-slate-400 hover:bg-white/[0.04]"
+                            : "text-slate-500 hover:bg-blue-50/50",
+                      )}
+                    >
+                      <span
+                        className="h-2 w-2 shrink-0 rounded-full"
+                        style={{ backgroundColor: p.color }}
+                      />
+                      <span className="flex-1 truncate text-left">
+                        {p.name}
+                      </span>
+                      <span
+                        className={cn(
+                          "text-[10px] tabular-nums",
+                          // slate-600 in light: the open project's row is blue-50.
+                          isDark ? "text-slate-400" : "text-slate-600",
+                        )}
+                      >
+                        {p.progress}%
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+            {projects.length > recent.length && (
+              <button
+                onClick={() => go("/projects")}
+                aria-label={`View all ${projects.length} projects`}
+                className={cn(
+                  "mt-1 shrink-0 rounded-xl px-3 py-2 text-left text-[12px] font-medium transition-colors",
+                  isDark
+                    ? "text-slate-400 hover:bg-white/[0.04] hover:text-slate-200"
+                    : "text-blue-700 hover:bg-blue-50/50",
+                )}
+              >
+                View all {projects.length}
+              </button>
+            )}
           </div>
         )}
       </nav>

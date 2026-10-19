@@ -149,6 +149,7 @@ const backlog = stories.filter((s) => !proposed.some((p) => p.id === s.id)).sort
 
 export const seedSprint: SprintPlan = {
   sprintName: "Sprint 1 (proposed)",
+  backlogDependencies: [],
   goal: "A customer can pay, and a payment above the threshold is verified first.",
   velocityAssumption: {
     points: 34,

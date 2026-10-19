@@ -408,6 +408,10 @@ function reasonFor(attempt: HealAttempt | undefined, message: string): string {
     );
   }
   if (attempt.classification === "regression") {
+    // Its requirements did change: it was written from them, after the change.
+    if (attempt.classifiedBy === "written-after-change") {
+      return "This test was written after the requirements changed, so it cannot be out of date: the test is right and the code is not.";
+    }
     return "The artefacts this test traces to did not change, so the test is right and the code is not.";
   }
   if (attempt.evidence?.citedDiffSpan) {

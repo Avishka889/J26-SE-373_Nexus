@@ -126,3 +126,34 @@ describe("a click whose request is in flight", () => {
     expect(button.disabled).toBe(false);
   });
 });
+
+/**
+ * Reported from a live run: Run tests "has no loading state". The button was
+ * waiting on its own request, off and faded, and drew nothing to say so: the
+ * spinner was tied to the `busy` flag a caller sets, not to the wait the
+ * button holds itself.
+ */
+describe("a button waiting on its own request", () => {
+  it("shows the spinner until the request settles", async () => {
+    let answer!: () => void;
+    const { container } = render(
+      <Button onClick={() => new Promise<void>((resolve) => (answer = resolve))}>Run tests</Button>,
+    );
+    expect(container.querySelector("[data-spinner]")).toBeNull();
+
+    fireEvent.click(screen.getByRole("button", { name: /run tests/i }));
+
+    expect(container.querySelector("[data-spinner]")).not.toBeNull();
+    await act(async () => answer());
+    expect(container.querySelector("[data-spinner]")).toBeNull();
+  });
+
+  it("shows none for a handler that returns nothing", () => {
+    const { container } = render(<Button onClick={() => undefined}>Open</Button>);
+
+    fireEvent.click(screen.getByRole("button", { name: /open/i }));
+
+    expect(container.querySelector("[data-spinner]")).toBeNull();
+  });
+});
+

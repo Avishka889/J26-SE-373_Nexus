@@ -711,6 +711,12 @@ def make_self_healing(pool: AsyncConnectionPool, c3: C3Client):
             previous = await store.previous_tested_code_version(
                 conn, state["project_id"], before=state["code_version"]
             )
+            # The cases first run after this one were written from the change.
+            compared = (
+                await store.last_test_version_of(conn, state["project_id"], code_version=previous)
+                if previous is not None
+                else None
+            )
         if previous is None:
             # Nothing to compare against, so nothing can be called brittle: the
             # trace based classifier's whole signal is the difference between
@@ -735,6 +741,7 @@ def make_self_healing(pool: AsyncConnectionPool, c3: C3Client):
             requirement_diff=requirement_diff,
             changed_code=await _changed_code(pool, state, previous),
             version=state["test_version"],
+            from_test_version=compared,
         )
         await _persist(
             pool,
@@ -842,11 +849,20 @@ def _healing_entries(report: Any) -> list[tuple[str, str, str]]:
             )
         elif attempt.classification == "regression":
             action = "Flagged a regression"
-            detail = (
-                f"traces to {', '.join(attempt.evidence.traced_to) or 'nothing recorded'}, "
-                "none of which changed between the two versions, so the code is wrong "
-                "rather than the test"
-            )
+            traced = ", ".join(attempt.evidence.traced_to) or "nothing recorded"
+            if attempt.classified_by == "written-after-change":
+                # Its traces did change: it was written from them (E-25).
+                detail = (
+                    f"traces to {traced}, and was first run after the code it is compared "
+                    "with was last tested, so it was written from the changed requirements "
+                    "and cannot hold what the change replaced: the code is wrong rather "
+                    "than the test"
+                )
+            else:
+                detail = (
+                    f"traces to {traced}, none of which changed between the two versions, "
+                    "so the code is wrong rather than the test"
+                )
         else:
             action = "Left a failure undecided"
             detail = attempt.evidence.referee_reasoning or (

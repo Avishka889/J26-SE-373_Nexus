@@ -14,6 +14,38 @@ afterEach(() => {
  * was refused while a review waited and nothing said why; and a long run
  * said "Running" with no sense of how long it had been going.
  */
+/**
+ * Code Generation's first run starts from its header ("Generate code"), and
+ * this phase's started from a button at the foot of the not-started card, out
+ * of sight below the six steps it describes.
+ */
+describe("the first run's button", () => {
+  it("is the header's main action before any run", () => {
+    const onStart = vi.fn();
+    render(<TestingHeader progress={0} isDark={false} running={false} onStart={onStart} />);
+
+    screen.getByRole("button", { name: "Run tests" }).click();
+
+    expect(onStart).toHaveBeenCalledOnce();
+    expect(screen.queryByRole("button", { name: /run tests again/i })).toBeNull();
+  });
+
+  it("stays busy until the server answers, so a second click sends nothing", async () => {
+    let answer!: () => void;
+    const onStart = vi.fn(() => new Promise<void>((resolve) => (answer = resolve)));
+    render(<TestingHeader progress={0} isDark={false} running={false} onStart={onStart} />);
+    const button = screen.getByRole("button", { name: "Run tests" }) as HTMLButtonElement;
+
+    fireEvent.click(button);
+    fireEvent.click(button);
+
+    expect(onStart).toHaveBeenCalledOnce();
+    expect(button.getAttribute("aria-busy")).toBe("true");
+    await act(async () => answer());
+    expect(button.getAttribute("aria-busy")).toBeNull();
+  });
+});
+
 describe("the run tests again button", () => {
   it("is not offered where running again means nothing", () => {
     render(<TestingHeader progress={0} isDark={false} running={false} />);

@@ -21,6 +21,7 @@ from orchestrator.checks.coverage import with_coverage
 from sdlc_contracts import (
     AcceptanceCriterion,
     ArchitectureGraph,
+    BacklogDependency,
     FlowLink,
     FlowScreen,
     GraphNode,
@@ -78,13 +79,18 @@ def graph() -> ArchitectureGraph:
     )
 
 
-def story(id: str, traces: list[str], title: str = "As a customer, I can pay") -> UserStory:
+def story(
+    id: str,
+    traces: list[str],
+    title: str = "As a customer, I can pay",
+    priority: str = "must",
+) -> UserStory:
     return UserStory(
         id=id,
         title=title,
         epic="Payments",
         points=5,
-        priority="must",
+        priority=priority,
         traces=traces,
         acceptance=[AcceptanceCriterion(id=f"AC-{id}-1", given="a", when="b", then="c")],
     )
@@ -140,7 +146,9 @@ def uml(steps: list[SequenceStep] | None = None, story_id: str | None = "US-1") 
 
 
 def good_design() -> Design:
-    plan = sprint([story("US-1", ["R-1", "R-2"]), story("US-2", ["R-3"], "As an admin, I refund")])
+    plan = sprint(
+        [story("US-1", ["R-1", "R-2"]), story("US-2", ["R-3"], "As an admin, I refund", "should")]
+    )
     wireframes = with_coverage(
         WireframesArtefact(flows=[flow("flow-a1", ["R-1", "R-2"]), flow("flow-a2", ["R-3"])]), plan
     )
@@ -188,6 +196,29 @@ def _must_only_in_the_backlog(design: Design) -> Design:
     )
 
 
+def _priority_corrected_after_the_plan(design: Design) -> Design:
+    # R-3 was a should when US-2 was planned, and a person has since made it a must.
+    return replacing(
+        design, requirements=[requirement("R-1"), requirement("R-2"), requirement("R-3", "must")]
+    )
+
+
+def _sprint_story_needing_the_backlog(design: Design) -> Design:
+    first, second = design.sprint.proposed
+    plan = sprint([first], backlog=[second]).model_copy(
+        update={
+            "backlog_dependencies": [
+                BacklogDependency(
+                    storyId=first.id,
+                    needs=second.id,
+                    because="Payment Service calls Ledger, and nothing in this sprint builds Ledger",
+                )
+            ]
+        }
+    )
+    return replacing(design, sprint=plan, wireframes=with_coverage(design.wireframes, plan))
+
+
 def _use_case_names_a_missing_story(design: Design) -> Design:
     return replacing(design, uml=uml(story_id="US-99"))
 
@@ -218,6 +249,8 @@ def _requirement_that_was_removed(design: Design) -> Design:
 MUTATIONS = [
     ("story-has-a-screen", "warning", _story_with_no_screen),
     ("must-is-in-the-sprint", "warning", _must_only_in_the_backlog),
+    ("story-priority-is-current", "warning", _priority_corrected_after_the_plan),
+    ("sprint-does-not-need-its-backlog", "warning", _sprint_story_needing_the_backlog),
     ("use-case-names-a-real-story", "error", _use_case_names_a_missing_story),
     ("diagram-participants-exist", "error", _participant_the_graph_lost),
     ("diagram-tokens-resolve", "error", _token_naming_a_deleted_node),
@@ -297,7 +330,8 @@ class TestTheRate:
         small = check_design(_story_with_no_screen(good_design()))
 
         grown = _story_with_no_screen(good_design())
-        plan = sprint([*grown.sprint.proposed, story("US-3", ["R-1"], "As a customer, I refund")])
+        first, *rest = grown.sprint.proposed
+        plan = sprint([first, story("US-3", ["R-1"], "As a customer, I refund"), *rest])
         big = check_design(
             replacing(grown, sprint=plan, wireframes=with_coverage(grown.wireframes, plan))
         )
@@ -556,3 +590,13 @@ class TestWhatAFailedStageSays:
 
         assert "ran out of time" in said
         assert "TimeoutError" not in said
+
+
+class TestASprintThatNeedsItsBacklog:
+    def test_the_finding_names_both_stories_and_the_reason(self) -> None:
+        report = check_design(_sprint_story_needing_the_backlog(good_design()))
+
+        [finding] = [f for f in report.findings if f.rule_id == "sprint-does-not-need-its-backlog"]
+        assert finding.stage_id == "sprint-plan"
+        assert "US-1" in finding.reason and "US-2" in finding.reason
+        assert "Payment Service calls Ledger" in finding.reason

@@ -26,6 +26,8 @@ class Recorder:
         branch_exists: bool = False,
         main_tip: str = "base111",
         main_moved: bool = False,
+        open_pulls: list[dict] | None = None,
+        pulls_refused: bool = False,
     ):
         self.requests: list[httpx.Request] = []
         self.existing_repo = existing_repo
@@ -35,6 +37,9 @@ class Recorder:
         #: The default branch moved on since the version was pushed, so moving
         #: it to the version is not a fast-forward.
         self.main_moved = main_moved
+        #: Pull requests already open on the repository, as GitHub lists them.
+        self.open_pulls = open_pulls or []
+        self.pulls_refused = pulls_refused
 
     def handler(self, request: httpx.Request) -> httpx.Response:
         self.requests.append(request)
@@ -42,6 +47,17 @@ class Recorder:
         if self.broken_step and self.broken_step in key:
             # A hostile error body that echoes the caller's header back.
             return httpx.Response(500, json={"message": f"boom {TOKEN}"})
+        if key == "POST /repos/vinozhan/shopflow/pulls":
+            if self.pulls_refused:
+                return httpx.Response(403, json={"message": "Resource not accessible"})
+            return httpx.Response(
+                201,
+                json={"number": 7, "html_url": "https://github.com/vinozhan/shopflow/pull/7"},
+            )
+        if key == "GET /repos/vinozhan/shopflow/pulls":
+            return httpx.Response(200, json=self.open_pulls)
+        if request.method == "PATCH" and "/pulls/" in request.url.path:
+            return httpx.Response(200, json={"state": "closed"})
         if key == "POST /user/repos":
             if self.existing_repo:
                 return httpx.Response(422, json={"message": "name already exists"})
@@ -203,14 +219,14 @@ class TestAVersionOnItsOwnBranch:
             result = await push_monorepo(
                 FILES, name="shopflow", token=TOKEN, client=client, message="m", branch="code/v2"
             )
-        assert _calls(recorder) == [
+        assert _calls(recorder)[:5] == [
             "POST /user/repos",
             "GET /repos/vinozhan/shopflow/git/ref/heads/main",
             "POST /repos/vinozhan/shopflow/git/trees",
             "POST /repos/vinozhan/shopflow/git/commits",
             "POST /repos/vinozhan/shopflow/git/refs",
         ]
-        created = json.loads(recorder.requests[-1].content)
+        created = json.loads(recorder.requests[4].content)
         assert created == {"ref": "refs/heads/code/v2", "sha": "commit333"}
         assert result.pointer is not None
         assert (result.pointer.branch, result.pointer.default_branch) == ("code/v2", "main")
@@ -221,11 +237,86 @@ class TestAVersionOnItsOwnBranch:
             await push_monorepo(
                 FILES, name="shopflow", token=TOKEN, client=client, message="m", branch="code/v2"
             )
-        moved = recorder.requests[-1]
+        moved = next(r for r in recorder.requests if r.method == "PATCH")
         assert f"{moved.method} {moved.url.path}" == (
             "PATCH /repos/vinozhan/shopflow/git/refs/heads/code/v2"
         )
         assert json.loads(moved.content) == {"sha": "commit333", "force": True}
+
+
+class TestAVersionOpensAPullRequest:
+    """A version went to its branch and the review moved the default branch to
+    it: nothing on GitHub showed the change as one to review (review item C2-8)."""
+
+    async def _push(self, recorder: Recorder, **how):
+        async with _client(recorder) as client:
+            return await push_monorepo(
+                FILES, name="shopflow", token=TOKEN, client=client, message="Code version 2", **how
+            )
+
+    async def test_its_branch_is_proposed_into_the_default_branch(self) -> None:
+        recorder = Recorder()
+
+        result = await self._push(recorder, branch="code/v2")
+
+        opened = next(
+            r for r in recorder.requests if r.url.path.endswith("/pulls") and r.method == "POST"
+        )
+        assert json.loads(opened.content) == {
+            "title": "Code version 2",
+            "head": "code/v2",
+            "base": "main",
+            "body": "Opened by the platform for the code review. Approving the review lands it.",
+        }
+        assert result.pointer is not None
+        assert result.pointer.pull_request_number == 7
+        assert result.pointer.pull_request_url == "https://github.com/vinozhan/shopflow/pull/7"
+
+    async def test_an_earlier_version_s_open_pull_request_is_closed(self) -> None:
+        recorder = Recorder(
+            open_pulls=[
+                {"number": 5, "head": {"ref": "code/v1"}},
+                {"number": 6, "head": {"ref": "feature/by-a-person"}},
+                {"number": 7, "head": {"ref": "code/v2"}},
+            ]
+        )
+
+        await self._push(recorder, branch="code/v2")
+
+        closed = [r for r in recorder.requests if r.method == "PATCH" and "/pulls/" in r.url.path]
+        assert [r.url.path for r in closed] == ["/repos/vinozhan/shopflow/pulls/5"]
+        assert json.loads(closed[0].content) == {"state": "closed"}
+
+    async def test_a_push_to_the_default_branch_opens_none(self) -> None:
+        recorder = Recorder()
+
+        result = await self._push(recorder)
+
+        assert not [r for r in recorder.requests if "/pulls" in r.url.path]
+        assert result.pointer is not None and result.pointer.pull_request_number is None
+
+    async def test_a_pull_request_github_refuses_does_not_undo_the_push(self) -> None:
+        recorder = Recorder(pulls_refused=True)
+
+        result = await self._push(recorder, branch="code/v2")
+
+        assert result.pointer is not None and result.pointer.commit_sha == "commit333"
+        assert result.pointer.pull_request_url == ""
+
+    async def test_landing_by_a_commit_of_its_own_closes_the_pull_request(self) -> None:
+        # A fast-forward makes the version's commit part of the default branch,
+        # which GitHub marks merged by itself. A landing commit does not.
+        proposed = POINTER.model_copy(update={"pull_request_number": 7})
+        moved_on, forward = Recorder(main_tip="layer444", main_moved=True), Recorder()
+        async with _client(moved_on) as client:
+            await land(proposed, token=TOKEN, client=client, message="Land v2")
+        async with _client(forward) as client:
+            await land(proposed, token=TOKEN, client=client, message="Land v2")
+
+        assert [r.url.path for r in moved_on.requests if "/pulls/" in r.url.path] == [
+            "/repos/vinozhan/shopflow/pulls/7"
+        ]
+        assert not [r for r in forward.requests if "/pulls" in r.url.path]
 
 
 class TestLandingAnApprovedVersion:

@@ -1,11 +1,22 @@
 .playwright-mcp
 
+# Private research record. The exceptions are working documents the whole team
+# follows rather than notes to myself: among them the backend implementation
+# guide, the architecture document that says how the four components integrate,
+# and the setup guide that takes a new laptop from a clone to a running platform.
 docs/*
 !docs/BACKEND_IMPLEMENTATION.md
 !docs/High_Level_Architecture.md
+!docs/Setup_Guide.md
 !docs/Project_Gantt.md
+!docs/repo-placement/
+# The proposal's schedule figure and the script that generates it. The rest of
+# this directory stays private: the ASCII flow walkthroughs and the exported
+# images are working notes.
 !docs/flow-diagrams/
 docs/flow-diagrams/*
+!docs/flow-diagrams/C3-Project-Schedule.drawio
+!docs/flow-diagrams/make_gantt.py
 
 # Secrets. Connection strings live here and must never be committed.
 .env

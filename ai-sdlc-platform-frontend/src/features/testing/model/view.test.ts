@@ -161,6 +161,31 @@ describe("a refusal is a result", () => {
     expect(regression?.reason).toContain("did not change");
   });
 
+  it("a regression written after the change does not say its requirements stood still", () => {
+    // Written from the changed requirements, it traces to what changed, so
+    // "did not change" would be false about it.
+    const base = buildTestSnapshot("p1", "awaiting", 1);
+    const heal = base.heal && {
+      ...base.heal,
+      attempts: base.heal.attempts.map((one) =>
+        one.classification === "regression"
+          ? {
+              ...one,
+              classifiedBy: "written-after-change" as const,
+              evidence: { ...one.evidence, changedArtefacts: ["R-9"] },
+            }
+          : one,
+      ),
+    };
+
+    const regression = buildView({ data: { ...base, heal }, reviewer: "you" }).failures.find(
+      (one) => one.triage === "regression",
+    );
+
+    expect(regression?.reason).not.toContain("did not change");
+    expect(regression?.reason).toContain("written after the requirements changed");
+  });
+
   it("the inbox counts each kind apart", () => {
     const { inbox } = view();
 

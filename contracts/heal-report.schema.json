@@ -127,6 +127,7 @@
           "enum": [
             "trace-changed",
             "trace-unchanged",
+            "written-after-change",
             "model-referee",
             "unclassified"
           ],

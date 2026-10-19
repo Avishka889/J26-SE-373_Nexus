@@ -194,6 +194,24 @@
           "title": "Provider",
           "type": "string"
         },
+        "pullRequestNumber": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pullrequestnumber"
+        },
+        "pullRequestUrl": {
+          "default": "",
+          "title": "Pullrequesturl",
+          "type": "string"
+        },
         "url": {
           "minLength": 1,
           "title": "Url",
@@ -207,7 +225,9 @@
         "defaultBranch",
         "commitSha",
         "url",
-        "branch"
+        "branch",
+        "pullRequestUrl",
+        "pullRequestNumber"
       ],
       "title": "RepositoryPointer",
       "type": "object"

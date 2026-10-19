@@ -33,6 +33,34 @@
       "title": "AcceptanceCriterion",
       "type": "object"
     },
+    "BacklogDependency": {
+      "additionalProperties": false,
+      "description": "A story in the sprint that needs one left in the backlog.\n\nRead off the design: a requirement the sprint's story realises draws a\nconnection to something nothing in the sprint builds, and a backlog story\nbuilds it. The sprint is divided by priority and size alone, so nothing else\nwould say that it cannot be finished as proposed (review item C1-5).",
+      "properties": {
+        "because": {
+          "minLength": 1,
+          "title": "Because",
+          "type": "string"
+        },
+        "needs": {
+          "pattern": "^US-\\d+$",
+          "title": "Needs",
+          "type": "string"
+        },
+        "storyId": {
+          "pattern": "^US-\\d+$",
+          "title": "Storyid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "storyId",
+        "needs",
+        "because"
+      ],
+      "title": "BacklogDependency",
+      "type": "object"
+    },
     "UserStory": {
       "additionalProperties": false,
       "properties": {
@@ -127,6 +155,13 @@
       "title": "Backlog",
       "type": "array"
     },
+    "backlogDependencies": {
+      "items": {
+        "$ref": "#/$defs/BacklogDependency"
+      },
+      "title": "Backlogdependencies",
+      "type": "array"
+    },
     "estimatedPoints": {
       "minimum": 0,
       "title": "Estimatedpoints",
@@ -159,7 +194,8 @@
     "velocityAssumption",
     "estimatedPoints",
     "proposed",
-    "backlog"
+    "backlog",
+    "backlogDependencies"
   ],
   "title": "SprintPlan",
   "type": "object"

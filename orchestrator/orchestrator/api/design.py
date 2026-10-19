@@ -9,10 +9,10 @@ Every route answers with a whole snapshot, which is what lets the client write
 one response into its cache and never re-derive partial state.
 """
 
-from typing import Any
+from typing import Any, Literal
 
 from fastapi import APIRouter
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 from sdlc_contracts import (
     ARTEFACT_STAGE_IDS,
     DESIGN_STAGE_IDS,
@@ -33,6 +33,19 @@ router = APIRouter(tags=["design"])
 
 class TextIn(BaseModel):
     text: str = Field(min_length=1)
+
+
+class RequirementPatch(BaseModel):
+    """Two corrections share one route, told apart by which field is present."""
+
+    text: str | None = Field(default=None, min_length=1)
+    priority: Literal["must", "should", "could"] | None = None
+
+    @model_validator(mode="after")
+    def says_what_to_correct(self) -> "RequirementPatch":
+        if self.text is None and self.priority is None:
+            raise ValueError("say what to correct: the text, the priority, or both")
+        return self
 
 
 class AssumptionPatch(BaseModel):
@@ -91,33 +104,65 @@ async def get_design(project_id: str, conn: Db, owner: Owner) -> DesignSnapshot:
 
 @router.patch("/projects/{project_id}/design/requirements/{requirement_id}")
 async def edit_requirement(
-    project_id: str, requirement_id: str, body: TextIn, conn: Db, owner: Owner, actor: Actor
+    project_id: str,
+    requirement_id: str,
+    body: RequirementPatch,
+    conn: Db,
+    owner: Owner,
+    actor: Actor,
 ) -> DesignSnapshot:
     """Correct a requirement without regenerating anything.
 
     Stored as an overlay, so the text the machine produced survives underneath.
     Only a change note rebuilds the design, and the UI says so where the edit
     happens. Code Generation reads the corrected text.
+
+    Its priority too, which a rule read from a modal verb and nothing could
+    correct (review item C1-2). The sprint on the page was ranked on the old
+    one and is not replanned here, because planning calls the model: the design
+    says the plan is behind, and planning the sprint again reads the correction.
     """
     await require_project(conn, project_id, owner)
     version = await _editable(conn, project_id, "requirements")
-    await store.put_overlay(
-        conn,
-        project_id=project_id,
-        version=version,
-        kind="requirement_text",
-        target_id=requirement_id,
-        value=body.text,
-        by=actor,
-    )
-    await store.record(
-        conn,
-        actor=actor,
-        action="Corrected a requirement",
-        target=requirement_id,
-        detail="Marked as adjusted. The design was not regenerated.",
-        project_id=project_id,
-    )
+    if body.text is not None:
+        await store.put_overlay(
+            conn,
+            project_id=project_id,
+            version=version,
+            kind="requirement_text",
+            target_id=requirement_id,
+            value=body.text,
+            by=actor,
+        )
+        await store.record(
+            conn,
+            actor=actor,
+            action="Corrected a requirement",
+            target=requirement_id,
+            detail="Marked as adjusted. The design was not regenerated.",
+            project_id=project_id,
+        )
+    if body.priority is not None:
+        await store.put_overlay(
+            conn,
+            project_id=project_id,
+            version=version,
+            kind="requirement_priority",
+            target_id=requirement_id,
+            value=body.priority,
+            by=actor,
+        )
+        await store.record(
+            conn,
+            actor=actor,
+            action="Corrected a requirement's priority",
+            target=requirement_id,
+            detail=(
+                f"Set to a {body.priority}-have. The sprint was not replanned: "
+                "plan the sprint again to rank on it."
+            ),
+            project_id=project_id,
+        )
     return await _snapshot(conn, project_id, owner)
 
 
@@ -657,19 +702,6 @@ async def submit_decision(
         raise Conflict("there is no decision waiting on this project")
     if body.kind == "changes" and not (body.note or "").strip():
         raise Conflict("requesting changes needs a note saying what to change")
-    if body.kind == "approved":
-        # Refused whatever the note says: no note gives Code Generation a
-        # sprint plan to build from.
-        blocker = await _unbuildable(conn, project_id, int(gate["requirements_version"]))
-        if blocker is not None:
-            raise Conflict(blocker)
-    if body.kind == "approved" and not (body.note or "").strip():
-        concerns = _approval_concerns(await _snapshot(conn, project_id, owner))
-        if concerns:
-            raise Conflict(
-                f"Approving with {' and '.join(concerns)} needs a note saying why it is "
-                "right to approve as it is."
-            )
 
     await _resolve(conn, gate, kind=body.kind, by=actor, note=body.note, supervisor=supervisor)
     return await _snapshot(conn, project_id, owner)
@@ -679,6 +711,33 @@ async def submit_decision(
 #: reads the wireframes when they are there and builds without them, so failed
 #: Wireframes stay a concern a note answers ("drawn by hand this sprint").
 _CODE_BUILDS_FROM = ("sprint-plan",)
+
+
+async def _refuse_an_approval_not_ready(conn: Any, gate: store.Row, *, note: str | None) -> None:
+    """Raise why this design review may not be approved as it stands, if it may not.
+
+    Asked by `_resolve`, so every door to the decision asks it: the design
+    route asked and `POST /gates/{id}/approve` did not, so a design with no
+    sprint plan, or one still generating, was approved through it, and an
+    unapplied answer or a failed stage needed no note.
+    """
+    project_id = gate["project_id"]
+    # Refused whatever the note says: no note gives Code Generation a
+    # sprint plan to build from.
+    blocker = await _unbuildable(conn, project_id, int(gate["requirements_version"]))
+    if blocker is not None:
+        raise Conflict(blocker)
+    if (note or "").strip():
+        return
+    project = await store.project_without_owner_check(conn, project_id)
+    if project is None:
+        raise NotFound("project", project_id)
+    concerns = _approval_concerns(await _snapshot(conn, project_id, project["owner_id"]))
+    if concerns:
+        raise Conflict(
+            f"Approving with {' and '.join(concerns)} needs a note saying why it is "
+            "right to approve as it is."
+        )
 
 
 async def _unbuildable(conn: Any, project_id: str, version: int) -> str | None:
@@ -785,6 +844,8 @@ async def _resolve(
             f"this is a {gate['kind']} gate; it is decided in its own phase, "
             "not through the design decision routes"
         )
+    if kind == "approved":
+        await _refuse_an_approval_not_ready(conn, gate, note=note)
     resolved = await store.resolve_gate(
         conn,
         gate["id"],

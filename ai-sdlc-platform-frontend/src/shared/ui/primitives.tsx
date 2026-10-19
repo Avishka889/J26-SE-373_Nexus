@@ -177,7 +177,10 @@ export function Button({
       }}
       {...props}
     >
-      {busy && <Spinner size="xs" decorative />}
+      {/* Shown for the button's own wait too. It was tied to `busy` alone, so a
+          button waiting on the request it had just sent was off and faded with
+          nothing on it, which read as a click that did nothing. */}
+      {shown && <Spinner size="xs" decorative />}
       {children}
     </button>
   );

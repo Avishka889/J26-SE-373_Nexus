@@ -4,7 +4,11 @@ import { cn } from "@/shared/utils/cn";
 import { Spinner } from "@/shared/ui/Spinner";
 import { fonts } from "@/shared/constants/fonts";
 
-let mermaidTheme: "dark" | "default" = "dark";
+// Null until the first diagram, so the first one always configures mermaid.
+// This started as "dark", which skipped configuring it at all when the page
+// opened dark: diagrams drew in mermaid's own light defaults until the theme
+// was switched away and back.
+let mermaidTheme: "dark" | "default" | null = null;
 
 function initMermaid(isDark: boolean) {
   const theme = isDark ? "dark" : "default";
@@ -12,6 +16,11 @@ function initMermaid(isDark: boolean) {
   mermaidTheme = theme;
   mermaid.initialize({
     startOnLoad: false,
+    // A source mermaid cannot read is reported by `render` throwing, and this
+    // component shows its own message in the diagram's place. Without this,
+    // mermaid also drew its "Syntax error in text" picture into the element it
+    // appends to the end of the page and left it there, outside the layout.
+    suppressErrorRendering: true,
     theme,
     themeVariables: isDark
       ? {

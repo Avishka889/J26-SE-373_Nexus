@@ -46,6 +46,30 @@ class TestClassification:
         # And says it was a default, so the confidence rule can take points off.
         assert result.priority_is_default is True
 
+    def test_a_modal_inside_another_word_is_not_a_modal(self) -> None:
+        # Matched by substring, "can" was found in "cancels" and "scans" and
+        # "will" in "willing", so a sentence with no modal read as a could or a
+        # must (review item C1-2).
+        result = classify("A willing customer cancels an order and scans the receipt.")
+        assert result.priority == DEFAULT_PRIORITY
+        assert result.priority_is_default is True
+
+    def test_priority_is_read_from_what_the_brief_said(self) -> None:
+        # The model is asked for a sentence without modal verbs, so the modal is
+        # in the brief's sentence and not in the rewording (review item C1-2).
+        result = classify(
+            "A customer exports their history.",
+            said="Customers must be able to export their history.",
+        )
+        assert result.priority == "must"
+        assert result.priority_is_default is False
+        assert "must" in result.evidence
+
+    def test_a_modal_only_the_rewording_has_is_not_the_brief_s(self) -> None:
+        result = classify("A customer can pay by card.", said="Customers pay by card.")
+        assert result.priority == DEFAULT_PRIORITY
+        assert result.priority_is_default is True
+
     def test_the_strongest_modality_wins(self) -> None:
         # A weak clause does not soften a strong one.
         assert classify("Records may be exported, but must be audited.").priority == "must"

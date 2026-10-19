@@ -30,6 +30,7 @@ export function DecisionBar({
   onRequestChanges,
   approveDisabled = false,
   approveDisabledReason,
+  approveDisabledAction,
   changesDisabledReason,
   busy = false,
 }: {
@@ -52,6 +53,11 @@ export function DecisionBar({
   /** The gate is not armed yet. The bar stays put and says why. */
   approveDisabled?: boolean;
   approveDisabledReason?: string;
+  /**
+   * Where the reason is dealt with, as a link after it. The bar is pinned, so
+   * the reason has a line or two; the page it points to has the rest.
+   */
+  approveDisabledAction?: { label: string; onClick: () => void };
   /**
    * Why requesting changes would not help, for example a review the phase has
    * moved past: the changes would regenerate from what is no longer current.
@@ -177,10 +183,23 @@ export function DecisionBar({
             {approveDisabled && approveDisabledReason
               ? approveDisabledReason
               : detail}
+            {approveDisabled && approveDisabledReason && approveDisabledAction && (
+              <>
+                {" "}
+                <button
+                  type="button"
+                  onClick={approveDisabledAction.onClick}
+                  className="font-medium text-blue-600 underline underline-offset-2 hover:decoration-2 dark:text-blue-400"
+                >
+                  {approveDisabledAction.label}
+                </button>
+              </>
+            )}
           </p>
-          {changesDisabledReason && (
-            <p className="tp-den mt-0.5 break-words">{changesDisabledReason}</p>
-          )}
+          {changesDisabledReason &&
+            !(approveDisabled && approveDisabledReason === changesDisabledReason) && (
+              <p className="tp-den mt-0.5 break-words">{changesDisabledReason}</p>
+            )}
         </div>
 
         <div className="flex shrink-0 gap-2">

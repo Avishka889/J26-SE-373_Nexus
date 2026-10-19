@@ -52,17 +52,12 @@ def validate_plan(
 def names_are_present(
     plan: DraftPlan, _requirements: list[ParsedRequirement], _graph: ArchitectureGraph
 ) -> list[Finding]:
-    """1. The sprint has a goal, and every story has a sentence and an epic."""
+    """1. Every story has a sentence and an epic.
+
+    The sprint's goal is not checked here: it is said from the stories the
+    sprint took on, after the split, and the model is not asked for one.
+    """
     findings: list[Finding] = []
-    if not plan.goal.strip():
-        findings.append(
-            Finding(
-                rule_id="names-are-present",
-                severity="error",
-                reason="This sprint has no goal, so there is nothing to judge the plan against.",
-                hint="Write one sentence saying what a user can do at the end of this sprint.",
-            )
-        )
     for index, story in enumerate(plan.stories):
         if not story.title.strip():
             findings.append(

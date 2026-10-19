@@ -8,6 +8,7 @@ const PHASE_OF: Record<ProjectStatus, "requirements" | "code" | "testing" | "dep
   code: "code",
   testing: "testing",
   deploy: "deployment",
+  released: "deployment",
   complete: "deployment",
 };
 

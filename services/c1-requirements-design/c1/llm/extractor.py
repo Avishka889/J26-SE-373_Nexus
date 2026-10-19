@@ -176,7 +176,7 @@ async def extract_with_model(
             spans_refused += 1
 
         sentence = as_requirement(candidate.text)
-        classification = classify(sentence)
+        classification = classify(sentence, said=quote)
         scored.append(
             ScoredRequirement(
                 id=f"R-{index + 1}",

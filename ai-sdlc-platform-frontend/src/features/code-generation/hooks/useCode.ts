@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { refreshProject } from "@/entities/project";
 import { codeKeys } from "@/lib/query";
+import { runIsWorking } from "@/shared/ui/phase";
 import type { CodeStageId } from "@/types/project";
 import { codeApi } from "../api";
 import type { CodeDecisionInput, CodeSnapshot } from "../api/types";
@@ -20,6 +21,24 @@ const POLL_WHILE_GENERATING_MS = 1200;
 /** One read a minute while the page is open and nothing generates. */
 const POLL_WHILE_OPEN_MS = 60_000;
 
+/**
+ * How often to read the code again, decided by the snapshot itself.
+ *
+ * Generating a monorepo is minutes rather than seconds, so no fixed ladder of
+ * timeouts could be right. Quickly while a stage says it is generating or the
+ * run is still going, and slowly while the page is open otherwise: a fix
+ * Testing applies is a new code version, and the page kept showing the old one
+ * until it was left. The run counts as well as the stages because the review
+ * generates nothing of its own, so once Build finished nothing was generating
+ * and the review the run opened a moment later waited for the next minute's read.
+ */
+export function codePollMs(snapshot: CodeSnapshot | undefined): number | false {
+  if (!snapshot) return false;
+  return generatingCodeStageIds(snapshot).length > 0 || runIsWorking(snapshot.run)
+    ? POLL_WHILE_GENERATING_MS
+    : POLL_WHILE_OPEN_MS;
+}
+
 export function useCodeSnapshot(projectId: string | null | undefined) {
   const id = projectId ?? "";
   return useQuery({
@@ -31,21 +50,7 @@ export function useCodeSnapshot(projectId: string | null | undefined) {
     // predate the approval, and the page said the design "is being
     // regenerated" until its next read a minute later.
     refetchOnMount: "always",
-    /**
-     * The snapshot itself decides whether to keep asking. Generating a
-     * monorepo is minutes rather than seconds, so no fixed ladder of timeouts
-     * could be right; polling only while a stage says it is generating is both
-     * correct and quiet, because it stops on its own.
-     */
-    refetchInterval: (query) => {
-      const snapshot = query.state.data;
-      if (!snapshot) return false;
-      // And slowly while the page is open: a fix Testing applies is a new code
-      // version, and the page kept showing the old one until it was left.
-      return generatingCodeStageIds(snapshot).length > 0
-        ? POLL_WHILE_GENERATING_MS
-        : POLL_WHILE_OPEN_MS;
-    },
+    refetchInterval: (query) => codePollMs(query.state.data),
   });
 }
 

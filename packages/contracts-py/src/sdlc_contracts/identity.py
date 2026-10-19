@@ -475,10 +475,22 @@ def carry_story_ids(current: SprintPlan, history: Sequence[SprintPlan]) -> tuple
 
     rebuilt_stories = [rebuilt(story, new) for story, new in zip(stories, ids, strict=True)]
     split = len(current.proposed)
+    # A dependency names two stories by the ids C1 numbered them with, so it
+    # follows them to the ids they were given here.
+    given = {story.id: new for story, new in zip(stories, ids, strict=True)}
     return (
         _validated(
             current.model_copy(
-                update={"proposed": rebuilt_stories[:split], "backlog": rebuilt_stories[split:]}
+                update={
+                    "proposed": rebuilt_stories[:split],
+                    "backlog": rebuilt_stories[split:],
+                    "backlog_dependencies": [
+                        one.model_copy(
+                            update={"story_id": given[one.story_id], "needs": given[one.needs]}
+                        )
+                        for one in current.backlog_dependencies
+                    ],
+                }
             )
         ),
         carry,

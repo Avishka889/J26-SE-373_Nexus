@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import { PhaseNotStarted } from "./EmptyStates";
 
 afterEach(cleanup);
@@ -13,52 +13,21 @@ afterEach(cleanup);
  */
 function show(codeApproved: boolean) {
   const onOpenCode = vi.fn();
-  const onRun = vi.fn();
   render(
-    <PhaseNotStarted
-      projectName="Book Tracker"
-      codeApproved={codeApproved}
-      running={false}
-      onOpenCode={onOpenCode}
-      onRun={onRun}
-    />,
+    <PhaseNotStarted projectName="Book Tracker" codeApproved={codeApproved} onOpenCode={onOpenCode} />,
   );
-  return { onOpenCode, onRun };
+  return { onOpenCode };
 }
 
 describe("a testing phase that has not run", () => {
-  it("offers the first run once the code review approved the build", () => {
-    const { onRun } = show(true);
+  // The run starts from the header, as Code Generation's does; the card says
+  // where, rather than offering a second button that does the same.
+  it("points to Run tests in the header once the code review approved the build", () => {
+    show(true);
     expect(screen.getByText(/the code review approved this build/i)).toBeTruthy();
+    expect(screen.getByText(/Run tests at the top of this page/)).toBeTruthy();
     expect(screen.queryByText(/no build has been produced/i)).toBeNull();
-    expect(screen.queryByRole("button", { name: /open code generation/i })).toBeNull();
-    screen.getByRole("button", { name: "Run tests" }).click();
-    expect(onRun).toHaveBeenCalledOnce();
-  });
-
-  it("stays busy on Run tests until the server answers, so a second click sends nothing", async () => {
-    // Reported from the live run: the click seemed to do nothing until the
-    // server answered, so it was clicked again.
-    let answer!: () => void;
-    const onRun = vi.fn(() => new Promise<void>((resolve) => (answer = resolve)));
-    render(
-      <PhaseNotStarted
-        projectName="Movie Tracker"
-        codeApproved
-        running={false}
-        onOpenCode={vi.fn()}
-        onRun={onRun}
-      />,
-    );
-    const button = screen.getByRole("button", { name: "Run tests" }) as HTMLButtonElement;
-
-    fireEvent.click(button);
-    fireEvent.click(button);
-
-    expect(onRun).toHaveBeenCalledOnce();
-    expect(button.getAttribute("aria-busy")).toBe("true");
-    await act(async () => answer());
-    expect(button.getAttribute("aria-busy")).toBeNull();
+    expect(screen.queryByRole("button")).toBeNull();
   });
 
   it("points back to Code Generation while its review has approved nothing", () => {

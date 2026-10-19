@@ -1,4 +1,4 @@
-import { AlertTriangle, ArrowUpRight, FlaskConical, Play, RefreshCw } from "lucide-react";
+import { AlertTriangle, ArrowUpRight, FlaskConical, RefreshCw } from "lucide-react";
 import { Button, Card } from "@/shared/ui/primitives";
 import { Note } from "./bits/index";
 
@@ -14,21 +14,19 @@ const willHappen = [
 /**
  * A phase with no run yet. What it waits on depends on the code review: before
  * it approves a build there is nothing to test, and after it the only thing
- * missing is a person starting the first run, which this offers in place.
+ * missing is a person starting the first run, which the header's Run tests
+ * does, as Code Generation's header starts its first run. A second button here
+ * sat at the foot of the card, out of sight below the six steps.
  */
 export function PhaseNotStarted({
   projectName,
   codeApproved,
-  running,
   onOpenCode,
-  onRun,
 }: {
   projectName: string;
   /** Whether the code review approved a build, which is all a first run needs. */
   codeApproved: boolean;
-  running: boolean;
   onOpenCode: () => void;
-  onRun: () => void;
 }) {
   return (
     <Card className="mx-auto max-w-3xl overflow-hidden">
@@ -55,18 +53,13 @@ export function PhaseNotStarted({
 
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-slate-100 bg-slate-50 px-5 py-3.5 dark:border-white/[0.05] dark:bg-white/[0.02]">
         {codeApproved ? (
-          <>
-            <div className="min-w-0 flex-1">
-              <p className="tp-label">Ready</p>
-              <p className="mt-1 text-[13px]">
-                The code review approved this build. Nothing runs until you start it.
-              </p>
-            </div>
-            <Button variant="primary" onClick={onRun} disabled={running}>
-              <Play className="h-3.5 w-3.5" />
-              {running ? "Running…" : "Run tests"}
-            </Button>
-          </>
+          <div className="min-w-0 flex-1">
+            <p className="tp-label">Ready</p>
+            <p className="mt-1 text-[13px]">
+              The code review approved this build. Nothing runs until you start it with Run tests
+              at the top of this page.
+            </p>
+          </div>
         ) : (
           <>
             <div className="min-w-0 flex-1">

@@ -123,6 +123,7 @@ class C3Client(Protocol):
         requirement_diff: RequirementDiff | None,
         changed_code: Sequence[ChangedCode] = (),
         version: int,
+        from_test_version: int | None = None,
     ) -> StageOutcome[HealReport]: ...
 
     async def scan(self, target: TargetRef, *, version: int) -> StageOutcome[ValidationReport]: ...
@@ -303,6 +304,7 @@ class InProcessC3:
         requirement_diff: RequirementDiff | None,
         changed_code: Sequence[ChangedCode] = (),
         version: int,
+        from_test_version: int | None = None,
     ) -> StageOutcome[HealReport]:
         answer = await (await self._levels.current()).heal(
             target,
@@ -313,6 +315,7 @@ class InProcessC3:
             requirement_diff=requirement_diff,
             changed_code=changed_code,
             version=version,
+            from_test_version=from_test_version,
         )
         return StageOutcome(artefact=answer.artefact, summary=answer.summary, notes=answer.notes)
 
@@ -492,6 +495,7 @@ class HttpC3:
         requirement_diff: RequirementDiff | None,
         changed_code: Sequence[ChangedCode] = (),
         version: int,
+        from_test_version: int | None = None,
     ) -> StageOutcome[HealReport]:
         payload = await self._post(
             "/self-heal",
@@ -506,6 +510,7 @@ class HttpC3:
                 else None,
                 "changedCode": [stretch.model_dump(by_alias=True) for stretch in changed_code],
                 "version": version,
+                "fromTestVersion": from_test_version,
             },
         )
         return StageOutcome(

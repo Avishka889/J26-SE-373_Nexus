@@ -14,9 +14,11 @@ back with six requirements renumbered into five.
 """
 
 import pytest
+from pydantic import ValidationError
 from sdlc_contracts import (
     AcceptanceCriterion,
     Assumption,
+    BacklogDependency,
     ClarifyingQuestion,
     ParsedRequirement,
     RequirementsArtefact,
@@ -337,6 +339,60 @@ class TestAStoryKeepsItsIdThroughAReplan:
 
         assert [one.id for one in second.proposed] == ["US-1"]
         assert carry.kept == ("US-1",)
+
+
+class TestACarriedStorysDependencies:
+    def test_follow_the_ids_the_stories_were_given(self) -> None:
+        """C1 numbers stories down the ranking, so a dependency written against
+        those ids named the wrong stories once the project's own ids were
+        carried over (review item C1-5)."""
+        first = plan(
+            proposed=[story("US-1", "Add items to the basket", traces=["R-1"])],
+            backlog=[story("US-2", "See the basket total", traces=["R-2"])],
+        )
+        # Planned again with the two the other way round: C1 calls the total US-1.
+        replanned = SprintPlan(
+            sprintName="Sprint 1 (proposed)",
+            goal="Ship the basket",
+            velocityAssumption=VelocityAssumption(points=20, basis="assumed, not measured"),
+            estimatedPoints=3,
+            proposed=[story("US-1", "See the basket total", traces=["R-2"])],
+            backlog=[story("US-2", "Add items to the basket", traces=["R-1"])],
+            backlogDependencies=[
+                BacklogDependency(
+                    storyId="US-1",
+                    needs="US-2",
+                    because="Basket holds Item, and nothing builds Item",
+                )
+            ],
+        )
+
+        second, _ = carry_story_ids(replanned, [first])
+
+        assert [one.id for one in second.proposed] == ["US-2"]
+        [needed] = second.backlog_dependencies
+        assert (needed.story_id, needed.needs) == ("US-2", "US-1")
+
+
+class TestADependencyNamesRealStories:
+    @pytest.mark.parametrize(
+        ("story_id", "needs"),
+        [("US-2", "US-1"), ("US-1", "US-9"), ("US-9", "US-2")],
+        ids=["the wrong way round", "a story nobody planned", "a sprint story nobody planned"],
+    )
+    def test_one_that_does_not_is_refused(self, story_id: str, needs: str) -> None:
+        with pytest.raises(ValidationError, match="backlog"):
+            SprintPlan(
+                sprintName="Sprint 1 (proposed)",
+                goal="Ship the basket",
+                velocityAssumption=VelocityAssumption(points=20, basis="assumed, not measured"),
+                estimatedPoints=3,
+                proposed=[story("US-1", "Add items", traces=["R-1"])],
+                backlog=[story("US-2", "See the total", traces=["R-2"])],
+                backlogDependencies=[
+                    BacklogDependency(storyId=story_id, needs=needs, because="A holds B")
+                ],
+            )
 
 
 class TestACarriedStorysCriteria:

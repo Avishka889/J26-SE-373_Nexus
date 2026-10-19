@@ -20,6 +20,12 @@ checked and argued with.
 `proposed` against `backlog` is a division by the velocity assumption, which is
 arithmetic once the points exist.
 
+The sprint's `goal` is missing for the same reason, and for a second one. The
+model writes its answer before the stories are divided into sprint and backlog,
+so a goal it wrote described the whole product: a sprint that took on one story
+of three said it delivered all three. The goal is said from the stories the
+sprint took on, after the split (review item C1-5).
+
 What the model is genuinely good at is left to it: the sentence a story is
 written as, the epic it belongs under, and the acceptance criteria, which are the
 one part of this artefact that is contract rather than description because C3
@@ -63,7 +69,4 @@ class DraftStory(BaseModel):
 class DraftPlan(BaseModel):
     """A sprint plan the model produced, before the rules have read it."""
 
-    goal: str = Field(
-        default="", description="One sentence saying what this sprint achieves for a user."
-    )
     stories: list[DraftStory] = Field()

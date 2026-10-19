@@ -24,6 +24,7 @@ from orchestrator.db.pool import create_app_pool
 from orchestrator.graph.build import build_graph
 from orchestrator.graph.runner import RunSupervisor
 from orchestrator.main import create_app, lifespan_for_tests
+from psycopg.types.json import Jsonb
 from sdlc_contracts import ARTEFACT_STAGE_IDS, DESIGN_STAGE_IDS
 
 from .conftest import needs_db
@@ -252,7 +253,28 @@ class TestTheSpine:
         second = (await client.get("/runs", params={"project": project_id})).json()[0]
         await _advance(client, second["id"])
 
+        # What version 2 changed, for the review to show (review item C1-6). The
+        # change note added a requirement; a node of version 1 is given an older
+        # name here, so the graph has something that changed too.
+        async with client.app.state.pool.connection() as conn:  # type: ignore[attr-defined]
+            first = await store.artefacts_at(
+                conn, project_id, version=1, kinds=("architecture-graph",)
+            )
+            graph = dict(first["architecture-graph"]["body"])
+            renamed = graph["nodes"][0]["id"]
+            graph["nodes"] = [{**graph["nodes"][0], "label": "An older name"}, *graph["nodes"][1:]]
+            await conn.execute(
+                "UPDATE app.artefacts SET body = %s WHERE project_id = %s "
+                "AND kind = 'architecture-graph' AND version = 1",
+                (Jsonb(graph), project_id),
+            )
+
         snapshot = (await client.get(f"/projects/{project_id}/design")).json()
+        assert snapshot["changes"]["fromVersion"] == 1
+        assert snapshot["changes"]["requirements"]["added"] == ["R-2"]
+        assert snapshot["changes"]["requirements"]["removed"] == []
+        assert set(snapshot["changes"]["stories"]) == {"added", "removed", "changed"}
+        assert renamed in snapshot["graph"]["changedNodeIds"]
         assert snapshot["requirementsVersion"] == 2
         assert snapshot["gate"]["decision"] is None, (
             "version 2 reported version 1's approval, so the phase never asked again"
@@ -260,6 +282,17 @@ class TestTheSpine:
         assert [(h["kind"], h["version"]) for h in snapshot["gate"]["history"]] == [("approved", 1)]
         # And the thing the page reads to draw the bar is true.
         assert snapshot["stages"]["design-review"]["status"] == "complete"
+
+    async def test_a_first_version_has_nothing_to_be_compared_with(
+        self, client: httpx.AsyncClient
+    ) -> None:
+        project_id, run_id = await _start(client)
+        await _advance(client, run_id)
+
+        snapshot = (await client.get(f"/projects/{project_id}/design")).json()
+
+        assert snapshot["changes"] is None
+        assert snapshot["graph"]["changedNodeIds"] == []
 
     async def test_the_decision_comes_back_once_the_new_version_is_decided(
         self, client: httpx.AsyncClient

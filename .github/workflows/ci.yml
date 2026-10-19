@@ -9,9 +9,17 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+# Every job only reads the repository. Nothing here pushes, comments or
+# publishes, so the token gets no more than that.
+permissions:
+  contents: read
+
 jobs:
   backend:
     runs-on: ubuntu-latest
+    # The C3 suite alone takes about 34 minutes. A job that runs past 90 has
+    # hung, and failing it then beats holding the runner for six hours.
+    timeout-minutes: 90
     services:
       # Docker is not available on every developer machine, so CI supplies the
       # database. Nothing here depends on docker compose.
@@ -36,20 +44,32 @@ jobs:
       # a real GitHub token that way. CI is no exception to the rule.
       TEST_DATABASE_URL: postgresql://sdlc:sdlc@localhost:5432/sdlc_test
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       # The Java lane compiles the seeded sample, and the sample sets
       # maven.compiler.release to 21. The runner's default JDK is older, so
       # without this Maven fails with "release version 21 not supported" and
       # four tests report it as a broken lane, a broken kill check and a
       # scanner that left no report. Pinned to the version the reports stamp
       # into their toolchain string rather than to whatever the image ships.
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: '21'
-      - uses: astral-sh/setup-uv@v5
+      # Code generation's build checks, the Node test lane and the deployment
+      # staging all run node and npm. Pinned to the version the frontend and
+      # the setup guide use rather than to whatever the image ships.
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      # setup-uv stopped publishing major tags at v8, so the release is named
+      # exactly.
+      - uses: astral-sh/setup-uv@v10.3.0
         with:
           enable-cache: true
+      # --frozen installs from uv.lock without checking it, so a dependency
+      # changed in a pyproject.toml without relocking would pass unnoticed.
+      - name: Lockfile matches the projects
+        run: uv lock --check
       - run: uv sync --frozen
       - name: Lint
         run: uv run ruff check .
@@ -66,12 +86,13 @@ jobs:
 
   contracts:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v5
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.0
         with:
           enable-cache: true
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
       - run: uv sync --frozen
@@ -92,12 +113,13 @@ jobs:
 
   frontend:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     defaults:
       run:
         working-directory: ai-sdlc-platform-frontend
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -114,3 +136,31 @@ jobs:
       - run: npm run build
         env:
           VITE_API_URL: http://127.0.0.1:8000
+
+  # The browser checks, against the fixture mode the config starts itself.
+  # A job of their own so they run beside the backend job, which sets how long
+  # a pull request waits, instead of after the unit tests.
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: ai-sdlc-platform-frontend
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: ai-sdlc-platform-frontend/package-lock.json
+      - run: npm ci
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - run: npm run e2e
+      # Traces are recorded on a retry, so a failure leaves something to open.
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: e2e-results
+          path: ai-sdlc-platform-frontend/test-results/
+          retention-days: 7

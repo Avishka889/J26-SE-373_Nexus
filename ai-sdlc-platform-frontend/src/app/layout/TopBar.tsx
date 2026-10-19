@@ -1,6 +1,6 @@
 import { env } from "@/lib/env";
 import { alertsFor, alertsFromAttention } from "./alerts";
-import { useState, type RefObject } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Search,
@@ -32,6 +32,28 @@ export function TopBar({
   const settings = useSettings();
   const projects = useProjectsList();
   const [showNotifications, setShowNotifications] = useState(false);
+  const notificationsRef = useRef<HTMLDivElement>(null);
+  const bellRef = useRef<HTMLButtonElement>(null);
+  // An open panel closes on a press anywhere else and on Escape, as a menu
+  // does; only its X closed it. Escape hands the focus back to the bell.
+  useEffect(() => {
+    if (!showNotifications) return;
+    const onPress = (event: MouseEvent) => {
+      if (!notificationsRef.current?.contains(event.target as Node))
+        setShowNotifications(false);
+    };
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setShowNotifications(false);
+      bellRef.current?.focus();
+    };
+    document.addEventListener("mousedown", onPress);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onPress);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [showNotifications]);
   const isDark = theme === "dark";
   const location = useLocation();
   const navigate = useNavigate();
@@ -135,8 +157,17 @@ export function TopBar({
         </kbd>
       </button>
 
-      <div className="relative">
+      <div className="relative" ref={notificationsRef}>
         <button
+          type="button"
+          ref={bellRef}
+          aria-label={
+            alerts.length > 0
+              ? `Notifications, ${alerts.length} waiting`
+              : "Notifications"
+          }
+          aria-expanded={showNotifications}
+          aria-controls="notifications-panel"
           onClick={() => setShowNotifications(!showNotifications)}
           className={cn(
             "relative flex h-9 w-9 items-center justify-center rounded-full border transition-colors",
@@ -145,15 +176,21 @@ export function TopBar({
               : "border-slate-200 bg-slate-50 text-slate-500",
           )}
         >
-          <Bell className="h-4 w-4" />
+          <Bell className="h-4 w-4" aria-hidden="true" />
           {alerts.length > 0 && (
-            <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-blue-600 px-1 text-[9px] font-bold text-white">
+            <span
+              aria-hidden="true"
+              className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-blue-600 px-1 text-[9px] font-bold text-white"
+            >
               {alerts.length}
             </span>
           )}
         </button>
         {showNotifications && (
           <div
+            id="notifications-panel"
+            role="region"
+            aria-label="Notifications"
             className={cn(
               "absolute right-0 top-11 z-50 w-[min(20rem,calc(100vw-1.5rem))] overflow-hidden rounded-2xl border shadow-2xl isolate",
               isDark
@@ -175,8 +212,13 @@ export function TopBar({
               >
                 Notifications
               </span>
-              <button onClick={() => setShowNotifications(false)}>
+              <button
+                type="button"
+                aria-label="Close notifications"
+                onClick={() => setShowNotifications(false)}
+              >
                 <X
+                  aria-hidden="true"
                   className={cn(
                     "h-4 w-4",
                     isDark ? "text-slate-400" : "text-slate-500",
@@ -184,72 +226,81 @@ export function TopBar({
                 />
               </button>
             </div>
-            <div className="max-h-80 space-y-0.5 p-2">
-              {alerts.length === 0 && (
-                <p
-                  className={cn(
-                    "px-2.5 py-3 text-[13px]",
-                    isDark ? "text-slate-400" : "text-slate-500",
-                  )}
-                >
-                  Nothing needs you right now.
-                </p>
-              )}
-              {alerts.map((alert) => {
-                const Icon =
-                  alert.severity === "warning" ? AlertTriangle : Info;
-                return (
-                  <button
-                    key={alert.id}
-                    onClick={() => {
-                      setShowNotifications(false);
-                      // A line opens the page where it is decided; a demo
-                      // line has nowhere to go, so it says itself instead.
-                      if (alert.href) {
-                        navigate(alert.href);
-                        return;
-                      }
-                      addToast({
-                        type: "info",
-                        title: alert.title,
-                        message: alert.message,
-                      });
-                    }}
-                    className={cn(
-                      "flex w-full gap-3 rounded-xl p-2.5 text-left",
-                      isDark ? "hover:bg-white/[0.04]" : "hover:bg-slate-50",
-                    )}
-                  >
-                    <Icon
-                      className={cn(
-                        "mt-0.5 h-4 w-4",
-                        alert.severity === "warning"
-                          ? "text-amber-500"
-                          : "text-blue-500",
-                      )}
-                    />
-                    <div>
-                      <p
+            {alerts.length === 0 && (
+              <p
+                className={cn(
+                  "px-4 py-4 text-[13px]",
+                  isDark ? "text-slate-400" : "text-slate-500",
+                )}
+              >
+                Nothing needs you right now.
+              </p>
+            )}
+            {/* The panel clips, so the list is what scrolls: a long one was
+                cut off at the panel's edge. */}
+            {alerts.length > 0 && (
+              <ul className="max-h-80 space-y-0.5 overflow-y-auto overscroll-contain p-2">
+                {alerts.map((alert) => {
+                  const Icon =
+                    alert.severity === "warning" ? AlertTriangle : Info;
+                  return (
+                    <li key={alert.id}>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setShowNotifications(false);
+                          // A line opens the page where it is decided; a demo
+                          // line has nowhere to go, so it says itself instead.
+                          if (alert.href) {
+                            navigate(alert.href);
+                            return;
+                          }
+                          addToast({
+                            type: "info",
+                            title: alert.title,
+                            message: alert.message,
+                          });
+                        }}
                         className={cn(
-                          "text-[13px] font-medium",
-                          isDark ? "text-slate-200" : "text-slate-800",
+                          "flex w-full gap-3 rounded-xl p-2.5 text-left",
+                          isDark
+                            ? "hover:bg-white/[0.04]"
+                            : "hover:bg-slate-50",
                         )}
                       >
-                        {alert.title}
-                      </p>
-                      <p
-                        className={cn(
-                          "text-xs",
-                          isDark ? "text-slate-400" : "text-slate-500",
-                        )}
-                      >
-                        {alert.message}
-                      </p>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
+                        <Icon
+                          aria-hidden="true"
+                          className={cn(
+                            "mt-0.5 h-4 w-4 shrink-0",
+                            alert.severity === "warning"
+                              ? "text-amber-500"
+                              : "text-blue-500",
+                          )}
+                        />
+                        <div>
+                          <p
+                            className={cn(
+                              "text-[13px] font-medium",
+                              isDark ? "text-slate-200" : "text-slate-800",
+                            )}
+                          >
+                            {alert.title}
+                          </p>
+                          <p
+                            className={cn(
+                              "text-xs",
+                              isDark ? "text-slate-400" : "text-slate-500",
+                            )}
+                          >
+                            {alert.message}
+                          </p>
+                        </div>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
           </div>
         )}
       </div>

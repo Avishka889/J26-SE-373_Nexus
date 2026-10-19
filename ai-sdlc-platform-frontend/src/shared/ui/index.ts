@@ -1,6 +1,8 @@
 ﻿export * from "./primitives";
 export { surface } from "./surface";
 export { Field } from "./Field";
+export { Select } from "./Select";
+export type { SelectOption } from "./Select";
 export type { FieldControlProps } from "./Field";
 export { InfoTip } from "./InfoTip";
 export { useFieldClasses } from "./useFieldClasses";

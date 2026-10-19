@@ -309,6 +309,12 @@ class C1:
                 f"{plan.sprint_name} proposed: "
                 f"{_plural(len(plan.proposed), 'story', 'stories')}, "
                 f"{plan.estimated_points} points estimated"
+                + (
+                    f", {_plural(len(plan.backlog_dependencies), 'story needs', 'stories need')} "
+                    "the backlog"
+                    if plan.backlog_dependencies
+                    else ""
+                )
             ),
             notes={
                 "attempts": report.attempts,

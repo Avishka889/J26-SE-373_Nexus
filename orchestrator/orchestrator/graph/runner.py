@@ -817,7 +817,7 @@ class RunSupervisor:
                     actor="system",
                     action=f"Reached the {stage_label(spec.gate_stage_id)} gate",
                     target=f"version {version}",
-                    detail="The run is paused and will resume on the same thread when decided.",
+                    detail="The run waits here for the decision, and goes on from it once it is made.",
                     project_id=project_id,
                     run_id=run_id,
                     # Filed under its own phase: without it every phase's gate read

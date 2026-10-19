@@ -150,8 +150,12 @@ async def push_monorepo(
         json={"message": message, "tree": tree.json()["sha"], "parents": [parent_sha]},
     )
     commit_sha = commit.json()["sha"]
+    number, pull_url = None, ""
     if branch:
         await _set_branch(client, token, base, branch, commit_sha)
+        number, pull_url = await _propose(
+            client, token, base, branch=branch, into=default_branch, title=message
+        )
     else:
         await _call(
             client,
@@ -171,8 +175,64 @@ async def push_monorepo(
             commit_sha=commit_sha,
             url=repository["html_url"],
             branch=branch or "",
+            pull_request_url=pull_url,
+            pull_request_number=number,
         )
     )
+
+
+#: The branches this platform pushes a code version to, one each.
+_VERSION_BRANCH = "code/v"
+
+
+async def _propose(
+    client: httpx.AsyncClient, token: str, base: str, *, branch: str, into: str, title: str
+) -> tuple[int | None, str]:
+    """Open the pull request that proposes a version's branch, and close the
+    ones earlier versions left open. Its number and address, or none.
+
+    The review approved a version by moving the default branch to it, and
+    nothing on GitHub showed the change as one to review (review item C2-8).
+    Never the push's failure: the version is on its branch by now, so a pull
+    request GitHub refuses leaves the pointer without one.
+    """
+    try:
+        listed = await _call(
+            client, token, "GET", f"{base}/pulls?state=open&base={into}&per_page=100"
+        )
+        mine = None
+        for pull in listed.json():
+            ref = (pull.get("head") or {}).get("ref", "")
+            if ref == branch:
+                mine = pull
+            elif ref.startswith(_VERSION_BRANCH):
+                await _call(
+                    client,
+                    token,
+                    "PATCH",
+                    f"{base}/pulls/{pull['number']}",
+                    json={"state": "closed"},
+                )
+        if mine is None:
+            opened = await _call(
+                client,
+                token,
+                "POST",
+                f"{base}/pulls",
+                json={
+                    "title": title.splitlines()[0],
+                    "head": branch,
+                    "base": into,
+                    "body": (
+                        "Opened by the platform for the code review. Approving the review lands it."
+                    ),
+                },
+            )
+            mine = opened.json()
+        return int(mine["number"]), str(mine.get("html_url", ""))
+    except GitHubPushError as refused:
+        log.warning("no pull request for %s: %s", branch, refused)
+        return None, ""
 
 
 async def _set_branch(
@@ -252,4 +312,16 @@ async def land(
         f"{base}/git/refs/heads/{branch}",
         json={"sha": commit["sha"], "force": False},
     )
+    if pointer.pull_request_number:
+        # A fast-forward makes the version's commit part of the branch, which
+        # GitHub marks merged by itself. This commit is another one, so the pull
+        # request would stay open over code that has landed.
+        await _call(
+            client,
+            token,
+            "PATCH",
+            f"{base}/pulls/{pointer.pull_request_number}",
+            json={"state": "closed"},
+            accept_statuses=(404, 422),
+        )
     return LandResult(commit_sha=commit["sha"], how="landing commit")

@@ -52,7 +52,8 @@ export type Name = "test-code-only" | "passes-unchanged-code" | "kills-a-mutant"
 export type Passed = boolean;
 export type Checks = GuardCheck[];
 export type Classification = "brittle" | "regression" | "undecided";
-export type Classifiedby = "trace-changed" | "trace-unchanged" | "model-referee" | "unclassified";
+export type Classifiedby =
+  "trace-changed" | "trace-unchanged" | "written-after-change" | "model-referee" | "unclassified";
 export type Diff = string;
 export type Path = string;
 export type Changedartefacts = string[];

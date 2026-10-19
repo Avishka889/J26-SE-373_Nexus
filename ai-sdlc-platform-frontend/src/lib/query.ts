@@ -68,6 +68,7 @@ export const codeKeys = {
   file: (projectId: string, path: string, version: number) =>
     ["code", projectId, "file", version, path] as const,
   preview: (projectId: string) => ["code", projectId, "preview"] as const,
+  changes: (projectId: string, version: number) => ["code", projectId, "changes", version] as const,
 };
 
 export function createQueryClientOptions() {

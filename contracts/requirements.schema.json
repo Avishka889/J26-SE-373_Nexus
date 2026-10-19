@@ -131,6 +131,11 @@
           "title": "Priority",
           "type": "string"
         },
+        "priorityCorrected": {
+          "default": false,
+          "title": "Prioritycorrected",
+          "type": "boolean"
+        },
         "qualityAttribute": {
           "anyOf": [
             {
@@ -148,6 +153,18 @@
           ],
           "default": null,
           "title": "Qualityattribute"
+        },
+        "setAsideCorrection": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Setasidecorrection"
         },
         "sourceQuote": {
           "anyOf": [
@@ -185,6 +202,8 @@
         "qualityAttribute",
         "lowConfidence",
         "adjusted",
+        "priorityCorrected",
+        "setAsideCorrection",
         "sourceQuote"
       ],
       "title": "ParsedRequirement",

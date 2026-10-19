@@ -14,6 +14,7 @@ import {
   ReconnectingNotice,
   RunStoppedNotice,
   readState,
+  stageOpeningNext,
   workingStage,
 } from "@/shared/ui/phase";
 import { useElapsed } from "@/shared/hooks";
@@ -285,6 +286,7 @@ export function CodeWorkspace({ project }: { project: Project }) {
             waitingFor={
               working && working.id !== activeStage ? CODE_STAGE_META[working.id].label : undefined
             }
+            opening={stageOpeningNext(CODE_CHROME.ids, snapshot.stages, snapshot.run) === activeStage}
           >
             {activeStage === "sprint-scope" && (
               <StageSprintScope

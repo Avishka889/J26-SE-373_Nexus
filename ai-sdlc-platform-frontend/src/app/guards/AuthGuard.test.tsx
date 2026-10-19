@@ -6,6 +6,7 @@ const state = vi.hoisted(() => ({
   session: { status: "checking" } as { status: string; signedIn?: boolean },
   load: { status: "loading", error: null } as { status: string; error: string | null },
   hydrate: vi.fn(() => Promise.resolve()),
+  settings: { loaded: true, error: null } as { loaded: boolean; error: string | null },
 }));
 
 vi.mock("@/entities/account", () => ({
@@ -18,11 +19,16 @@ vi.mock("@/entities/project", () => ({
   hydrateProjects: state.hydrate,
 }));
 
+vi.mock("@/entities/settings", () => ({
+  useSettingsLoad: () => state.settings,
+}));
+
 const { AuthGuard } = await import("./AuthGuard");
 
 afterEach(() => {
   cleanup();
   state.hydrate.mockClear();
+  state.settings = { loaded: true, error: null };
 });
 
 function LoginSays() {
@@ -74,5 +80,26 @@ describe("the sign-in guard", () => {
 
     expect(screen.getByText("The workspace")).toBeTruthy();
     expect(state.hydrate).toHaveBeenCalledTimes(1);
+  });
+
+  // The shell drew "Hi there" and blank settings for a moment after sign-in,
+  // then filled itself in.
+  it("holds the page until the account's settings have been read", () => {
+    state.session = { status: "signed-in" };
+    state.settings = { loaded: false, error: null };
+    at("/workspace");
+
+    expect(screen.getByRole("status", { name: "Loading your workspace" })).toBeTruthy();
+    expect(screen.queryByText("The workspace")).toBeNull();
+    // The list is asked for meanwhile, not after.
+    expect(state.hydrate).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not hold the page when the settings could not be read", () => {
+    state.session = { status: "signed-in" };
+    state.settings = { loaded: false, error: "The server did not answer." };
+    at("/workspace");
+
+    expect(screen.getByText("The workspace")).toBeTruthy();
   });
 });

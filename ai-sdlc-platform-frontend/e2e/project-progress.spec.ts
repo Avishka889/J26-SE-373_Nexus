@@ -13,8 +13,8 @@ test.use({ viewport: { width: 1440, height: 900 } });
 async function login(page: Page) {
   await page.goto("/login");
   await page.getByLabel(/email/i).fill("alex@acme.dev");
-  await page.getByLabel(/password/i).fill("demo");
-  await page.getByRole("button", { name: /log in/i }).click();
+  await page.getByLabel("Password", { exact: true }).fill("demo");
+  await page.getByRole("button", { name: "Sign in", exact: true }).click();
   await expect(page).toHaveURL(/\/workspace/);
 }
 

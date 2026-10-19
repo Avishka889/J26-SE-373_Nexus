@@ -176,7 +176,6 @@ FLOW: dict[str, Any] = {
 }
 
 PLAN: dict[str, Any] = {
-    "goal": "Someone can work out a calculation and see the result.",
     "stories": [
         {
             "title": "As a user, I can add, subtract, multiply and divide two numbers",
@@ -218,7 +217,9 @@ BY_SHAPE: tuple[tuple[frozenset[str], dict[str, Any]], ...] = (
     (frozenset({"rationale", "pros", "cons"}), EXPLANATION),
     (frozenset({"name", "steps"}), INTERACTION),
     (frozenset({"name", "screens"}), FLOW),
-    (frozenset({"goal", "stories"}), PLAN),
+    # The plan is asked for its stories alone: its goal is said from them, after
+    # the split (review item C1-5).
+    (frozenset({"stories"}), PLAN),
 )
 
 

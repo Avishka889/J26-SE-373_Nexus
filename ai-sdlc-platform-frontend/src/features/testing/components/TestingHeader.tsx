@@ -12,11 +12,15 @@ import { StickyHeader } from "./PhaseChrome";
 type StepperStep = { id: string; label: string; badge?: number };
 
 /**
- * The phase's title, what it measures, and the one way to run it again.
+ * The phase's title, what it measures, and the way to run it: the first run,
+ * or running again.
  *
  * The run button showed on the loading and error screens and before any run,
  * where it could do nothing useful; while a review waited the server refused it
  * and nothing said why; and a long run said "Running" with no sense of how long.
+ * The first run started from the foot of the not-started card, out of sight
+ * below the six steps it describes, where Code Generation's starts from its
+ * header; it starts here now, once the code review approved a build.
  *
  * While a stage works the subtitle names it and says for how long: every stage
  * of a run showed a spinner at once, and on the live run Test Generation waited
@@ -27,6 +31,7 @@ export function TestingHeader({
   progressLabel,
   isDark,
   running,
+  onStart,
   onRerun,
   rerunBlocked,
   runningSince,
@@ -40,6 +45,8 @@ export function TestingHeader({
   progressLabel?: string;
   isDark: boolean;
   running: boolean;
+  /** The first run, offered only before any run and once the code review approved a build. */
+  onStart?: () => void;
   /** Absent where running again means nothing: loading, a failed read, no run yet. */
   onRerun?: () => void;
   /** Why running again is refused now, said beside the button. */
@@ -95,6 +102,12 @@ export function TestingHeader({
               />
             </div>
           ) : null}
+          {onStart && (
+            <Button variant="primary" onClick={onStart}>
+              <Play className="h-3.5 w-3.5" />
+              Run tests
+            </Button>
+          )}
           {onRerun && (
             <Button
               variant="outline"

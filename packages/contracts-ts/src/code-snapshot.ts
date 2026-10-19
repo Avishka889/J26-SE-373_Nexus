@@ -142,6 +142,8 @@ export type Defaultbranch = string;
 export type Name3 = string;
 export type Owner = string;
 export type Provider = "github";
+export type Pullrequestnumber = number | null;
+export type Pullrequesturl = string;
 export type Url = string;
 export type Version3 = number;
 export type Error = string | null;
@@ -479,6 +481,8 @@ export interface RepositoryPointer {
   name: Name3;
   owner: Owner;
   provider: Provider;
+  pullRequestNumber: Pullrequestnumber;
+  pullRequestUrl: Pullrequesturl;
   url: Url;
 }
 /**

@@ -32,7 +32,12 @@ import { StageUpdates } from "./components/stages/StageUpdates";
 import { useDeploymentPage } from "./hooks";
 import { DEPLOY_CHROME, DEPLOY_STAGE_META } from "./model/stages";
 import { reviewMovedPastLine } from "./model/view";
-import { ReconnectingNotice, RunStoppedNotice, workingStage } from "@/shared/ui/phase";
+import {
+  ReconnectingNotice,
+  RunStoppedNotice,
+  stageOpeningNext,
+  workingStage,
+} from "@/shared/ui/phase";
 
 /**
  * The deployment phase, on the chrome every gated phase uses.
@@ -256,6 +261,7 @@ export function DeploymentDependency() {
               waitingFor={
                 working && working.id !== stage ? DEPLOY_CHROME.meta[working.id].label : undefined
               }
+              opening={stageOpeningNext(DEPLOY_CHROME.ids, snapshot.stages, snapshot.run) === stage}
             >
               {stage === "dependency-updates" && <StageUpdates snapshot={snapshot} />}
               {stage === "changelog-analysis" && <StageChangelog snapshot={snapshot} />}

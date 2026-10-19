@@ -51,6 +51,7 @@ from ..components import QUESTIONS_GATE_KIND
 from ..db import store
 from ..errors import readable_failure
 from ..model_use import stage_model_use
+from ..readmodel.assemble import with_corrected_priorities
 from ..wording import readable_notes, stage_label
 from .state import C1RunState
 
@@ -367,8 +368,14 @@ def make_plan_sprint(pool: AsyncConnectionPool, c1: C1Client):
 
     async def call(state: C1RunState):
         project_id = state["project_id"]
+        # With the priorities a person corrected, which rank the stories and
+        # divide the sprint: the plan read the rule's reading, so a correction
+        # changed the requirement and nothing planned from it (review item C1-2).
+        async with pool.connection() as conn:
+            edits = await store.overlays(conn, project_id)
         outcome = await c1.plan_sprint(
-            await _requirements_of(pool, project_id), await _graph_of(pool, project_id)
+            with_corrected_priorities(await _requirements_of(pool, project_id), edits),
+            await _graph_of(pool, project_id),
         )
         stable, carry = carry_story_ids(
             outcome.artefact,

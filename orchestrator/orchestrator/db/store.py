@@ -2987,6 +2987,28 @@ async def previous_tested_code_version(
     return row[0] if row and row[0] is not None else None
 
 
+async def last_test_version_of(
+    conn: AsyncConnection, project_id: str, *, code_version: int
+) -> int | None:
+    """The last test version that ran against one code version.
+
+    What the self healing classifier compares a case's first version with: a
+    case first run after it was written from the change, and is never stale
+    (E-25). Read from the runs, because a run's version follows it through
+    every regeneration at its review, so the highest is the last.
+    """
+    async with conn.cursor() as cur:
+        await cur.execute(
+            """
+            SELECT max(requirements_version) FROM app.runs
+            WHERE project_id = %s AND component = 'c3' AND source_version = %s
+            """,
+            (project_id, code_version),
+        )
+        row = await cur.fetchone()
+    return row[0] if row and row[0] is not None else None
+
+
 async def next_test_version(conn: AsyncConnection, project_id: str) -> int:
     """The next version on the testing axis.
 

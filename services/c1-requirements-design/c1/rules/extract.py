@@ -119,7 +119,7 @@ def extract(text: str) -> Extraction:
 
     scored: list[ScoredRequirement] = []
     for index, (sentence, quote) in enumerate(candidates):
-        classification = classify(sentence)
+        classification = classify(sentence, said=quote)
         siblings = tuple(existing.text for existing in scored)
         scored.append(
             ScoredRequirement(
