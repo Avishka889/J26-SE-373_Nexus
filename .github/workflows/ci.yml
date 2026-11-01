@@ -63,7 +63,7 @@ jobs:
           node-version: 22
       # setup-uv stopped publishing major tags at v8, so the release is named
       # exactly.
-      - uses: astral-sh/setup-uv@v10.3.0
+      - uses: astral-sh/setup-uv@v10.3.3
         with:
           enable-cache: true
       # --frozen installs from uv.lock without checking it, so a dependency
@@ -89,7 +89,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
-      - uses: astral-sh/setup-uv@v10.3.0
+      - uses: astral-sh/setup-uv@v10.3.3
         with:
           enable-cache: true
       - uses: actions/setup-node@v7
